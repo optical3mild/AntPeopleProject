@@ -17,6 +17,7 @@
 - 프레임워크 : Spring Tool Suite 3.9.9
 - 서버 : Tomcat 8.0.46
 - DB : MySQL
+- 테스트 : JUnit
 
 ---
 ### 프로젝트 commit 내용
