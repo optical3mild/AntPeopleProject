@@ -35,4 +35,6 @@
 
 ### Day 01 : Project 기획 PPT (19.07.04) 
 - (공통) 프로젝트 기획 PPT 발표
-- 
+
+### Day 02 : Project 시작 파일 (19.07.08)
+- project 시작 전 Maven, spring 설정 완료
