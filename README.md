@@ -37,4 +37,6 @@
 - (공통) 프로젝트 기획 PPT 발표
 
 ### Day 02 : Project 시작 파일 (19.07.08)
-- project 시작 전 Maven, spring 설정 완료
+- (오인) project 시작 전 Maven, spring 설정 완료
+- (오인) MySQL, MyBatis 연결 및 테스트 진행 (성공)
+
