@@ -1,4 +1,4 @@
-package com.ezen.antpeople.mybatis;
+package com.ezen.antpeople.database;
 
 import java.sql.Connection;
 

@@ -10,6 +10,8 @@
 		<config>src/main/resources/spring/context-datasource.xml</config>
 		<config>src/main/resources/spring/context-common.xml</config>
 		<config>src/main/resources/spring/context-aspect.xml</config>
+		<config>src/main/resources/spring/context-sqlMap.xml</config>
+		<config>src/main/resources/spring/context-transaction.xml</config>
 	</configs>
 	<autoconfigs>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml</config>

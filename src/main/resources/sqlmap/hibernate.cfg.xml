@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hibernate-configuration>
+	<session-factory>
+		<!-- 애플리케이션 컨택스트 안에서 세션 팩토리 관리 -->
+		<!-- <property name="hibernate.connection.driver_class">
+			com.mysql.jdbc.Driver
+		</property>
+		<property name="hibernate.connection.url">
+			jdbc:mysql://localhost:3306/antpeople
+		</property>
+		<property name ="hibernate.connection.username">root</property>
+		<property name ="hibernate.connection.password">javapass</property> -->
+		
+		<property name ="hibernate.dialect">
+			org.hibernate.dialect.MySQLDialect
+		</property>
+		<property name="hibernate.current_session_context_class">thread</property>
+		<property name="hibernate.cache.provider_class">
+			org.hibernate.cache.internal.NoCacheProvider
+		</property>
+		<property name="hibernate.show_sql">true</property>
+		
+  	 	<mapping class="con.ezen.antpeople.entity.UserEntity"/>
+	</session-factory>
+	
+	
+</hibernate-configuration>
