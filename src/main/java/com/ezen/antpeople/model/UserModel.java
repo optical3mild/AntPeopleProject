@@ -1,23 +1,13 @@
-package com.ezen.antpeople.DTO;
+package com.ezen.antpeople.model;
 
-public class UserDTO {
-	
+import com.ezen.antpeople.DTO.UserDTO;
+
+public class UserModel {
 	private String id;
 	private String password;
 	private String name;
 	private String address;
 	private String phone;
-	
-	public UserDTO() {}
-	
-	public UserDTO(String id, String password, String name, String address, String phone) {
-		super();
-		this.id = id;
-		this.password = password;
-		this.name = name;
-		this.address = address;
-		this.phone = phone;
-	}
 	
 	public String getId() {
 		return id;
@@ -49,13 +39,28 @@ public class UserDTO {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-
 	@Override
 	public String toString() {
-		return "UserDTO [id=" + id + ", password=" + password + ", name=" + name + ", address=" + address + ", phone="
+		return "UserModel [id=" + id + ", password=" + password + ", name=" + name + ", address=" + address + ", phone="
 				+ phone + "]";
 	}
 	
+	public UserDTO buildDomain() {
+		UserDTO user = new UserDTO();
+		user.setId(id);
+		user.setPassword(password);
+		user.setName(name);
+		user.setAddress(address);
+		user.setPhone(phone);
+		return user;
+	}
 	
+	public void buildModel(UserDTO user) {
+		id = user.getId();
+		password = user.getPassword();
+		name = user.getName();
+		address = user.getAddress();
+		phone = user.getPhone();
+	}
 
 }

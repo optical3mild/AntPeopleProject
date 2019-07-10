@@ -1,30 +1,33 @@
 package com.ezen.antpeople.database;
 
-import java.sql.Connection;
+import static org.junit.Assert.assertEquals;
 
-import javax.inject.Inject;
-import javax.sql.DataSource;
+import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
+import com.ezen.antpeople.DTO.UserDTO;
+import com.ezen.antpeople.service.UserService;
+
+//JUnit 테스트시 써야할 코드 @RunWith, @ContextConfiguration, @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations= {"file:src/main/resources/spring/context-datasource.xml"})
+@WebAppConfiguration //서버에서 생성되지만, 테스트에서 생성되지 않는 ServletContext생성 용도
+@ContextConfiguration(locations= {"classpath:/spring/context-common.xml"})
 public class MySQLConnectionTest {
 	
-	@Inject
-	private DataSource ds;
+	@Resource
+	UserService us;
 	
 	@Test
 	public void testConnection() throws Exception{
-		try(Connection con = ds.getConnection()){
-			
-			System.out.println("\n >>>>>>>>>>>> Connection 출력 : " + con + "\n");
-		} catch(Exception e){
-			e.printStackTrace();
-		}
+		
+		UserDTO user = us.getUserById("java123");
+		System.out.println(user.toString());
+		assertEquals(user.getName(), "김자바");
 	}
 
 }

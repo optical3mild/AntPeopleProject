@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
 	private UserRepository repository;
 
 	@Override
-	public UserDTO getUser(String id) {
+	public UserDTO getUserById(String id) {
 		UserEntity entity = repository.findById(id);
 		return entity.buildDomain();
 	}

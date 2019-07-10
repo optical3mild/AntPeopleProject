@@ -13,10 +13,11 @@ import com.ezen.antpeople.DTO.UserDTO;
 public class UserEntity {
 	
 	@Id
-	@GeneratedValue
 	@Column(name="user_id")
 	private String id;
+	@Column(nullable=false)
 	private String password;
+	@Column(nullable=false)
 	private String name;
 	private String address;
 	private String phone;

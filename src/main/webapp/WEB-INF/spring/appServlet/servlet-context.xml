@@ -21,6 +21,6 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.ezen.antpeople.example" />
+	<context:component-scan base-package="com.ezen.antpeople" />
 	
 </beans:beans>

@@ -2,11 +2,11 @@ package com.ezen.antpeople.config;
 
 import java.io.IOException;
 
+import javax.inject.Inject;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -14,8 +14,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.orm.hibernate3.HibernateTransactionManager;
-import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -28,7 +27,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Configuration
 @EnableWebMvc
-@PropertySource("classpath:environment.properties")
+@PropertySource("classpath:/property/environment.properties")
 @EnableJpaRepositories(
 		basePackages ="com.ezen.antpeople.repository",
 		entityManagerFactoryRef = "entityManagerFactory",
@@ -37,8 +36,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableTransactionManagement
 public class RootConfig extends WebMvcConfigurerAdapter {
 	
-	@Autowired
+	@Inject
     private Environment env;
+	
 	
     @Bean
     public DataSource dataSource() {
@@ -79,27 +79,30 @@ public class RootConfig extends WebMvcConfigurerAdapter {
 	}
 	
 	//Session Factory
-	@Bean
-	public SessionFactory sessionFactory() {
-		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-		try {
-			sessionFactory.setDataSource(dataSource());
-			Resource configLocation = new ClassPathResource("hibernate.cfg.xml");
-			sessionFactory.setConfigLocation(configLocation);
-			sessionFactory.afterPropertiesSet();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return sessionFactory.getObject();
-	}
 	
-	//Transaction Manager
-	@Bean
-	public HibernateTransactionManager txManager() {
-		HibernateTransactionManager txManager = new HibernateTransactionManager();
-		txManager.setSessionFactory(sessionFactory());
-		return txManager;
-	}
+	  @Bean 
+	  public SessionFactory sessionFactory() { 
+		  LocalSessionFactoryBean
+		  sessionFactory = new LocalSessionFactoryBean(); 
+		  try {
+			  sessionFactory.setDataSource(dataSource()); 
+			  Resource configLocation = new ClassPathResource("/hibernate/hibernate.cfg.xml");
+			  sessionFactory.setConfigLocation(configLocation);
+			  sessionFactory.afterPropertiesSet(); 
+		  } catch (IOException e) {
+			  e.printStackTrace(); 
+		  } 
+		  return sessionFactory.getObject(); 
+	  }
+	 
+	
+	
+	  //Transaction Manager
+	/*
+	 * @Bean public HibernateTransactionManager txManager() {
+	 * HibernateTransactionManager txManager = new HibernateTransactionManager();
+	 * txManager.setSessionFactory(sessionFactory()); return txManager; }
+	 */
 
 
 
