@@ -40,5 +40,5 @@
 - (오인) project 시작 전 Maven, spring 설정 완료
 - (오인) MySQL, MyBatis 연결 및 테스트 진행 (성공)
 
-### Day 04 : (19.07.10)
+### Day 04 : 로그인 (19.07.10)
 - (성현) login기능 (쿠키 DB연결 없음)
