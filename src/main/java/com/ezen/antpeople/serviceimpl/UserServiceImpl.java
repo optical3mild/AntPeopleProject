@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ezen.antpeople.DTO.UserDTO;
+import com.ezen.antpeople.dto.UserDTO;
 import com.ezen.antpeople.entity.UserEntity;
 import com.ezen.antpeople.repository.UserRepository;
 import com.ezen.antpeople.service.UserService;

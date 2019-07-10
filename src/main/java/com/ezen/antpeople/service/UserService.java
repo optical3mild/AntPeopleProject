@@ -2,7 +2,7 @@ package com.ezen.antpeople.service;
 
 import java.util.List;
 
-import com.ezen.antpeople.DTO.UserDTO;
+import com.ezen.antpeople.dto.UserDTO;
 
 public interface UserService {
 	UserDTO getUserById(String id);

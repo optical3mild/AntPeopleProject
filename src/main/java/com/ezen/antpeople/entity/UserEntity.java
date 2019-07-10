@@ -2,11 +2,10 @@ package com.ezen.antpeople.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.ezen.antpeople.DTO.UserDTO;
+import com.ezen.antpeople.dto.UserDTO;
 
 @Entity
 @Table(name="user")
