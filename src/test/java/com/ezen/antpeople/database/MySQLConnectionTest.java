@@ -16,7 +16,7 @@ import com.ezen.antpeople.service.UserService;
 //JUnit 테스트시 써야할 코드 @RunWith, @ContextConfiguration, @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration //서버에서 생성되지만, 테스트에서 생성되지 않는 ServletContext생성 용도
-@ContextConfiguration(locations= {"classpath:/spring/context-common.xml"})
+@ContextConfiguration(locations= {"classpath:/context-common.xml"})
 public class MySQLConnectionTest {
 	
 	@Resource
@@ -26,7 +26,6 @@ public class MySQLConnectionTest {
 	public void testConnection() throws Exception{
 		
 		UserDTO user = us.getUserById("java123");
-		System.out.println(user.toString());
 		assertEquals(user.getName(), "김자바");
 	}
 
