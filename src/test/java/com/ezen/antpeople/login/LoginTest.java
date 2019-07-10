@@ -25,7 +25,7 @@ import com.ezen.antpeople.controller.user.UserController;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration //서버에서 생성되지만, 테스트에서 생성되지 않는 ServletContext생성 용도
-@ContextConfiguration(locations= {"classpath:/spring/context-common.xml"})
+@ContextConfiguration(locations= {"classpath:/context-common.xml"})
 public class LoginTest {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
