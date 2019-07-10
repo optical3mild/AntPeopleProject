@@ -10,6 +10,5 @@
 <%@ include file="include/menu.jsp" %>
 <hr>
 <p>로그인완료 후 main페이지</p>
-<P>path : ${path.toString()}</P>
 </body>
 </html>
