@@ -9,6 +9,7 @@
 <body>
 <%@ include file="include/menu.jsp" %>
 <hr>
+<h2>${messege}</h2>
 <form action="${path}/check" method="post">
 	<div>
 		<label>ID</label>

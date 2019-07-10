@@ -20,8 +20,8 @@ public class UserController {
 	}
 	
 	
-	@RequestMapping(value="check", method=RequestMethod.POST)
-	public String loginCheck(String id, String password, ModelMap model) throws Exception {
+	@RequestMapping("check")
+	public String loginCheck(String id, String password) throws Exception {
 		logger.info("로그인체크 / id : " + id + " / password : " + password);
 		String returnURL ="";
 		if("admin".equals(id) && "welcome".equals(password)) {	// DB확인 후 아이디 존재여부 확인 추가필요
@@ -51,9 +51,10 @@ public class UserController {
 		return returnURL;
 	}
 	
-	@RequestMapping("/login")
+	@RequestMapping("/login.do")
 	public String login(Model model) {
 		logger.info("로그인 페이지");
+		model.addAttribute("messege", "login.jsp 입니다");
 		return "login";
 	}
 
