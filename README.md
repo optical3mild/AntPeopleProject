@@ -1,4 +1,4 @@
-# AntPeopleProject
+﻿# AntPeopleProject
 
 ### :calendar: EgovframeProject : AntPeople :ant:
 
@@ -33,6 +33,12 @@
 - 자신이 추가, 삭제한 내용 적어 놓기
 - **ex) (공통) PPT파일 작성**
 
-### Day 01 : Project 기획 PPT 
+### Day 01 : Project 기획 PPT (19.07.04) 
 - (공통) 프로젝트 기획 PPT 발표
-- 
+
+### Day 02 : Project 시작 파일 (19.07.08)
+- (오인) project 시작 전 Maven, spring 설정 완료
+- (오인) MySQL, MyBatis 연결 및 테스트 진행 (성공)
+
+### Day 04 : 로그인 (19.07.10)
+- (성현) login기능 (쿠키 DB연결 없음)
