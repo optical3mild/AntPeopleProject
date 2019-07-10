@@ -32,7 +32,7 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
-	<!-- Add Servlet -->
+	<!-- Add Servlet 
 	<servlet>
 		<servlet-name>user</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -46,7 +46,7 @@
 		<servlet-name>user</servlet-name>
 		<url-pattern>/user/*</url-pattern>
 	</servlet-mapping>
-	
+
 	<!-- Encoding Filter -->
 	<filter>
 		<filter-name>characterEncodingFilter</filter-name>
