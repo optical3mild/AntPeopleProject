@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 public class RoleDTO implements Serializable{
 	
-	protected Long id;
+	protected Long role_id;
     protected LocalDateTime createdAt;
     protected LocalDateTime updatedAt;
 	private String role;

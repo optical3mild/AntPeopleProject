@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -34,6 +35,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 		transactionManagerRef = "jpaTransactionManager"
 )
 @EnableTransactionManagement
+@Order(1)
 public class RootConfig extends WebMvcConfigurerAdapter {
 	
 	@Inject

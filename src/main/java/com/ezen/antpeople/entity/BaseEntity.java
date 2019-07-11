@@ -17,7 +17,7 @@ import lombok.Getter;
 public class BaseEntity {
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
 	
     @Column(updatable = false)

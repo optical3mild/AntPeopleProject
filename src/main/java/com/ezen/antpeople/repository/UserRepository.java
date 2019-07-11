@@ -7,6 +7,6 @@ import com.ezen.antpeople.dto.UserDTO;
 import com.ezen.antpeople.entity.UserEntity;
 
 @Repository
-public interface UserRepository extends JpaRepository<UserEntity, Integer>{
-	UserDTO findByEmail(String email);
+public interface UserRepository extends JpaRepository<UserEntity, Long>{
+	UserEntity findByEmail(String email);
 }

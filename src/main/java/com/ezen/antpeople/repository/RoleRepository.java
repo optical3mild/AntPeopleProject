@@ -8,5 +8,5 @@ import com.ezen.antpeople.entity.RoleEntity;
 
 @Repository
 public interface RoleRepository extends JpaRepository<RoleEntity, Long>{
-	RoleDTO findByRole(String role);
+	RoleEntity findByRole(String role);
 }

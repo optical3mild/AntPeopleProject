@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 public class UserDTO implements Serializable {
 	
-    protected Long id;
+    protected Long user_id;
     protected LocalDateTime createdAt;
     protected LocalDateTime updatedAt;
 	private String email;
@@ -17,12 +17,8 @@ public class UserDTO implements Serializable {
 	
 	public UserDTO() {}
 	
-	public UserDTO(Long id, LocalDateTime createdAt, LocalDateTime updatedAt, String email, String password,
-			String name, String active, String address, String phone) {
+	public UserDTO(String email, String password, String name, String active, String address, String phone) {
 		super();
-		this.id = id;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
 		this.email = email;
 		this.password = password;
 		this.name = name;
@@ -31,7 +27,7 @@ public class UserDTO implements Serializable {
 		this.phone = phone;
 	}
 	public Long getId() {
-		return id;
+		return user_id;
 	}
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
@@ -59,7 +55,7 @@ public class UserDTO implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "UserDTO [id=" + id + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", email=" + email
+		return "UserDTO [id=" + user_id + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", email=" + email
 				+ ", password=" + password + ", name=" + name + ", active=" + active + ", address=" + address
 				+ ", phone=" + phone + "]";
 	}

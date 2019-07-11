@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import javax.annotation.Resource;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -18,10 +19,10 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @ContextConfiguration(locations= {"classpath:/context-common.xml"})
 public class BCryptPasswordEncoderTest {
 	private Logger log = LoggerFactory.getLogger(getClass());
-	
-	@Resource
+
+	@Resource 
 	private BCryptPasswordEncoder pe;
-	
+
 	@Test
 	public void testPasswordEncoder() throws Exception {
 		
