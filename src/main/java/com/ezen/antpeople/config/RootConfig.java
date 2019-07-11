@@ -60,7 +60,8 @@ public class RootConfig extends WebMvcConfigurerAdapter {
 		lef.afterPropertiesSet();
 		return lef;
 	}
-
+	
+	//jap 트랜잭션 매니저
 	@Bean
 	public PlatformTransactionManager jpaTransactionManager() {
 		JpaTransactionManager jpaTransactionManager = 

@@ -8,6 +8,7 @@
 		<property name="hibernate.show_sql">true</property>
 		
   	 	<mapping class="com.ezen.antpeople.entity.UserEntity"/>
+  	 	<mapping class="com.ezen.antpeople.entity.RoleEntity"/>
   	 	
   	 	
   	 	<!-- <필요 없는 코드(무시해도 됨)> -->

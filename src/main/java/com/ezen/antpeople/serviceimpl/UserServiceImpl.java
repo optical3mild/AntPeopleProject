@@ -1,8 +1,5 @@
 package com.ezen.antpeople.serviceimpl;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,44 +12,24 @@ import com.ezen.antpeople.service.UserService;
 @Transactional
 public class UserServiceImpl implements UserService {
 	
-	@Autowired
 	private UserRepository repository;
-
-	@Override
-	public UserDTO getUserById(String id) {
-		UserEntity entity = repository.findById(id);
-		return entity.buildDomain();
-	}
-
-	@Override
-	public List<UserDTO> getUsers() {
-		
-		return null;
-	}
-
-	@Override
-	public List<UserDTO> getCustomerByPage(int index, int size) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void saveCustomer(UserDTO userDTO) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void updateUser(UserDTO userDTO) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteCustomer(String id) {
-		// TODO Auto-generated method stub
-		
-	}
 	
+	//생성자 의존성 추가
+	private UserServiceImpl(UserRepository repository) {
+		this.repository = repository;
+	}
+
+	@Override
+	public UserDTO findUserByEmail(String email) {
+		return repository.findByEmail(email);
+	}
+
+	@Override
+	public void saveUser(UserDTO user) {
+		UserEntity entity = new UserEntity();
+		
+		entity.buildEntity(user);
+		repository.save(entity);
+	}
 
 }

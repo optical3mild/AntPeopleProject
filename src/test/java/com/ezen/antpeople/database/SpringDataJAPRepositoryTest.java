@@ -13,19 +13,20 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.ezen.antpeople.dto.UserDTO;
 import com.ezen.antpeople.service.UserService;
 
-//JUnit 테스트시 써야할 코드 @RunWith, @ContextConfiguration, @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration //서버에서 생성되지만, 테스트에서 생성되지 않는 ServletContext생성 용도
 @ContextConfiguration(locations= {"classpath:/context-common.xml"})
-public class MySQLConnectionTest {
+public class SpringDataJAPRepositoryTest {
 	
 	@Resource
 	UserService us;
 	
+	//findOneByName
 	@Test
-	public void testConnection() throws Exception{
+	public void findByNameTest() throws Exception {
 		
-	
 	}
+	
+	//
 
 }
