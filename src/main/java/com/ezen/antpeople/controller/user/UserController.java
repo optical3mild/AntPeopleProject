@@ -4,23 +4,29 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.ezen.antpeople.serviceimpl.UserServiceImpl;
 
 @Controller
-public class UserController {
+public class UserController extends UserServiceImpl {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	@RequestMapping("/")
 	public String main(Model model) {
-		logger.info("Home 페이지");
+		logger.info("index 페이지");
 		model.addAttribute("messege", "Home.jsp 입니다");
-		return "home";
+		return "/index";
 	}
 	
+	@RequestMapping("login.do")
+	public String login(Model model) {
+		logger.info("로그인 페이지");
+		model.addAttribute("messege", "login.jsp 입니다");
+		return "/login/login";
+	}
 	
-	@RequestMapping("check")
+	@RequestMapping("check.do")
 	public String loginCheck(String id, String password) throws Exception {
 		logger.info("로그인체크 / id : " + id + " / password : " + password);
 		String returnURL ="";
@@ -30,32 +36,37 @@ public class UserController {
 			switch(userInfo) {
 			case "1" : 
 				logger.info("사용자 : 사장");
-				returnURL = "main";			// 사용자 별 URL 변경 필요
+				returnURL = "/owner/ownerMain";			// 사용자 별 URL 변경 필요
 				break;
 			case "2" :
 				logger.info("사용자 : 알바");
-				returnURL = "main";			// 사용자 별 URL 변경 필요
+				returnURL = "/staff/staffMain";			// 사용자 별 URL 변경 필요
 				break;
 			default :	// 오류 발생시 로그인전으로 
 				logger.info("사용자 구분 실패. 로그인 전으로");
-				returnURL = "login";
+				returnURL = "login/login";
 				break;
 			}	
 		} else if ("admin".equals(id) && !"welcome".equals(password)) {
 			logger.info("비밀번호틀림 / login으로");
-			returnURL ="login";
+			returnURL ="/login/login";
 		} else {
 			logger.info("둘 다 틀림 / login으로");
-			returnURL ="login";
+			returnURL ="/login/login";
 		}
 		return returnURL;
 	}
 	
-	@RequestMapping("/login.do")
-	public String login(Model model) {
-		logger.info("로그인 페이지");
-		model.addAttribute("messege", "login.jsp 입니다");
-		return "login";
+//	True, False값으로 로그인여부 결정하기
+	@RequestMapping("loginCheck.do")
+	public String checking(boolean state) {
+		state = true;
+		if(state = true) {
+			return "owner/ownerMain";
+		} else {
+			return "/login/login";
+		}
 	}
+	
 
 }

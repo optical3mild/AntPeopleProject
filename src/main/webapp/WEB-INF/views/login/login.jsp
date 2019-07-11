@@ -10,7 +10,7 @@
 <%@ include file="include/menu.jsp" %>
 <hr>
 <h2>${messege}</h2>
-<form action="${path}/check" method="post">
+<form action="${path}/check.do" method="post">
 	<div>
 		<label>ID</label>
 		<input name="id" type="text" id="id" value="admin" >
