@@ -1,4 +1,4 @@
-package com.ezen.antpeople.DTO;
+package com.ezen.antpeople.dto;
 
 public class UserDTO {
 	

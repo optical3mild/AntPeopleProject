@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.ezen.antpeople.DTO.UserDTO;
+import com.ezen.antpeople.dto.UserDTO;
 
 @Aspect
 @Component
@@ -22,7 +22,7 @@ public class LoggingAspect {
 	@Pointcut("execution(* com.ezen.antpeople.*.*.get*(..))")
 	public void getLogging() {}
 	
-	@Pointcut("execution(* com.ezen.antpeople.*.*.get*(com.ezen.antpeople.DTO.UserDTO)) && args(user)")
+	@Pointcut("execution(* com.ezen.antpeople.*.*.get*(com.ezen.antpeople.dto.UserDTO)) && args(user)")
 	public void getUserLogging(UserDTO user) {}
 	
 	//before 어드바이스
