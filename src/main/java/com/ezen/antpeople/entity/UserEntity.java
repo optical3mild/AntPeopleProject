@@ -1,65 +1,92 @@
 package com.ezen.antpeople.entity;
 
+import java.util.Set;
+
+import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import com.ezen.antpeople.dto.UserDTO;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 @Entity
 @Table(name="user")
-public class UserEntity {
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@AttributeOverride(name = "id", column = @Column(name = "user_id"))
+@Getter
+public  class UserEntity extends BaseEntity {
 	
-	@Id
-	@Column(name="user_id")
-	private String id;
-	@Column(nullable=false)
+	@Email(message ="*Please provide a valid Email")
+	@NotEmpty(message = "*Please provide your email")
+	private String email;
+	
+
+	@Length(min=5, message="*Your password must have at least 5 characters")
+	@NotEmpty(message="*Please provide your password")
 	private String password;
-	@Column(nullable=false)
+	
+
+	@NotEmpty(message="*Please provide your name")
 	private String name;
+	
+	private String active;
 	private String address;
 	private String phone;
 	
-	public String getId() {
-		return id;
+	@ManyToMany(cascade=CascadeType.ALL)
+	@JoinTable(name="user_role", 
+				joinColumns=@JoinColumn(name="user_id"),
+				inverseJoinColumns = @JoinColumn(name="role_id"))
+	private Set<RoleEntity> roles;
+	
+	
+	//TO-DO 필요시 메소드를 통해 setter 기능을 추가한다.
+	
+	//Entity -> DTO
+	public UserDTO buildDomain() {
+		UserDTO user = new UserDTO(id,email,password,name,active,address,phone);
+		return user;
 	}
-	public void setId(String id) {
-		this.id = id;
+	
+	//user생성
+	public void buildEntity(UserDTO user, Set<RoleEntity> roles){
+		this.email = user.getEmail();
+		this.name = user.getName();
+		this.active = user.getActive();
+		this.address = user.getAddress();
+		this.phone = user.getPhone();
+		this.roles = roles;
 	}
-	public String getPassword() {
-		return password;
+	
+	//user 정보 업데이트
+	public void updateUser(UserDTO user) {
+		this.address = user.getAddress();
+		this.phone = user.getPhone();
 	}
+	
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	public String getPhone() {
-		return phone;
-	}
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-	public UserDTO buildDomain() {
-		UserDTO user = new UserDTO();
-		user.setId(id);
-		user.setPassword(password);
-		user.setName(name);
-		user.setAddress(address);
-		user.setPhone(phone);
-		return user;
+	
+	public int getId() {
+		return this.id;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "UserEntity [email=" + email + ", password=" + password + ", name=" + name + ", active=" + active
+				+ ", address=" + address + ", phone=" + phone + ", roles=" + roles + "]";
+	}
 }
