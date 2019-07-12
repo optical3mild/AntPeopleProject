@@ -4,10 +4,10 @@
 <html>
 <head>
 	<title>login</title>
-<%@ include file="include/header.jsp" %>
+<%@ include file="../include/header.jsp" %>
 </head>
 <body>
-<%@ include file="include/menu.jsp" %>
+<%@ include file="../include/menu.jsp" %>
 <hr>
 <h2>${messege}</h2>
 <form action="${path}/check" method="post">
@@ -21,6 +21,8 @@
 	</div>
 	<button type="submit" value="submit">로그인</button>
 </form>
+
+<a href="${path}/loginCheck">로그인체크</a>
 
 </body>
 </html>

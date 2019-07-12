@@ -64,9 +64,17 @@ public class LoginTest {
 
 	@Test
 	public void login() throws Exception{
-		mockmvc.perform(MockMvcRequestBuilders.get("/login.do")
-				)
+		mockmvc.perform(MockMvcRequestBuilders.get("/login"))
 		.andDo(print())
 		.andExpect(status().isOk());
 	}
+	
+	@Test
+	public void checking() throws Exception {
+		mockmvc.perform(MockMvcRequestBuilders.get("/loginCheck"))
+		.andDo(print())
+		.andExpect(status().isOk());
+	}
+
+	
 }
