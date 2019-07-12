@@ -9,14 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-	
-	@RequestMapping("/")
-	public String main(Model model) {
-		logger.info("index 페이지");
-		model.addAttribute("messege", "Home.jsp 입니다");
-		return "/index";
-	}
-	
+
 	@RequestMapping("login")
 	public String login(Model model) {
 		logger.info("로그인 페이지");
@@ -26,9 +19,15 @@ public class UserController {
 	
 	@RequestMapping("check")
 	public String loginCheck(String id, String password) throws Exception {
+//	public Model loginCheck(HttpServletRequest request, Model model) theows Exception {
+//		HttpSession session = request.getSession();
+//		UserDTO userDto = new userDto();
 		logger.info("로그인체크 / id : " + id + " / password : " + password);
 		String returnURL ="";
 		if("admin".equals(id) && "welcome".equals(password)) {	// DB확인 후 아이디 존재여부 확인 추가필요
+//		if(session.getAttribute("userId") != null) {
+//			String userId = (String) session.getAttribute("userId");
+//			userDto.setId(userId)'
 			logger.info("확인 성공 / 사용자 구분시작");			
 			String userInfo = "1";					// DB에서 사용자 구분 가져와야함
 			switch(userInfo) {
