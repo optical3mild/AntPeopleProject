@@ -73,6 +73,15 @@ public class UserServiceImpl implements UserService {
 		UserEntity userEntity = userRepository.findByEmail(user.getEmail());
 		userEntity.updateUser(user);
 	}
+
+	@Override
+	public boolean verifyPassword(UserDTO user) {
+		UserEntity userEntity = userRepository.findByEmail(user.getEmail());
+		if(bCryptPasswordEncoder.matches(user.getPassword(), userEntity.getPassword()))
+			return true;
+		else
+			return false;
+	}
 	
 	
 

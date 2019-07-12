@@ -12,7 +12,6 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	
 	<context:component-scan base-package="com.ezen.antpeople.config"/>	
-	<context:component-scan base-package="com.ezen.antpeople.dto"/>		
 	<context:component-scan base-package="com.ezen.antpeople.service"/>
 	<context:component-scan base-package="com.ezen.antpeople.serviceimpl"/>
 	<context:component-scan base-package="com.ezen.antpeople.controller"/>

@@ -19,7 +19,7 @@ public class UserController {
 	
 	@RequestMapping("check")
 	public String loginCheck(String id, String password) throws Exception {
-//	public Model loginCheck(HttpServletRequest request, Model model) throws Exception {
+//	public Model loginCheck(HttpServletRequest request, Model model) theows Exception {
 //		HttpSession session = request.getSession();
 //		UserDTO userDto = new userDto();
 		logger.info("로그인체크 / id : " + id + " / password : " + password);
