@@ -4,10 +4,10 @@
 <html>
 <head>
 	<title>main</title>
-<%@ include file="include/header.jsp" %>
+<%@ include file="../include/header.jsp" %>
 </head>
 <body>
-<%@ include file="include/menu.jsp" %>
+<%@ include file="../include/menu.jsp" %>
 <hr>
 <p>로그인완료 후 직원페이지</p>
 </body>

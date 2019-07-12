@@ -5,5 +5,5 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <div style ="text-align:center">
 	<a href="${path}/">index</a>
-	<a href="${path}/login.do">login</a>
+	<a href="${path}/login">login</a>
 </div>

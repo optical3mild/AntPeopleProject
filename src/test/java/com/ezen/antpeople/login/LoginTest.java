@@ -53,7 +53,7 @@ public class LoginTest {
 	
 	@Test
 	public void loginCheck() throws Exception{
-		this.mockmvc.perform(get("/check.do")
+		this.mockmvc.perform(get("/check")
 				.param("id", "admin")
 				.param("password", "welcome")
 				)
@@ -64,17 +64,17 @@ public class LoginTest {
 
 	@Test
 	public void login() throws Exception{
-		mockmvc.perform(MockMvcRequestBuilders.get("/login.do"))
+		mockmvc.perform(MockMvcRequestBuilders.get("/login"))
 		.andDo(print())
 		.andExpect(status().isOk());
 	}
 	
-//	@Test
-//	public void checking() throws Exception {
-//		mockmvc.perform(MockMvcRequestBuilders.get("/loginCheck.do"))
-//		.andDo(print())
-//		.andExpect(status().isOk());
-//	}
+	@Test
+	public void checking() throws Exception {
+		mockmvc.perform(MockMvcRequestBuilders.get("/loginCheck"))
+		.andDo(print())
+		.andExpect(status().isOk());
+	}
 
 	
 }
