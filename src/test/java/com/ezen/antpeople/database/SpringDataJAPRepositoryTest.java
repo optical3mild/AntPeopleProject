@@ -24,16 +24,16 @@ public class SpringDataJAPRepositoryTest {
 	UserService us; 
 	
 	//SaveUserTest - 유저 정보 저장(회원가입)
-	@Test@Ignore
+	@Test
 	public void SaveUserTest() throws Exception {
 		//임시 유저 데이터
-		UserDTO user = new UserDTO("java1234@gmail.com","java1234","김자바2","1","대전광역시 서구","010-1123-4324");
+		UserDTO user = new UserDTO("java333@gmail.com","java333","김자바2","1","대전광역시 서구","010-1123-4324");
 		
 		//데이터 삽입
 		us.saveUser(user);
 		
 		//데이터 확인
-		UserDTO userFind =us.findUserByEmail("java1234@gmail.com");
+		UserDTO userFind =us.findUserByEmail("java333@gmail.com");
 		System.out.println(userFind.toString());
 	}
 	
@@ -59,7 +59,7 @@ public class SpringDataJAPRepositoryTest {
 	}
 	
 	//updateuserTest - 유저의 주소,전화번호 변경
-	@Test 
+	@Test @Ignore
 	public void updateUserTest() throws Exception{
 		//임시 유저 데이터 (주소, 전화번호 부분만 변경)
 		UserDTO user = new UserDTO("java1234@gmail.com","java1234","김자바2","1","서울특별시","010-5675-6666");
