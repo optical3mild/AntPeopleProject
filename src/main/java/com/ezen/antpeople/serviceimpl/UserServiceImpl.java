@@ -25,9 +25,11 @@ public class UserServiceImpl implements UserService {
 	
 	//생성자 의존성 추가
 	private UserServiceImpl(UserRepository userRepository 
-			,RoleRepository roleRepository) {
+			,RoleRepository roleRepository
+			,BCryptPasswordEncoder bCryptPasswordEncoder) {
 		this.userRepository = userRepository;
 		this.roleRepository = roleRepository;
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
 
 	@Override
@@ -42,7 +44,7 @@ public class UserServiceImpl implements UserService {
 		UserEntity userEntity = new UserEntity();
 		RoleEntity roleEntity = roleRepository.findByRole("ADMIN");
 		userEntity.buildEntity(user, new HashSet<RoleEntity>(Arrays.asList(roleEntity)));
-		userEntity.setPassword(user.getPassword());
+		userEntity.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		userRepository.save(userEntity);
 	}
 
