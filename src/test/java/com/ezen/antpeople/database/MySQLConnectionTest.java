@@ -10,8 +10,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.ezen.antpeople.dto.UserDTO;
-import com.ezen.antpeople.service.UserService;
+import com.ezen.antpeople.dto.TestDTO;
+import com.ezen.antpeople.service.TestService;
 
 //JUnit 테스트시 써야할 코드 @RunWith, @ContextConfiguration, @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -20,11 +20,13 @@ import com.ezen.antpeople.service.UserService;
 public class MySQLConnectionTest {
 	
 	@Resource
-	UserService us;
+	TestService ts;
 	
 	@Test
 	public void testConnection() throws Exception{
 		
+		   TestDTO test = ts.getTest(1);
+		   assertEquals(test.getName(), "김자바");
 	
 	}
 

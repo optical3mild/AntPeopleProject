@@ -21,43 +21,44 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Getter
 @Entity
 @Table(name="user")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AttributeOverride(name = "id", column = @Column(name = "user_id"))
-public class UserEntity extends BaseEntity {
+@Getter
+public  class UserEntity extends BaseEntity {
 	
-	@Column(name="email")
 	@Email(message ="*Please provide a valid Email")
 	@NotEmpty(message = "*Please provide your email")
 	private String email;
 	
-	@Column(name="password")
+
 	@Length(min=5, message="*Your password must have at least 5 characters")
 	@NotEmpty(message="*Please provide your password")
 	private String password;
 	
-	@Column(name="name")
+
 	@NotEmpty(message="*Please provide your name")
 	private String name;
 	
-	@Column(name="active")
 	private String active;
-	
-	@Column(name="address")
 	private String address;
-	
-	@Column(name="phone")
 	private String phone;
 	
 	@ManyToMany(cascade=CascadeType.ALL)
-	@JoinTable(name="user_role", joinColumns=@JoinColumn(name="user_id")
-		,inverseJoinColumns = @JoinColumn(name="role_id"))
+	@JoinTable(name="user_role", 
+				joinColumns=@JoinColumn(name="user_id"),
+				inverseJoinColumns = @JoinColumn(name="role_id"))
 	private Set<RoleEntity> roles;
 	
 	
 	//TO-DO 필요시 메소드를 통해 setter 기능을 추가한다.
+	
+	//Entity -> DTO
+	public UserDTO buildDomain() {
+		UserDTO user = new UserDTO(id,email,password,name,active,address,phone);
+		return user;
+	}
 	
 	//user생성
 	public void buildEntity(UserDTO user, Set<RoleEntity> roles){
@@ -69,7 +70,23 @@ public class UserEntity extends BaseEntity {
 		this.roles = roles;
 	}
 	
+	//user 정보 업데이트
+	public void updateUser(UserDTO user) {
+		this.address = user.getAddress();
+		this.phone = user.getPhone();
+	}
+	
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public int getId() {
+		return this.id;
+	}
+
+	@Override
+	public String toString() {
+		return "UserEntity [email=" + email + ", password=" + password + ", name=" + name + ", active=" + active
+				+ ", address=" + address + ", phone=" + phone + ", roles=" + roles + "]";
 	}
 }

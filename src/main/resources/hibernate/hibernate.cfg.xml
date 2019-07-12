@@ -10,19 +10,5 @@
   	 	<mapping class="com.ezen.antpeople.entity.UserEntity"/>
   	 	<mapping class="com.ezen.antpeople.entity.RoleEntity"/>
   	 	
-  	 	
-  	 	<!-- <필요 없는 코드(무시해도 됨)> -->
-  	 	
-		<!-- 애플리케이션 컨택스트 안에서 세션 팩토리 관리하므로 -->
-		<!-- 이제 필요 없는 코드 -->
-		<!-- <property name="hibernate.connection.driver_class">
-			com.mysql.jdbc.Driver
-		</property>
-		<property name="hibernate.connection.url">
-			jdbc:mysql://localhost:3306/antpeople
-		</property>
-		<property name ="hibernate.connection.username">root</property>
-		<property name ="hibernate.connection.password">javapass</property> -->
-		
 	</session-factory>
 </hibernate-configuration>

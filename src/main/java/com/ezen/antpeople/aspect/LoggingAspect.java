@@ -19,7 +19,7 @@ public class LoggingAspect {
 	
 	// --------------------- DataBase -----------------------------------
 	//포인트 컷 지정
-	@Pointcut("execution(* com.ezen.antpeople.*.*.get*(..))")
+	@Pointcut("execution(* com.ezen.antpeople.service.*.get*(..))")
 	public void getLogging() {}
 	
 	//before 어드바이스

@@ -24,7 +24,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebMvc
@@ -36,12 +36,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 )
 @EnableTransactionManagement
 @Order(1)
-public class RootConfig extends WebMvcConfigurerAdapter {
+public class RootConfig implements WebMvcConfigurer{
 	
 	@Inject
     private Environment env;
 	
 	
+	// DataSource 부분
     @Bean
     public DataSource dataSource() {
     	BasicDataSource dataSource = new BasicDataSource();
