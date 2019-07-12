@@ -38,7 +38,7 @@
 
 ### Day 02 : Project 시작 파일 (19.07.08)
 - (오인) project 시작 전 Maven, spring 설정 완료
-- (오인) MySQL, MyBatis 연결 및 테스트 진행 (성공) // 수정 - 현재 MyBatis 사용하지 
+- (오인) MySQL, MyBatis 연결 및 테스트 진행 (성공) // 수정 - 현재 MyBatis 사용하지 않음
 
 ### Day 04 : 로그인 (19.07.10)
 - (성현) login기능 (쿠키 DB연결 없음)
@@ -55,4 +55,3 @@
 - (오인) user Table 재구성 (user 테이블과 role 테이블로 나누어 테이블 연결)
 - (오인) user Table을 이용한 CRUD Service 및 단위 Test (성공)
 - (오인) BCryptPasswordEncoder Bean 등록 및 단위 Test (성공)
-- (오인) 
