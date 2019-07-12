@@ -46,4 +46,4 @@
 - (오인) MySQL, Hibernate 연결 및 테스트 진행 (성공)  
 - (오인) AOP Logging 기능 구현  
 - (성현) 로그인 JUnit Test 
-- (성현) 로그인 오류 수정중  
+
