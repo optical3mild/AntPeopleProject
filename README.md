@@ -46,3 +46,13 @@
 - (오인) MySQL, Hibernate 연결 및 테스트 진행 (성공)
 - (오인) AOP Logging 기능 구현 
 - (성현) 로그인 JUnit Test
+
+### Day 05 : 레이어 아키텍처 구성
+- (오인) Service 레이어, repository 레이어 구성
+- (오인) Entity, DTO 클래스 구성
+
+### Day 06 : User Table Test (19.07.12)
+- (오인) user Table 재구성 (user 테이블과 role 테이블로 나누어 테이블 연결)
+- (오인) user Table을 이용한 CRUD Service 및 Test (성공)
+- (오인) BCryptPasswordEncoder Bean 등록 및 Test (성공)
+- (오인) 
