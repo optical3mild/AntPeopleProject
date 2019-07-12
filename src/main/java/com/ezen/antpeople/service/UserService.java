@@ -1,14 +1,12 @@
 package com.ezen.antpeople.service;
 
-import java.util.List;
-
 import com.ezen.antpeople.dto.UserDTO;
+import com.ezen.antpeople.entity.UserEntity;
 
 public interface UserService {
-	UserDTO getUserById(String id);
-	List<UserDTO> getUsers();
-	List<UserDTO> getCustomerByPage(int index, int size);
-	void saveCustomer(UserDTO userDTO);
-	void updateUser(UserDTO userDTO);
-	void deleteCustomer(String id);
+	public UserDTO getUser(int id);
+	public UserDTO findUserByEmail(String email);
+	public void saveUser(UserDTO user);
+	public void deleteUser(UserDTO user);
+	public void updateUser(UserDTO user);
 }

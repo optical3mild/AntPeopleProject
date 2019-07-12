@@ -13,9 +13,10 @@
 	
 	<context:component-scan base-package="com.ezen.antpeople.config"/>	
 	<context:component-scan base-package="com.ezen.antpeople.service"/>
-	<context:component-scan base-package="com.ezen.antpeople.controller.*"/>
+	<context:component-scan base-package="com.ezen.antpeople.serviceimpl"/>
+	<context:component-scan base-package="com.ezen.antpeople.controller"/>
 	<context:component-scan base-package="com.ezen.antpeople.repository"/>
-	<!-- <context:component-scan base-package="com.ezen.antpeople.aspect"/> -->
+	<context:component-scan base-package="com.ezen.antpeople.aspect"/>
 	<aop:aspectj-autoproxy/>
 
 </beans>
