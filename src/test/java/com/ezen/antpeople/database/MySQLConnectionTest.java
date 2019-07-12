@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import javax.annotation.Resource;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -22,7 +23,7 @@ public class MySQLConnectionTest {
 	@Resource
 	TestService ts;
 	
-	@Test
+	@Test @Ignore
 	public void testConnection() throws Exception{
 		
 		   TestDTO test = ts.getTest(1);

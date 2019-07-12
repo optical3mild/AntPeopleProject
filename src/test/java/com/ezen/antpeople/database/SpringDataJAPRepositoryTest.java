@@ -24,7 +24,7 @@ public class SpringDataJAPRepositoryTest {
 	UserService us; 
 	
 	//SaveUserTest - 유저 정보 저장(회원가입)
-	@Test
+	@Test @Ignore
 	public void SaveUserTest() throws Exception {
 		//임시 유저 데이터
 		UserDTO user = new UserDTO("java333@gmail.com","java333","김자바2","1","대전광역시 서구","010-1123-4324");
