@@ -48,6 +48,7 @@
 - (성현) 로그인 JUnit Test
 
 ### Day 05 : 레이어 아키텍처 구성 & 로그인 (19.07.11)
+- (오인) Spring Data JPA 및 Hibernate 설정
 - (오인) Service 레이어, repository 레이어 구성
 - (오인) Entity, DTO 클래스 구성
 - (성현) 로그인 오류 수정중
