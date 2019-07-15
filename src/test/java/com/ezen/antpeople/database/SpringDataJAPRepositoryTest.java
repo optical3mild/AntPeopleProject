@@ -42,7 +42,7 @@ public class SpringDataJAPRepositoryTest {
 	public void getUserTest() throws Exception {
 		//데이터 확인
 		UserDTO userFind = us.getUser(1);
-		UserDTO userFind2 = us.findUserByEmail("java123@gmail.com");		
+		UserDTO userFind2 = us.findUserByEmail("java333@gmail.com");		
 		System.out.println(userFind.toString());
 		System.out.println(userFind2.toString());
 		//assertEquals("김자바", userFind.getName());

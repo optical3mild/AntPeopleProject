@@ -41,7 +41,6 @@ public class RootConfig implements WebMvcConfigurer{
 	@Inject
     private Environment env;
 	
-	
 	// DataSource 부분
     @Bean
     public DataSource dataSource() {
