@@ -23,7 +23,7 @@ public class BCryptPasswordEncoderTest {
 	@Resource 
 	private BCryptPasswordEncoder pe;
 
-	@Test
+	@Test @Ignore
 	public void testPasswordEncoder() throws Exception {
 		
 		//패스워드 생성
