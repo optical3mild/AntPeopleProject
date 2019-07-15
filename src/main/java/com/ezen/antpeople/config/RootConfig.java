@@ -41,9 +41,8 @@ public class RootConfig implements WebMvcConfigurer{
 	@Inject
     private Environment env;
 	
-	
 	// DataSource 부분
-    @Bean(destroyMethod="close")
+    @Bean
     public DataSource dataSource() {
     	BasicDataSource dataSource = new BasicDataSource();
     	dataSource.setDriverClassName(env.getProperty("dataSource.driverClassName"));
@@ -52,14 +51,14 @@ public class RootConfig implements WebMvcConfigurer{
     	dataSource.setPassword(env.getProperty("dataSource.password"));
     	return dataSource;
     }
-    
+	
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean lef = 
 				new LocalContainerEntityManagerFactoryBean();
 		lef.setDataSource(dataSource());
 		lef.setJpaVendorAdapter(jpaVenderAdapter());
-		lef.setPackagesToScan("com.ezen.antpeople.entity"); 
+		lef.setPackagesToScan("com.ezen.antpeople.entity");
 		lef.afterPropertiesSet();
 		return lef;
 	}

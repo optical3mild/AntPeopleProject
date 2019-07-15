@@ -11,6 +11,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
 @EnableWebSecurity
+@EnableWebMvc
 @Order(2)
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 

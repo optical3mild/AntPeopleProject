@@ -9,7 +9,6 @@ import javax.annotation.Resource;
 import javax.inject.Inject;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -38,13 +37,13 @@ public class LoginTest {
 	@Resource
 	UserController uc;
 	
-	@Before @Ignore
+	@Before
 	public void setup() {
 		this.mockmvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
 		logger.debug("setup ControllerTest mockMvc");
 	}
 	
-	@Test @Ignore
+	@Test
 	public void main() throws Exception{
 		mockmvc.perform(MockMvcRequestBuilders.get("/")
 				)
@@ -52,7 +51,7 @@ public class LoginTest {
 		.andExpect(status().isOk());
 	}
 	
-	@Test @Ignore
+	@Test
 	public void loginCheck() throws Exception{
 		this.mockmvc.perform(get("/check")
 				.param("id", "admin")
@@ -63,14 +62,14 @@ public class LoginTest {
 		.andExpect(handler().handlerType(UserController.class));
 	}
 
-	@Test @Ignore
+	@Test
 	public void login() throws Exception{
 		mockmvc.perform(MockMvcRequestBuilders.get("/login"))
 		.andDo(print())
 		.andExpect(status().isOk());
 	}
 	
-	@Test @Ignore
+	@Test
 	public void checking() throws Exception {
 		mockmvc.perform(MockMvcRequestBuilders.get("/loginCheck"))
 		.andDo(print())
