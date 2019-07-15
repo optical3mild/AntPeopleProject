@@ -61,3 +61,6 @@
 - (오인) BCryptPasswordEncoder Bean 등록 및 단위 Test (성공)
 - (성현) 로그인 오류 수정 완료
 - (정우) 일정등록 ui - 일정 정보 관리방식, 생성방식 변경
+
+### Day 07 : VerifiedPassword Test (19.07.15)
+- (오인) verifiedPassword 기능 추가 및 단위 Test (성공)
