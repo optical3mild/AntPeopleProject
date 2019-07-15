@@ -12,11 +12,11 @@ import com.ezen.antpeople.controller.user.UserController;
 public class MainController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-	@RequestMapping("/")
+	@RequestMapping("/main.do")
 	public String main(Model model) {
 		logger.info("index 페이지");
 		model.addAttribute("messege", "Home.jsp 입니다");
-		return "/index";
+		return "index";
 	}
 	
 }
