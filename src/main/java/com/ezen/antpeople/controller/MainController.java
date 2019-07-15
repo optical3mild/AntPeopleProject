@@ -16,7 +16,7 @@ public class MainController {
 	public String main(Model model) {
 		logger.info("index 페이지");
 		model.addAttribute("messege", "Home.jsp 입니다");
-		return "/index";
+		return "index";
 	}
 	
 }
