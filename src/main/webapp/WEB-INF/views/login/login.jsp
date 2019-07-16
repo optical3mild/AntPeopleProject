@@ -28,7 +28,6 @@
 	<%@ include file="../include/header.jsp" %>
 </head>
 <body class="hold-transition login-page">
-<%@ include file="../include/menu.jsp" %>
 <div class="login-box">
   <div class="login-logo">
     <a href="#"><b>Ant</b>People</a>
@@ -65,7 +64,9 @@
 
 	<a href="${path}/loginCheck">로그인체크</a><br>
     <a href="#">I forgot my password</a><br>
-    <a href="register.html" class="text-center">Register a new membership</a>
+    <a href="${path}/register.do" class="text-center">Register a new membership</a>
+    <br>
+    <a href="${path}/" class="text-center">Main page</a>
 
   </div>
   <!-- /.login-box-body -->
