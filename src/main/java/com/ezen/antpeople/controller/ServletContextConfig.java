@@ -11,17 +11,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 @EnableWebMvc
 public class ServletContextConfig implements WebMvcConfigurer {
-	
-	// Servlet-context의 resource
-	public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-	        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-	    }
-	/*
-	 * public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-	 * registry.addResourceHandler("/resources/**").addResourceLocations(
-	 * "/resources/"); }
-	 */
-	
+
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/setfiles/**").addResourceLocations("/WEB-INF/views/setfiles/");
+		WebMvcConfigurer.super.addResourceHandlers(registry);
+	}
 	
 	@Bean
 	public InternalResourceViewResolver viewResolver() {
