@@ -1,4 +1,4 @@
-package com.ezen.antpeople.controller.owner;
+package com.ezen.antpeople.controller.staff;
 
 import java.util.List;
 
@@ -15,8 +15,17 @@ import com.ezen.antpeople.dto.UserDTO;
 import com.ezen.antpeople.service.UserService;
 
 @Controller
-public class OwnerController {
+public class StaffController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
-
+	@Inject
+	UserService userService;
+	
+	@RequestMapping("owner") // UserController check 에서 경로를 "owner"로 수정 할것
+	public ModelAndView staffList(ModelAndView mav, int id) throws Exception {
+		UserDTO user = userService.getUser(id);
+		mav.setViewName("pages/calender");
+		mav.addObject("list", user);
+		return mav;
+	}
 }

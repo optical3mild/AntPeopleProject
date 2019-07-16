@@ -63,9 +63,9 @@
       </div>
     </form>
 
-	<a href="${path}/loginCheck">로그인체크</a><br>
     <a href="#">I forgot my password</a><br>
-    <a href="register.html" class="text-center">Register a new membership</a>
+    <a href="register.html" class="text-center">Register a new membership</a><br>
+    <a href="${path}/pages/calendar">calendar</a>
 
   </div>
   <!-- /.login-box-body -->
