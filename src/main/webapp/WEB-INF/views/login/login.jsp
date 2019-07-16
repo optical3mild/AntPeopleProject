@@ -11,15 +11,15 @@
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	
 	<!-- Bootstrap 3.3.7 -->
-	<link rel="stylesheet" href="../resources/bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="setfiles/bower_components/bootstrap/dist/css/bootstrap.min.css">
 	<!-- Font Awesome -->
-	<link rel="stylesheet" href="../resources/bower_components/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="setfiles/bower_components/font-awesome/css/font-awesome.min.css">
 	<!-- Ionicons -->
-	<link rel="stylesheet" href="../resources/bower_components/Ionicons/css/ionicons.min.css">
+	<link rel="stylesheet" href="setfiles/bower_components/Ionicons/css/ionicons.min.css">
 	<!-- Theme style -->
-	<link rel="stylesheet" href="../resources/dist/css/AdminLTE.min.css">
+	<link rel="stylesheet" href="setfiles/dist/css/AdminLTE.min.css">
 	<!-- iCheck -->
-	<link rel="stylesheet" href="../resources/plugins/iCheck/square/blue.css">
+	<link rel="stylesheet" href="setfiles/plugins/iCheck/square/blue.css">
 	
 	<!-- Google Font -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -39,11 +39,11 @@
     <form action="${path}/check" method="post">
       <div class="form-group has-feedback">
         <!-- <input type="email" class="form-control" placeholder="Email"> -->
-        <input name="id" type="text" class="form-control" id="id" value="admin" placeholder="ID">
+        <input name="id" type="text" class="form-control" id="Email" placeholder="Email">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input name="password" id="password" type="password" class="form-control" placeholder="Password" value="welcome">
+        <input name="password" id="password" type="password" class="form-control" placeholder="Password">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
@@ -74,11 +74,11 @@
 <!-- /.login-box -->
 
 <!-- jQuery 3.3.1 : templet 기본버전-->
-<script src="../resources/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="setfiles/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
-<script src="../resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="setfiles/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- iCheck -->
-<script src="../resources/plugins/iCheck/icheck.min.js"></script>
+<script src="setfiles/plugins/iCheck/icheck.min.js"></script>
 <script>
   $(function () {
     $('input').iCheck({
