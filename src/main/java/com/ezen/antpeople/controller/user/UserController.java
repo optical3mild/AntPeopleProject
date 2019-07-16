@@ -49,9 +49,6 @@ public class UserController {
 				returnURL = "login/login";
 				break;
 			}	
-		} else if ("admin".equals(id) && !"welcome".equals(password)) {
-			logger.info("비밀번호틀림 / login으로");
-			returnURL ="login/login";
 		} else {
 			logger.info("둘 다 틀림 / login으로");
 			returnURL ="login/login";
@@ -60,16 +57,10 @@ public class UserController {
 	}
 	
 //	True, False값으로 로그인여부 결정하기
-	@RequestMapping("loginCheck")
-	public String checking(boolean state) {
-	
-		String returnURL = "";
-		if(state) {
-			returnURL = "owner/ownerMain";
-		} else {
-			returnURL = "login";
-		}
-		return returnURL;
+	@RequestMapping("register.do")
+	public String checking() {
+
+		return "pages/register";
 	}
 	
 

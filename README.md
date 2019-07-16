@@ -64,3 +64,6 @@
 
 ### Day 07 : VerifiedPassword Test (19.07.15)
 - (오인) verifiedPassword 기능 추가 및 단위 Test (성공)
+
+### Day 08 : View update (19.07.16)
+- (정우) view update : login, register, main page
