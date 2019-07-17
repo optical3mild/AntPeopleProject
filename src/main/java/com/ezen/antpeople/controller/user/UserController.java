@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.ezen.antpeople.dto.UserDTO;
+import com.ezen.antpeople.dto.user.UserDTO;
 import com.ezen.antpeople.service.UserService;
 
 @Controller
@@ -28,6 +28,7 @@ public class UserController {
 	
 	@RequestMapping("check")
 	public String loginCheck(String email, String password) throws Exception {
+		logger.info("체크 페이지");			
 //	public Model loginCheck(HttpServletRequest request, Model model) throws Exception {
 		UserDTO userDto = new UserDTO();
 		userDto.loginUser(email, password);
@@ -49,9 +50,6 @@ public class UserController {
 				returnURL = "login/login";
 				break;
 			}	
-		} else if ("admin".equals(id) && !"welcome".equals(password)) {
-			logger.info("비밀번호틀림 / login으로");
-			returnURL ="login/login";
 		} else {
 			logger.info("둘 다 틀림 / login으로");
 			returnURL ="login/login";

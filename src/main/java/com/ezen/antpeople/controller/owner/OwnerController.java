@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ezen.antpeople.controller.user.UserController;
-import com.ezen.antpeople.dto.UserDTO;
+import com.ezen.antpeople.dto.user.UserDTO;
 import com.ezen.antpeople.serviceimpl.UserServiceImpl;
 
 @Controller
