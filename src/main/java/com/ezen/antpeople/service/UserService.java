@@ -14,4 +14,8 @@ public interface UserService {
 	
 	//로그인
 	public boolean verifyPassword(UserDTO user);
+
+	//출퇴근
+		void saveGo(UserDTO userDTO);
+		void saveOut(UserDTO userDTO);
 }

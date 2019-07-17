@@ -9,19 +9,19 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="../resources/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../setfiles/bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="../resources/bower_components/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../setfiles/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="../resources/bower_components/Ionicons/css/ionicons.min.css">
+  <link rel="stylesheet" href="../setfiles/bower_components/Ionicons/css/ionicons.min.css">
   <!-- fullCalendar -->
-  <link rel="stylesheet" href="../resources/bower_components/fullcalendar/dist/fullcalendar.min.css">
-  <link rel="stylesheet" href="../resources/bower_components/fullcalendar/dist/fullcalendar.print.min.css" media="print">
+  <link rel="stylesheet" href="../setfiles/bower_components/fullcalendar/dist/fullcalendar.min.css">
+  <link rel="stylesheet" href="../setfiles/bower_components/fullcalendar/dist/fullcalendar.print.min.css" media="print">
   <!-- Theme style -->
-  <link rel="stylesheet" href="../resources/dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="../setfiles/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="../resources/dist/css/skins/_all-skins.min.css">
+  <link rel="stylesheet" href="../setfiles/dist/css/skins/_all-skins.min.css">
 
   <!-- Google Font -->
   <link rel="stylesheet"
@@ -386,26 +386,26 @@
 </div>
 
 <!-- jQuery 3 -->
-<script src="../resources/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="../setfiles/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
-<script src="../resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../setfiles/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
-<script src="../resources/bower_components/jquery-ui/jquery-ui.min.js"></script>
+<script src="../setfiles/bower_components/jquery-ui/jquery-ui.min.js"></script>
 <!-- Slimscroll -->
-<script src="../resources/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<script src="../setfiles/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
-<script src="../resources/bower_components/fastclick/lib/fastclick.js"></script>
+<script src="../setfiles/bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
-<script src="../resources/dist/js/adminlte.min.js"></script>
+<script src="../setfiles/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="../resources/dist/js/demo.js"></script>
+<script src="../setfiles/dist/js/demo.js"></script>
 
 <!-- AntPeople FullCalendar function -->
-<script src="../resources/js/ant_fullcalendar3.js"></script>
+<script src="../setfiles/js/ant_fullcalendar3.js"></script>
 
 <!-- fullCalendar -->
-<script src="../resources/bower_components/moment/moment.js"></script>
-<script src="../resources/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+<script src="../setfiles/bower_components/moment/moment.js"></script>
+<script src="../setfiles/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
 <!-- Page specific script -->
 <script>
 //calendarBaseVer04.html
