@@ -39,7 +39,7 @@ public class SpringDataJAPRepositoryTest {
 	}
 	
 	//getUserTest - 유저정보 확인 
-	@Test
+	@Test @Ignore
 	public void getUserTest() throws Exception {
 		//데이터 확인
 		UserDTO userFind = us.getUser(1);

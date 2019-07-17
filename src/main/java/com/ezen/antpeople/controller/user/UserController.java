@@ -1,4 +1,4 @@
-package com.ezen.antpeople.controller.user;
+﻿package com.ezen.antpeople.controller.user;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -15,20 +15,19 @@ import com.ezen.antpeople.service.UserService;
 @Controller
 public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-	
+
 	UserService userService;
-	
-	public UserController (UserService userService) {
+
+	public UserController(UserService userService) {
 		this.userService = userService;
 	}
 
 	@RequestMapping("login")
 	public String login(Model model) {
 		logger.info("로그인 페이지");
-		model.addAttribute("messege", "login.jsp 입니다");
 		return "login/login";
 	}
-	
+
 	@RequestMapping("check")
 	public String loginCheck(String email, String password) throws Exception {
 		logger.info("체크 페이지");			
@@ -36,79 +35,57 @@ public class UserController {
 		UserDTO userDto = new UserDTO();
 		userDto.loginUser(email, password);
 		String returnURL ="";
-		if(userService.verifyPassword(userDto)) {
+		boolean checkTF = userService.verifyPassword(userDto);
+		if(checkTF) {
 			logger.info("확인 성공 / 사용자 구분시작");			
-			String userInfo = "1";					// DB에서 사용자 구분 가져와야함
-			switch(userInfo) {
-			case "1" : 
-				logger.info("사용자 : 사장");
-				returnURL = "owner/ownerMain";			// 사용자 별 URL 변경 필요
-				break;
-			case "2" :
-				logger.info("사용자 : 알바");
-				returnURL = "staff/staffMain";			// 사용자 별 URL 변경 필요
-				break;
-			default :	// 오류 발생시 로그인전으로 
-				logger.info("사용자 구분 실패. 로그인 전으로");
-				returnURL = "login/login";
-				break;
-			}	
+			returnURL = "common/notice";
 		} else {
-			logger.info("둘 다 틀림 / login으로");
-			returnURL ="login/login";
+			returnURL = "pages/login";
 		}
 		return returnURL;
 	}
-	
-//	True, False값으로 로그인여부 결정하기
-	@RequestMapping("register.do")
-	public String checking() {
 
-		return "pages/register";
-	}
-	
-	//출퇴근 기능
-	@RequestMapping(value="goWork.do")
-	public Model goWork(HttpServletRequest request, Model model) throws Exception{
-		HttpSession session = request.getSession();			// 세션을 가져옴
-		UserDTO dto = new UserDTO();						
-		boolean isSuccess = false;							// 성공여부
-		try{
-			if(session.getAttribute("user_id") != null){		// 세션이 null일경우 String 으로 변환 안됨(Exception 발생)
-				String user_id = (String) session.getAttribute("user_id");		// 세션에 저장한 user_id 가져옴
-				//dto.setId(user_id);												// dto에 유저아이디를 저장함
-				userService.saveGo(dto);										// userService 에 saveGo 를 실행함
-				isSuccess = true;												// 결과값 = 성공
+	// 출퇴근 기능
+	@RequestMapping(value = "goWork.do")
+	public Model goWork(HttpServletRequest request, Model model) throws Exception {
+		HttpSession session = request.getSession(); // 세션을 가져옴
+		UserDTO dto = new UserDTO();
+		boolean isSuccess = false; // 성공여부
+		try {
+			if (session.getAttribute("user_id") != null) { // 세션이 null일경우 String 으로 변환 안됨(Exception 발생)
+				String user_id = (String) session.getAttribute("user_id"); // 세션에 저장한 user_id 가져옴
+				// dto.setId(user_id); // dto에 유저아이디를 저장함
+				userService.saveGo(dto); // userService 에 saveGo 를 실행함
+				isSuccess = true; // 결과값 = 성공
 			}
 			model.addAttribute("result", isSuccess);
-			
-		}catch(Exception e){
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return model;
 	}
-	
-	@RequestMapping(value="outWork.do")
-	public Model outWork(HttpServletRequest request, Model model) throws Exception{
-		HttpSession session = request.getSession();			// 세션을 가져옴
-		UserDTO dto = new UserDTO();						
-		boolean isSuccess = false;							// 성공여부
-		try{
-			if(session.getAttribute("user_id") != null){		// 세션이 null일경우 String 으로 변환 안됨.(Exception 발생)
-				String user_id = (String) session.getAttribute("user_id");		// 세션에 저장한 user_id 가져옴
-				//dto.setId(user_id);												// dto에 유저아이디를 저장함
-				userService.saveOut(dto);										// userService 에 saveGo 를 실행함
-				isSuccess = true;												// 결과값 = 성공
+
+	@RequestMapping(value = "outWork.do")
+	public Model outWork(HttpServletRequest request, Model model) throws Exception {
+		HttpSession session = request.getSession(); // 세션을 가져옴
+		UserDTO dto = new UserDTO();
+		boolean isSuccess = false; // 성공여부
+		try {
+			if (session.getAttribute("user_id") != null) { // 세션이 null일경우 String 으로 변환 안됨.(Exception 발생)
+				String user_id = (String) session.getAttribute("user_id"); // 세션에 저장한 user_id 가져옴
+				// dto.setId(user_id); // dto에 유저아이디를 저장함
+				userService.saveOut(dto); // userService 에 saveGo 를 실행함
+				isSuccess = true; // 결과값 = 성공
 			}
 			model.addAttribute("result", isSuccess);
-			
-		}catch(Exception e){
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return model;
 	}
-	
 
 }
