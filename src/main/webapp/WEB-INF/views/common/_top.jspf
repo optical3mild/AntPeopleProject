@@ -10,7 +10,7 @@
 <header class="main-header">
 	
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="${path}/pages/main" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>NT</span>
       <!-- logo for regular state and mobile devices -->
@@ -23,25 +23,8 @@
         <span class="sr-only">Toggle navigation</span>
       </a>
 
-	  <c:if test="${checkLogin ==''}">
-	  	<!-- 로그인 페이지, 가입페이지 경로 입력필요 -->
-		 <div class="navbar-custom-menu">
-		  	<ul class="nav navbar-nav">
-		  		<li class="dropdown messages-menu">
-		            <a href="${path}/login">login</a>
-	          	</li>
-		  	</ul>
-	      </div>
-	      <div class="navbar-custom-menu">
-		  	<ul class="nav navbar-nav">
-		  		<li class="dropdown messages-menu">
-		            <a href="${path}/register.do">register</a>
-	          	</li>
-		  	</ul>
-	      </div>
-	
-      </c:if>
-      <c:if test="${checkLogin !=''}">
+<!-- 로그인 시 상단에 출력되는 정보 : 알림, 로그인 한 유저정보,  -->      
+
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
@@ -242,54 +225,53 @@
             </ul>
           </li>
           
-          
-          <!-- 로그인시 확인된 유저 정보를 받아 나타나도록... -->
-          <c:if test="${checkLogin == 'admin'}">
-	          <li class="dropdown user user-menu">
-	            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-	              <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-	              <span class="hidden-xs">Alexander Pierce</span>
-	            </a>
-	            <ul class="dropdown-menu">
-	              <!-- User image -->
-	              <li class="user-header">
-	                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-	
-	                <p>
-	                  Alexander Pierce - Web Developer
-	                  <small>Member since Nov. 2012</small>
-	                </p>
-	              </li>
-	              <!-- Menu Body -->
-	              <li class="user-body">
-	                <div class="row">
-	                  <div class="col-xs-4 text-center">
-	                    <a href="#">Followers</a>
-	                  </div>
-	                  <div class="col-xs-4 text-center">
-	                    <a href="#">Sales</a>
-	                  </div>
-	                  <div class="col-xs-4 text-center">
-	                    <a href="#">Friends</a>
-	                  </div>
-	                </div>
-	                <!-- /.row -->
-	              </li>
-	              <!-- Menu Footer-->
-	              <li class="user-footer">
-	                <div class="pull-left">
-	                  <a href="#" class="btn btn-default btn-flat">Profile</a>
-	                </div>
-	                <div class="pull-right">
-	                  <a href="#" class="btn btn-default btn-flat">Log out</a>
-	                </div>
-	              </li>
-	            </ul>
-	          </li>
-         </c:if>
+<!-- 로그인시 확인된 유저 정보를 받아 나타나도록... -->
+          <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <!-- 유저이미지 -->
+              <img src="#" class="user-image" alt="User Image">
+              <!-- 유저이름 -->
+              <span class="hidden-xs">${userName}</span>
+            </a>
+            <!-- 유저 정보 드롭다운 -->
+            <ul class="dropdown-menu">
+              <!-- 유저 이미지 -->
+              <li class="user-header">
+                <img src="#" class="img-circle" alt="User Image">
+				<!-- 유저 간략정보: 이름, 가입일 등등... -->
+                <p>
+                  ${userInfo}
+                </p>
+              </li>
+              <!-- Menu Body -->
+              <li class="user-body">
+                <div class="row">
+                  <div class="col-xs-4 text-center">
+                    <a href="#">Followers</a>
+                  </div>
+                  <div class="col-xs-4 text-center">
+                    <a href="#">Sales</a>
+                  </div>
+                  <div class="col-xs-4 text-center">
+                    <a href="#">Friends</a>
+                  </div>
+                </div>
+                <!-- /.row -->
+              </li>
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                <div class="pull-left">
+                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                </div>
+                <div class="pull-right">
+                  <a href="${path}/pages/logout" class="btn btn-default btn-flat">Log out</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+
         </ul>
       </div>
-      </c:if>
       
     </nav>
 </header>

@@ -69,4 +69,5 @@
 - (정우) view update : login, register, main page
 
 ### Day 09 : Web.xml -> WebInitializer.java 변경, xml 파일 제거
-- (오인) xml파일 제거 및 java config파일로 변경, WebInitializer.java 파일 생성 
+- (오인) xml파일 제거 및 java config파일로 변경, WebInitializer.java 파일 생성
+- (정우) view update : common, staff, admin, pages 로 view 폴더구조 변경, 기본화면 업데이트

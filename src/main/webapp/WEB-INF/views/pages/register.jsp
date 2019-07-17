@@ -22,7 +22,7 @@
 	<!-- Google Font -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 		
-	<%@ include file="../include/header.jsp" %>
+	<%@ include file="../common/header.jsp" %>
 </head>
 <body class="hold-transition register-page">
 	<div class="register-box">

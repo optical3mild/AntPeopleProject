@@ -25,7 +25,7 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 	
 	<!-- jquery 하단에 존재. 공통파일 header로 묶을 것.-->
-	<%@ include file="../include/header.jsp" %>
+	<%@ include file="../common/header.jsp" %>
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
@@ -36,7 +36,7 @@
   <div class="login-box-body">
     <p class="login-box-msg">${messege}</p>
 
-    <form action="${path}/check" method="post">
+    <form action="${path}/pages/check.do" method="post">
       <div class="form-group has-feedback">
         <!-- <input type="email" class="form-control" placeholder="Email"> -->
         <input name="email" type="text" class="form-control" id="email" value="admin" placeholder="ID">
@@ -61,12 +61,9 @@
         <!-- /.col -->
       </div>
     </form>
-
-	<a href="${path}/loginCheck">로그인체크</a><br>
+    
     <a href="#">I forgot my password</a><br>
-    <a href="${path}/register.do" class="text-center">Register a new membership</a>
-    <br>
-    <a href="${path}/" class="text-center">Main page</a>
+    <a href="${path}/pages/register" class="text-center">Register a new membership</a>
 
   </div>
   <!-- /.login-box-body -->
