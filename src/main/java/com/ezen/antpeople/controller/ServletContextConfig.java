@@ -6,11 +6,12 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
 @EnableWebMvc
 public class ServletContextConfig implements WebMvcConfigurer {
-	
+
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/setfiles/**").addResourceLocations("/WEB-INF/views/setfiles/");
 		WebMvcConfigurer.super.addResourceHandlers(registry);
@@ -23,5 +24,5 @@ public class ServletContextConfig implements WebMvcConfigurer {
 		viewResolver.setSuffix(".jsp");
 		return viewResolver;
 	}
-
+	
 }
