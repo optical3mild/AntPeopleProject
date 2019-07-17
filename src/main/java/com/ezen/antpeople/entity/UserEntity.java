@@ -1,5 +1,6 @@
 package com.ezen.antpeople.entity;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.AttributeOverride;
@@ -7,15 +8,14 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.ezen.antpeople.dto.UserDTO;
+import com.ezen.antpeople.dto.user.UserDTO;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AttributeOverride(name = "id", column = @Column(name = "user_id"))
 @Getter
-public  class UserEntity extends BaseEntity {
+public  class UserEntity extends BaseEntity implements Serializable {
 	
 	@Email(message ="*Please provide a valid Email")
 	@NotEmpty(message = "*Please provide your email")
@@ -45,29 +45,28 @@ public  class UserEntity extends BaseEntity {
 	private String address;
 	private String phone;
 	
-	@ManyToMany(cascade=CascadeType.ALL)
-	@JoinTable(name="user_role", 
-				joinColumns=@JoinColumn(name="user_id"),
-				inverseJoinColumns = @JoinColumn(name="role_id"))
-	private Set<RoleEntity> roles;
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="role_id")
+	private Set<RoleEntity> role;
 	
 	
 	//TO-DO 필요시 메소드를 통해 setter 기능을 추가한다.
 	
 	//Entity -> DTO
 	public UserDTO buildDomain() {
-		UserDTO user = new UserDTO(id,email,password,name,active,address,phone);
+		UserDTO user = new UserDTO(id,email,password,name,active,address,phone,role);
 		return user;
 	}
 	
 	//user생성
-	public void buildEntity(UserDTO user, Set<RoleEntity> roles){
+	public void buildEntity(UserDTO user, Set<RoleEntity> role){
 		this.email = user.getEmail();
 		this.name = user.getName();
 		this.active = user.getActive();
 		this.address = user.getAddress();
 		this.phone = user.getPhone();
-		this.roles = roles;
+		this.role = role;
 	}
 	
 	//user 정보 업데이트
@@ -87,6 +86,6 @@ public  class UserEntity extends BaseEntity {
 	@Override
 	public String toString() {
 		return "UserEntity [email=" + email + ", password=" + password + ", name=" + name + ", active=" + active
-				+ ", address=" + address + ", phone=" + phone + ", roles=" + roles + "]";
+				+ ", address=" + address + ", phone=" + phone + ", roles=" + role + "]";
 	}
 }

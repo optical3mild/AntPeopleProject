@@ -8,7 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ezen.antpeople.dto.UserDTO;
+import com.ezen.antpeople.dto.user.UserDTO;
 import com.ezen.antpeople.entity.RoleEntity;
 import com.ezen.antpeople.entity.UserEntity;
 import com.ezen.antpeople.repository.RoleRepository;

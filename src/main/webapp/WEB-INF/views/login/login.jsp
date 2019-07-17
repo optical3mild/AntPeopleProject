@@ -39,7 +39,7 @@
     <form action="${path}/check" method="post">
       <div class="form-group has-feedback">
         <!-- <input type="email" class="form-control" placeholder="Email"> -->
-        <input name="id" type="text" class="form-control" id="Email" placeholder="Email">
+        <input name="email" type="text" class="form-control" id="email" value="admin" placeholder="ID">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">

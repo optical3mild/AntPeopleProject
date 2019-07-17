@@ -1,6 +1,6 @@
 package com.ezen.antpeople.service;
 
-import com.ezen.antpeople.dto.UserDTO;
+import com.ezen.antpeople.dto.user.UserDTO;
 import com.ezen.antpeople.entity.UserEntity;
 
 
