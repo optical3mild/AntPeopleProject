@@ -90,6 +90,13 @@
 		    <artifactId>spring-security-web</artifactId>
 		    <version>${org.springframework-security-version}</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-taglibs -->
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-taglibs</artifactId>
+		    <version>${org.springframework-security-version}</version>
+		</dependency>
+		
 		
 		
 		
@@ -267,6 +274,14 @@
                     <downloadJavadocs>true</downloadJavadocs>
                 </configuration>
             </plugin>
+            <!-- web.xml 사용 안할 때, 필수 !!! -->
+            <plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-war-plugin</artifactId>
+			    <configuration>
+			        <failOnMissingWebXml>false</failOnMissingWebXml>
+			    </configuration>
+			</plugin>    
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

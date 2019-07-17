@@ -64,3 +64,9 @@
 
 ### Day 07 : VerifiedPassword Test (19.07.15)
 - (오인) verifiedPassword 기능 추가 및 단위 Test (성공)
+
+### Day 08 : View update (19.07.16)
+- (정우) view update : login, register, main page
+
+### Day 09 : Web.xml -> WebInitializer.java 변경, xml 파일 제거
+- (오인) xml파일 제거 및 java config파일로 변경, WebInitializer.java 파일 생성 

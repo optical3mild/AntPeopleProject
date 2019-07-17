@@ -1,4 +1,4 @@
-package com.ezen.antpeople.controller;
+package com.ezen.antpeople.controller.main;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
