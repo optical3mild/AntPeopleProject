@@ -1,5 +1,6 @@
 package com.ezen.antpeople.entity;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.AttributeOverride;
@@ -25,7 +26,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AttributeOverride(name = "id", column = @Column(name = "user_id"))
 @Getter
-public  class UserEntity extends BaseEntity {
+public  class UserEntity extends BaseEntity implements Serializable {
 	
 	@Email(message ="*Please provide a valid Email")
 	@NotEmpty(message = "*Please provide your email")

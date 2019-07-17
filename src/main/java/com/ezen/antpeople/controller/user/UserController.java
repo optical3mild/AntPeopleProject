@@ -76,7 +76,7 @@ public class UserController {
 		try{
 			if(session.getAttribute("user_id") != null){		// 세션이 null일경우 String 으로 변환 안됨(Exception 발생)
 				String user_id = (String) session.getAttribute("user_id");		// 세션에 저장한 user_id 가져옴
-				dto.setId(user_id);												// dto에 유저아이디를 저장함
+				//dto.setId(user_id);												// dto에 유저아이디를 저장함
 				userService.saveGo(dto);										// userService 에 saveGo 를 실행함
 				isSuccess = true;												// 결과값 = 성공
 			}
@@ -97,7 +97,7 @@ public class UserController {
 		try{
 			if(session.getAttribute("user_id") != null){		// 세션이 null일경우 String 으로 변환 안됨.(Exception 발생)
 				String user_id = (String) session.getAttribute("user_id");		// 세션에 저장한 user_id 가져옴
-				dto.setId(user_id);												// dto에 유저아이디를 저장함
+				//dto.setId(user_id);												// dto에 유저아이디를 저장함
 				userService.saveOut(dto);										// userService 에 saveGo 를 실행함
 				isSuccess = true;												// 결과값 = 성공
 			}

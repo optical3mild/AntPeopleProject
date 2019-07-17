@@ -21,11 +21,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	    return new BCryptPasswordEncoder();
 	}
 	
-	public class SecurityWebApplicationInitializer 
-		extends AbstractSecurityWebApplicationInitializer { 
-		
-	}
-	
 	@Override protected void configure(HttpSecurity http) throws Exception {
 		http.httpBasic().and().authorizeRequests() 
 						.antMatchers("/users/**").permitAll()
@@ -34,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 						.anyRequest().authenticated()
 						.and() 
 					.formLogin() 
-						.loginPage("/login") 
+						.loginPage("/login/4444444") 
 						.usernameParameter("email") 
 						.passwordParameter("password") 
 						.permitAll(); 
