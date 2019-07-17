@@ -14,6 +14,8 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.DispatcherServlet;
 
+import com.ezen.antpeople.controller.main.ServletConfigurationMain;
+
 public class WebInitializer implements WebApplicationInitializer{
     	 
         @Override
@@ -25,14 +27,16 @@ public class WebInitializer implements WebApplicationInitializer{
 
     		ContextLoaderListener listener = new ContextLoaderListener(rootAppContext);
     		servletContext.addListener(listener);
-            
+            //-------------------------------------------
+    		
     		// ServeltContext_Main - WebApplicationContext
             AnnotationConfigWebApplicationContext ServletMaincontext = new AnnotationConfigWebApplicationContext();
-            ServletMaincontext.setConfigLocation("com.ezen.antpeople.controller.main");
+            ServletMaincontext.register(ServletConfigurationMain.class);
             
             ServletRegistration.Dynamic dispatcherMain = servletContext.addServlet("DispatcherServletMain", new DispatcherServlet(ServletMaincontext));
             dispatcherMain.setLoadOnStartup(1);
-            dispatcherMain.addMapping("/");
+            dispatcherMain.addMapping("/loginpage");
+            //----------------------------------------------
             
             // ServeltContext_User - WebApplicationContext
             AnnotationConfigWebApplicationContext servletUserContext = new AnnotationConfigWebApplicationContext();
@@ -40,9 +44,8 @@ public class WebInitializer implements WebApplicationInitializer{
 
     		ServletRegistration.Dynamic dispatcherUser = servletContext.addServlet("DispatcherServletUser", new DispatcherServlet(servletUserContext));
     		dispatcherUser.setLoadOnStartup(2);
-    		dispatcherUser.addMapping("/login.do");
-    		dispatcherUser.setAsyncSupported(true);
-
+    		dispatcherUser.addMapping("/loginpage");
+    		//-----------------------------------------------
 
             
             

@@ -25,13 +25,13 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.ezen.antpeople"}, 
-excludeFilters = @ComponentScan.Filter(Controller.class))
+@ComponentScan(basePackages = {"com.ezen.antpeople"})
 @PropertySource("classpath:/property/environment.properties")
 @EnableJpaRepositories(
 		basePackages ="com.ezen.antpeople.repository",
@@ -41,7 +41,7 @@ excludeFilters = @ComponentScan.Filter(Controller.class))
 @EnableTransactionManagement
 @Order(1)
 public class RootConfig implements WebMvcConfigurer{
-	
+
 	@Inject
     private Environment env;
 	

@@ -11,17 +11,12 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc //xml의 <annotation-driven>
-@ComponentScan("com.ezen.antpeople.controller.user") // xml의 context component-scan
+//@ComponentScan("com.ezen.antpeople.controller.user") // xml의 context component-scan
 public class ServletConfigurationUser extends WebMvcConfigurerAdapter{
- 
-    @Override
-    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-        configurer.enable();
-    }
     
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+    	registry.addResourceHandler("/setfiles/**").addResourceLocations("/WEB-INF/views/setfiles/");
     }
     
     @Bean
