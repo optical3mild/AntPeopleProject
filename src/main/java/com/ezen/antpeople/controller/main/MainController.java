@@ -19,4 +19,20 @@ public class MainController {
 		return "index";
 	}
 	
+	@RequestMapping("pages/notice")
+	public String notice() {
+		logger.info("notice 페이지");
+		return "pages/notice";
+	}
+	
+	@RequestMapping("pages/stafflist")
+	public String staffList() throws Exception {
+		return "pages/stafflist";
+	}
+	
+	@RequestMapping("pages/todaystaff")
+	public String todayStaff() throws Exception {
+		return "pages/todaystaff";
+	}
+	
 }
