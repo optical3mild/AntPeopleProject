@@ -19,19 +19,28 @@ public class MainController {
 		return "index";
 	}
 	
-	@RequestMapping("pages/notice")
+	@RequestMapping("/pages/notice")
 	public String notice() {
 		logger.info("notice 페이지");
 		return "pages/notice";
 	}
 	
-	@RequestMapping("pages/stafflist")
-	public String staffList() throws Exception {
+	@RequestMapping("/pages/stafflist")
+	public String stafflist() throws Exception {
+		logger.info("staffList 페이지");
 		return "pages/stafflist";
 	}
 	
-	@RequestMapping("pages/todaystaff")
-	public String todayStaff() throws Exception {
+	/*@RequestMapping("staff") 
+	public ModelAndView staffList(ModelAndView mav, @RequestParam("email") String id) throws Exception {
+		UserDTO user = userService.getUser(id);
+		mav.setViewName("pages/calender");
+		mav.addObject("list", user);
+		return mav;
+	}*/
+	
+	@RequestMapping("/pages/todaystaff")
+	public String todaystaff() throws Exception {
 		return "pages/todaystaff";
 	}
 	
