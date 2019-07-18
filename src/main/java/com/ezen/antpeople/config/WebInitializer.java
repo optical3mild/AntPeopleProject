@@ -15,6 +15,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.DispatcherServlet;
 
 import com.ezen.antpeople.controller.main.ServletConfigurationMain;
+import com.ezen.antpeople.controller.user.ServletConfigurationUser;
 
 public class WebInitializer implements WebApplicationInitializer{
     	 
@@ -30,21 +31,21 @@ public class WebInitializer implements WebApplicationInitializer{
             //-------------------------------------------
     		
     		// ServeltContext_Main - WebApplicationContext
-            AnnotationConfigWebApplicationContext ServletMaincontext = new AnnotationConfigWebApplicationContext();
-            ServletMaincontext.register(ServletConfigurationMain.class);
+            AnnotationConfigWebApplicationContext ServletMainContext = new AnnotationConfigWebApplicationContext();
+            ServletMainContext.register(ServletConfigurationMain.class);
             
-            ServletRegistration.Dynamic dispatcherMain = servletContext.addServlet("DispatcherServletMain", new DispatcherServlet(ServletMaincontext));
+            ServletRegistration.Dynamic dispatcherMain = servletContext.addServlet("DispatcherServletMain", new DispatcherServlet(ServletMainContext));
             dispatcherMain.setLoadOnStartup(1);
-            dispatcherMain.addMapping("/loginpage");
+            dispatcherMain.addMapping("/main/*");
             //----------------------------------------------
             
             // ServeltContext_User - WebApplicationContext
             AnnotationConfigWebApplicationContext servletUserContext = new AnnotationConfigWebApplicationContext();
-            ServletMaincontext.setConfigLocation("com.ezen.antpeople.controller.user");
+            servletUserContext.register(ServletConfigurationUser.class);
 
     		ServletRegistration.Dynamic dispatcherUser = servletContext.addServlet("DispatcherServletUser", new DispatcherServlet(servletUserContext));
     		dispatcherUser.setLoadOnStartup(2);
-    		dispatcherUser.addMapping("/loginpage");
+    		dispatcherUser.addMapping("/user");
     		//-----------------------------------------------
 
             

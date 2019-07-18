@@ -1,1 +1,1 @@
-<%response.sendRedirect("loginpage");%>
+<%response.sendRedirect("main/index");%>

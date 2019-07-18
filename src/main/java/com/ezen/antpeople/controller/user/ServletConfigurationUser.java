@@ -11,7 +11,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc //xml의 <annotation-driven>
-//@ComponentScan("com.ezen.antpeople.controller.user") // xml의 context component-scan
+@ComponentScan(basePackages="com.ezen.antpeople.controller.user") // xml의 context component-scan
 public class ServletConfigurationUser extends WebMvcConfigurerAdapter{
     
     @Override

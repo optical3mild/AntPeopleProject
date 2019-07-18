@@ -12,7 +12,7 @@ import com.ezen.antpeople.controller.user.UserController;
 public class MainController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-	@RequestMapping("/loginpage")
+	@RequestMapping("/index")
 	public String main(Model model) {
 		logger.info("index 페이지");
 		return "login";

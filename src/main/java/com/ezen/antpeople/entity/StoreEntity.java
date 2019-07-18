@@ -13,14 +13,15 @@ import lombok.Getter;
 
 @Getter
 @Entity
-@Table(name="role")
-//RoleDB - role_id, role
-public class RoleEntity implements Serializable {
+@Table(name="store")
+//StoreDB - store_id, store
+public class StoreEntity implements Serializable {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    protected int role_id;
+    protected int store_id;
 	
-	@Column(name="role")
-	private String role;
+	@Column(name="store")
+	private String store;
+
 }

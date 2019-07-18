@@ -23,7 +23,7 @@ public class VerifiedPasswordTest {
 	@Resource
 	UserService us;
 	
-	@Test 
+	@Test @Ignore
 	
 	public void VerifyPasswordTest() {
 		UserDTO user = new UserDTO("java333@gmail.com","java333","김자바2","1","서울특별시","010-5675-6666",1);
