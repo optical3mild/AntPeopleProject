@@ -52,9 +52,6 @@ public class UserController {
 		return "pages/register";
 	}
 	
-	@RequestMapping(value="/pages/register.do", method = RequestMethod.GET)
-	public void registerGET(){}
-	
 	@RequestMapping(value="/pages/register.do", method= RequestMethod.POST)
 	public String registerPOST(UserDTO userDto) throws Exception {
 		userService.saveUser(userDto);

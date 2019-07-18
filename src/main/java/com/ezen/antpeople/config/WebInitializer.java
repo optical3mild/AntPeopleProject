@@ -39,21 +39,7 @@ public class WebInitializer implements WebApplicationInitializer{
     		dispatcherUser.addMapping("/login");
     		dispatcherUser.setAsyncSupported(true);
     		
-    		// ServeltContext_Admin - WebApplicationContext
-    		AnnotationConfigWebApplicationContext servletAdminContext = new AnnotationConfigWebApplicationContext();
-    		ServletMaincontext.setConfigLocation("com.ezen.antpeople.controller.admin");
-    		ServletRegistration.Dynamic dispatcheradmin = servletContext.addServlet("DispatcherServletUser", new DispatcherServlet(servletAdminContext));
-    		dispatcherUser.setLoadOnStartup(3);
-    		dispatcherUser.addMapping("/admin/");
-    		dispatcherUser.setAsyncSupported(true);
-    		
-    		// ServeltContext_Staff - WebApplicationContext
-    		AnnotationConfigWebApplicationContext servletStaffContext = new AnnotationConfigWebApplicationContext();
-    		ServletMaincontext.setConfigLocation("com.ezen.antpeople.controller.staff");
-    		ServletRegistration.Dynamic dispatcherstaff = servletContext.addServlet("DispatcherServletUser", new DispatcherServlet(servletStaffContext));
-    		dispatcherUser.setLoadOnStartup(4);
-    		dispatcherUser.addMapping("/staff/");
-    		dispatcherUser.setAsyncSupported(true);
+
 
             // 인코딩 필터 적용
             FilterRegistration.Dynamic charaterEncodingFilter = servletContext.addFilter("charaterEncodingFilter", new CharacterEncodingFilter());

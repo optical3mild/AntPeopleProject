@@ -22,10 +22,9 @@ public class MainController {
 	UserService userService;
 	
 	@RequestMapping("/")
-	public String main(Model model) {
+	public String main() {
 		logger.info("index 페이지");
-		model.addAttribute("messege", "Home.jsp 입니다");
-		return "index";
+		return "pages/login";
 	}
 	
 	@RequestMapping("/pages/notice")
