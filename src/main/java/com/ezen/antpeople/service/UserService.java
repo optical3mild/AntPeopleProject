@@ -1,6 +1,6 @@
 package com.ezen.antpeople.service;
 
-import com.ezen.antpeople.dto.UserDTO;
+import com.ezen.antpeople.dto.user.UserDTO;
 import com.ezen.antpeople.entity.UserEntity;
 
 
@@ -14,4 +14,8 @@ public interface UserService {
 	
 	//로그인
 	public boolean verifyPassword(UserDTO user);
+
+	//출퇴근
+		void saveGo(UserDTO userDTO);
+		void saveOut(UserDTO userDTO);
 }
