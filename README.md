@@ -76,4 +76,6 @@
 
 ### Day 10 : Register 추가 (19.07.18)
 - (성현) RequestMapping 경로 전체 정리
-- (성현) Register 
+- (성현) Register 기능추가
+- (오인) WebInitializer 설정 변경 (servlet-config 오류 수정)
+- (오인) DB ER다이어그램 추가 (user, store, role, bbs, todo)
