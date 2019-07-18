@@ -29,7 +29,6 @@ public class WebInitializer implements WebApplicationInitializer{
             //-------------------------------------------
     		
     		// ServeltContext_Main - WebApplicationContext
-<<<<<<< HEAD
             AnnotationConfigWebApplicationContext ServletMainContext = new AnnotationConfigWebApplicationContext();
             ServletMainContext.register(ServletConfigurationMain.class);
             
@@ -46,23 +45,6 @@ public class WebInitializer implements WebApplicationInitializer{
     		dispatcherUser.setLoadOnStartup(2);
     		dispatcherUser.addMapping("/user");
     		//-----------------------------------------------
-=======
-            AnnotationConfigWebApplicationContext ServletMaincontext = new AnnotationConfigWebApplicationContext();
-            ServletMaincontext.setConfigLocation("com.ezen.antpeople.controller.main");
-            ServletRegistration.Dynamic dispatcherMain = servletContext.addServlet("DispatcherServletMain", new DispatcherServlet(ServletMaincontext));
-            dispatcherMain.setLoadOnStartup(1);
-            dispatcherMain.addMapping("/");
-           
-            // ServeltContext_User - WebApplicationContext
-            AnnotationConfigWebApplicationContext servletUserContext = new AnnotationConfigWebApplicationContext();
-            ServletMaincontext.setConfigLocation("com.ezen.antpeople.controller.user");
-    		ServletRegistration.Dynamic dispatcherUser = servletContext.addServlet("DispatcherServletUser", new DispatcherServlet(servletUserContext));
-    		dispatcherUser.setLoadOnStartup(2);
-    		dispatcherUser.addMapping("/login");
-    		dispatcherUser.setAsyncSupported(true);
-    		
-
->>>>>>> 1fccb51abe0e0aa97794419d4e4e4fdf48f8e582
 
             // 인코딩 필터 적용
             FilterRegistration.Dynamic charaterEncodingFilter = servletContext.addFilter("charaterEncodingFilter", new CharacterEncodingFilter());

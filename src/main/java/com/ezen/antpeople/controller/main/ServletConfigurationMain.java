@@ -22,7 +22,7 @@ public class ServletConfigurationMain extends WebMvcConfigurerAdapter{
     @Bean
     public InternalResourceViewResolver internalResourceViewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setPrefix("/WEB-INF/views/login/");
+        resolver.setPrefix("/WEB-INF/views/pages/");
         resolver.setSuffix(".jsp");
         return resolver;
     }
