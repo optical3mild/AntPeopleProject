@@ -36,7 +36,7 @@ public class WebInitializer implements WebApplicationInitializer{
             ServletMaincontext.setConfigLocation("com.ezen.antpeople.controller.user");
     		ServletRegistration.Dynamic dispatcherUser = servletContext.addServlet("DispatcherServletUser", new DispatcherServlet(servletUserContext));
     		dispatcherUser.setLoadOnStartup(2);
-    		dispatcherUser.addMapping("/login.do");
+    		dispatcherUser.addMapping("/login");
     		dispatcherUser.setAsyncSupported(true);
     		
     		// ServeltContext_Admin - WebApplicationContext
@@ -44,12 +44,17 @@ public class WebInitializer implements WebApplicationInitializer{
     		ServletMaincontext.setConfigLocation("com.ezen.antpeople.controller.admin");
     		ServletRegistration.Dynamic dispatcheradmin = servletContext.addServlet("DispatcherServletUser", new DispatcherServlet(servletAdminContext));
     		dispatcherUser.setLoadOnStartup(3);
-    		dispatcherUser.addMapping("/admin");
+    		dispatcherUser.addMapping("/admin/");
+    		dispatcherUser.setAsyncSupported(true);
+    		
+    		// ServeltContext_Staff - WebApplicationContext
+    		AnnotationConfigWebApplicationContext servletStaffContext = new AnnotationConfigWebApplicationContext();
+    		ServletMaincontext.setConfigLocation("com.ezen.antpeople.controller.staff");
+    		ServletRegistration.Dynamic dispatcherstaff = servletContext.addServlet("DispatcherServletUser", new DispatcherServlet(servletStaffContext));
+    		dispatcherUser.setLoadOnStartup(4);
+    		dispatcherUser.addMapping("/staff/");
     		dispatcherUser.setAsyncSupported(true);
 
-
-            
-            
             // 인코딩 필터 적용
             FilterRegistration.Dynamic charaterEncodingFilter = servletContext.addFilter("charaterEncodingFilter", new CharacterEncodingFilter());
             charaterEncodingFilter.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
