@@ -11,18 +11,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 	
-	@RequestMapping("admin/staffinfo")
-	public String staffList() throws Exception {
+	@RequestMapping("/admin/staffinfo")
+	public String staffinfo() throws Exception {
+		logger.info("staffInfo 페이지");
 		return "admin/staffinfo";
 	}
 	
-	@RequestMapping("admin/planning")
-	public String todayStaff() throws Exception {
+	@RequestMapping("/admin/planning")
+	public String planning() throws Exception {
+		logger.info("todayStaff 페이지");
 		return "admin/planning";
 	}
 	
-	@RequestMapping("admin/accept")
+	@RequestMapping("/admin/accept")
 	public String accept() throws Exception {
+		logger.info("accept 페이지");
 		return "admin/accept";
 	}
 }

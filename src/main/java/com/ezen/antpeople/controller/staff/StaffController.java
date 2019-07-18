@@ -19,21 +19,14 @@ public class StaffController {
 	@Inject
 	UserService userService;
 	
-	@RequestMapping("staff/requestwork")
-	public String staffList() throws Exception {
+	@RequestMapping("/staff/requestwork")
+	public String requestwork() throws Exception {
 		return "staff/requestwork";
 	}
 	
-	@RequestMapping("staff/modifywork")
-	public String todayStaff() throws Exception {
+	@RequestMapping("/staff/modifywork")
+	public String modifywork() throws Exception {
 		return "staff/modifywork";
 	}
 	
-	/*@RequestMapping("staff") 
-	public ModelAndView staffList(ModelAndView mav, int id) throws Exception {
-		UserDTO user = userService.getUser(id);
-		mav.setViewName("pages/calender");
-		mav.addObject("list", user);
-		return mav;
-	}*/
 }

@@ -8,6 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ezen.antpeople.dto.user.UserDTO;
 import com.ezen.antpeople.service.UserService;
@@ -22,27 +25,37 @@ public class UserController {
 		this.userService = userService;
 	}
 
-	@RequestMapping("login")
+	@RequestMapping("/pages/login.do")
 	public String login(Model model) {
 		logger.info("로그인 페이지");
 		return "login/login";
 	}
 
-	@RequestMapping("check")
-	public String loginCheck(String email, String password) throws Exception {
+	@RequestMapping(value="/pages/logincheck", method = RequestMethod.POST)
+	public String logincheck(@RequestParam("email") String email, @RequestParam("password") String password) throws Exception {
 		logger.info("체크 페이지");			
-//	public Model loginCheck(HttpServletRequest request, Model model) throws Exception {
+//	public Model logincheck(HttpServletRequest request, Model model) throws Exception {
 		UserDTO userDto = new UserDTO();
 		userDto.loginUser(email, password);
 		String returnURL ="";
-		boolean checkTF = userService.verifyPassword(userDto);
-		if(checkTF) {
+		if(userService.verifyPassword(userDto)) {
 			logger.info("확인 성공 / 사용자 구분시작");			
-			returnURL = "common/notice";
+			returnURL = "/common/notice";
 		} else {
-			returnURL = "pages/login";
+			returnURL = "/pages/login";
 		}
 		return returnURL;
+	}
+	
+	@RequestMapping("pages/register")
+	public String register() throws Exception {
+		return "pages/register";
+	}
+	
+	@RequestMapping(value="/pages/register.do", method= RequestMethod.POST)
+	public String registerPOST(UserDTO userDto) throws Exception {
+		userService.saveUser(userDto);
+		return "pages/login";
 	}
 
 	// 출퇴근 기능
