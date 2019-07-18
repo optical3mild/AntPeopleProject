@@ -42,17 +42,17 @@ public class MainController {
 		return "pages/stafflist";
 	}
 	
-	@RequestMapping("/pages/privatecalender") 
+	@RequestMapping("privatecalender") 
 	public ModelAndView privateCalender(ModelAndView mav, @RequestParam("user_id") int user_id) throws Exception {
 		UserDTO user = userService.getUser(user_id);
-		mav.setViewName("pages/calender");
+		mav.setViewName("calender");
 		mav.addObject("list", user);
 		return mav;
 	}
 	
-	@RequestMapping("/pages/todaystaff")
+	@RequestMapping("todaystaff")
 	public String todaystaff() throws Exception {
-		return "pages/todaystaff";
+		return "todaystaff";
 	}
 	
 }

@@ -25,13 +25,13 @@ public class UserController {
 		this.userService = userService;
 	}
 
-	@RequestMapping("/pages/login.do")
+	@RequestMapping("login.do")
 	public String login(Model model) {
 		logger.info("로그인 페이지");
 		return "login/login";
 	}
 
-	@RequestMapping(value="/pages/logincheck", method = RequestMethod.POST)
+	@RequestMapping(value="logincheck", method = RequestMethod.POST)
 	public String logincheck(@RequestParam("email") String email, @RequestParam("password") String password) throws Exception {
 		logger.info("체크 페이지");			
 //	public Model logincheck(HttpServletRequest request, Model model) throws Exception {
@@ -40,19 +40,19 @@ public class UserController {
 		String returnURL ="";
 		if(userService.verifyPassword(userDto)) {
 			logger.info("확인 성공 / 사용자 구분시작");			
-			returnURL = "/common/notice";
+			returnURL = "notice";
 		} else {
-			returnURL = "/pages/login";
+			returnURL = "login";
 		}
 		return returnURL;
 	}
 	
-	@RequestMapping("pages/register")
+	@RequestMapping("register")
 	public String register() throws Exception {
-		return "pages/register";
+		return "register";
 	}
 	
-	@RequestMapping(value="/pages/register.do", method= RequestMethod.POST)
+	@RequestMapping(value="register.do", method= RequestMethod.POST)
 	public String registerPOST(UserDTO userDto) throws Exception {
 		userService.saveUser(userDto);
 		return "pages/login";

@@ -19,14 +19,14 @@ public class StaffController {
 	@Inject
 	UserService userService;
 	
-	@RequestMapping("/staff/requestwork")
+	@RequestMapping("requestwork")
 	public String requestwork() throws Exception {
-		return "staff/requestwork";
+		return "requestwork";
 	}
 	
-	@RequestMapping("/staff/modifywork")
+	@RequestMapping("modifywork")
 	public String modifywork() throws Exception {
-		return "staff/modifywork";
+		return "modifywork";
 	}
 	
 }
