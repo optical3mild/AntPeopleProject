@@ -14,6 +14,9 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.DispatcherServlet;
 
+import com.ezen.antpeople.controller.main.ServletConfigurationMain;
+import com.ezen.antpeople.controller.user.ServletConfigurationUser;
+
 public class WebInitializer implements WebApplicationInitializer{
         @Override
         public void onStartup(ServletContext servletContext) throws ServletException {    
@@ -23,8 +26,27 @@ public class WebInitializer implements WebApplicationInitializer{
     		rootAppContext.setConfigLocation("com.ezen.antpeople.config");
     		ContextLoaderListener listener = new ContextLoaderListener(rootAppContext);
     		servletContext.addListener(listener);
-            
+            //-------------------------------------------
+    		
     		// ServeltContext_Main - WebApplicationContext
+<<<<<<< HEAD
+            AnnotationConfigWebApplicationContext ServletMainContext = new AnnotationConfigWebApplicationContext();
+            ServletMainContext.register(ServletConfigurationMain.class);
+            
+            ServletRegistration.Dynamic dispatcherMain = servletContext.addServlet("DispatcherServletMain", new DispatcherServlet(ServletMainContext));
+            dispatcherMain.setLoadOnStartup(1);
+            dispatcherMain.addMapping("/main/*");
+            //----------------------------------------------
+            
+            // ServeltContext_User - WebApplicationContext
+            AnnotationConfigWebApplicationContext servletUserContext = new AnnotationConfigWebApplicationContext();
+            servletUserContext.register(ServletConfigurationUser.class);
+
+    		ServletRegistration.Dynamic dispatcherUser = servletContext.addServlet("DispatcherServletUser", new DispatcherServlet(servletUserContext));
+    		dispatcherUser.setLoadOnStartup(2);
+    		dispatcherUser.addMapping("/user");
+    		//-----------------------------------------------
+=======
             AnnotationConfigWebApplicationContext ServletMaincontext = new AnnotationConfigWebApplicationContext();
             ServletMaincontext.setConfigLocation("com.ezen.antpeople.controller.main");
             ServletRegistration.Dynamic dispatcherMain = servletContext.addServlet("DispatcherServletMain", new DispatcherServlet(ServletMaincontext));
@@ -40,6 +62,7 @@ public class WebInitializer implements WebApplicationInitializer{
     		dispatcherUser.setAsyncSupported(true);
     		
 
+>>>>>>> 1fccb51abe0e0aa97794419d4e4e4fdf48f8e582
 
             // 인코딩 필터 적용
             FilterRegistration.Dynamic charaterEncodingFilter = servletContext.addFilter("charaterEncodingFilter", new CharacterEncodingFilter());

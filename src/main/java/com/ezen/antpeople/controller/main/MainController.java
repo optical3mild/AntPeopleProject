@@ -17,6 +17,13 @@ import com.ezen.antpeople.service.UserService;
 @Controller
 public class MainController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+<<<<<<< HEAD
+
+	@RequestMapping("/index")
+	public String main(Model model) {
+		logger.info("index 페이지");
+		return "login";
+=======
 	
 	@Inject
 	UserService userService;
@@ -50,6 +57,7 @@ public class MainController {
 	@RequestMapping("/pages/todaystaff")
 	public String todaystaff() throws Exception {
 		return "pages/todaystaff";
+>>>>>>> 1fccb51abe0e0aa97794419d4e4e4fdf48f8e582
 	}
 	
 }
