@@ -21,25 +21,30 @@ public class WebInitializer implements WebApplicationInitializer{
         	// RootAppContext - WebApplicationContext
     		AnnotationConfigWebApplicationContext rootAppContext = new AnnotationConfigWebApplicationContext();
     		rootAppContext.setConfigLocation("com.ezen.antpeople.config");
-
     		ContextLoaderListener listener = new ContextLoaderListener(rootAppContext);
     		servletContext.addListener(listener);
             
     		// ServeltContext_Main - WebApplicationContext
             AnnotationConfigWebApplicationContext ServletMaincontext = new AnnotationConfigWebApplicationContext();
             ServletMaincontext.setConfigLocation("com.ezen.antpeople.controller.main");
-            
             ServletRegistration.Dynamic dispatcherMain = servletContext.addServlet("DispatcherServletMain", new DispatcherServlet(ServletMaincontext));
             dispatcherMain.setLoadOnStartup(1);
             dispatcherMain.addMapping("/");
-            
+           
             // ServeltContext_User - WebApplicationContext
             AnnotationConfigWebApplicationContext servletUserContext = new AnnotationConfigWebApplicationContext();
             ServletMaincontext.setConfigLocation("com.ezen.antpeople.controller.user");
-
     		ServletRegistration.Dynamic dispatcherUser = servletContext.addServlet("DispatcherServletUser", new DispatcherServlet(servletUserContext));
     		dispatcherUser.setLoadOnStartup(2);
     		dispatcherUser.addMapping("/login.do");
+    		dispatcherUser.setAsyncSupported(true);
+    		
+    		// ServeltContext_Admin - WebApplicationContext
+    		AnnotationConfigWebApplicationContext servletAdminContext = new AnnotationConfigWebApplicationContext();
+    		ServletMaincontext.setConfigLocation("com.ezen.antpeople.controller.admin");
+    		ServletRegistration.Dynamic dispatcheradmin = servletContext.addServlet("DispatcherServletUser", new DispatcherServlet(servletAdminContext));
+    		dispatcherUser.setLoadOnStartup(3);
+    		dispatcherUser.addMapping("/admin");
     		dispatcherUser.setAsyncSupported(true);
 
 
