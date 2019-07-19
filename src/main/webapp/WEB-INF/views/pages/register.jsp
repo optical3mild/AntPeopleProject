@@ -27,14 +27,14 @@
 <body class="hold-transition register-page">
 	<div class="register-box">
 	  <div class="register-logo">
-	    <a href="../../index2.html"><b>Ant</b>People</a>
+	    <a href="${path}/main/index"><b>Ant</b>People</a>
 	  </div>
 	
 	  <div class="register-box-body">
 	    <p class="login-box-msg">Register a new membership</p>
 	
 		<!-- 연결할 경로 -->
-	    <form action="${path}/register.do" method="post">
+	    <form action="${path}/pages/register.do" method="post">
 	      <div class="form-group has-feedback">
 	        <input type="email" class="form-control" placeholder="Email">
 	        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -63,7 +63,7 @@
 	      </div>
 	    </form>
 	
-	    <a href="${path}/login" class="text-center">I already have a membership</a>
+	    <a href="${path}/pages/login" class="text-center">I already have a membership</a>
 	  </div>
 	  <!-- /.form-box -->
 	</div>

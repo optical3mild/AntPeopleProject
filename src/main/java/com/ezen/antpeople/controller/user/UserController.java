@@ -25,10 +25,10 @@ public class UserController {
 		this.userService = userService;
 	}
 
-	@RequestMapping("login.do")
+	@RequestMapping("login")
 	public String login(Model model) {
 		logger.info("로그인 페이지");
-		return "login/login";
+		return "pages/login";
 	}
 
 	@RequestMapping(value="logincheck", method = RequestMethod.POST)
@@ -49,13 +49,14 @@ public class UserController {
 	
 	@RequestMapping("register")
 	public String register() throws Exception {
-		return "register";
+		return "pages/register";
 	}
 	
 	@RequestMapping(value="register.do", method= RequestMethod.POST)
 	public String registerPOST(UserDTO userDto) throws Exception {
 		userService.saveUser(userDto);
-		return "pages/login";
+		logger.info("register.do DTO추가");
+		return "redirect:/pages/login";
 	}
 
 	// 출퇴근 기능
