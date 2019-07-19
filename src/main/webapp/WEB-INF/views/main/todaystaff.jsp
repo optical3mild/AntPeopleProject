@@ -41,16 +41,78 @@
         <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+        <li><a href="${path}/#"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li class="active">Main</li>
       </ol>
     </section>
-    
-    <!-- Main content -->
+    <!-- ------------------------------------------------- -->    
+   <!-- Main content -->
     <section class="content">
-    
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box box-info">
+            <div class="box-header">
+              <h3 class="box-title">Data Table With Full Features</h3>
+              <hr style="margin-bottom: 0 ; border: 0.5px solid lightgrey">
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="staffListTable" class="table table-bordered table-striped">
+				<colgroup>
+				  <col style="width: 10%">
+				  <col style="width: 15%">
+				  <col style="width: 15%">
+				  <col style="width: 20%">
+				  <col style="width: 20%">
+				  <col style="width: 20%">
+				</colgroup>
+                <thead>
+                  <tr>
+                    <th>번호</th>
+                    <th>이름</th>
+                    <th>직급</th>
+                    <th>소속</th>
+                    <th>연락처</th>
+                    <th>이메일</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                  	<td>001</td>
+                  	<td><a href="#">알바1</a></td>
+                  	<td>알바</td>
+                  	<td>점포1</td>
+                  	<td>000-0000-0000</td>
+                  	<td>test1_al-ba@gmail.com</td>
+                  </tr>
+                
+               	  <c:set var="todayStaffList" value="${requestScope.todayStaffList}"/>
+				  <c:forEach var="todayStaff" items="${todayStaffList}">
+					<tr>
+					  <td style="text-align: center;">${todayStaff.number}</td>
+					  <td style="text-align: center;">
+					    <a href="${path}/#">${todayStaff.name}</a>
+					  </td>
+					  <td style="text-align: center;">${todayStaff.position}</td>
+					  <td style="text-align: center;">${todayStaff.group}</td>
+					  <td style="text-align: center;">${todayStaff.phoneNumber}</td>
+					  <td style="text-align: center;">${todayStaff.eMail}</td>
+					</tr>
+				  </c:forEach>
+				  
+                </tbody>
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
     </section>
     <!-- /.content -->
+<!-- -------------------------------------------- -->  
   </div>
   <!-- /.content-wrapper -->
   <%@ include file = "../common/_bottom.jspf" %>

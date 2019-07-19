@@ -15,7 +15,13 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
 
+<<<<<<< HEAD
 import com.ezen.antpeople.controller.page.ServletConfigurationPage;
+=======
+import com.ezen.antpeople.controller.admin.ServletConfigurationAdmin;
+import com.ezen.antpeople.controller.main.ServletConfigurationMain;
+import com.ezen.antpeople.controller.staff.ServletConfigurationStaff;
+>>>>>>> cf423e6e19bf805e712e66a5122c9cb4ff25dc6d
 import com.ezen.antpeople.controller.user.ServletConfigurationUser;
 
 public class WebInitializer implements WebApplicationInitializer{
@@ -45,6 +51,27 @@ public class WebInitializer implements WebApplicationInitializer{
     		ServletRegistration.Dynamic dispatcherUser = servletContext.addServlet("DispatcherServletUser", new DispatcherServlet(servletUserContext));
     		dispatcherUser.setLoadOnStartup(2);
     		dispatcherUser.addMapping("/user/*");
+<<<<<<< HEAD
+=======
+    		//-----------------------------------------------
+    		
+    		// ServeltContext_Admin - WebApplicationContext
+    		AnnotationConfigWebApplicationContext servletAdminContext = new AnnotationConfigWebApplicationContext();
+    		servletAdminContext.register(ServletConfigurationAdmin.class);
+    		
+    		ServletRegistration.Dynamic dispatcherAdmin = servletContext.addServlet("DispatcherServletAdmin", new DispatcherServlet(servletAdminContext));
+    		dispatcherAdmin.setLoadOnStartup(3);
+    		dispatcherAdmin.addMapping("/admin/*");
+    		//-----------------------------------------------
+    		
+    		// ServeltContext_Staff - WebApplicationContext
+    		AnnotationConfigWebApplicationContext servletStaffContext = new AnnotationConfigWebApplicationContext();
+    		servletStaffContext.register(ServletConfigurationStaff.class);
+    		
+    		ServletRegistration.Dynamic dispatcherStaff = servletContext.addServlet("DispatcherServletStaff", new DispatcherServlet(servletStaffContext));
+    		dispatcherStaff.setLoadOnStartup(4);
+    		dispatcherStaff.addMapping("/staff/*");
+>>>>>>> cf423e6e19bf805e712e66a5122c9cb4ff25dc6d
     		//-----------------------------------------------
     		
     		// spring security 필터 적용
