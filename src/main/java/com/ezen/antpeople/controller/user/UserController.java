@@ -58,7 +58,7 @@ public class UserController {
 	@RequestMapping(value="/pages/register.do", method= RequestMethod.POST)
 	public String registerPOST(UserDTO userDto) throws Exception {
 		userService.saveUser(userDto);
-		return "pages/login";
+		return "login";
 	}
 
 	// 출퇴근 기능
