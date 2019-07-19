@@ -12,11 +12,16 @@ import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
 
+<<<<<<< HEAD
+import com.ezen.antpeople.controller.page.ServletConfigurationPage;
+=======
 import com.ezen.antpeople.controller.admin.ServletConfigurationAdmin;
 import com.ezen.antpeople.controller.main.ServletConfigurationMain;
 import com.ezen.antpeople.controller.staff.ServletConfigurationStaff;
+>>>>>>> cf423e6e19bf805e712e66a5122c9cb4ff25dc6d
 import com.ezen.antpeople.controller.user.ServletConfigurationUser;
 
 public class WebInitializer implements WebApplicationInitializer{
@@ -31,12 +36,12 @@ public class WebInitializer implements WebApplicationInitializer{
             //-------------------------------------------
     		
     		// ServeltContext_Main - WebApplicationContext
-            AnnotationConfigWebApplicationContext ServletMainContext = new AnnotationConfigWebApplicationContext();
-            ServletMainContext.register(ServletConfigurationMain.class);
+            AnnotationConfigWebApplicationContext ServletPageContext = new AnnotationConfigWebApplicationContext();
+            ServletPageContext.register(ServletConfigurationPage.class);
             
-            ServletRegistration.Dynamic dispatcherMain = servletContext.addServlet("DispatcherServletMain", new DispatcherServlet(ServletMainContext));
-            dispatcherMain.setLoadOnStartup(1);
-            dispatcherMain.addMapping("/main/*");
+            ServletRegistration.Dynamic dispatcherPage = servletContext.addServlet("DispatcherServletPage", new DispatcherServlet(ServletPageContext));
+            dispatcherPage.setLoadOnStartup(1);
+            dispatcherPage.addMapping("/page/*");
             //----------------------------------------------
             
             // ServeltContext_User - WebApplicationContext
@@ -46,6 +51,8 @@ public class WebInitializer implements WebApplicationInitializer{
     		ServletRegistration.Dynamic dispatcherUser = servletContext.addServlet("DispatcherServletUser", new DispatcherServlet(servletUserContext));
     		dispatcherUser.setLoadOnStartup(2);
     		dispatcherUser.addMapping("/user/*");
+<<<<<<< HEAD
+=======
     		//-----------------------------------------------
     		
     		// ServeltContext_Admin - WebApplicationContext
@@ -64,8 +71,14 @@ public class WebInitializer implements WebApplicationInitializer{
     		ServletRegistration.Dynamic dispatcherStaff = servletContext.addServlet("DispatcherServletStaff", new DispatcherServlet(servletStaffContext));
     		dispatcherStaff.setLoadOnStartup(4);
     		dispatcherStaff.addMapping("/staff/*");
+>>>>>>> cf423e6e19bf805e712e66a5122c9cb4ff25dc6d
     		//-----------------------------------------------
-
+    		
+    		// spring security 필터 적용
+            FilterRegistration fr = servletContext.addFilter("springSecurityFilterChain", 
+            		new DelegatingFilterProxy("springSecurityFilterChain"));  
+            fr.addMappingForUrlPatterns(null, false, "/*");  
+    		
             // 인코딩 필터 적용
             FilterRegistration.Dynamic charaterEncodingFilter = servletContext.addFilter("charaterEncodingFilter", new CharacterEncodingFilter());
             charaterEncodingFilter.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");

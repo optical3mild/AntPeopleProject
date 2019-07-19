@@ -1,15 +1,13 @@
 package com.ezen.antpeople.serviceimpl;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Optional;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ezen.antpeople.dto.user.UserDTO;
-import com.ezen.antpeople.entity.RoleEntity;
+import com.ezen.antpeople.dto.user.UserDetailDTO;
+import com.ezen.antpeople.dto.user.UserLoginDTO;
 import com.ezen.antpeople.entity.UserEntity;
 import com.ezen.antpeople.repository.RoleRepository;
 import com.ezen.antpeople.repository.UserRepository;
@@ -31,66 +29,52 @@ public class UserServiceImpl implements UserService {
 		this.roleRepository = roleRepository;
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
-
+	
+	//회원 정보 확인 
 	@Override
-	public UserDTO findUserByEmail(String email) {
-		UserEntity userEntity = new UserEntity();
-		userEntity = userRepository.findByEmail(email);
-		return userEntity.buildDTO();
+	public UserDetailDTO findByEmail(String email) {
+		Optional<UserEntity> userDetail = userRepository.findByEmail(email);
+		return userDetail.get().buildDTO();
 	}
 
+	// 로그인 로직
 	@Override
-	public void saveUser(UserDTO user) {
+	public UserDetailDTO loginUser(UserLoginDTO uld) {
+		Optional<UserEntity> userDetail = userRepository.findByEmail(uld.getEmail());
+		if(userDetail.get().getPassword().equals(uld.getPassword()))
+			return userDetail.get().buildDTO();
+		else 
+			return null;
 	}
 
+	//회원 가입 로직 
 	@Override
-	public UserDTO getUser(int id) {
-		Optional<UserEntity> userEntity = userRepository.findById(id);
-		if (userEntity.isPresent())
-			return userEntity.get().buildDTO();
-		else return new UserDTO();
+	public String userSignUp(UserDetailDTO udd) {
+		UserEntity entity = new UserEntity(udd);
+		userRepository.save(entity);
+		Optional<UserEntity> checkEmail = userRepository.findByEmail(udd.getEmail());
+		if(checkEmail.isPresent())
+			return udd.getEmail();
+		else
+			return  "회원 가입에 실패하였습니다.";
 	}
-
+	
+	//회원 탈퇴 로직
 	@Override
-	public void deleteUser(UserDTO user) {
-		UserEntity userEntity = userRepository.findByEmail(user.getEmail());
-		userRepository.deleteById(userEntity.getId());
+	public String userDelete(String email, String password) {
+		String msg = new String();
+		Optional<UserEntity> entity = userRepository.findByEmail(email);
+		if(entity.get().getPassword().equals(password)) {
+			userRepository.delete(entity.get());
+			msg = "정상적으로 회원 탈퇴가 되었습니다.";
+		} else {
+			msg = "비밀번호가 틀렸습니다. 다시 입력해 주세요.";
+		}
+		return msg;
+			
 		
 	}
 
-	//정보 업데이트
-	//view로부터 유저의 변경 정보를 얻는다. (이때, 이메일은 제외한다.)
-	//예를 들어 유저의 정보 중 주소만 변경 되었다고 할 경우, 나머지 사항은 원래 값이 들어 가있다.
-	//이때, Entity의 메소드를 통해 주소,전화번호만 변경 가능하게 한다. (초기테스트)
 	
-	
-	@Override
-	public boolean verifyPassword(UserDTO user) {
-		UserEntity userEntity = userRepository.findByEmail(user.getEmail());
-		System.out.println(userEntity.toString());
-		if(bCryptPasswordEncoder.matches(user.getPassword(), userEntity.getPassword()))
-			return true;
-		else
-			return false;
-	}
-	
-	//출퇴근용
-		@Override
-		public void saveGo(UserDTO userDTO) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void saveOut(UserDTO userDTO) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void updateUser(UserDTO user) {
-			// TODO Auto-generated method stub
-			
-		}
 
 }

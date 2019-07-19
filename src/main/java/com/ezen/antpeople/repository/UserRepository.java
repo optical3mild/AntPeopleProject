@@ -1,11 +1,16 @@
 package com.ezen.antpeople.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
 import com.ezen.antpeople.entity.UserEntity;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Integer>{
-	UserEntity findByEmail(String email);
+	
+	@Nullable
+	Optional<UserEntity> findByEmail(String email);
 }
