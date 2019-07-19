@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Board</title>
+  <title>Notice</title>
   
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -23,15 +23,7 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
   
-  <!-- DataTables -->
-  <link rel="stylesheet" href="setfiles/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   
-  <!-- 적용여부 확인. -->
-  <style>
-	  td, th {
-	  	text-overflow: ellipsis;
-	  }
-  </style>
   
   <%@ include file= "../common/header.jsp" %>
 </head>
@@ -48,7 +40,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Common - Staff List (직원목록)
+        Common - Notice - Write Article(글 쓰기)
         <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
@@ -57,70 +49,53 @@
       </ol>
     </section>
 <!-- ------------------------------------------------- -->    
-   <!-- Main content -->
+    <!-- Main content -->
     <section class="content">
       <div class="row">
-        <div class="col-xs-12">
+        
+        <!-- right column -->
+        <div class="col-md-12">
+          
+          <!-- general form elements disabled -->
           <div class="box box-info">
-            <div class="box-header">
-              <h3 class="box-title">Data Table With Full Features</h3>
-              <hr style="margin-bottom: 0 ; border: 0.5px solid lightgrey">
+            <div class="box-header with-border">
+              <h3 class="box-title">General Elements</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="staffListTable" class="table table-bordered table-striped">
-				<colgroup>
-				  <col style="width: 10%">
-				  <col style="width: 15%">
-				  <col style="width: 15%">
-				  <col style="width: 20%">
-				  <col style="width: 20%">
-				  <col style="width: 20%">
-				</colgroup>
-                <thead>
-                  <tr>
-                    <th>번호</th>
-                    <th>이름</th>
-                    <th>직급</th>
-                    <th>소속</th>
-                    <th>연락처</th>
-                    <th>이메일</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                  	<td>001</td>
-                  	<td><a href="articledetail.jsp">알바1</a></td>
-                  	<td>알바</td>
-                  	<td>점포1</td>
-                  	<td>000-0000-0000</td>
-                  	<td>test1_al-ba@gmail.com</td>
-                  </tr>
+              <form role="form" action>
+                <!-- text input -->
                 
-               	  <c:set var="staffList" value="${requestScope.staffList}"/>
-				  <c:forEach var="staff" items="${staffList}">
-					<tr>
-					  <td style="text-align: center;">${staff.noticeNumber}</td>
-			<%--Title 클릭 시 해당 글 링크로 넘어감 서블릿 요청필요.--%>
-					  <td style="text-align: center;"><a href="TransProc?action=detailList&iCode=${staff.noticeNumber}">${board.title}</a></td>
-					  <td style="text-align: center;"><fmt:formatDate value="${board.noticeDate}" pattern="yy-MM-dd"/></td>
-					  <%-- 날짜를 String으로 받아오는 경우 parseDate --> formatDate로 두번실행.
-					  <td style="text-align: center;">
-					    <fmt:parseDate value="${notice.noticeDate}" var="dateFmt" pattern="yyyyMMdd"/>
-					    <fmt:formatDate value="${dateFmt}" pattern="yy-MM-dd"/>
-					  </td> --%>
-					  <td style="text-align: center;">${board.userId}</td>
-					</tr>
-				  </c:forEach>
-				  
-                </tbody>
-              </table>
+                <div class="form-group">
+                  <label>Title</label>
+                  <input type="text" class="form-control" name="title">
+                </div>
+
+                <!-- textarea -->
+                <div class="form-group">
+                  <label>The Body</label>
+                  <textarea class="form-control" rows="3" name="theBody"></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label>Category</label>
+                  <select class="form-control" name="category">
+                    <option value="notice">Notice</option>
+                    <option value="board">Board</option>
+                  </select>
+                </div>
+				<div class="box-footer" style="padding-left: 0; padding-right:0;">
+                  <button type="button" class="btn btn-default"><a href="#">목록으로</a></button>
+                  <button type="submit" class="btn btn-info pull-right">작성완료</button>
+                </div>
+                <!-- /.box-footer -->
+              </form>
             </div>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
         </div>
-        <!-- /.col -->
+        <!--/.col (right) -->
       </div>
       <!-- /.row -->
     </section>
@@ -143,17 +118,7 @@
 <!-- AdminLTE App : navbar 관련-->
 <script src="setfiles/dist/js/adminlte.min.js"></script>
 
-<!-- DataTables -->
-	<!-- 상하단 검색기능, 페이지 넘김기능 -->
-<script src="setfiles/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-	<!-- table검색창등 미세설정.. -->
-<script src="setfiles/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 
-<script>
-  $(function () {
-    $('#boardTable').DataTable()
-  })
-</script>
 
 </body>
 </html>

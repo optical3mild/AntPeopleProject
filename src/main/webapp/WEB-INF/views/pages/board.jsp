@@ -48,7 +48,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Common - Staff List (직원목록)
+        Common - Board(자유게시판)
         <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
@@ -64,46 +64,41 @@
           <div class="box box-info">
             <div class="box-header">
               <h3 class="box-title">Data Table With Full Features</h3>
+              <button type="button" class="btn btn-info pull-right"><a href ="writearticle.jsp">글쓰기</a></button>
               <hr style="margin-bottom: 0 ; border: 0.5px solid lightgrey">
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="staffListTable" class="table table-bordered table-striped">
+              <table id="boardTable" class="table table-bordered table-striped">
 				<colgroup>
-				  <col style="width: 10%">
+				  <col style="width: 15%">
+				  <col style="width: 55%">
 				  <col style="width: 15%">
 				  <col style="width: 15%">
-				  <col style="width: 20%">
-				  <col style="width: 20%">
-				  <col style="width: 20%">
 				</colgroup>
                 <thead>
                   <tr>
-                    <th>번호</th>
-                    <th>이름</th>
-                    <th>직급</th>
-                    <th>소속</th>
-                    <th>연락처</th>
-                    <th>이메일</th>
+                    <th>글번호</th>
+                    <th>제목</th>
+                    <th>작성날짜</th>
+                    <th>작성자</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                   	<td>001</td>
-                  	<td><a href="articledetail.jsp">알바1</a></td>
-                  	<td>알바</td>
-                  	<td>점포1</td>
-                  	<td>000-0000-0000</td>
-                  	<td>test1_al-ba@gmail.com</td>
+                  	<td><a href="articledetail.jsp">testpage</a></td>
+                  	<td>2019.07.20</td>
+                  	<td>으엌이</td>
                   </tr>
                 
-               	  <c:set var="staffList" value="${requestScope.staffList}"/>
-				  <c:forEach var="staff" items="${staffList}">
+               	  <c:set var="boardList" value="${requestScope.boardList}"/>
+				  <c:forEach var="board" items="${boardList}">
 					<tr>
-					  <td style="text-align: center;">${staff.noticeNumber}</td>
+					  <td style="text-align: center;">${board.number}</td>
 			<%--Title 클릭 시 해당 글 링크로 넘어감 서블릿 요청필요.--%>
-					  <td style="text-align: center;"><a href="TransProc?action=detailList&iCode=${staff.noticeNumber}">${board.title}</a></td>
-					  <td style="text-align: center;"><fmt:formatDate value="${board.noticeDate}" pattern="yy-MM-dd"/></td>
+					  <td style="text-align: center;"><a href="TransProc?action=detailList&iCode=${board.number}">${board.title}</a></td>
+					  <td style="text-align: center;"><fmt:formatDate value="${board.date}" pattern="yy-MM-dd"/></td>
 					  <%-- 날짜를 String으로 받아오는 경우 parseDate --> formatDate로 두번실행.
 					  <td style="text-align: center;">
 					    <fmt:parseDate value="${notice.noticeDate}" var="dateFmt" pattern="yyyyMMdd"/>
