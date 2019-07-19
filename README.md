@@ -81,4 +81,4 @@
 - (오인) DB ER다이어그램 추가 (user, store, role, bbs, todo)
 
 ### Day 10 : View 추가 (19.07.19)
-- (정우) view update : notice, board, article, write등 페이지 추가, 업데이트
+- (정우) view update : notice, board, article, write등 페이지 추가, 폴더구조 변경, 업데이트

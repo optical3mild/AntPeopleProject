@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Notice</title>
+  <title>Board</title>
   
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -48,12 +48,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Common - Notice(공지사항)
+        Common - Board(자유게시판)
         <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+        <li><a href="${path}/#"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li class="active">Main</li>
       </ol>
     </section>
 <!-- ------------------------------------------------- -->    
@@ -64,12 +64,12 @@
           <div class="box box-info">
             <div class="box-header">
               <h3 class="box-title">Data Table With Full Features</h3>
-              <button type="button" class="btn btn-info pull-right"><a href ="writearticle.jsp">글쓰기</a></button>
+              <button type="button" class="btn btn-info pull-right" onclick="location.href='${path}/#' ">글쓰기</button>
               <hr style="margin-bottom: 0 ; border: 0.5px solid lightgrey">
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="noticeTable" class="table table-bordered table-striped">
+              <table id="boardTable" class="table table-bordered table-striped">
 				<colgroup>
 				  <col style="width: 15%">
 				  <col style="width: 55%">
@@ -87,24 +87,28 @@
                 <tbody>
                   <tr>
                   	<td>001</td>
-                  	<td><a href="articledetail.jsp">testpage</a></td>
+                  	<td><a href="">testpage</a></td>
                   	<td>2019.07.20</td>
                   	<td>으엌이</td>
                   </tr>
                 
-               	  <c:set var="noticeList" value="${requestScope.noticeList}"/>
-				  <c:forEach var="notice" items="${noticeList}">
+               	  <c:set var="boardList" value="${requestScope.boardList}"/>
+				  <c:forEach var="board" items="${boardList}">
 					<tr>
-					  <td style="text-align: center;">${notice.number}</td>
-			<%--Title 클릭 시 해당 글 링크로 넘어감 서블릿 요청필요.--%>
-					  <td style="text-align: center;"><a href="TransProc?action=detailList&iCode=${notice.number}">${notice.title}</a></td>
-					  <td style="text-align: center;"><fmt:formatDate value="${notice.date}" pattern="yy-MM-dd"/></td>
+					  <td style="text-align: center;">${board.number}</td>
+			          <%--Title 클릭 시 해당 글 링크로 넘어감. 서블릿 요청필요.--%>
+					  <td style="text-align: center;">
+					    <a href="${path}/#">${board.title}</a>
+					  </td>
+					  <td style="text-align: center;">
+					    <fmt:formatDate value="${board.date}" pattern="yy-MM-dd"/>
+					  </td>
 					  <%-- 날짜를 String으로 받아오는 경우 parseDate --> formatDate로 두번실행.
 					  <td style="text-align: center;">
 					    <fmt:parseDate value="${notice.noticeDate}" var="dateFmt" pattern="yyyyMMdd"/>
 					    <fmt:formatDate value="${dateFmt}" pattern="yy-MM-dd"/>
 					  </td> --%>
-					  <td style="text-align: center;">${notice.userId}</td>
+					  <td style="text-align: center;">${board.userId}</td>
 					</tr>
 				  </c:forEach>
 				  
@@ -146,7 +150,7 @@
 
 <script>
   $(function () {
-    $('#noticeTable').DataTable()
+    $('#boardTable').DataTable()
   })
 </script>
 

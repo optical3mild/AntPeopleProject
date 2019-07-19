@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Notice</title>
+  <title>Article</title>
   
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -44,8 +44,8 @@
         <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+        <li><a href="${path}/#"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li class="active">Main</li>
       </ol>
     </section>
 <!-- ------------------------------------------------- -->    
@@ -55,38 +55,31 @@
         
         <!-- right column -->
         <div class="col-md-12">
-          
+          <c:set var="article" value="${requestScope.article}"/>
           <!-- general form elements disabled -->
           <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">General Elements</h3>
+              <h3 class="box-title">${article.title}</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <form role="form">
                 <!-- text input -->
                 <div class="form-group">
-                  <span>작성자:&nbsp;으엌이</span>
-                  <span>작성일:&nbsp;2019.07.20</span>
+                  <label style="display:inline">작성자:&nbsp;&nbsp;${article.userName}</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                  <label style="display:inline">작성일:&nbsp;&nbsp;${article.date}</label>
                 </div>
                 
-                <div class="form-group">
-                  <label>Title</label>
-                  <input type="text" class="form-control" disabled value="${title}" style="background-color: white;">
-                </div>
-
                 <!-- textarea -->
                 <div class="form-group">
-                  <label>The Body</label>
                   <textarea class="form-control" rows="3" disabled style="background-color: white;">
-                    ${theBody}
+                    ${article.theBody}
                   </textarea>
                 </div>
 
                 <div class="form-group">
-              <!-- test값 -->
-                <c:set var="categoryOption" value="Board" />
-              
+                  <!-- script 전달값. select 자동선택 -->
+                  <c:set var="categoryOption" value="${article.category}" />
                   <label>Category</label>
                   <select class="form-control selection" disabled>
                     <option>Notice</option>
@@ -94,11 +87,9 @@
                   </select>
                 </div>
                 <div class="box-footer" style="padding-left: 0; padding-right:0;">
-                  <button type="button" class="btn btn-default"><a href="#">목록으로</a></button>
-                  <button type="button" class="btn btn-info pull-right" style="margin: 0 0 0 20px">
-                    <a href="writearticle.jsp">수정</a>
-                  </button>
-                  <button type="button" class="btn btn-info pull-right">삭제</button>
+                  <button type="button" class="btn btn-default" onclick="location.href='${path}/#' ">목록으로</button>
+                  <button type="button" class="btn btn-info pull-right" style="margin: 0 0 0 20px" onclick="location.href='${path}/#' ">삭제</button>
+                  <button type="button" class="btn btn-info pull-right" onclick="location.href='${path}/#' ">수정</button>
                 </div>
               </form>
             </div>

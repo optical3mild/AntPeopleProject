@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Board</title>
+  <title>StaffList</title>
   
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -26,12 +26,6 @@
   <!-- DataTables -->
   <link rel="stylesheet" href="setfiles/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   
-  <!-- 적용여부 확인. -->
-  <style>
-	  td, th {
-	  	text-overflow: ellipsis;
-	  }
-  </style>
   
   <%@ include file= "../common/header.jsp" %>
 </head>
@@ -52,8 +46,8 @@
         <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+        <li><a href="${path}/#"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li class="active">Main</li>
       </ol>
     </section>
 <!-- ------------------------------------------------- -->    
@@ -90,7 +84,7 @@
                 <tbody>
                   <tr>
                   	<td>001</td>
-                  	<td><a href="articledetail.jsp">알바1</a></td>
+                  	<td><a href="#">알바1</a></td>
                   	<td>알바</td>
                   	<td>점포1</td>
                   	<td>000-0000-0000</td>
@@ -100,16 +94,14 @@
                	  <c:set var="staffList" value="${requestScope.staffList}"/>
 				  <c:forEach var="staff" items="${staffList}">
 					<tr>
-					  <td style="text-align: center;">${staff.noticeNumber}</td>
-			<%--Title 클릭 시 해당 글 링크로 넘어감 서블릿 요청필요.--%>
-					  <td style="text-align: center;"><a href="TransProc?action=detailList&iCode=${staff.noticeNumber}">${board.title}</a></td>
-					  <td style="text-align: center;"><fmt:formatDate value="${board.noticeDate}" pattern="yy-MM-dd"/></td>
-					  <%-- 날짜를 String으로 받아오는 경우 parseDate --> formatDate로 두번실행.
+					  <td style="text-align: center;">${staff.number}</td>
 					  <td style="text-align: center;">
-					    <fmt:parseDate value="${notice.noticeDate}" var="dateFmt" pattern="yyyyMMdd"/>
-					    <fmt:formatDate value="${dateFmt}" pattern="yy-MM-dd"/>
-					  </td> --%>
-					  <td style="text-align: center;">${board.userId}</td>
+					    <a href="${path}/#">${staff.name}</a>
+					  </td>
+					  <td style="text-align: center;">${staff.position}</td>
+					  <td style="text-align: center;">${staff.group}</td>
+					  <td style="text-align: center;">${staff.phoneNumber}</td>
+					  <td style="text-align: center;">${staff.eMail}</td>
 					</tr>
 				  </c:forEach>
 				  
