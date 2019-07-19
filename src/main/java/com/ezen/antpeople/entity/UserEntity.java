@@ -14,7 +14,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.ezen.antpeople.dto.user.UserDTO;
+import com.ezen.antpeople.dto.user.UserDetailDTO;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -42,26 +42,32 @@ public class UserEntity extends BaseEntity implements Serializable {
 	@NotEmpty(message="*Please provide your name")
 	private String name;
 	
-	private int state;
+	private Integer state;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="role_id")
 	private RoleEntity role;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="store_id")
 	private StoreEntity store;
 	
 	//TO-DO 필요시 메소드를 통해 setter 기능을 추가한다.
 	
-	public UserDTO buildDTO( ) {
-		return new UserDTO();
+	//회원가입시 유저 정보 저장
+	public UserEntity(UserDetailDTO user) {
+		this.email = user.getEmail();
+		this.password = user.getPassword();
+		this.name = user.getName();
+		this.state = 0;
+		this.role = new RoleEntity(user.getRole());
+		this.store = new StoreEntity(user.getStore());
 	}
 	
-	public void buildEntity(UserDTO user) {
-		
+	//로그인시 유저 상세 정보
+	public UserDetailDTO buildDTO() {
+		return new UserDetailDTO(this.id, this.email, this.password, this.name,
+				this.state, this.createdAt,this.updatedAt, this.role.buildDTO(), this.store.buildDTO() );
 	}
-	
-	
 	
 }

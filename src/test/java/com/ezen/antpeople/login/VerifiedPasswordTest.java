@@ -12,7 +12,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.ezen.antpeople.config.RootConfig;
-import com.ezen.antpeople.dto.user.UserDTO;
 import com.ezen.antpeople.service.UserService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -26,9 +25,6 @@ public class VerifiedPasswordTest {
 	@Test @Ignore
 	
 	public void VerifyPasswordTest() {
-		UserDTO user = new UserDTO("java333@gmail.com","java333","김자바2","1","서울특별시","010-5675-6666",1);
-		
-		assertTrue(us.verifyPassword(user));
 		
 	}
 	

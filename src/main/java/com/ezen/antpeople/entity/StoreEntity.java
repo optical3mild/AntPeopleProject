@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.ezen.antpeople.dto.user.StoreDTO;
+
 import lombok.Getter;
 
 @Getter
@@ -23,5 +25,16 @@ public class StoreEntity implements Serializable {
 	
 	@Column(name="store")
 	private String store;
+	
+	public StoreEntity() {}
+	
+	public StoreEntity(StoreDTO store) {
+		this.store_id = store.getStore_id();
+		this.store = store.getStore();
+	}
+	
+	public StoreDTO buildDTO() {
+		return new StoreDTO(this.store_id, this.store);
+	}
 
 }

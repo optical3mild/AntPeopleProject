@@ -1,4 +1,4 @@
-package com.ezen.antpeople.controller.main;
+package com.ezen.antpeople.controller.page;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -12,7 +12,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 @EnableWebMvc //xml의 <annotation-driven>
 @ComponentScan(basePackages="com.ezen.antpeople.controller.main") // xml의 context component-scan
-public class ServletConfigurationMain extends WebMvcConfigurerAdapter{
+public class ServletConfigurationPage extends WebMvcConfigurerAdapter{
     
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

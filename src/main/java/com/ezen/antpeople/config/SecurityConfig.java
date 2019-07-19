@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
@@ -16,25 +16,35 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @Order(2)
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
+	
+	//비밀번호 암호화
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 	    return new BCryptPasswordEncoder();
 	}
-	
-	@Override protected void configure(HttpSecurity http) throws Exception {
-		http.httpBasic().and().authorizeRequests() 
-						.antMatchers("/users/**").permitAll()
-						.antMatchers("/admin/**").access("hasRole('ADMIN_MASTER') or hasRole('ADMIN') and hasRole('DBA')") 
-						.antMatchers("/register/**").hasRole("ANONYMOUS") 
-						.anyRequest().authenticated()
-						.and() 
-					.formLogin() 
-						.loginPage("/login/4444444") 
-						.usernameParameter("email") 
-						.passwordParameter("password") 
-						.permitAll(); 
-		}
 
+	//로그인 보안
+	protected void configure(HttpSecurity http) throws Exception {
+	    http
+	        .authorizeRequests()                                                               
+	            .antMatchers("/pages/**").permitAll()                  
+	            .antMatchers("/admin/**").hasRole("ADMIN")                                      
+	            .anyRequest().authenticated()                                                   
+	            .and()
+	        .formLogin()
+	            .loginPage("/user/login")
+	            .loginProcessingUrl("/login-processing")
+	            .failureUrl("/login-error")
+	            .defaultSuccessUrl("/loginSuccess", true)
+	            .usernameParameter("email")
+	            .passwordParameter("password")
+	            .permitAll();
+	    http	
+	    	.logout()
+		        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+		        .logoutSuccessUrl("/")
+		        .invalidateHttpSession(true);
+	}
 
 
 }

@@ -1,4 +1,4 @@
-package com.ezen.antpeople.controller.main;
+package com.ezen.antpeople.controller.page;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

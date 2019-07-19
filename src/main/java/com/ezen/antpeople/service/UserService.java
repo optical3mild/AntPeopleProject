@@ -1,21 +1,16 @@
 package com.ezen.antpeople.service;
 
-import com.ezen.antpeople.dto.user.UserDTO;
-import com.ezen.antpeople.entity.UserEntity;
+import com.ezen.antpeople.dto.user.UserDetailDTO;
+import com.ezen.antpeople.dto.user.UserLoginDTO;
 
 
 public interface UserService {
-	//기본 기능
-	public UserDTO getUser(int id);
-	public UserDTO findUserByEmail(String email);
-	public void saveUser(UserDTO user);
-	public void deleteUser(UserDTO user);
-	public void updateUser(UserDTO user);
+	//로그인 기능
+	public UserDetailDTO loginUser(UserLoginDTO uld); //회원 로그인
+	public String userSignUp(UserDetailDTO udd); // 회원 가입
+	public String userDelete(String email, String password); // 회원 탈퇴
 	
-	//로그인
-	public boolean verifyPassword(UserDTO user);
+	//유저 검색 기능
+	public UserDetailDTO findByEmail(String email);
 
-	//출퇴근
-		void saveGo(UserDTO userDTO);
-		void saveOut(UserDTO userDTO);
 }

@@ -1,4 +1,4 @@
-package com.ezen.antpeople.controller.main;
+package com.ezen.antpeople.controller.page;
 
 import javax.inject.Inject;
 
@@ -11,19 +11,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ezen.antpeople.controller.user.UserController;
-import com.ezen.antpeople.dto.user.UserDTO;
 import com.ezen.antpeople.service.UserService;
 
 @Controller
-public class MainController {
+public class PageController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	UserService userService;
 	
-	public MainController(UserService userService) {
+	public PageController(UserService userService) {
 		this.userService = userService;
 	}
 	
+	//AOP 작성 필요
 	@RequestMapping("/index")
 	public String main() {
 		logger.info("index 페이지");
@@ -42,13 +42,12 @@ public class MainController {
 		return "pages/stafflist";
 	}
 	
-	@RequestMapping("/pages/privatecalender") 
-	public ModelAndView privateCalender(ModelAndView mav, @RequestParam("user_id") int user_id) throws Exception {
-		UserDTO user = userService.getUser(user_id);
-		mav.setViewName("pages/calender");
-		mav.addObject("list", user);
-		return mav;
-	}
+	/*
+	 * @RequestMapping("/pages/privatecalender") public ModelAndView
+	 * privateCalender(ModelAndView mav, @RequestParam("user_id") int user_id)
+	 * throws Exception { UserDTO user = userService.getUser(user_id);
+	 * mav.setViewName("pages/calender"); mav.addObject("list", user); return mav; }
+	 */
 	
 	@RequestMapping("/pages/todaystaff")
 	public String todaystaff() throws Exception {
