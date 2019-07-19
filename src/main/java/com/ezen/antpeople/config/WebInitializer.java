@@ -45,7 +45,7 @@ public class WebInitializer implements WebApplicationInitializer{
 
     		ServletRegistration.Dynamic dispatcherUser = servletContext.addServlet("DispatcherServletUser", new DispatcherServlet(servletUserContext));
     		dispatcherUser.setLoadOnStartup(2);
-    		dispatcherUser.addMapping("/pages/*");
+    		dispatcherUser.addMapping("/user/*");
     		//-----------------------------------------------
     		
     		// ServeltContext_Admin - WebApplicationContext

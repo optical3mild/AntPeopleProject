@@ -19,11 +19,13 @@ public class StaffController {
 	@Inject
 	UserService userService;
 	
+	// 근무 신청
 	@RequestMapping("requestwork")
 	public String requestwork() throws Exception {
 		return "requestwork";
 	}
 	
+	// 근무 수정
 	@RequestMapping("modifywork")
 	public String modifywork() throws Exception {
 		return "modifywork";
