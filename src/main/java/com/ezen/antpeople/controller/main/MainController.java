@@ -24,35 +24,41 @@ public class MainController {
 		this.userService = userService;
 	}
 	
+	// index(=login)페이지로 이동
 	@RequestMapping("/index")
 	public String main() {
 		logger.info("index 페이지");
 		return "login";
 	}
 	
+	// 공지
 	@RequestMapping("/notice")
 	public String notice() {
 		logger.info("notice 페이지");
 		return "notice";
 	}
 	
+	// 직원 전체목록(간략)
 	@RequestMapping("/stafflist")
 	public String stafflist() throws Exception {
 		logger.info("staffList 페이지");
 		return "pages/stafflist";
 	}
 	
-	@RequestMapping("/pages/privatecalender") 
-	public ModelAndView privateCalender(ModelAndView mav, @RequestParam("user_id") int user_id) throws Exception {
+	// 개인 별 일정(달력) 데이터 보내기
+	@RequestMapping("privatecalender") 
+	public ModelAndView privateCalender(ModelAndView mav, int user_id) throws Exception {
 		UserDTO user = userService.getUser(user_id);
 		mav.setViewName("pages/calender");
 		mav.addObject("list", user);
 		return mav;
 	}
 	
-	@RequestMapping("/pages/todaystaff")
-	public String todaystaff() throws Exception {
-		return "pages/todaystaff";
+	// 금일 근무자 목록
+	@RequestMapping("todaystaff")
+	public String todaystaff(Model model) throws Exception {
+		
+		return "todaystaff";
 	}
 	
 }
