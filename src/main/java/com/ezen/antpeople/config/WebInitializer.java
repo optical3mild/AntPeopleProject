@@ -14,7 +14,9 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.DispatcherServlet;
 
+import com.ezen.antpeople.controller.admin.ServletConfigurationAdmin;
 import com.ezen.antpeople.controller.main.ServletConfigurationMain;
+import com.ezen.antpeople.controller.staff.ServletConfigurationStaff;
 import com.ezen.antpeople.controller.user.ServletConfigurationUser;
 
 public class WebInitializer implements WebApplicationInitializer{
@@ -43,7 +45,25 @@ public class WebInitializer implements WebApplicationInitializer{
 
     		ServletRegistration.Dynamic dispatcherUser = servletContext.addServlet("DispatcherServletUser", new DispatcherServlet(servletUserContext));
     		dispatcherUser.setLoadOnStartup(2);
-    		dispatcherUser.addMapping("/user");
+    		dispatcherUser.addMapping("/user/*");
+    		//-----------------------------------------------
+    		
+    		// ServeltContext_Admin - WebApplicationContext
+    		AnnotationConfigWebApplicationContext servletAdminContext = new AnnotationConfigWebApplicationContext();
+    		servletAdminContext.register(ServletConfigurationAdmin.class);
+    		
+    		ServletRegistration.Dynamic dispatcherAdmin = servletContext.addServlet("DispatcherServletAdmin", new DispatcherServlet(servletAdminContext));
+    		dispatcherAdmin.setLoadOnStartup(3);
+    		dispatcherAdmin.addMapping("/admin/*");
+    		//-----------------------------------------------
+    		
+    		// ServeltContext_Staff - WebApplicationContext
+    		AnnotationConfigWebApplicationContext servletStaffContext = new AnnotationConfigWebApplicationContext();
+    		servletStaffContext.register(ServletConfigurationStaff.class);
+    		
+    		ServletRegistration.Dynamic dispatcherStaff = servletContext.addServlet("DispatcherServletStaff", new DispatcherServlet(servletStaffContext));
+    		dispatcherStaff.setLoadOnStartup(4);
+    		dispatcherStaff.addMapping("/staff/*");
     		//-----------------------------------------------
 
             // 인코딩 필터 적용

@@ -24,41 +24,50 @@ public class UserController {
 	public UserController(UserService userService) {
 		this.userService = userService;
 	}
-
-	@RequestMapping("/pages/login.do")
+	
+	// 로그인 페이지로 이동
+	@RequestMapping("login")
 	public String login(Model model) {
 		logger.info("로그인 페이지");
-		return "login/login";
+		return "pages/login";
 	}
-
-	@RequestMapping(value="/pages/logincheck", method = RequestMethod.POST)
+	
+	// 로그인시 아이디 비밀번호 존재여부 체크
+	@RequestMapping(value="logincheck", method = RequestMethod.POST)
 	public String logincheck(@RequestParam("email") String email, @RequestParam("password") String password) throws Exception {
 		logger.info("체크 페이지");			
-//	public Model logincheck(HttpServletRequest request, Model model) throws Exception {
 		UserDTO userDto = new UserDTO();
 		userDto.loginUser(email, password);
 		String returnURL ="";
 		if(userService.verifyPassword(userDto)) {
-			logger.info("확인 성공 / 사용자 구분시작");			
-			returnURL = "/common/notice";
+			returnURL = "pages/notice";
 		} else {
-			returnURL = "/pages/login";
+			returnURL = "pages/login";
 		}
 		return returnURL;
 	}
-	
-	@RequestMapping("pages/register")
+
+	// 회원가입 페이지로 이동
+	@RequestMapping("register")
 	public String register() throws Exception {
 		return "pages/register";
 	}
 	
-	@RequestMapping(value="/pages/register.do", method= RequestMethod.POST)
-	public String registerPOST(UserDTO userDto) throws Exception {
-		userService.saveUser(userDto);
-		return "pages/login";
+	// 회원가입
+	@RequestMapping(value="register.do", method= RequestMethod.POST)
+	public String registerPOST(UserDTO userDto, String email, String password) throws Exception {
+		String returnUrl = "";
+		if(email != null) {
+			userService.saveUser(userDto);
+			logger.info("register.do DTO추가");
+			returnUrl = "redirect:/pages/login";
+		} else {
+			returnUrl = "pages/register";
+		}
+		return returnUrl;
 	}
 
-	// 출퇴근 기능
+	// 출근
 	@RequestMapping(value = "goWork.do")
 	public Model goWork(HttpServletRequest request, Model model) throws Exception {
 		HttpSession session = request.getSession(); // 세션을 가져옴
@@ -80,6 +89,7 @@ public class UserController {
 		return model;
 	}
 
+	// 퇴근
 	@RequestMapping(value = "outWork.do")
 	public Model outWork(HttpServletRequest request, Model model) throws Exception {
 		HttpSession session = request.getSession(); // 세션을 가져옴
