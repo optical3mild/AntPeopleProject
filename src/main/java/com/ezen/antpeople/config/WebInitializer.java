@@ -14,6 +14,11 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.DispatcherServlet;
 
+import com.ezen.antpeople.controller.admin.ServletConfigurationAdmin;
+import com.ezen.antpeople.controller.main.ServletConfigurationMain;
+import com.ezen.antpeople.controller.staff.ServletConfigurationStaff;
+import com.ezen.antpeople.controller.user.ServletConfigurationUser;
+
 public class WebInitializer implements WebApplicationInitializer{
         @Override
         public void onStartup(ServletContext servletContext) throws ServletException {    
@@ -23,33 +28,44 @@ public class WebInitializer implements WebApplicationInitializer{
     		rootAppContext.setConfigLocation("com.ezen.antpeople.config");
     		ContextLoaderListener listener = new ContextLoaderListener(rootAppContext);
     		servletContext.addListener(listener);
-            
+            //-------------------------------------------
+    		
     		// ServeltContext_Main - WebApplicationContext
-            AnnotationConfigWebApplicationContext ServletMaincontext = new AnnotationConfigWebApplicationContext();
-            ServletMaincontext.setConfigLocation("com.ezen.antpeople.controller.main");
-            ServletRegistration.Dynamic dispatcherMain = servletContext.addServlet("DispatcherServletMain", new DispatcherServlet(ServletMaincontext));
+            AnnotationConfigWebApplicationContext ServletMainContext = new AnnotationConfigWebApplicationContext();
+            ServletMainContext.register(ServletConfigurationMain.class);
+            
+            ServletRegistration.Dynamic dispatcherMain = servletContext.addServlet("DispatcherServletMain", new DispatcherServlet(ServletMainContext));
             dispatcherMain.setLoadOnStartup(1);
-            dispatcherMain.addMapping("/");
-           
+            dispatcherMain.addMapping("/main/*");
+            //----------------------------------------------
+            
             // ServeltContext_User - WebApplicationContext
             AnnotationConfigWebApplicationContext servletUserContext = new AnnotationConfigWebApplicationContext();
-            ServletMaincontext.setConfigLocation("com.ezen.antpeople.controller.user");
+            servletUserContext.register(ServletConfigurationUser.class);
+
     		ServletRegistration.Dynamic dispatcherUser = servletContext.addServlet("DispatcherServletUser", new DispatcherServlet(servletUserContext));
     		dispatcherUser.setLoadOnStartup(2);
-    		dispatcherUser.addMapping("/login.do");
-    		dispatcherUser.setAsyncSupported(true);
+    		dispatcherUser.addMapping("/user/*");
+    		//-----------------------------------------------
     		
     		// ServeltContext_Admin - WebApplicationContext
     		AnnotationConfigWebApplicationContext servletAdminContext = new AnnotationConfigWebApplicationContext();
-    		ServletMaincontext.setConfigLocation("com.ezen.antpeople.controller.admin");
-    		ServletRegistration.Dynamic dispatcheradmin = servletContext.addServlet("DispatcherServletUser", new DispatcherServlet(servletAdminContext));
-    		dispatcherUser.setLoadOnStartup(3);
-    		dispatcherUser.addMapping("/admin");
-    		dispatcherUser.setAsyncSupported(true);
+    		servletAdminContext.register(ServletConfigurationAdmin.class);
+    		
+    		ServletRegistration.Dynamic dispatcherAdmin = servletContext.addServlet("DispatcherServletAdmin", new DispatcherServlet(servletAdminContext));
+    		dispatcherAdmin.setLoadOnStartup(3);
+    		dispatcherAdmin.addMapping("/admin/*");
+    		//-----------------------------------------------
+    		
+    		// ServeltContext_Staff - WebApplicationContext
+    		AnnotationConfigWebApplicationContext servletStaffContext = new AnnotationConfigWebApplicationContext();
+    		servletStaffContext.register(ServletConfigurationStaff.class);
+    		
+    		ServletRegistration.Dynamic dispatcherStaff = servletContext.addServlet("DispatcherServletStaff", new DispatcherServlet(servletStaffContext));
+    		dispatcherStaff.setLoadOnStartup(4);
+    		dispatcherStaff.addMapping("/staff/*");
+    		//-----------------------------------------------
 
-
-            
-            
             // 인코딩 필터 적용
             FilterRegistration.Dynamic charaterEncodingFilter = servletContext.addFilter("charaterEncodingFilter", new CharacterEncodingFilter());
             charaterEncodingFilter.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");

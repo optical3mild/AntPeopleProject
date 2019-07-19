@@ -9,6 +9,7 @@ import org.apache.commons.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.annotation.Order;
@@ -28,10 +29,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.ezen.antpeople"}, 
-excludeFilters = @ComponentScan.Filter(Controller.class))
+@ComponentScan(basePackages = {"com.ezen.antpeople"},
+		excludeFilters={@Filter(Controller.class), @Filter(Configuration.class)} )
 @PropertySource("classpath:/property/environment.properties")
 @EnableJpaRepositories(
 		basePackages ="com.ezen.antpeople.repository",
@@ -41,7 +43,7 @@ excludeFilters = @ComponentScan.Filter(Controller.class))
 @EnableTransactionManagement
 @Order(1)
 public class RootConfig implements WebMvcConfigurer{
-	
+
 	@Inject
     private Environment env;
 	
