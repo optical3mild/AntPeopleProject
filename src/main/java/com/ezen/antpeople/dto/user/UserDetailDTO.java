@@ -71,7 +71,11 @@ public class UserDetailDTO implements Serializable {
 				+ ", state=" + state + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", role=" + role.getRole()
 				+ ", store=" + store.getStore() + "]";
 	}
-	
+
+//	public void setId(int user_id) {
+//		this.user_id = user_id;
+//	}
+//	
 	
 
 }
