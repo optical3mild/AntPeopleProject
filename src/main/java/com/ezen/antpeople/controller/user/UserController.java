@@ -76,15 +76,15 @@ public class UserController {
 		model.addAttribute("storeList", stores);
 		return "register";
 	}
-
-	// 회원가입
-
-	@RequestMapping(value = "registercheck", method = RequestMethod.POST)
-	@ResponseBody
-	public String registerCheck(@RequestBody UserDetailDTO user, Model model) throws Exception {
-		logger.info(user.getEmail());
-		return "register";
-	}
+	
+	  // 회원가입 
+	
+	  @RequestMapping(value="registercheck", method= RequestMethod.POST)
+	  @ResponseBody 
+	  public String registerCheck(@RequestBody UserDetailDTO user, Model model) throws Exception{
+		  logger.info(user.getName());
+		  return "register";
+	  }
 
 	// 출근
 //	@RequestMapping(value = "goWork.do")

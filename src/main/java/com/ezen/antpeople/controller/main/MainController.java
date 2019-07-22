@@ -1,10 +1,16 @@
 package com.ezen.antpeople.controller.main;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ezen.antpeople.dto.bbs.BbsDetailDTO;
+import com.ezen.antpeople.service.BbsService;
 import com.ezen.antpeople.service.UserService;
 
 
@@ -13,13 +19,15 @@ public class MainController {
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 	
 	UserService userService;
+	BbsService bbsService;
 	
-	public MainController(UserService userService) {
+	public MainController(UserService userService, BbsService bbsService) {
 		this.userService = userService;
+		this.bbsService = bbsService;
 	}
 	
 	// 메인 페이지
-	@RequestMapping("gestmain")
+	@RequestMapping("guestmain")
 	public String mainPage() {
 		logger.info("guestMain 페이지");
 		return "guestmain";
@@ -30,6 +38,14 @@ public class MainController {
 	public String notice() {
 		logger.info("notice 페이지");
 		return "notice";
+	}
+	
+	@RequestMapping("bbs")
+	public String bbsPage(Model model) {
+		List<BbsDetailDTO> bbsDetailList = new ArrayList(bbsService.findByAll());
+		model.addAttribute("bbsList",bbsDetailList);
+		logger.info("bbs 페이지");
+		return "bbs";
 	}
 	
 	// 직원 전체목록(간략)

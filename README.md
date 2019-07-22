@@ -80,5 +80,12 @@
 - (오인) WebInitializer 설정 변경 (servlet-config 오류 수정)
 - (오인) DB ER다이어그램 추가 (user, store, role, bbs, todo)
 
-### Day 10 : View 추가 (19.07.19)
+### Day 11 : View 추가, View Folder 개편 Controller 연결  (19.07.19)
 - (정우) view update : notice, board, article, write등 페이지 추가, 폴더구조 변경, 업데이트
+- (성현) controller : Controller 개편에 맞춰 URL 정리, Register기능 
+- (오인) 회원가입 기능 추가, 로그인 화면 연결
+
+
+### Day 12 : bbs DB구축 및 CRUD 테스트 (19.07.22)
+- (오인) bbs(게시판) DB구축 및 CRUD 테스트
+- (오인) 메인 페이지, 로그인, 회원가입, 게시판 Controller 연결
