@@ -80,7 +80,7 @@ public class UserController {
 	  @RequestMapping(value="registercheck", method= RequestMethod.POST)
 	  @ResponseBody 
 	  public String registerCheck(@RequestBody UserDetailDTO user, Model model) throws Exception{
-		  logger.info(user.getEmail());
+		  logger.info(user.getName());
 		  return "register";
 	  }
 	 
