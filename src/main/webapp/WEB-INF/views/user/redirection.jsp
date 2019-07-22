@@ -27,7 +27,7 @@
 
 <script type="text/javascript">
 	var message = '${requestScope.message}';
-	var returnUrl = '${requestScope.url}';
+	var returnUrl = 'login';
 	alert(message);
 	document.location.href = returnUrl;
 </script>
