@@ -72,11 +72,10 @@ public class UserDetailDTO implements Serializable, UserDetails {
 	@Override
 	public String toString() {
 		return "UserDetailDTO [user_id=" + user_id + ", email=" + email + ", password=" + password + ", name=" + name
-				+ ", state=" + state + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", role=" + role.getRole()
-				+ ", store=" + store.getStore() + "]";
+				+ ", state=" + state + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", role=" + role.getRole_id()
+				+ ", store=" + store.getStore_id() + "]";
 	}
 
-<<<<<<< HEAD
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		ArrayList<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
@@ -113,13 +112,6 @@ public class UserDetailDTO implements Serializable, UserDetails {
 		// TODO Auto-generated method stub
 		return true;
 	}
-	
-=======
-//	public void setId(int user_id) {
-//		this.user_id = user_id;
-//	}
-//	
->>>>>>> 60b071080bf10e240e440e6235d6e1c31cb00a99
 	
 
 }

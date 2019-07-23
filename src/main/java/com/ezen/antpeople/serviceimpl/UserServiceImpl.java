@@ -65,11 +65,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	@Override
 	public String userSignUp(UserDetailDTO udd) {
 		UserEntity entity = new UserEntity(udd,bCryptPasswordEncoder.encode(udd.getPassword()));
-		userRepository.save(entity);
 		Optional<UserEntity> checkEmail = userRepository.findByEmail(udd.getEmail());
-		if(checkEmail.isPresent())
+		if(!checkEmail.isPresent()) {
+			userRepository.save(entity);
 			return udd.getEmail();
-		else
+		}else
 			return  "회원 가입에 실패하였습니다.";
 	}
 	

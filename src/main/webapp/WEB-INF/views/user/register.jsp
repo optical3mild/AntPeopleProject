@@ -28,7 +28,7 @@
 <body class="hold-transition register-page">
 	<div class="register-box">
 	  <div class="register-logo">
-	    <a href="${path}/main/index"><b>Ant</b>People</a>
+	    <a href="../main/guestmain"><b>Ant</b>People</a>
 	  </div>
 	
 	  <div class="register-box-body">
@@ -188,8 +188,8 @@
 	    			email : $("#email").val(),
 	    			password : $("#password").val(),
 	    			name : $("#userName").val(),
-	    			role : $("#role option:selected").val(),
-	    			store : $("#store option:selected").val(),
+	    			role : {role_id : $("#role option:selected").val()},
+	    			store : {store_id : $("#store option:selected").val()},
 	    		};
 		    	//console.log(checkExist);
 		    	//if(typeof checkExist.email == "undefined" || checkExist.email == null || checkExist.email == ""){
