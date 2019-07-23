@@ -82,7 +82,8 @@ public class UserController {
 	  @RequestMapping(value="registercheck", method= RequestMethod.POST)
 	  @ResponseBody 
 	  public String registerCheck(@RequestBody UserDetailDTO user, Model model) throws Exception{
-		  logger.info(user.getName());
+		  String msg = userService.userSignUp(user);
+		  model.addAttribute("response", msg);
 		  return "register";
 	  }
 
