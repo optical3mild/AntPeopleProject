@@ -76,6 +76,7 @@ public class UserDetailDTO implements Serializable, UserDetails {
 				+ ", store=" + store.getStore() + "]";
 	}
 
+<<<<<<< HEAD
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		ArrayList<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
@@ -113,6 +114,12 @@ public class UserDetailDTO implements Serializable, UserDetails {
 		return true;
 	}
 	
+=======
+//	public void setId(int user_id) {
+//		this.user_id = user_id;
+//	}
+//	
+>>>>>>> 60b071080bf10e240e440e6235d6e1c31cb00a99
 	
 
 }
