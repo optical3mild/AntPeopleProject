@@ -32,20 +32,14 @@ public class UserController {
 		this.userService = userService;
 	}
 
+	// 로그인 페이지로 이동
 	@RequestMapping("index")
 	public String loginIndex(Model model) {
 		logger.info("로그인 페이지");
 		return "login";
 	}
 
-	// 로그인 페이지로 이동
-	@RequestMapping("login")
-	public String login(Model model) {
-		logger.info("로그인 페이지");
-		return "login";
-	}
-
-	@RequestMapping("//userSuccess")
+	@RequestMapping("userSuccess")
 	public String loginSuccess(Model model) {
 		logger.info("로그인 페이지");
 		return "login/login";

@@ -71,7 +71,7 @@ public class UserDatabaseTest {
 	}
 	
 	//유저 리스트 테스트
-	@Test
+	@Test @Ignore
 	public void userListTest() {
 		List<UserDetailDTO> userList = new ArrayList(us.findByAll()); 
 		for(UserDetailDTO user : userList)
