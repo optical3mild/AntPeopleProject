@@ -65,6 +65,7 @@
 ### Day 07 : VerifiedPassword Test (19.07.15)
 - (오인) verifiedPassword 기능 추가 및 단위 Test (성공)
 - (성현) verifiedPassword 기능 Controller에 연결
+- (종환) 출퇴근 기능 작성  
 
 ### Day 08 : View update (19.07.16)
 - (정우) view update : login, register, main page
@@ -89,3 +90,4 @@
 ### Day 12 : bbs DB구축 및 CRUD 테스트 (19.07.22)
 - (오인) bbs(게시판) DB구축 및 CRUD 테스트
 - (오인) 메인 페이지, 로그인, 회원가입, 게시판 Controller 연결
+- (종환) 출퇴근 기능 수정  
