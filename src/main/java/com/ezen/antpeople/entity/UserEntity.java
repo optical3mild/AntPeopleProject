@@ -3,16 +3,13 @@ package com.ezen.antpeople.entity;
 import java.io.Serializable;
 
 import javax.persistence.AttributeOverride;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.ezen.antpeople.dto.user.UserDetailDTO;
 
@@ -29,7 +26,7 @@ import lombok.NoArgsConstructor;
 @AttributeOverride(name = "updatedAt", column = @Column(name = "updated_time"))
 //userDB - 	user_id, email, password, name, 
 //			created_time, updated_time, role_id, store_id
-public class UserEntity extends BaseEntity implements Serializable {
+public class UserEntity extends BaseEntity implements Serializable{
 	
 	private String email;
 	private String password;
