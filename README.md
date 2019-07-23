@@ -86,8 +86,10 @@
 - (성현) controller : Controller 개편에 맞춰 URL 정리, Register기능 
 - (오인) 회원가입 기능 추가, 로그인 화면 연결
 
-
 ### Day 12 : bbs DB구축 및 CRUD 테스트 (19.07.22)
 - (오인) bbs(게시판) DB구축 및 CRUD 테스트
 - (오인) 메인 페이지, 로그인, 회원가입, 게시판 Controller 연결
-- (종환) 출퇴근 기능 수정  
+- (종환) 출퇴근 기능 수정
+
+### Day 13 : View 수정 (19.07.23)
+- (정우) view update : login, register ajax script 추가.
