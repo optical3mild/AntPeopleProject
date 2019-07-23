@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +25,7 @@ import com.ezen.antpeople.service.UserService;
 
 @Service("UserService")
 @Transactional
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 	
 	private UserRepository userRepository;
 	private RoleRepository roleRepository;
@@ -111,6 +114,12 @@ public class UserServiceImpl implements UserService {
 		for(UserEntity entity : entitys)
 			userList.add(entity.buildDTO());
 		return userList;
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		UserDetailDTO user =  userRepository.findByEmail(email).get().buildDTO();
+        return user;
 	}
 
 	
