@@ -58,7 +58,7 @@
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
-          <button id="login" type="submit" class="btn btn-primary btn-block btn-flat">로그인</button>
+          <button id="login" type="button" class="btn btn-primary btn-block btn-flat">로그인</button>
         </div>
         <!-- /.col -->
       </div>
@@ -120,7 +120,7 @@
     			password : $("#password").val(),
     		};
     		$.ajax({
-	    		url : 'logincheck',
+	    		url : '${path}/user/logincheck',
 	    		method : 'post',
 	    		data : JSON.stringify(checkExist),
 	    		contentType: 'application/json',
@@ -131,6 +131,7 @@
 				},
 				success : function(response) {
 					alert("통신성공, response: " + response);
+					document.location.href = response;
 					//성공 시 이메일 존재여부 판별.
 					//존재 --> 이메일이 존재한다는 알림 띄움.
 					//없음 --> 회원가입 폼 자동으로 전송.

@@ -15,20 +15,20 @@ public class AdminController {
 	@RequestMapping("staffinfo")
 	public String staffinfo() throws Exception {
 		logger.info("staffInfo 페이지");
-		return "admin/staffinfo";
+		return "staffinfo";
 	}
 	
 	// 근무 일정 계획
 	@RequestMapping("planning")
 	public String planning() throws Exception {
 		logger.info("todayStaff 페이지");
-		return "admin/planning";
+		return "planning";
 	}
 	
 	// 근무 승인
 	@RequestMapping("accept")
 	public String accept() throws Exception {
 		logger.info("accept 페이지");
-		return "admin/accept";
+		return "accept";
 	}
 }

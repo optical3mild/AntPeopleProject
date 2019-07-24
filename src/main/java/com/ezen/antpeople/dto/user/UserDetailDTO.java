@@ -15,9 +15,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import lombok.Getter;
 
 @Getter
-public class UserDetailDTO implements Serializable, UserDetails {
+public class UserDetailDTO implements Serializable {
 	
-    protected int user_id;
+	private static final long serialVersionUID = 1278219708789765219L;
+
+	protected int user_id;
     
     @Email(message ="이메일 형식으로 적어주세요")
 	@NotEmpty(message = "이메일은 필수 입니다.")
@@ -75,43 +77,5 @@ public class UserDetailDTO implements Serializable, UserDetails {
 				+ ", state=" + state + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", role=" + role.getRole_id()
 				+ ", store=" + store.getStore_id() + "]";
 	}
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		ArrayList<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
-        auth.add(new SimpleGrantedAuthority(role.getRole()));
-        return auth;
-	}
-
-	@Override
-	public String getUsername() {
-		// TODO Auto-generated method stub
-		return this.getEmail();
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-	
 
 }

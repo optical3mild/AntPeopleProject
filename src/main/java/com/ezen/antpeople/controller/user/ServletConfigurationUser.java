@@ -3,7 +3,7 @@ package com.ezen.antpeople.controller.user;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -11,6 +11,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc //xml의 <annotation-driven>
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 @ComponentScan(basePackages="com.ezen.antpeople.controller.user") // xml의 context component-scan
 public class ServletConfigurationUser extends WebMvcConfigurerAdapter{
     
