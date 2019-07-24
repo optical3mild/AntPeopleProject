@@ -25,7 +25,8 @@
             <i class="fa fa-calendar"></i><span>자유게시판</span>
           </a>
         </li>
-        
+       <!-- 관리자, 사장, 직원 -->
+        <c:if test="${user.role.role == '사장'}">
         <li class="treeview">
           <a href="stafflist">
             <i class="fa fa-dashboard"></i><span>직원정보</span>
@@ -38,7 +39,7 @@
             <li><a href="${path}/pages/todayStaff"><i class="fa fa-circle-o"></i>금일 근무자</a></li>
           </ul>
         </li>
-        
+        </c:if>
       </ul>
       
 <!-- admin menu -->
