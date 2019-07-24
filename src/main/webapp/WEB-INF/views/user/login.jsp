@@ -127,10 +127,10 @@
 	    		//서버에서 보내줄 datatype.
 				//dataType : ,
 				error : function(response) {
-					alert("통신실패, response: " + msg);
+					alert("통신실패, response: " + response);
 				},
 				success : function(response) {
-					alert("통신성공, response: " + msg);
+					alert("통신성공, response: " + response);
 					document.location.href = response;
 					//성공 시 이메일 존재여부 판별.
 					//존재 --> 이메일이 존재한다는 알림 띄움.

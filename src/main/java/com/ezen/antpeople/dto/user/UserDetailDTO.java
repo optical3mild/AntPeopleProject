@@ -15,7 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import lombok.Getter;
 
 @Getter
-public class UserDetailDTO implements Serializable, UserDetails {
+public class UserDetailDTO implements Serializable {
 	
 	private static final long serialVersionUID = 1278219708789765219L;
 
@@ -36,7 +36,6 @@ public class UserDetailDTO implements Serializable, UserDetails {
 	protected LocalDateTime updatedAt;
 	private RoleDTO role;
 	private StoreDTO store;
-	private String authentic;
 	
 	public UserDetailDTO() {}
 
@@ -71,10 +70,6 @@ public class UserDetailDTO implements Serializable, UserDetails {
 		this.user_id = user_id;
 		this.name = name;
 	}
-	
-	public void setAuthentic(String authentic) {
-		this.authentic = authentic;
-	}
 
 	@Override
 	public String toString() {
@@ -82,43 +77,5 @@ public class UserDetailDTO implements Serializable, UserDetails {
 				+ ", state=" + state + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", role=" + role.getRole_id()
 				+ ", store=" + store.getStore_id() + "]";
 	}
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		ArrayList<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
-        auth.add(new SimpleGrantedAuthority(this.authentic));
-        return auth;
-	}
-
-	@Override
-	public String getUsername() {
-		// TODO Auto-generated method stub
-		return this.getEmail();
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-	
 
 }

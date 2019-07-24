@@ -53,13 +53,13 @@ public class UserController {
 	// 로그인시 아이디 비밀번호 존재여부 체크
 	@RequestMapping(value = "logincheck", method = RequestMethod.POST)
 	@ResponseBody
-	public String logincheck(@RequestBody UserLoginDTO user, Model model)
+	public String logincheck(@RequestBody UserLoginDTO userLogin, Model model)
 			throws Exception {
 		logger.info("체크 페이지");
-		UserDetailDTO userCheck = userService.verifiedPassword(user);
-		if (userCheck != null) {
+		UserDetailDTO user = userService.findByEmail(userLogin.getEmail());
+		if (userService.verifiedPassword(user,userLogin.getPassword())) {
 			logger.info("로그인 성공");
-			model.addAttribute("user", userCheck);
+			model.addAttribute("user", user);
 			model.addAttribute("msg", "로그인 성공");
 			return "../main/guestmain";
 		} else {

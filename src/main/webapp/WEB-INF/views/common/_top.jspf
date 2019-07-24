@@ -20,8 +20,9 @@
     </a>
 
     <div class="navbar-custom-menu">
+    <c:set var = "user" value = "${user}"></c:set>
 <!-- 로그인 전 로그인/회원등록 버튼  -->      
-	    <sec:authorize access="isAnonymous()">
+	    <c:if test="${user.email == null}">
 	      <ul class="nav navbar-nav">
 	        <!-- Messages: style can be found in dropdown.less-->
 	        <li class="dropdown messages-menu">
@@ -35,8 +36,8 @@
 	          </a>
 	        </li>
 	      </ul>
-	   </sec:authorize>
-	   <sec:authorize access="isAuthenticated()">
+	   </c:if>
+	   <c:if test="${user.email != null}">
 	      <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
           <li class="dropdown messages-menu">
@@ -271,7 +272,7 @@
 
         </ul>
 	    
-	   </sec:authorize>
+	   </c:if>
 	    
     </div>
     
