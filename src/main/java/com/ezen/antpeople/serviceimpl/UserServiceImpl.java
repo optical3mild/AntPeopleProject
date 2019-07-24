@@ -1,96 +1,127 @@
 package com.ezen.antpeople.serviceimpl;
 
-import java.util.Arrays;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ezen.antpeople.dto.user.UserDTO;
+import com.ezen.antpeople.dto.user.RoleDTO;
+import com.ezen.antpeople.dto.user.StoreDTO;
+import com.ezen.antpeople.dto.user.UserDetailDTO;
+import com.ezen.antpeople.dto.user.UserLoginDTO;
 import com.ezen.antpeople.entity.RoleEntity;
+import com.ezen.antpeople.entity.StoreEntity;
 import com.ezen.antpeople.entity.UserEntity;
 import com.ezen.antpeople.repository.RoleRepository;
+import com.ezen.antpeople.repository.StoreRepository;
 import com.ezen.antpeople.repository.UserRepository;
 import com.ezen.antpeople.service.UserService;
 
 @Service("UserService")
 @Transactional
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 	
 	private UserRepository userRepository;
 	private RoleRepository roleRepository;
+	private StoreRepository storeRepositoty;
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	//생성자 의존성 추가
 	private UserServiceImpl(UserRepository userRepository 
 			,RoleRepository roleRepository
-			,BCryptPasswordEncoder bCryptPasswordEncoder) {
+			,BCryptPasswordEncoder bCryptPasswordEncoder
+			,StoreRepository storeRepository) {
 		this.userRepository = userRepository;
 		this.roleRepository = roleRepository;
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+		this.storeRepositoty = storeRepository;
 	}
-
-	@Override
-	public UserDTO findUserByEmail(String email) {
-		UserEntity userEntity = new UserEntity();
-		userEntity = userRepository.findByEmail(email);
-		return userEntity.buildDTO();
-	}
-
-	@Override
-	public void saveUser(UserDTO user) {
-	}
-
-	@Override
-	public UserDTO getUser(int id) {
-		Optional<UserEntity> userEntity = userRepository.findById(id);
-		if (userEntity.isPresent())
-			return userEntity.get().buildDTO();
-		else return new UserDTO();
-	}
-
-	@Override
-	public void deleteUser(UserDTO user) {
-		UserEntity userEntity = userRepository.findByEmail(user.getEmail());
-		userRepository.deleteById(userEntity.getId());
-		
-	}
-
-	//정보 업데이트
-	//view로부터 유저의 변경 정보를 얻는다. (이때, 이메일은 제외한다.)
-	//예를 들어 유저의 정보 중 주소만 변경 되었다고 할 경우, 나머지 사항은 원래 값이 들어 가있다.
-	//이때, Entity의 메소드를 통해 주소,전화번호만 변경 가능하게 한다. (초기테스트)
 	
-	
+	//회원 정보 확인 
 	@Override
-	public boolean verifyPassword(UserDTO user) {
-		UserEntity userEntity = userRepository.findByEmail(user.getEmail());
-		System.out.println(userEntity.toString());
-		if(bCryptPasswordEncoder.matches(user.getPassword(), userEntity.getPassword()))
+	public UserDetailDTO findByEmail(String email) {
+		Optional<UserEntity> userDetail = userRepository.findByEmail(email);
+		return userDetail.get().buildDTO();
+	}
+
+	// 로그인 로직
+	@Override
+	public Boolean verifiedPassword(UserLoginDTO user) {
+		Optional<UserEntity> userDetail = userRepository.findByEmail(user.getEmail());
+		System.out.println(userDetail.get().toString());
+		if(bCryptPasswordEncoder.matches(user.getPassword(), userDetail.get().getPassword()))
 			return true;
-		else
+		else 
 			return false;
 	}
+
+	//회원 가입 로직 
+	@Override
+	public String userSignUp(UserDetailDTO udd) {
+		UserEntity entity = new UserEntity(udd,bCryptPasswordEncoder.encode(udd.getPassword()));
+		Optional<UserEntity> checkEmail = userRepository.findByEmail(udd.getEmail());
+		if(!checkEmail.isPresent()) {
+			userRepository.save(entity);
+			return udd.getEmail();
+		}else
+			return  "회원 가입에 실패하였습니다.";
+	}
 	
-	//출퇴근용
-		@Override
-		public void saveGo(UserDTO userDTO) {
-			// TODO Auto-generated method stub
-			
+	//회원 탈퇴 로직
+	@Override
+	public String userDelete(String email, String password) {
+		String msg = new String();
+		Optional<UserEntity> entity = userRepository.findByEmail(email);
+		if(entity.get().getPassword().equals(password)) {
+			userRepository.delete(entity.get());
+			msg = "정상적으로 회원 탈퇴가 되었습니다.";
+		} else {
+			msg = "비밀번호가 틀렸습니다. 다시 입력해 주세요.";
 		}
+		return msg;
+			
+		
+	}
+	//회원 가입시 역할, 지점 리스트 출력
+	@Override
+	public List<RoleDTO> RoleList() {
+		List<RoleEntity> entitys = new ArrayList(roleRepository.findAll());
+		List<RoleDTO> roles = new ArrayList();
+		for(RoleEntity entity : entitys)
+			roles.add(entity.buildDTO());
+		return roles;
+	}
 
-		@Override
-		public void saveOut(UserDTO userDTO) {
-			// TODO Auto-generated method stub
-			
-		}
+	@Override
+	public List<StoreDTO> StoreList() {
+		List<StoreEntity> entitys = new ArrayList(storeRepositoty.findAll());
+		List<StoreDTO> stores = new ArrayList();
+		for(StoreEntity entity : entitys)
+			stores.add(entity.buildDTO());
+		return stores;
+	}
 
-		@Override
-		public void updateUser(UserDTO user) {
-			// TODO Auto-generated method stub
-			
-		}
+	@Override
+	public List<UserDetailDTO> findByAll() {
+		List<UserEntity> entitys = new ArrayList(userRepository.findAll());
+		List<UserDetailDTO> userList = new ArrayList();
+		for(UserEntity entity : entitys)
+			userList.add(entity.buildDTO());
+		return userList;
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		UserDetailDTO user =  userRepository.findByEmail(email).get().buildDTO();
+        return user;
+	}
+
+	
 
 }

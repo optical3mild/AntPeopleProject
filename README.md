@@ -65,6 +65,7 @@
 ### Day 07 : VerifiedPassword Test (19.07.15)
 - (오인) verifiedPassword 기능 추가 및 단위 Test (성공)
 - (성현) verifiedPassword 기능 Controller에 연결
+- (종환) 출퇴근 기능 작성  
 
 ### Day 08 : View update (19.07.16)
 - (정우) view update : login, register, main page
@@ -80,3 +81,20 @@
 - (오인) WebInitializer 설정 변경 (servlet-config 오류 수정)
 - (오인) DB ER다이어그램 추가 (user, store, role, bbs, todo)
 
+### Day 11 : View 추가, View Folder 개편 Controller 연결  (19.07.19)
+- (정우) view update : notice, board, article, write등 페이지 추가, 폴더구조 변경, 업데이트
+- (성현) controller : Controller 개편에 맞춰 URL 정리, Register기능 
+- (오인) 회원가입 기능 추가, 로그인 화면 연결
+
+### Day 12 : bbs DB구축 및 CRUD 테스트 (19.07.22)
+- (오인) bbs(게시판) DB구축 및 CRUD 테스트
+- (오인) 메인 페이지, 로그인, 회원가입, 게시판 Controller 연결
+- (종환) 출퇴근 기능 수정  
+- (성현) 직원 정보보기 기능 수정
+
+### Day 13 : View 수정 (19.07.23)
+- (정우) view update : login, register ajax script 추가.
+- (성현) WebFlow 시각화 작성
+
+### Day 14 : WebFlow (19.07.24)  
+- (성현) WebFlow 시각화 완료

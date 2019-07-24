@@ -12,6 +12,7 @@ import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
 
 import com.ezen.antpeople.controller.admin.ServletConfigurationAdmin;
@@ -65,7 +66,14 @@ public class WebInitializer implements WebApplicationInitializer{
     		dispatcherStaff.setLoadOnStartup(4);
     		dispatcherStaff.addMapping("/staff/*");
     		//-----------------------------------------------
-
+    		
+    		// spring security 필터 적용
+		
+//			FilterRegistration fr = servletContext.addFilter
+//					("springSecurityFilterChain",DelegatingFilterProxy.class);
+//				fr.addMappingForUrlPatterns(null, true, "/*");
+		 
+    		
             // 인코딩 필터 적용
             FilterRegistration.Dynamic charaterEncodingFilter = servletContext.addFilter("charaterEncodingFilter", new CharacterEncodingFilter());
             charaterEncodingFilter.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
