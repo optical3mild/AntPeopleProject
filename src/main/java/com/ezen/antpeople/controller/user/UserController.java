@@ -72,7 +72,6 @@ public class UserController {
 	}
 	
 	  // 회원가입 
-	
 	  @RequestMapping(value="registercheck", method= RequestMethod.POST)
 	  @ResponseBody 
 	  public String registerCheck(@RequestBody UserDetailDTO user, Model model) throws Exception{
