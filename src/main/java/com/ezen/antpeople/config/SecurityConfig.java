@@ -24,9 +24,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 
     private UserDetailsService userDetailService;
+    private LoginSuccessHandler loginSuccessHandler;
     
-    public SecurityConfig (@Lazy UserDetailsService userDetailService) {
+    public SecurityConfig (@Lazy UserDetailsService userDetailService
+    		,LoginSuccessHandler loginSuccessHandler) {
     	this.userDetailService = userDetailService;
+    	this.loginSuccessHandler = loginSuccessHandler;
     }
 	
 	
@@ -46,19 +49,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 	    http
 	        .authorizeRequests()                                                                            
-	        	.antMatchers("/main/**").permitAll()
-	        	.antMatchers("/staff/**").hasRole("직원")                                      
-	        	.antMatchers("/admin/**").hasRole("관리자")                                      
-	        	.antMatchers("/manager/**").hasRole("관리자")                                      
-	            .anyRequest().authenticated()                                                   
+	        	.antMatchers("/staff/**").hasRole("MEMBER")                                      
+	        	.antMatchers("/manager/**").hasRole("MANAGER")                                      
+	        	.antMatchers("/admin/**").hasRole("ADMIN")                                      
+	        	.antMatchers("/main/**").permitAll()                                                   
 	            .and()
 	        .formLogin()
 	            .loginPage("/user/login")
-	            .loginProcessingUrl("/login-processing")
-	            .failureUrl("/login-error")
-	            .defaultSuccessUrl("/loginSuccess", true)
+	            .loginProcessingUrl("${path}/user/logincheck")
+	            .failureUrl("/user/login")
 	            .usernameParameter("email")
 	            .passwordParameter("password")
+	            .successHandler(loginSuccessHandler)
 	            .permitAll();
 	    http	
 	    	.logout()

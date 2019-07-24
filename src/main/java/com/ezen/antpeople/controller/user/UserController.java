@@ -3,9 +3,6 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -13,8 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ezen.antpeople.dto.user.RoleDTO;
 import com.ezen.antpeople.dto.user.StoreDTO;
@@ -22,7 +20,8 @@ import com.ezen.antpeople.dto.user.UserDetailDTO;
 import com.ezen.antpeople.dto.user.UserLoginDTO;
 import com.ezen.antpeople.service.UserService;
 
-@Controller
+@Controller("user")
+@SessionAttributes("user")
 public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
@@ -45,25 +44,29 @@ public class UserController {
 		return "login";
 	}
 
-	@RequestMapping("//userSuccess")
+	@RequestMapping("usersuccess")
 	public String loginSuccess(Model model) {
-		logger.info("로그인 페이지");
-		return "login/login";
+		logger.info("로그인 성공 페이지");
+		return "${path}/main/guestmain";
 	}
 
 	// 로그인시 아이디 비밀번호 존재여부 체크
 	@RequestMapping(value = "logincheck", method = RequestMethod.POST)
-	public String logincheck(@RequestParam("email") String email, @RequestParam("password") String password)
+	@ResponseBody
+	public String logincheck(@RequestBody UserLoginDTO user, Model model)
 			throws Exception {
 		logger.info("체크 페이지");
-		UserLoginDTO user = new UserLoginDTO(email, password);
-		String returnURL = "";
-		if (userService.verifiedPassword(user)) {
-			returnURL = "../main/main";
+		UserDetailDTO userCheck = userService.verifiedPassword(user);
+		if (userCheck != null) {
+			logger.info("로그인 성공");
+			model.addAttribute("user", userCheck);
+			model.addAttribute("msg", "로그인 성공");
+			return "../main/guestmain";
 		} else {
-			returnURL = "redirection";
+			logger.info("로그인 실패");
+			model.addAttribute("msg", "로그인 실패");
+			return "redirection";
 		}
-		return returnURL;
 	}
 
 	// 회원가입 페이지로 이동 - 완료

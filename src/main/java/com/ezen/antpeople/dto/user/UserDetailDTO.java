@@ -17,7 +17,9 @@ import lombok.Getter;
 @Getter
 public class UserDetailDTO implements Serializable, UserDetails {
 	
-    protected int user_id;
+	private static final long serialVersionUID = 1278219708789765219L;
+
+	protected int user_id;
     
     @Email(message ="이메일 형식으로 적어주세요")
 	@NotEmpty(message = "이메일은 필수 입니다.")
@@ -34,6 +36,7 @@ public class UserDetailDTO implements Serializable, UserDetails {
 	protected LocalDateTime updatedAt;
 	private RoleDTO role;
 	private StoreDTO store;
+	private String authentic;
 	
 	public UserDetailDTO() {}
 
@@ -68,6 +71,10 @@ public class UserDetailDTO implements Serializable, UserDetails {
 		this.user_id = user_id;
 		this.name = name;
 	}
+	
+	public void setAuthentic(String authentic) {
+		this.authentic = authentic;
+	}
 
 	@Override
 	public String toString() {
@@ -79,7 +86,7 @@ public class UserDetailDTO implements Serializable, UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		ArrayList<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
-        auth.add(new SimpleGrantedAuthority(role.getRole()));
+        auth.add(new SimpleGrantedAuthority(this.authentic));
         return auth;
 	}
 

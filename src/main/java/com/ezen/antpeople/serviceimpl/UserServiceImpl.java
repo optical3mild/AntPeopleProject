@@ -4,13 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.security.core.userdetails.UserDetails;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ezen.antpeople.controller.user.UserController;
 import com.ezen.antpeople.dto.user.RoleDTO;
 import com.ezen.antpeople.dto.user.StoreDTO;
 import com.ezen.antpeople.dto.user.UserDetailDTO;
@@ -26,6 +28,7 @@ import com.ezen.antpeople.service.UserService;
 @Service("UserService")
 @Transactional
 public class UserServiceImpl implements UserService, UserDetailsService {
+	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 	
 	private UserRepository userRepository;
 	private RoleRepository roleRepository;
@@ -52,13 +55,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 	// 로그인 로직
 	@Override
-	public Boolean verifiedPassword(UserLoginDTO user) {
-		Optional<UserEntity> userDetail = userRepository.findByEmail(user.getEmail());
-		System.out.println(userDetail.get().toString());
-		if(bCryptPasswordEncoder.matches(user.getPassword(), userDetail.get().getPassword()))
-			return true;
+	public UserDetailDTO verifiedPassword(UserLoginDTO userLogin) {
+		UserDetailDTO user = loadUserByUsername(userLogin.getEmail());
+		if(bCryptPasswordEncoder.matches(userLogin.getPassword(), user.getPassword())) {
+			return user;
+		}
 		else 
-			return false;
+			return null;
 	}
 
 	//회원 가입 로직 
@@ -115,12 +118,35 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 			userList.add(entity.buildDTO());
 		return userList;
 	}
-
+	
 	@Override
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		UserDetailDTO user =  userRepository.findByEmail(email).get().buildDTO();
+	public UserDetailDTO loadUserByUsername(String email) throws UsernameNotFoundException {
+		logger.info("로드 유저 네임");
+		Optional<UserEntity> entity = userRepository.findByEmail(email);
+		if(!entity.isPresent())
+			return null;
+		UserDetailDTO user = roleUser(entity.get());
         return user;
 	}
+	
+	//인증 권한 부여
+	@Override
+	public UserDetailDTO roleUser(UserEntity entity) {
+		UserDetailDTO loginUser = entity.buildDTO();
+		switch(loginUser.getRole().getRole()) {
+		case "관리자":
+			loginUser.setAuthentic("ROLE_ADMIN");
+			break;
+		case "사장":
+			loginUser.setAuthentic("ROLE_MANAGER");
+			break;
+		case "직원":
+			loginUser.setAuthentic("ROLE_MEMBER");
+			break;
+		}
+        return loginUser;
+    }
+	
 
 	
 

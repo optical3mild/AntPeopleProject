@@ -67,11 +67,10 @@ public class UserDatabaseTest {
 	@Test @Ignore
 	public void userVerifiedPasswordTest() {
 		UserLoginDTO user = new UserLoginDTO("test1234@gmail.com","test1234");
-		assertTrue(us.verifiedPassword(user));
 	}
 	
 	//유저 리스트 테스트
-	@Test
+	@Test @Ignore
 	public void userListTest() {
 		List<UserDetailDTO> userList = new ArrayList(us.findByAll()); 
 		for(UserDetailDTO user : userList)
