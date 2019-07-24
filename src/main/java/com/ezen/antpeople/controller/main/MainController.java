@@ -42,6 +42,7 @@ public class MainController {
 		return "notice";
 	}
 	
+	// bbs이동 및 리스트 호출
 	@RequestMapping("bbs")
 	public String bbsPage(Model model) {
 		List<BbsDetailDTO> bbsDetailList = new ArrayList(bbsService.findByAll());
