@@ -66,12 +66,12 @@ public class UserDatabaseTest {
 	//유저 비밀번호 확인 테스트 - 완료
 	@Test @Ignore
 	public void userVerifiedPasswordTest() {
-		UserLoginDTO user = new UserLoginDTO("test1234@gmail.com","test1234");
-		assertTrue(us.verifiedPassword(user));
+		UserDetailDTO user = us.findByEmail("test1234@gmail.com");
+		assertTrue(us.verifiedPassword(user, "test1234"));
 	}
 	
 	//유저 리스트 테스트
-	@Test
+	@Test @Ignore
 	public void userListTest() {
 		List<UserDetailDTO> userList = new ArrayList(us.findByAll()); 
 		for(UserDetailDTO user : userList)

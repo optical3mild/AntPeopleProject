@@ -8,13 +8,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.ezen.antpeople.dto.bbs.BbsDetailDTO;
 import com.ezen.antpeople.service.BbsService;
 import com.ezen.antpeople.service.UserService;
 
 
-@Controller
+@Controller("main")
+@SessionAttributes({"user_id","name","email","role","store"})
 public class MainController {
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 	

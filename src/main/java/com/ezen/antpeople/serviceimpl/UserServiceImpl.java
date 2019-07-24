@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +24,8 @@ import com.ezen.antpeople.service.UserService;
 
 @Service("UserService")
 @Transactional
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class UserServiceImpl implements UserService{
+	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 	
 	private UserRepository userRepository;
 	private RoleRepository roleRepository;
@@ -46,16 +46,17 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	//회원 정보 확인 
 	@Override
 	public UserDetailDTO findByEmail(String email) {
-		Optional<UserEntity> userDetail = userRepository.findByEmail(email);
-		return userDetail.get().buildDTO();
+		Optional<UserEntity> entity = userRepository.findByEmail(email);
+		if(entity.isPresent())
+			return entity.get().buildDTO();
+		else
+			return null;
 	}
 
 	// 로그인 로직
 	@Override
-	public Boolean verifiedPassword(UserLoginDTO user) {
-		Optional<UserEntity> userDetail = userRepository.findByEmail(user.getEmail());
-		System.out.println(userDetail.get().toString());
-		if(bCryptPasswordEncoder.matches(user.getPassword(), userDetail.get().getPassword()))
+	public boolean verifiedPassword(UserDetailDTO user, String password) {
+		if(bCryptPasswordEncoder.matches(password, user.getPassword()))
 			return true;
 		else 
 			return false;
@@ -115,13 +116,5 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 			userList.add(entity.buildDTO());
 		return userList;
 	}
-
-	@Override
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		UserDetailDTO user =  userRepository.findByEmail(email).get().buildDTO();
-        return user;
-	}
-
-	
 
 }

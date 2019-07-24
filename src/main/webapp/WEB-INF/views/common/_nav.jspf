@@ -11,7 +11,7 @@
         <li class="header">Common Menu</li>
         
         <li>
-          <a href="notice">
+          <a href="${path}/main/notice">
             <i class="fa fa-calendar"></i><span>공지사항</span>
 <!--             <span class="pull-right-container"> -->
 <!--               <small class="label pull-right bg-red">3</small> -->
@@ -21,20 +21,20 @@
         </li>
         
         <li>
-          <a href="bbs">
+          <a href="${path}/main/bbs">
             <i class="fa fa-calendar"></i><span>자유게시판</span>
           </a>
         </li>
         
         <li class="treeview">
-          <a href="#">
+          <a href="stafflist">
             <i class="fa fa-dashboard"></i><span>직원정보</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="${path}/pages/staffList"><i class="fa fa-circle-o"></i>직원명부</a></li>
+            <li><a href="${path}/admin/staffinfo"><i class="fa fa-circle-o"></i>직원명부</a></li>
             <li><a href="${path}/pages/todayStaff"><i class="fa fa-circle-o"></i>금일 근무자</a></li>
           </ul>
         </li>
