@@ -89,7 +89,12 @@
 ### Day 12 : bbs DB구축 및 CRUD 테스트 (19.07.22)
 - (오인) bbs(게시판) DB구축 및 CRUD 테스트
 - (오인) 메인 페이지, 로그인, 회원가입, 게시판 Controller 연결
-- (종환) 출퇴근 기능 수정
+- (종환) 출퇴근 기능 수정  
+- (성현) 직원 정보보기 기능 수정
 
 ### Day 13 : View 수정 (19.07.23)
 - (정우) view update : login, register ajax script 추가.
+- (성현) WebFlow 시각화 작성
+
+### Day 14 : WebFlow (19.07.24)  
+- (성현) WebFlow 시각화 완료
