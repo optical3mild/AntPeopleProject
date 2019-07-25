@@ -50,6 +50,9 @@ public class MainController {
 		logger.info("notice 페이지");
 		return "notice";
 	}
+
+	//--------------------------------------------------------------------------
+	
 	//----------------------------- bbs 관련 -------------------------------------
 	// bbs이동 및 리스트 호출
 	@RequestMapping("bbspage")
@@ -95,6 +98,58 @@ public class MainController {
 		mv.setViewName("writearticle");
 		return mv;
 	}
+	//--------------------------------------------------------------------------
+	
+	//------------------------- notice 관련 --------------------------------------
+//	// notice이동 및 리스트 호출
+//		@RequestMapping("noticepage")
+//		public String noticePage(Model model) {
+//			List<BbsDetailDTO> noticeDetailList = new ArrayList(noticeService.findByAll());
+//			model.addAttribute("noticeList",noticeDetailList);
+//			logger.info("notice 페이지");
+//			return "notice";
+//		}
+//	
+//	// 공지글 작성하기
+//	@RequestMapping("insertnoticepage")
+//	public ModelAndView insertNotice(ModelAndView mv) {
+//		mv.addObject("isNew", "newArticle");
+//		mv.addObject("nextControl", 3);
+//		mv.setViewName("writearticle");
+//		return mv;
+//	}
+//	
+//	// 공지글 상세 보기
+//	@RequestMapping("detailnotice")
+//	public ModelAndView detailnotice(int id, ModelAndView mv) {
+//		mv.addObject("noticeDetail", noticeService.findByOne(id));
+//		mv.addObject("category", "공지사항");
+//		mv.setViewName("articledetail");
+//		return mv;
+//	}
+//	
+//	// 공지글 삭제하기 
+//	@RequestMapping("deletenotice")
+//	public ModelAndView deleteNotice(int id, ModelAndView mv) {
+//		noticeService.deleteNotice(id);
+//		mv.setViewName("redirect:noticepage");
+//		return mv;
+//	}
+//	
+//	// 공지글 수정하기
+//	@RequestMapping("updatenoticepage")
+//	public ModelAndView updateNotice(int id, ModelAndView mv) {
+//		mv.addObject("noticeDetail", noticeService.findByOne(id));
+//		mv.addObject("isNew", "modifyArticle");
+//		mv.addObject("nextControl", 2);
+//		mv.setViewName("writearticle");
+//		return mv;
+//	}
+//	
+	
+	//--------------------------------------------------------------------------
+	
+	//--------------------------------------------------------------------------
 	
 	// 직원 전체목록(간략)
 	@RequestMapping("/stafflist")
