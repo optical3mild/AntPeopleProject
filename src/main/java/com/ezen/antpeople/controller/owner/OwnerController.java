@@ -1,4 +1,4 @@
-﻿package com.ezen.antpeople.controller.admin;
+﻿package com.ezen.antpeople.controller.owner;
 
 
 import org.slf4j.Logger;
@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-public class AdminController {
-	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
+public class OwnerController {
+	private static final Logger logger = LoggerFactory.getLogger(OwnerController.class);
 	
 	// 직원 전체 정보 목록
 	@RequestMapping("staffinfo")
