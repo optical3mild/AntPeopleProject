@@ -98,3 +98,7 @@
 
 ### Day 14 : WebFlow (19.07.24)  
 - (성현) WebFlow 시각화 완료
+
+### Day 15 : notice, bbs 서비스 (19.07.25) 
+- (오인) notice DB, Repository, Entity 구성
+- (오인) bbs, notice 화면 연동

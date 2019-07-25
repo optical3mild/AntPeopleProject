@@ -1,4 +1,4 @@
-package com.ezen.antpeople.bbs;
+package com.ezen.antpeople.board;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -17,7 +17,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.ezen.antpeople.config.RootConfig;
 import com.ezen.antpeople.config.SecurityConfig;
-import com.ezen.antpeople.dto.bbs.BbsDetailDTO;
+import com.ezen.antpeople.dto.board.BbsDetailDTO;
 import com.ezen.antpeople.entity.BbsEntity;
 import com.ezen.antpeople.repository.BbsRepository;
 import com.ezen.antpeople.service.BbsService;

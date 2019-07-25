@@ -35,15 +35,9 @@ public class UserController {
 		this.userService = userService;
 	}
 
-	@RequestMapping("index")
-	public String loginIndex(Model model) {
-		logger.info("로그인 페이지");
-		return "login";
-	}
-
 	// 로그인 페이지로 이동
 	@RequestMapping("login")
-	public String login(Model model) {
+	public String loginIndex(Model model) {
 		logger.info("로그인 페이지");
 		return "login";
 	}
@@ -93,7 +87,6 @@ public class UserController {
 	}
 	
 	  // 회원가입 
-	
 	  @RequestMapping(value="registercheck", method= RequestMethod.POST)
 	  @ResponseBody 
 	  public String registerCheck(@RequestBody UserDetailDTO user, Model model) throws Exception{
@@ -101,49 +94,5 @@ public class UserController {
 		  model.addAttribute("message", msg);
 		  return "login";
 	  }
-
-	// 출근
-//	@RequestMapping(value = "goWork.do")
-//	public Model goWork(HttpServletRequest request, Model model) throws Exception {
-//		HttpSession session = request.getSession(); // 세션을 가져옴
-//		UserDetailDTO userDetail = new UserDetailDTO();
-//		boolean isSuccess = false; // 성공여부
-//		try {
-//			if (session.getAttribute("user_id") != null) { // 세션이 null일경우 String 으로 변환 안됨(Exception 발생)
-//				int user_id = (int) session.getAttribute("user_id"); // 세션에 저장한 user_id 가져옴
-//				userDetail.setId(user_id); // dto에 유저아이디를 저장함
-//				userService.saveGo(userDetail); // userService 에 saveGo 를 실행함
-//				isSuccess = true; // 결과값 = 성공
-//			}
-//			model.addAttribute("result", isSuccess);
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//
-//		return model;
-//	}
-
-	// 퇴근
-//	@RequestMapping(value = "outWork.do")
-//	public Model outWork(HttpServletRequest request, Model model) throws Exception {
-//		HttpSession session = request.getSession(); // 세션을 가져옴
-//		UserDetailDTO userDetail = new UserDetailDTO();
-//		boolean isSuccess = false; // 성공여부
-//		try {
-//			if (session.getAttribute("user_id") != null) { // 세션이 null일경우 String 으로 변환 안됨.(Exception 발생)
-//				int user_id = (int) session.getAttribute("user_id"); // 세션에 저장한 user_id 가져옴
-//				userDetail.setId(user_id); // dto에 유저아이디를 저장함
-//				userService.saveOut(userDetail); // userService 에 saveGo 를 실행함
-//				isSuccess = true; // 결과값 = 성공
-//			}
-//			model.addAttribute("result", isSuccess);
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//
-//		return model;
-//	}
 
 }

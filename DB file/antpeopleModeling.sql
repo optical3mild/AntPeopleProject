@@ -1,6 +1,8 @@
 SET SESSION FOREIGN_KEY_CHECKS=0;
+
 CREATE SCHEMA IF NOT EXISTS `antpeople` DEFAULT CHARACTER SET utf8;
 use `antpeople`;
+
 /* Drop Tables */
 
 DROP TABLE IF EXISTS bbs;
@@ -9,15 +11,11 @@ DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS role;
 DROP TABLE IF EXISTS store;
 
-
-
-
-
 /* Create Tables */
 
 CREATE TABLE bbs
 (
-	bbs_id int DEFAULT 1 NOT NULL AUTO_INCREMENT,
+	bbs_id int NOT NULL AUTO_INCREMENT,
 	title varchar(50) NOT NULL,
 	description varchar(255) NOT NULL,
 	created_time datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -30,7 +28,7 @@ CREATE TABLE bbs
 
 CREATE TABLE notice
 (
-	notice_id int DEFAULT 1 NOT NULL AUTO_INCREMENT,
+	notice_id int NOT NULL AUTO_INCREMENT,
 	title varchar(50) NOT NULL,
 	description varchar(255) NOT NULL,
 	created_time datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -57,7 +55,6 @@ CREATE TABLE store
 	store varchar(15) NOT NULL,
 	PRIMARY KEY (store_id)
 );
-
 
 
 CREATE TABLE user
@@ -89,19 +86,12 @@ ALTER TABLE user
 ;
 
 
-
-
-
 ALTER TABLE user
 	ADD FOREIGN KEY (store_id)
 	REFERENCES store (store_id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
-
-
-
-
 
 ALTER TABLE bbs
 	ADD FOREIGN KEY (user_id)
