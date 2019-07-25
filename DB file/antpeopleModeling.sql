@@ -1,16 +1,15 @@
 SET SESSION FOREIGN_KEY_CHECKS=0;
 
+create schema if not exists `antpeople` default character set utf8;
+use `antpeople`;
+
 /* Drop Tables */
 
 DROP TABLE IF EXISTS bbs;
 DROP TABLE IF EXISTS notice;
-DROP TABLE IF EXISTS user_sche;
-DROP TABLE IF EXISTS schedule;
-DROP TABLE IF EXISTS user_todo;
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS role;
 DROP TABLE IF EXISTS store;
-DROP TABLE IF EXISTS todo;
 
 
 
@@ -19,7 +18,7 @@ DROP TABLE IF EXISTS todo;
 
 CREATE TABLE bbs
 (
-	bbs_id int DEFAULT 1 NOT NULL AUTO_INCREMENT,
+	bbs_id int NOT NULL AUTO_INCREMENT,
 	title varchar(50) NOT NULL,
 	description varchar(255) NOT NULL,
 	created_time datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -32,11 +31,11 @@ CREATE TABLE bbs
 
 CREATE TABLE notice
 (
-	notice_id int DEFAULT 1 NOT NULL AUTO_INCREMENT,
+	notice_id int NOT NULL AUTO_INCREMENT,
 	title varchar(50) NOT NULL,
 	description varchar(255) NOT NULL,
-	created_time datetime DEFAULT CURRENT_TIME NOT NULL,
-	updated_time datetime DEFAULT CURRENT_TIME NOT NULL,
+	created_time datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	updated_time datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	state int NOT NULL,
 	user_id int NOT NULL,
 	PRIMARY KEY (notice_id)
@@ -51,27 +50,6 @@ CREATE TABLE role
 );
 
 
-CREATE TABLE schedule
-(
-	sche_id int DEFAULT 1 NOT NULL AUTO_INCREMENT,
-	-- 01 = 휴가
-	-- 02 = 조퇴 
-	-- 03 = 지각
-	state varchar(2) DEFAULT '00' COMMENT '01 = 휴가
-02 = 조퇴 
-03 = 지각',
-	created_time datetime DEFAULT CURRENT_TIME NOT NULL,
-	updated_time datetime DEFAULT CURRENT_TIME NOT NULL,
-	title varchar(50),
-	start_date varchar(10) NOT NULL,
-	end_date varchar(10) NOT NULL,
-	start_time varchar(5) NOT NULL,
-	end_time varchar(5) NOT NULL,
-	manpower int,
-	peoplecount int DEFAULT 0,
-	user_id int NOT NULL,
-	PRIMARY KEY (sche_id)
-);
 
 
 CREATE TABLE store
@@ -79,17 +57,6 @@ CREATE TABLE store
 	store_id int DEFAULT 101 NOT NULL,
 	store varchar(15) NOT NULL,
 	PRIMARY KEY (store_id)
-);
-
-
-CREATE TABLE todo
-(
-	todo_id int NOT NULL AUTO_INCREMENT,
-	description varchar(255) NOT NULL,
-	created_time datetime DEFAULT CURRENT_TIMESTAMP,
-	updated_time datetime DEFAULT CURRENT_TIMESTAMP,
-	state boolean NOT NULL,
-	PRIMARY KEY (todo_id)
 );
 
 
@@ -109,25 +76,6 @@ CREATE TABLE user
 );
 
 
-CREATE TABLE user_sche
-(
-	user_id int NOT NULL,
-	sche_id int DEFAULT 1 NOT NULL,
-	-- 1 - 승인 신청중
-	-- 2 - 승인 완료
-	state int DEFAULT 1 COMMENT '1 - 승인 신청중
-2 - 승인 완료'
-);
-
-
-CREATE TABLE user_todo
-(
-	to_id int NOT NULL,
-	todo_id int NOT NULL,
-	dear_id int NOT NULL,
-	PRIMARY KEY (to_id, todo_id, dear_id)
-);
-
 
 
 /* Create Foreign Keys */
@@ -140,25 +88,9 @@ ALTER TABLE user
 ;
 
 
-ALTER TABLE user_sche
-	ADD FOREIGN KEY (sche_id)
-	REFERENCES schedule (sche_id)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
-;
-
-
 ALTER TABLE user
 	ADD FOREIGN KEY (store_id)
 	REFERENCES store (store_id)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
-;
-
-
-ALTER TABLE user_todo
-	ADD FOREIGN KEY (todo_id)
-	REFERENCES todo (todo_id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
@@ -178,38 +110,4 @@ ALTER TABLE notice
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
-
-
-ALTER TABLE schedule
-	ADD FOREIGN KEY (user_id)
-	REFERENCES user (user_id)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
-;
-
-
-ALTER TABLE user_sche
-	ADD FOREIGN KEY (user_id)
-	REFERENCES user (user_id)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
-;
-
-
-ALTER TABLE user_todo
-	ADD FOREIGN KEY (dear_id)
-	REFERENCES user (user_id)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
-;
-
-
-ALTER TABLE user_todo
-	ADD FOREIGN KEY (to_id)
-	REFERENCES user (user_id)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
-;
-
-
 

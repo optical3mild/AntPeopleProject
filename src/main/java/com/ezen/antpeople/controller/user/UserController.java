@@ -36,7 +36,7 @@ public class UserController {
 	}
 
 	// 로그인 페이지로 이동
-	@RequestMapping("index")
+	@RequestMapping("login")
 	public String loginIndex(Model model) {
 		logger.info("로그인 페이지");
 		return "login";
