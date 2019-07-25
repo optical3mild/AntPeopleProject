@@ -52,9 +52,9 @@ public class BbsCRUDTest {
 	//게시물 상세보기 테스트 - 완료
 	@Test @Ignore
 	public void bbsDetailTest() {
-		BbsDetailDTO bbs = bs.findByOne(1);
+		BbsDetailDTO bbs = bs.findByOne(4);
 		System.out.println(bbs.toString());
-		assertEquals(bbs.getTitle(), "테스트 게시물");
+		assertEquals(bbs.getTitle(), "공지사항 테스트");
 	}
 	
 	//게시물 삭제 테스트 - 완료

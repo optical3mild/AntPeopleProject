@@ -1,5 +1,6 @@
 package com.ezen.antpeople.entity;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -14,7 +15,7 @@ import lombok.Getter;
 
 @Getter
 @MappedSuperclass
-public class BaseEntity {
+public class BaseEntity implements Serializable {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

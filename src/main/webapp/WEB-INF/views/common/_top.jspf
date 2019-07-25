@@ -263,7 +263,7 @@
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="${path}/user/logout" class="btn btn-default btn-flat">Log out</a>
+                  <a href="${path}/user/logout" class="btn btn-default btn-flat">Logout</a>
                 </div>
               </li>
             </ul>

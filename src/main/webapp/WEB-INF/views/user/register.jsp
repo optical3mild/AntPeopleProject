@@ -200,8 +200,8 @@
 		    		method : 'post',
 		    		data : JSON.stringify(checkExist),
 		    		contentType: 'application/json',
-					//dataType : ,
-					error : function(response,message) {
+					dataType : 'text',
+					error : function(response, message) {
 						alert("통신실패, response: " + message);
 					},
 					success : function(response,message) {
