@@ -65,7 +65,7 @@
             <div class="box-header">
               <h3 class="box-title"></h3>
               <c:if test="${user.role.role == '사장'}">
-              <button type="button" class="btn btn-info pull-right" onclick="location.href='${path}/#' ">글쓰기</button>
+              <button type="button" class="btn btn-info pull-right" onclick="location.href='insertnoticepage' ">글쓰기</button>
               </c:if>
               <hr style="margin-bottom: 0 ; border: 0.5px solid lightgrey">
             </div>
@@ -97,20 +97,20 @@
                	  <c:set var="noticeList" value="${requestScope.noticeList}"/>
 				  <c:forEach var="notice" items="${noticeList}">
 					<tr>
-					  <td style="text-align: center;">${notice.number}</td>
+					  <td style="text-align: center;">${notice.notice_id}</td>
 			          <%--Title 클릭 시 해당 글 링크로 넘어감 서블릿 요청필요.--%>
 					  <td style="text-align: center;">
-					    <a href="${path}/#">${notice.title}</a>
+					    <a href="detailnotice?id=${notice.notice_id}">${notice.title}</a>
 					  </td>
 					  <td style="text-align: center;">
-					    <fmt:formatDate value="${notice.date}" pattern="yy-MM-dd"/>
+					    "${notice.updatedAt}"
 					  </td>
 					  <%-- 날짜를 String으로 받아오는 경우 parseDate --> formatDate로 두번실행.
 					  <td style="text-align: center;">
 					    <fmt:parseDate value="${notice.noticeDate}" var="dateFmt" pattern="yyyyMMdd"/>
 					    <fmt:formatDate value="${dateFmt}" pattern="yy-MM-dd"/>
 					  </td> --%>
-					  <td style="text-align: center;">${notice.userId}</td>
+					  <td style="text-align: center;">${notice.user.name}</td>
 					</tr>
 				  </c:forEach>
 				  

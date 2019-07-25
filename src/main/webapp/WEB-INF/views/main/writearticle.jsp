@@ -53,6 +53,7 @@
     <!-- Main content -->
     <section class="content">
     <c:set var="isNew" value="${requestScope.isNew}"/>
+    <c:set var="next" value='${requestScope.nextControl}'/>
       <div class="row">
         
         <!-- right column -->
