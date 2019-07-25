@@ -1,6 +1,6 @@
 SET SESSION FOREIGN_KEY_CHECKS=0;
 
-create schema if not exists `antpeople` default character set utf8;
+CREATE SCHEMA IF NOT EXISTS `antpeople` DEFAULT CHARACTER SET utf8;
 use `antpeople`;
 
 /* Drop Tables */
@@ -10,9 +10,6 @@ DROP TABLE IF EXISTS notice;
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS role;
 DROP TABLE IF EXISTS store;
-
-
-
 
 /* Create Tables */
 
@@ -78,6 +75,7 @@ CREATE TABLE user
 
 
 
+
 /* Create Foreign Keys */
 
 ALTER TABLE user
@@ -95,7 +93,6 @@ ALTER TABLE user
 	ON DELETE RESTRICT
 ;
 
-
 ALTER TABLE bbs
 	ADD FOREIGN KEY (user_id)
 	REFERENCES user (user_id)
@@ -110,4 +107,3 @@ ALTER TABLE notice
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
-

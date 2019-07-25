@@ -71,7 +71,7 @@ public class UserController {
 	public ModelAndView logout(SessionStatus sessionStatus, ModelAndView mv) {
 		logger.info("세션 제거");
 		sessionStatus.setComplete();
-        mv.setViewName("../main/guestmain");
+        mv.setViewName("redirect:../main/guestmain");
         return mv;
 	}
 
