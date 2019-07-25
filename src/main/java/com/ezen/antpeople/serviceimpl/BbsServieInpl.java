@@ -7,7 +7,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.ezen.antpeople.dto.bbs.BbsDetailDTO;
+import com.ezen.antpeople.dto.board.BbsDetailDTO;
 import com.ezen.antpeople.entity.BbsEntity;
 import com.ezen.antpeople.repository.BbsRepository;
 import com.ezen.antpeople.service.BbsService;

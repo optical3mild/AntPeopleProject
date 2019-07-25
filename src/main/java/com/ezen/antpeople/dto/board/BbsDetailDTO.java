@@ -1,4 +1,4 @@
-package com.ezen.antpeople.dto.bbs;
+package com.ezen.antpeople.dto.board;
 
 import java.time.LocalDateTime;
 

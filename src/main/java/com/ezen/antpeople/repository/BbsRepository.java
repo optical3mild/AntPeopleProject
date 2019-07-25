@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.ezen.antpeople.dto.bbs.BbsDetailDTO;
+import com.ezen.antpeople.dto.board.BbsDetailDTO;
 import com.ezen.antpeople.entity.BbsEntity;
 
 @Repository

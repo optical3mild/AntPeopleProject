@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ezen.antpeople.dto.bbs.BbsDetailDTO;
+import com.ezen.antpeople.dto.board.BbsDetailDTO;
 import com.ezen.antpeople.service.BbsService;
 import com.ezen.antpeople.service.UserService;
 

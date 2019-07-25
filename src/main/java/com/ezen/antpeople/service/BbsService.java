@@ -2,7 +2,7 @@ package com.ezen.antpeople.service;
 
 import java.util.List;
 
-import com.ezen.antpeople.dto.bbs.BbsDetailDTO;
+import com.ezen.antpeople.dto.board.BbsDetailDTO;
 
 public interface BbsService {
 	public void uploadBbs(BbsDetailDTO bbs); //게시글 작성
