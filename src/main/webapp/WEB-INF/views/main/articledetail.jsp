@@ -56,11 +56,11 @@
         <!-- right column -->
         <div class="col-md-12">
           <c:set var="article" value="${requestScope.bbsDetail}"/>
+          <c:set var="category" value="${requestScope.category}"/>
           <!-- general form elements disabled -->
           <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">${article.title}</h3>
-              <h3 class="box-title">${requestScope.category}</h3>
+              <h3 class="box-title">[${category}] ${article.title}</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -77,11 +77,20 @@
                     ${article.description}
                   </textarea>
                 </div>
+                <c:if test="${category == '공지사항'}">
                 <div class="box-footer" style="padding-left: 0; padding-right:0;">
-                  <button type="button" class="btn btn-default" onclick="location.href='${path}/#' ">목록으로</button>
+                  <button type="button" class="btn btn-default" onclick="location.href='noticepage' ">목록으로</button>
                   <button type="button" class="btn btn-info pull-right" style="margin: 0 0 0 20px" onclick="location.href='${path}/#' ">삭제</button>
                   <button type="button" class="btn btn-info pull-right" onclick="location.href='${path}/#' ">수정</button>
                 </div>
+                </c:if>
+                <c:if test="${category == '자유게시판'}">
+                <div class="box-footer" style="padding-left: 0; padding-right:0;">
+                  <button type="button" class="btn btn-default" onclick="location.href='bbspage' ">목록으로</button>
+                  <button type="button" class="btn btn-info pull-right" style="margin: 0 0 0 20px" onclick="location.href='deletebbs?id=${article.bbs_id}'">삭제</button>
+                  <button type="button" class="btn btn-info pull-right" onclick="location.href='updatebbspage?id=${article.bbs_id}'">수정</button>
+                </div>
+                </c:if>
               </form>
             </div>
             <!-- /.box-body -->

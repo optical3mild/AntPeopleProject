@@ -48,7 +48,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Common - Board(자유게시판)
+        Board(자유게시판)
         <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
@@ -65,10 +65,10 @@
             <div class="box-header">
               <h3 class="box-title">Data Table With Full Features</h3>
               <c:if test="${user.email == null}">
-              	<h3 class="pull-right">글작성은 로그인 후에 가능 합니다.</div>
+              	<div class="pull-right">글작성은 로그인 후에 가능 합니다.</div>
               </c:if>
               <c:if test="${user.role.role == '사장'||user.role.role == '직원'}">
-              	<button type="button" class="btn btn-info pull-right" onclick="location.href='${path}/#' ">글쓰기</button>
+              	<button type="button" class="btn btn-info pull-right" onclick="location.href='insertbbspage' ">글쓰기</button>
               </c:if>
               <hr style="margin-bottom: 0 ; border: 0.5px solid lightgrey">
             </div>
@@ -103,7 +103,7 @@
 					  <td style="text-align: center;">${board.bbs_id}</td>
 			          <%--Title 클릭 시 해당 글 링크로 넘어감. 서블릿 요청필요.--%>
 					  <td style="text-align: center;">
-					    <a href="bbsdetail?id=${board.bbs_id}">${board.title}</a>
+					    <a href="detailbbs?id=${board.bbs_id}">${board.title}</a>
 					  </td>
 					  <td style="text-align: center;">
 					    ${board.updatedAt}"

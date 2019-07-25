@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Write</title>
+  <title>자유게시판 게시글 수정</title>
   
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -40,7 +41,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Common - Notice - Write Article(글 쓰기)
+       	Write Article(글 쓰기)
         <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
@@ -51,11 +52,11 @@
 <!-- ------------------------------------------------- -->    
     <!-- Main content -->
     <section class="content">
+    <c:set var="isNew" value="${requestScope.isNew}"/>
       <div class="row">
         
         <!-- right column -->
         <div class="col-md-12">
-          <c:set var="article" value="${requestScope.article}"/>
           <!-- general form elements disabled -->
           <div class="box box-info">
             <div class="box-header with-border">
@@ -64,12 +65,13 @@
             <div class="box-body">
             
               <!-- 새글작성 : order값으로 newArticle을 받으면 실행. -->
-              <c:if test="${order == 'newArticle'}">
+              <c:if test="${isNew == 'newArticle'}">
 	              <form role="form" action="${path}/#">
 	                <!-- text input -->
 	                <div class="form-group">
-	                  <label style="display:inline">작성자:&nbsp;&nbsp;${userName}</label>&nbsp;&nbsp;&nbsp;&nbsp;
-	                  <label style="display:inline">작성일:&nbsp;&nbsp;${today}</label>
+	                <jsp:useBean id="toDay" class="java.util.Date" />
+	                  <label style="display:inline">작성자:&nbsp;&nbsp;${user.name}</label>&nbsp;&nbsp;&nbsp;&nbsp;
+	                  <label style="display:inline">작성일:&nbsp;&nbsp;${toDay}</label>
 	                </div>
 	                
 	                <div class="form-group">
@@ -83,13 +85,6 @@
 	                  <textarea class="form-control" rows="3" name="theBody"></textarea>
 	                </div>
 	
-	                <div class="form-group">
-	                  <label>Category</label>
-	                  <select class="form-control" name="category">
-	                    <option value="notice">Notice</option>
-	                    <option value="board">Board</option>
-	                  </select>
-	                </div>
 					<div class="box-footer" style="padding-left: 0; padding-right:0;">
 	                  <button type="button" class="btn btn-default" onclick="location.href='${path}/#' ">목록으로</button>
 	                  <button type="submit" class="btn btn-info pull-right">작성완료</button>
@@ -99,35 +94,27 @@
               </c:if>
               
               <!-- 수정 -->
-              <c:if test="${order == 'modifyArticle'}">
-	              <form role="form" action="${path}/#">
+              <c:set var="article" value="${requestScope.bbsDetail}"/>
+              <c:if test="${isNew == 'modifyArticle'}">
+	              <form role="form" action="${path}">
 	                <!-- text input -->
 	                
 	                <div class="form-group">
-	                  <label style="display:inline">작성자:&nbsp;&nbsp;${article.userName}</label>&nbsp;&nbsp;&nbsp;&nbsp;
-	                  <label style="display:inline">작성일:&nbsp;&nbsp;${article.date}</label>
+	                  <label style="display:inline">작성자:&nbsp;&nbsp;${article.user.name}</label>&nbsp;&nbsp;&nbsp;&nbsp;
+	                  <label style="display:inline">작성일:&nbsp;&nbsp;${article.updatedAt}</label>
 	                </div>
 	                
 	                <div class="form-group">
 	                  <label>Title</label>
-	                  <input type="text" class="form-control" name="title" value="${article.title">
+	                  <input type="text" class="form-control" name="title" value="${article.title}">
 	                </div>
 	
 	                <!-- textarea -->
 	                <div class="form-group">
 	                  <label>The Body</label>
 	                  <textarea class="form-control" rows="3" name="theBody">
-	                  	${article.theBody }
+	                  	${article.description}
 	                  </textarea>
-	                </div>
-	
-	                <div class="form-group">
-	                  <c:set var="categoryOption" value="${article.category}" />
-                      <label>Category</label>
-                      <select class="form-control selection" disabled name="category">
-	                    <option value="notice">Notice</option>
-	                    <option value="board">Board</option>
-	                  </select>
 	                </div>
 					<div class="box-footer" style="padding-left: 0; padding-right:0;">
 	                  <button type="button" class="btn btn-default" onclick="location.href='${path}/#' ">목록으로</button>
