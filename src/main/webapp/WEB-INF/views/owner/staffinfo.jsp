@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Staff Info</title>
+  <title>StaffList</title>
   
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -22,6 +22,11 @@
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  
+  <!-- DataTables -->
+  <link rel="stylesheet" href="setfiles/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  
+  
   <%@ include file= "../common/header.jsp" %>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -37,20 +42,70 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Admin - Staff Info : 직원관리화면(근태등의 직원별 정보 표시)
+        Common - Staff List (직원목록)
         <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+        <li><a href="${path}/#"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li class="active">Main</li>
       </ol>
     </section>
-    
-    <!-- Main content -->
+<!-- ------------------------------------------------- -->    
+   <!-- Main content -->
     <section class="content">
-    
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box box-info">
+            <div class="box-header">
+              <h3 class="box-title">Data Table With Full Features</h3>
+              <hr style="margin-bottom: 0 ; border: 0.5px solid lightgrey">
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="staffListTable" class="table table-bordered table-striped">
+				<colgroup>
+				  <col style="width: 15%">
+				  <col style="width: 15%">
+				  <col style="width: 20%">
+				</colgroup>
+                <thead>
+                  <tr>
+                    <th>이름</th>
+                    <th>직급</th>
+                    <th>소속</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                  	<td><a href="#">알바1</a></td>
+                  	<td>알바</td>
+                  	<td>점포1</td>
+                  </tr>
+                
+               	  <c:set var="staffList" value="${requestScope.userList}"/>
+				  <c:forEach var="staff" items="${staffList}">
+					<tr>
+					  <td style="text-align: center;">
+					    <a href="${path}/#">${staff.name}</a>
+					  </td>
+					  <td style="text-align: center;">${staff.role.role}</td>
+					  <td style="text-align: center;">${staff.store.store}</td>
+					</tr>
+				  </c:forEach>
+				  
+                </tbody>
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
     </section>
     <!-- /.content -->
+<!-- -------------------------------------------- -->    
   </div>
   <!-- /.content-wrapper -->
   <%@ include file = "../common/_bottom.jspf" %>
@@ -68,6 +123,17 @@
 <!-- AdminLTE App : navbar 관련-->
 <script src="setfiles/dist/js/adminlte.min.js"></script>
 
+<!-- DataTables -->
+	<!-- 상하단 검색기능, 페이지 넘김기능 -->
+<script src="setfiles/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+	<!-- table검색창등 미세설정.. -->
+<script src="setfiles/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+<script>
+  $(function () {
+    $('#boardTable').DataTable()
+  })
+</script>
 
 </body>
 </html>
