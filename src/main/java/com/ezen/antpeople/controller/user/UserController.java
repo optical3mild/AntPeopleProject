@@ -3,6 +3,9 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -12,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.ezen.antpeople.dto.user.RoleDTO;
 import com.ezen.antpeople.dto.user.StoreDTO;
@@ -55,12 +57,20 @@ public class UserController {
 			logger.info("로그인 성공");
 			model.addAttribute("user", user);
 			model.addAttribute("msg", "로그인 성공");
-			return "../main/guestmain";
+			return "../main/mainpage";
 		} else {
 			logger.info("로그인 실패");
 			model.addAttribute("msg", "로그인 실패");
 			return "redirection";
 		}
+	}
+	//로그아웃
+	@RequestMapping(value = "logout", method = RequestMethod.GET)
+	public String logout(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+        session.invalidate();
+
+        return "../main/guestmain";
 	}
 
 	// 회원가입 페이지로 이동 - 완료
@@ -79,8 +89,8 @@ public class UserController {
 	  @ResponseBody 
 	  public String registerCheck(@RequestBody UserDetailDTO user, Model model) throws Exception{
 		  String msg = userService.userSignUp(user);
-		  model.addAttribute("response", msg);
-		  return "register";
+		  model.addAttribute("message", msg);
+		  return "login";
 	  }
 
 	// 출근

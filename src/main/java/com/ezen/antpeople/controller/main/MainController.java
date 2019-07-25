@@ -28,12 +28,19 @@ public class MainController {
 		this.bbsService = bbsService;
 	}
 	
-	// 메인 페이지
+	// 게스트 메인 페이지
 	@RequestMapping("guestmain")
-	public String mainPage() {
+	public String guestMain() {
 		logger.info("guestMain 페이지");
 		return "guestmain";
 	}
+	
+	// 메인 페이지
+		@RequestMapping("mainpage")
+		public String mainPage() {
+			logger.info("guestMain 페이지");
+			return "main";
+		}
 	
 	// 공지
 	@RequestMapping("notice")

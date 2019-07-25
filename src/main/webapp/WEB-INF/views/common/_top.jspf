@@ -20,7 +20,6 @@
     </a>
 
     <div class="navbar-custom-menu">
-    <c:set var = "user" value = "${user}"></c:set>
 <!-- 로그인 전 로그인/회원등록 버튼  -->      
 	    <c:if test="${user.email == null}">
 	      <ul class="nav navbar-nav">
@@ -244,7 +243,7 @@
               <!-- 유저이미지 -->
               <img src="#" class="user-image" alt="User Image">
               <!-- 유저이름 -->
-              <span class="hidden-xs">${name}</span>
+              <span class="hidden-xs">${user.name}</span>
             </a>
             <!-- 유저 정보 드롭다운 -->
             <ul class="dropdown-menu">
@@ -253,7 +252,7 @@
                 <img src="#" class="img-circle" alt="User Image">
 				<!-- 유저 간략정보: 이름, 가입일 등등... -->
                 <p>
-                  ${email}
+                  ${user.email}
                 </p>
               </li>
               <!-- Menu Body -->
@@ -264,7 +263,7 @@
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="${path}/pages/logout" class="btn btn-default btn-flat">Log out</a>
+                  <a href="${path}/user/logout" class="btn btn-default btn-flat">Log out</a>
                 </div>
               </li>
             </ul>

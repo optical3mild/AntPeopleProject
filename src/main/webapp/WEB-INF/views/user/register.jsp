@@ -201,11 +201,12 @@
 		    		data : JSON.stringify(checkExist),
 		    		contentType: 'application/json',
 					//dataType : ,
-					error : function(response) {
-						alert("통신실패, response: " + response);
+					error : function(response,message) {
+						alert("통신실패, response: " + message);
 					},
-					success : function(response) {
-						alert("통신성공, response: " + response);
+					success : function(response,message) {
+						alert("통신성공, response: " + message);
+						document.location.href = response;
 						//성공 시 이메일 존재여부 판별.
 						//존재 --> 이메일이 존재한다는 알림 띄움.
 						//없음 --> 회원가입 폼 자동으로 전송.
