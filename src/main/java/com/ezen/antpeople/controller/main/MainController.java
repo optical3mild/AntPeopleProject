@@ -48,6 +48,7 @@ public class MainController {
 
 	//--------------------------------------------------------------------------
 	
+	
 	//----------------------------- bbs 관련 -------------------------------------
 	// bbs이동 및 리스트 호출
 	@RequestMapping("bbspage")
@@ -58,7 +59,7 @@ public class MainController {
 		return "bbs";
 	}
 	
-	//게시글 작성하기
+	//게시글 작성 페이지
 	@RequestMapping("insertbbspage")
 	public ModelAndView insertBbs(ModelAndView mv) {
 		mv.addObject("isNew", "newArticle");
@@ -70,7 +71,7 @@ public class MainController {
 	//게시글 상세 보기
 	@RequestMapping("detailbbs")
 	public ModelAndView detailBbs(int id, ModelAndView mv) {
-		mv.addObject("bbsDetail", bbsService.findByOne(id));
+		mv.addObject("detail", bbsService.findByOne(id));
 		mv.addObject("category", "자유게시판");
 		mv.setViewName("articledetail");
 		return mv;
@@ -105,7 +106,7 @@ public class MainController {
 			return "notice";
 		}
 	
-	// 공지글 작성하기
+	// 공지글 작성 페이지
 	@RequestMapping("insertnoticepage")
 	public ModelAndView insertNotice(ModelAndView mv) {
 		mv.addObject("isNew", "newArticle");
@@ -117,7 +118,7 @@ public class MainController {
 	// 공지글 상세 보기
 	@RequestMapping("detailnotice")
 	public ModelAndView detailnotice(int id, ModelAndView mv) {
-		mv.addObject("noticeDetail", noticeService.findByOne(id));
+		mv.addObject("detail", noticeService.findByOne(id));
 		mv.addObject("category", "공지사항");
 		mv.setViewName("articledetail");
 		return mv;
@@ -136,7 +137,7 @@ public class MainController {
 	public ModelAndView updateNotice(int id, ModelAndView mv) {
 		mv.addObject("noticeDetail", noticeService.findByOne(id));
 		mv.addObject("isNew", "modifyArticle");
-		mv.addObject("nextControl", 2);
+		mv.addObject("nextControl", 4);
 		mv.setViewName("writearticle");
 		return mv;
 	}
