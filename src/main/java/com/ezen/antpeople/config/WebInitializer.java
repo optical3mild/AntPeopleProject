@@ -15,8 +15,8 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
 
-import com.ezen.antpeople.controller.admin.ServletConfigurationAdmin;
 import com.ezen.antpeople.controller.main.ServletConfigurationMain;
+import com.ezen.antpeople.controller.owner.ServletConfigurationOwner;
 import com.ezen.antpeople.controller.staff.ServletConfigurationStaff;
 import com.ezen.antpeople.controller.user.ServletConfigurationUser;
 
@@ -50,12 +50,12 @@ public class WebInitializer implements WebApplicationInitializer{
     		//-----------------------------------------------
     		
     		// ServeltContext_Admin - WebApplicationContext
-    		AnnotationConfigWebApplicationContext servletAdminContext = new AnnotationConfigWebApplicationContext();
-    		servletAdminContext.register(ServletConfigurationAdmin.class);
+    		AnnotationConfigWebApplicationContext servletOwnerContext = new AnnotationConfigWebApplicationContext();
+    		servletOwnerContext.register(ServletConfigurationOwner.class);
     		
-    		ServletRegistration.Dynamic dispatcherAdmin = servletContext.addServlet("DispatcherServletAdmin", new DispatcherServlet(servletAdminContext));
-    		dispatcherAdmin.setLoadOnStartup(3);
-    		dispatcherAdmin.addMapping("/admin/*");
+    		ServletRegistration.Dynamic dispatcherOwner = servletContext.addServlet("DispatcherServletOwner", new DispatcherServlet(servletOwnerContext));
+    		dispatcherOwner.setLoadOnStartup(3);
+    		dispatcherOwner.addMapping("/owner/*");
     		//-----------------------------------------------
     		
     		// ServeltContext_Staff - WebApplicationContext
