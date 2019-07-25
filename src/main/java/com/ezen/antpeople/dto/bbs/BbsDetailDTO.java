@@ -33,9 +33,10 @@ public class BbsDetailDTO {
 	}
 
 	//화면에 출력
-	public BbsDetailDTO(String title, String description, int state, LocalDateTime createdAt, LocalDateTime updatedAt,
+	public BbsDetailDTO(int bbs_id, String title, String description, int state, LocalDateTime createdAt, LocalDateTime updatedAt,
 			UserDetailDTO user) {
 		super();
+		this.bbs_id = bbs_id;
 		this.title = title;
 		this.description = description;
 		this.state = state;
@@ -55,7 +56,7 @@ public class BbsDetailDTO {
 
 	@Override
 	public String toString() {
-		return "BbsDetailDTO [title=" + title + ", description=" + description + ", state=" + state + ", createdAt="
+		return "BbsDetailDTO [bbs_id = " + bbs_id +", title=" + title + ", description=" + description + ", state=" + state + ", createdAt="
 				+ createdAt + ", updatedAt=" + updatedAt + ", user=" + user.getUser_id() + "]";
 	}
 	

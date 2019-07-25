@@ -8,7 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ezen.antpeople.dto.bbs.BbsDetailDTO;
 import com.ezen.antpeople.service.BbsService;
@@ -48,7 +50,7 @@ public class MainController {
 		logger.info("notice 페이지");
 		return "notice";
 	}
-	
+	//----------------------------- bbs 관련 -------------------------------------
 	// bbs이동 및 리스트 호출
 	@RequestMapping("bbs")
 	public String bbsPage(Model model) {
@@ -56,6 +58,15 @@ public class MainController {
 		model.addAttribute("bbsList",bbsDetailList);
 		logger.info("bbs 페이지");
 		return "bbs";
+	}
+	
+	//게시글 상세 보기
+	@RequestMapping("bbsdetail")
+	public ModelAndView bbsDetail(int id, ModelAndView mv) {
+		mv.addObject("bbsDetail", bbsService.findByOne(id));
+		mv.addObject("category", "자유게시판");
+		mv.setViewName("articledetail");
+		return mv;
 	}
 	
 	// 직원 전체목록(간략)

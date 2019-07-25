@@ -55,36 +55,27 @@
         
         <!-- right column -->
         <div class="col-md-12">
-          <c:set var="article" value="${requestScope.article}"/>
+          <c:set var="article" value="${requestScope.bbsDetail}"/>
           <!-- general form elements disabled -->
           <div class="box box-info">
             <div class="box-header with-border">
               <h3 class="box-title">${article.title}</h3>
+              <h3 class="box-title">${requestScope.category}</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <form role="form">
                 <!-- text input -->
                 <div class="form-group">
-                  <label style="display:inline">작성자:&nbsp;&nbsp;${article.userName}</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                  <label style="display:inline">작성일:&nbsp;&nbsp;${article.date}</label>
+                  <label style="display:inline">작성자:&nbsp;&nbsp;${article.user.name}</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                  <label style="display:inline">작성일:&nbsp;&nbsp;${article.updatedAt}</label>
                 </div>
                 
                 <!-- textarea -->
                 <div class="form-group">
                   <textarea class="form-control" rows="3" disabled style="background-color: white;">
-                    ${article.theBody}
+                    ${article.description}
                   </textarea>
-                </div>
-
-                <div class="form-group">
-                  <!-- script 전달값. select 자동선택 -->
-                  <c:set var="categoryOption" value="${article.category}" />
-                  <label>Category</label>
-                  <select class="form-control selection" disabled>
-                    <option>Notice</option>
-                    <option>Board</option>
-                  </select>
                 </div>
                 <div class="box-footer" style="padding-left: 0; padding-right:0;">
                   <button type="button" class="btn btn-default" onclick="location.href='${path}/#' ">목록으로</button>

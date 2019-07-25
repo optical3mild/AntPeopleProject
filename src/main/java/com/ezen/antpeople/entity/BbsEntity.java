@@ -49,7 +49,7 @@ public class BbsEntity extends BaseEntity implements Serializable{
 	
 	//게시글 보기 (Entity -> DTO)
 	public BbsDetailDTO buildDto() {
-		return new BbsDetailDTO(this.title, this.description, this.state,
+		return new BbsDetailDTO(this.id, this.title, this.description, this.state,
 				this.createdAt, this.updatedAt, this.user.buildDTO());
 	}
 

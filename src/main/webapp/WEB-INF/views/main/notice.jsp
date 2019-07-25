@@ -48,7 +48,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Common - Notice(공지사항)
+        Notice(공지사항)
         <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
@@ -63,8 +63,10 @@
         <div class="col-xs-12">
           <div class="box box-info">
             <div class="box-header">
-              <h3 class="box-title">Data Table With Full Features</h3>
+              <h3 class="box-title"></h3>
+              <c:if test="${user.role.role == '사장'}">
               <button type="button" class="btn btn-info pull-right" onclick="location.href='${path}/#' ">글쓰기</button>
+              </c:if>
               <hr style="margin-bottom: 0 ; border: 0.5px solid lightgrey">
             </div>
             <!-- /.box-header -->
