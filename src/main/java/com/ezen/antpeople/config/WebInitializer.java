@@ -67,13 +67,6 @@ public class WebInitializer implements WebApplicationInitializer{
     		dispatcherStaff.addMapping("/staff/*");
     		//-----------------------------------------------
     		
-    		// spring security 필터 적용
-		
-//			FilterRegistration fr = servletContext.addFilter
-//					("springSecurityFilterChain",DelegatingFilterProxy.class);
-//				fr.addMappingForUrlPatterns(null, true, "/*");
-		 
-    		
             // 인코딩 필터 적용
             FilterRegistration.Dynamic charaterEncodingFilter = servletContext.addFilter("charaterEncodingFilter", new CharacterEncodingFilter());
             charaterEncodingFilter.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
