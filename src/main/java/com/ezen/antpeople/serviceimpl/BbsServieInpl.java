@@ -49,7 +49,10 @@ public class BbsServieInpl implements BbsService {
 	@Override
 	public BbsDetailDTO findByOne(Integer bbs_id) {
 		Optional<BbsEntity> entity = bbsRepository.findById(bbs_id);
-		return entity.get().buildDto();
+		if(entity.isPresent())
+			return entity.get().buildDto();
+		else 
+			return null;
 	}
 	
 	//게시글 전체 보기

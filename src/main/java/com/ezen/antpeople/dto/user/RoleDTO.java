@@ -1,9 +1,11 @@
 package com.ezen.antpeople.dto.user;
 
+import java.io.Serializable;
+
 import lombok.Getter;
 
 @Getter
-public class RoleDTO {
+public class RoleDTO implements Serializable {
 	private int role_id;
 	private String role;
 	

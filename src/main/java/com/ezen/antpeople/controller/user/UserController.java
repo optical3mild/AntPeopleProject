@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ezen.antpeople.dto.user.RoleDTO;
 import com.ezen.antpeople.dto.user.StoreDTO;
@@ -65,12 +67,12 @@ public class UserController {
 		}
 	}
 	//로그아웃
-	@RequestMapping(value = "logout", method = RequestMethod.GET)
-	public String logout(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-        session.invalidate();
-
-        return "../main/guestmain";
+	@RequestMapping("logout")
+	public ModelAndView logout(SessionStatus sessionStatus, ModelAndView mv) {
+		logger.info("세션 제거");
+		sessionStatus.setComplete();
+        mv.setViewName("../main/guestmain");
+        return mv;
 	}
 
 	// 회원가입 페이지로 이동 - 완료

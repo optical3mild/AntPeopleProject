@@ -55,42 +55,42 @@
         
         <!-- right column -->
         <div class="col-md-12">
-          <c:set var="article" value="${requestScope.article}"/>
+          <c:set var="article" value="${requestScope.bbsDetail}"/>
+          <c:set var="category" value="${requestScope.category}"/>
           <!-- general form elements disabled -->
           <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">${article.title}</h3>
+              <h3 class="box-title">[${category}] ${article.title}</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <form role="form">
                 <!-- text input -->
                 <div class="form-group">
-                  <label style="display:inline">작성자:&nbsp;&nbsp;${article.userName}</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                  <label style="display:inline">작성일:&nbsp;&nbsp;${article.date}</label>
+                  <label style="display:inline">작성자:&nbsp;&nbsp;${article.user.name}</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                  <label style="display:inline">작성일:&nbsp;&nbsp;${article.updatedAt}</label>
                 </div>
                 
                 <!-- textarea -->
                 <div class="form-group">
                   <textarea class="form-control" rows="3" disabled style="background-color: white;">
-                    ${article.theBody}
+                    ${article.description}
                   </textarea>
                 </div>
-
-                <div class="form-group">
-                  <!-- script 전달값. select 자동선택 -->
-                  <c:set var="categoryOption" value="${article.category}" />
-                  <label>Category</label>
-                  <select class="form-control selection" disabled>
-                    <option>Notice</option>
-                    <option>Board</option>
-                  </select>
-                </div>
+                <c:if test="${category == '공지사항'}">
                 <div class="box-footer" style="padding-left: 0; padding-right:0;">
-                  <button type="button" class="btn btn-default" onclick="location.href='${path}/#' ">목록으로</button>
+                  <button type="button" class="btn btn-default" onclick="location.href='noticepage' ">목록으로</button>
                   <button type="button" class="btn btn-info pull-right" style="margin: 0 0 0 20px" onclick="location.href='${path}/#' ">삭제</button>
                   <button type="button" class="btn btn-info pull-right" onclick="location.href='${path}/#' ">수정</button>
                 </div>
+                </c:if>
+                <c:if test="${category == '자유게시판'}">
+                <div class="box-footer" style="padding-left: 0; padding-right:0;">
+                  <button type="button" class="btn btn-default" onclick="location.href='bbspage' ">목록으로</button>
+                  <button type="button" class="btn btn-info pull-right" style="margin: 0 0 0 20px" onclick="location.href='deletebbs?id=${article.bbs_id}'">삭제</button>
+                  <button type="button" class="btn btn-info pull-right" onclick="location.href='updatebbspage?id=${article.bbs_id}'">수정</button>
+                </div>
+                </c:if>
               </form>
             </div>
             <!-- /.box-body -->

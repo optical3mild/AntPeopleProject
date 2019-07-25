@@ -1,9 +1,11 @@
 package com.ezen.antpeople.dto.user;
 
+import java.io.Serializable;
+
 import lombok.Getter;
 
 @Getter
-public class StoreDTO {
+public class StoreDTO implements Serializable {
 	private int store_id;
 	private String store;
 	

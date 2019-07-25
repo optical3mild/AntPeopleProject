@@ -8,7 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ezen.antpeople.dto.bbs.BbsDetailDTO;
 import com.ezen.antpeople.service.BbsService;
@@ -43,19 +45,55 @@ public class MainController {
 		}
 	
 	// 공지
-	@RequestMapping("notice")
+	@RequestMapping("noticepage")
 	public String notice() {
 		logger.info("notice 페이지");
 		return "notice";
 	}
-	
+	//----------------------------- bbs 관련 -------------------------------------
 	// bbs이동 및 리스트 호출
-	@RequestMapping("bbs")
+	@RequestMapping("bbspage")
 	public String bbsPage(Model model) {
 		List<BbsDetailDTO> bbsDetailList = new ArrayList(bbsService.findByAll());
 		model.addAttribute("bbsList",bbsDetailList);
 		logger.info("bbs 페이지");
 		return "bbs";
+	}
+	
+	//게시글 작성하기
+	@RequestMapping("insertbbspage")
+	public ModelAndView insertBbs(ModelAndView mv) {
+		mv.addObject("isNew", "newArticle");
+		mv.addObject("nextControl", 1);
+		mv.setViewName("writearticle");
+		return mv;
+	}
+	
+	//게시글 상세 보기
+	@RequestMapping("detailbbs")
+	public ModelAndView detailBbs(int id, ModelAndView mv) {
+		mv.addObject("bbsDetail", bbsService.findByOne(id));
+		mv.addObject("category", "자유게시판");
+		mv.setViewName("articledetail");
+		return mv;
+	}
+	
+	//게시글 삭제하기 
+	@RequestMapping("deletebbs")
+	public ModelAndView deleteBbs(int id, ModelAndView mv) {
+		bbsService.deleteBbs(id);
+		mv.setViewName("redirect:bbspage");
+		return mv;
+	}
+	
+	//게시글 수정하기
+	@RequestMapping("updatebbspage")
+	public ModelAndView updateBbs(int id, ModelAndView mv) {
+		mv.addObject("bbsDetail", bbsService.findByOne(id));
+		mv.addObject("isNew", "modifyArticle");
+		mv.addObject("nextControl", 2);
+		mv.setViewName("writearticle");
+		return mv;
 	}
 	
 	// 직원 전체목록(간략)
