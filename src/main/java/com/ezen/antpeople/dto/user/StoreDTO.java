@@ -20,4 +20,9 @@ public class StoreDTO implements Serializable {
 		this.store = store;
 			
 	}
+
+	@Override
+	public String toString() {
+		return "StoreDTO [store_id=" + store_id + ", store=" + store + "]";
+	}
 }
