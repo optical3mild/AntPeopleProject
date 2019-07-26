@@ -186,7 +186,7 @@
 <%@ include file = "../common/_commonScriptList.jspf" %>
 
 <!-- AntPeople FullCalendar function -->
-<script src="setfiles/js/ant_fullcalendar1.0.2.js"></script>
+<script src="setfiles/js/ant_fullcalendar1.0.3.js"></script>
 
 <!-- fullCalendar -->
 <script src="setfiles/bower_components/moment/moment.js"></script>
