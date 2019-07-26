@@ -68,6 +68,8 @@
               <!-- 새글작성 : order값으로 newArticle을 받으면 실행. -->
               <c:if test="${isNew == 'newArticle'}">
 	              <form role="form" action="${path}/#">
+	              	<input type="text" class="form-control" name="articleNum" value="${next}" style="display:none">
+	              	<input type="text" class="form-control" name="bbs_id" value="0" style="display:none">
 	                <!-- text input -->
 	                <div class="form-group">
 	                <jsp:useBean id="toDay" class="java.util.Date" />
@@ -83,7 +85,7 @@
 	                <!-- textarea -->
 	                <div class="form-group">
 	                  <label>The Body</label>
-	                  <textarea class="form-control" rows="3" name="theBody"></textarea>
+	                  <textarea class="form-control" rows="3" name="description"></textarea>
 	                </div>
 	
 					<div class="box-footer" style="padding-left: 0; padding-right:0;">
@@ -98,6 +100,8 @@
               <c:set var="article" value="${requestScope.bbsDetail}"/>
               <c:if test="${isNew == 'modifyArticle'}">
 	              <form role="form" action="${path}">
+	              <input type="text" class="form-control" name="articleNum" value="${next}" style="display:none">
+	              <input type="text" class="form-control" name="bbs_id" value="${article.bbs_id}" style="display:none">
 	                <!-- text input -->
 	                
 	                <div class="form-group">
@@ -113,7 +117,7 @@
 	                <!-- textarea -->
 	                <div class="form-group">
 	                  <label>The Body</label>
-	                  <textarea class="form-control" rows="3" name="theBody">
+	                  <textarea class="form-control" rows="3" name="description">
 	                  	${article.description}
 	                  </textarea>
 	                </div>
