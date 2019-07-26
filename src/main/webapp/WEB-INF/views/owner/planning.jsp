@@ -580,14 +580,14 @@ $('#submitPlan').click(function() {
 		url : 'createplan',
 		method : 'post',
 		data : JSON.stringify(dataLocation),
-		dataType : 'json',
+		dataType : 'text',
 		contentType: 'application/json;charset=UTF-8',
 		async : false,
-		error : function(response, message) {
-			alert("통신실패, response: " + message);
+		error : function(response) {
+			alert("통신실패, response: " + response);
 		},
-		success : function(response,message) {
-			alert("통신성공, response: " + message);
+		success : function(response) {
+			alert("통신성공, response: " + response);
 			document.location.href = response;
 			//성공 시 이메일 존재여부 판별.
 			//존재 --> 이메일이 존재한다는 알림 띄움.

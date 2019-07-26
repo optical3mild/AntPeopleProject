@@ -58,15 +58,17 @@ public class OwnerController {
 	
 	// 근무 일정 계획 저장
 	@RequestMapping(value="createplan", method=RequestMethod.POST)
-	public String planning(@RequestBody Map<String, ScheDetailDTO> scheDto) throws Exception {
+	@ResponseBody
+	public String planning(@RequestBody Map<String, ScheDetailDTO> scheDto, Model model) throws Exception {
 		logger.info("createplan");
-		scheService.saveSchedules(scheDto);;
-	return "../main/main";  // ( 임시 - 페이지 작성 후 변경 )
+		scheService.saveSchedules(scheDto);
+		model.addAttribute("log", "a");
+	return "../main/mainpage";  // ( 임시 - 페이지 작성 후 변경 )
 	}
 //	model.addAttribute("planereventdata", owner); 근무 일정 계획 보내기에 넣을예정
 	
 	// 승인페이지 이동
-	@RequestMapping("accept")
+	@RequestMapping("goaccept")
 	public String goAccept() throws Exception {
 		logger.info("accept 페이지");
 		return "accept";
@@ -74,11 +76,11 @@ public class OwnerController {
 	
 //	// 근무 승인
 //	@RequestMapping("accept")
-//	public ModelAndView accept(#DTO sche, ModelAndView mav) throws Exception {
-//		#
-//		mav.addObject("sche", sche);
-//		mav.setViewName("#");
-//		logger.info("승인 완료");
-//		return mav;
+//	@ResponseBody
+//	public String accept(@RequestBody Map<String, ScheDetailDTO> scheDto, Model model) throws Exception {
+//		logger.info("근무 승인");
+//		scheService.acceptSchedules(scheDto);
+//		model.addAttribute("message", "건전마사지");
+//		return "../main/mainpage";
 //	}
 }

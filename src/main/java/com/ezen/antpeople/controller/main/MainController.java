@@ -41,7 +41,7 @@ public class MainController {
 	// 메인 페이지
 	@RequestMapping("mainpage")
 	public String mainPage() {
-		logger.info("guestMain 페이지");
+		logger.info("mainpage 페이지");
 		return "main";
 	}
 
