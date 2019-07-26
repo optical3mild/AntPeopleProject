@@ -68,10 +68,10 @@ public class ScheEntity extends BaseEntity implements Serializable {
 	
 	//일정 상세 정보 내보내기
 	public ScheDetailDTO buildDTO() {
-		List<UserDetailDTO> toUsersDTO = new ArrayList();
-		for(UserEntity user : this.toUsers)
-			toUsersDTO.add(user.buildDTO());
-		return new ScheDetailDTO(this.id, this.sche_unique, this.createdAt, this.updatedAt, this.startDate, this.endDate, this.startTime, this.endTime, this.title, this.state, this.manPower, this.peopleCount, this.fromUser.buildDTO(), toUsersDTO);
+//		List<UserDetailDTO> toUsersDTO = new ArrayList();
+//		for(UserEntity user : this.toUsers)
+//			toUsersDTO.add(user.buildDTO());
+		return new ScheDetailDTO(this.sche_unique, this.startDate, this.endDate, this.startTime, this.endTime, this.title, this.state, this.manPower,this.fromUser.buildDTO());
 	}
 
 }

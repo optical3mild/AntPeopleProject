@@ -182,6 +182,8 @@
 <script src="setfiles/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
 <script src="setfiles/bower_components/fastclick/lib/fastclick.js"></script>
+<!-- AdminLTE App : navbar 관련-->
+<script src="setfiles/dist/js/adminlte.min.js"></script>
 
 <%@ include file = "../common/_commonScriptList.jspf" %>
 

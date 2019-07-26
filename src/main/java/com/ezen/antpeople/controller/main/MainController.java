@@ -25,7 +25,6 @@ import com.ezen.antpeople.service.NoticeService;
 import com.ezen.antpeople.service.UserService;
 
 @Controller("main")
-@SessionAttributes({ "user_id", "name", "email", "role", "store" })
 public class MainController {
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
@@ -47,7 +46,9 @@ public class MainController {
 	}
 
 	// --------------------------------------------------------------------------
-
+	
+	
+	
 	// ----------------------------- bbs 관련 -------------------------------------
 	// bbs이동 및 리스트 호출
 	@RequestMapping("bbspage")
