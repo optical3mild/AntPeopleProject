@@ -151,7 +151,7 @@ function createObj (startD,endD,startT,endT,numOfWorkers,state) {
       startTime : startT.shortType(),
       endTime : endT.shortType(),
       userId : userId,
-      user : {user_id : userId},
+      fromUser : {user_id : userId},
       state : state,
       manPower : numOfWorkers
       // groupName : groupName
