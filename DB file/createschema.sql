@@ -1,2 +1,2 @@
 CREATE SCHEMA IF NOT EXISTS `antpeople` DEFAULT CHARACTER SET utf8 ;
-USE `antpeople` ;
+

@@ -45,7 +45,7 @@ CREATE TABLE notice
 
 CREATE TABLE role
 (
-	role_id int DEFAULT 100 NOT NULL,
+	role_id int NOT NULL,
 	role varchar(15) NOT NULL,
 	PRIMARY KEY (role_id)
 );
@@ -53,22 +53,23 @@ CREATE TABLE role
 
 CREATE TABLE schedule
 (
-	sche_id int DEFAULT 1 NOT NULL AUTO_INCREMENT,
+	sche_id int NOT NULL AUTO_INCREMENT,
+	sche_unique varchar(50) NOT NULL,
+	created_time datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	updated_time datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	start_date varchar(10) NOT NULL,
+	end_date varchar(10) NOT NULL,
+	start_time varchar(5) NOT NULL,
+	end_time varchar(5) NOT NULL,
+	title varchar(50) NOT NULL,
+	manpower int NOT NULL,
+	peoplecount int DEFAULT 0 NOT NULL,
 	-- 01 = 휴가
 	-- 02 = 조퇴 
 	-- 03 = 지각
 	state varchar(2) DEFAULT '00' COMMENT '01 = 휴가
 02 = 조퇴 
 03 = 지각',
-	created_time datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	updated_time datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	title varchar(50),
-	start_date varchar(10) NOT NULL,
-	end_date varchar(10) NOT NULL,
-	start_time varchar(5) NOT NULL,
-	end_time varchar(5) NOT NULL,
-	manpower int,
-	peoplecount int DEFAULT 0,
 	user_id int NOT NULL,
 	PRIMARY KEY (sche_id)
 );
