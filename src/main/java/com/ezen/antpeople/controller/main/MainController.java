@@ -62,15 +62,17 @@ public class MainController {
 	// 게시글 작성 페이지
 	@RequestMapping("insertbbspage")
 	public ModelAndView insertBbs(ModelAndView mv) {
+		logger.info("insertbbspage");
 		mv.addObject("isNew", "newArticle");
 		mv.addObject("nextControl", 1);
-		mv.setView(new RedirectView("articleallotter"));
+		mv.setViewName("writearticle");
 		return mv;
 	}
 
 	// 게시글 상세 보기
 	@RequestMapping("detailbbs")
 	public ModelAndView detailBbs(int id, ModelAndView mv) {
+		logger.info("detailbbs");
 		mv.addObject("detail", bbsService.findByOne(id));
 		mv.addObject("category", "자유게시판");
 		mv.setViewName("articledetail");
@@ -91,7 +93,7 @@ public class MainController {
 		mv.addObject("bbsDetail", bbsService.findByOne(id));
 		mv.addObject("isNew", "modifyArticle");
 		mv.addObject("nextControl", 2);
-		mv.setView(new RedirectView("articleallotter"));
+		mv.setViewName("writearticle");
 		return mv;
 	}
 	// --------------------------------------------------------------------------
@@ -109,9 +111,11 @@ public class MainController {
 	// 공지글 작성 페이지
 	@RequestMapping("insertnoticepage")
 	public ModelAndView insertNotice(ModelAndView mv) {
+		logger.info("insertnoticepage");
+		
 		mv.addObject("isNew", "newArticle");
 		mv.addObject("nextControl", 3);
-		mv.setView(new RedirectView("articleallotter"));
+		mv.setViewName("writearticle");
 		return mv;
 	}
 
@@ -138,13 +142,14 @@ public class MainController {
 		mv.addObject("noticeDetail", noticeService.findByOne(id));
 		mv.addObject("isNew", "modifyArticle");
 		mv.addObject("nextControl", 4);
-		mv.setView(new RedirectView("articleallotter"));
+		mv.setViewName("writearticle");
 		return mv;
 	}
 	
 	@RequestMapping("articleallotter")
 	@ResponseBody
 	public ModelAndView nextControl(ModelAndView mav, int articleNum, String title, String discription, HttpServletRequest request, int bbs_id) throws Exception {
+		logger.info("articleallotter");
 		HttpSession session = request.getSession();
 		UserDetailDTO user = (UserDetailDTO) session.getAttribute("user");
 		mav.addObject("bbs_id", bbs_id);
