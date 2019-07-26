@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -56,8 +57,8 @@ public class OwnerController {
 	}
 	
 	// 근무 일정 계획 저장
-	@RequestMapping("createplan")
-	public String planning(Model model, @RequestBody Map<String, ScheDetailDTO> scheDto) throws Exception {
+	@RequestMapping(value="createplan", method=RequestMethod.POST)
+	public String planning(@RequestBody Map<String, ScheDetailDTO> scheDto) throws Exception {
 		logger.info("createplan");
 		scheService.saveSchedules(scheDto);;
 	return "../main/main";  // ( 임시 - 페이지 작성 후 변경 )

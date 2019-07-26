@@ -577,7 +577,7 @@ function plannerRenderingProcess(sd,ed,st,et,wfe) {
 $('#submitPlan').click(function() {
 	// dataLocation: 스크립트 헤드에 적힌 전역변수
 	$.ajax({
-		url : 'owner/createplan',
+		url : 'createplan',
 		method : 'post',
 		data : JSON.stringify(dataLocation),
 		dataType : 'json',
