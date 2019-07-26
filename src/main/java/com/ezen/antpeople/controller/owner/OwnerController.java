@@ -35,17 +35,36 @@ public class OwnerController {
 		return mv;
 	}
 	
-	// 근무 일정 계획
+	// 근무 일정 계획페이지로 이동
 	@RequestMapping("planning")
-	public String planning() throws Exception {
+	public String goPlanning() throws Exception {
 		logger.info("todayStaff 페이지");
 		return "planning";
 	}
 	
-	// 근무 승인
+//	// 근무 일정 계획
+//	@RequestMapping("planning.do")
+//	public Model planning(Model model, #DTO sche) throws Exception {
+//		logger.info("todayStaff 페이지");
+//		#DTO plan = #Service.#(sche);
+//		model.addAttribute("plan", plan);
+//	return "#"
+//	}
+	
+	// 승인페이지 이동
 	@RequestMapping("accept")
-	public String accept() throws Exception {
+	public String goAccept() throws Exception {
 		logger.info("accept 페이지");
 		return "accept";
 	}
+	
+//	// 근무 승인
+//	@RequestMapping("accept.do")
+//	public ModelAndView accept(#DTO sche, ModelAndView mav) throws Exception {
+//		logger.info("accept 페이지");
+//		#
+//		mav.addObject("sche", sche);
+//		mav.setViewName("#");
+//		return mav;
+//	}
 }
