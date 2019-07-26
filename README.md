@@ -103,6 +103,8 @@
 - (오인) notice DB, Repository, Entity 구성
 - (오인) bbs, notice 화면 연동
 - (정우) 일정등록 ui - planning.jsp, ant_fullcalendar1.0.2.js 업데이트
+- (성현) bbs, notice 컨트롤 
 
 ### Day 16 : schedule 서비스 (19.07.26)
 - (오인) schedule DB, Repository, Entity 구성
+- (성현) bbs, notice 컨트롤 작성
