@@ -188,7 +188,7 @@
 <%@ include file = "../common/_commonScriptList.jspf" %>
 
 <!-- AntPeople FullCalendar function -->
-<script src="setfiles/js/ant_fullcalendar1.0.2.js"></script>
+<script src="setfiles/js/ant_fullcalendar1.0.3.js"></script>
 
 <!-- fullCalendar -->
 <script src="setfiles/bower_components/moment/moment.js"></script>
@@ -196,13 +196,65 @@
 
 <!-- Page specific script -->
 <script>
-var userId = "testAdmin";
+var userId = "${user.user_id}";
+
 //DayObj, TimeObj : 프로토타입 객체.
 var startDay = new DayObj();
 var endDay = new DayObj();
 var startTime = new TimeObj();
 var endTime = new TimeObj();
 var state = 0;
+// calendar로딩 시 표시될 객체배열
+var initialData = [];
+
+//빈 객체.
+var emptyObj = {}
+
+//수신데이터가 있을 경우, 저장.
+var gotData = "${plannereventdata}"
+if(gotData != "") {
+  $.extend(emptyObj, gotData)
+}
+
+/*{
+  testAdmin_19061501001906160623 : {
+    id : 'testAdmin_19061501001906160623',
+    title : '1111111',
+    startDate : '190615',
+    endDate :'190616',
+    startTime : '0100',
+    endTime : '0623',
+    userId : 'testAdmin',
+    state : '0',
+    manPower : '10',
+  },
+  testAdmin_190615010019999160623 : {
+    id : 'testAdmin_190615010019999160623',
+    title : '1111111',
+    startDate : '190615',
+    endDate :'190616',
+    startTime : '0100',
+    endTime : '0623',
+    userId : 'testAdmin',
+    state : '0',
+    manPower : '10',
+  }
+};*/
+
+$('#calendar').data('eventList',emptyObj);
+var dataLocation = $('#calendar').data('eventList');
+console.log('로딩확인')
+console.log(dataLocation)
+//페이지 로딩 시 받은 일정정보를 화면에 Rendering
+$.each(dataLocation, function(id, obj) {
+  console.log('id')
+  console.log(id);
+  console.log('obj')
+  console.log(obj)
+  initialData.push(convertToEventObj(obj))
+
+  //$('#calendar').fullCalendar('renderEvent', obj, true);
+})
 
 // initialize the external events : 이벤트 바 생성 시 drag 가능하게 속성 추가.
 function init_events(ele) {
@@ -331,7 +383,7 @@ $(function() {
       day  : 'day'
     },
 //>>//Ajax로 가져올 event data
-    // events : dummyEvents,
+    events : initialData,
 
     //create
     // select dates.
@@ -420,14 +472,16 @@ $(function() {
       console.log('1.내장 이벤트:');
       console.log(calEvent.id);
       console.log('2.관리 이벤트:');
-      console.log($('#calendar').data(calEvent.id));
-      $('#calendar').removeData(calEvent.id);
+      console.log(dataLocation[""+calEvent.id+""]);
+      //var dataLocation = $('#calendar').data('eventList') 으로 저장된 위치에서 id와 일치하는 값 삭제.
+      delete dataLocation[""+calEvent.id+""];
       console.log('3.삭제 후 모든 event:');
-      console.log($('#calendar').data());
+      console.log(dataLocation);
     },
   });
 });
 // ./ End of fullCalendar 초기화 -------------------------------------
+
 
 
 // 모달창 이벤트 생성버튼
@@ -464,8 +518,12 @@ function plannerRenderingProcess(sd,ed,st,et,wfe) {
   var alertMsg = "아래의 일정은 이미 존재합니다.\n";
   //순차적으로 rendering
   for(var i=0; i<newEventObj.length; i++) {
+
+    //>> 1.0.3 data관리 방법 수정...
+    //var dataLocation = $('#calendar').data('eventList');
+    var objId = newEventObj[i].id
     //동일 id를 찾아 존재하면 return값을 받아 전체 수행 이후 경고창을 띄워 알려준다.
-    if($('#calendar').data(newEventObj[i].id) != null) {
+    if(dataLocation[""+objId+""] != null) {
       alreadyExistDatas[i] = newEventObj[i].startDate + "_" + newEventObj[i].startTime
                         + " ~ " + newEventObj[i].endDate + "_" + newEventObj[i].endTime;
     } else {
@@ -474,11 +532,19 @@ function plannerRenderingProcess(sd,ed,st,et,wfe) {
       //Rendering
       $('#calendar').fullCalendar('renderEvent', convertedEvent, true);
 
-      $('#calendar').data(newEventObj[i].id, newEventObj[i]);
+//>>  //data 저장 : calendar DOM엘리먼트에 data()로 저장된 eventList 객체 내.
+      dataLocation[""+objId+""] = newEventObj[i];
+
       console.log('2.생성한 event: ');
-      console.log($('#calendar').data(newEventObj[i].id));
+      console.log(dataLocation[""+objId+""]);
       console.log('3.모든 event:');
-      console.log($('#calendar').data());
+      console.log($('#calendar').data('eventList'));
+
+      //$('#calendar').data(newEventObj[i].id, newEventObj[i]);
+      //console.log('2.생성한 event: ');
+      //console.log($('#calendar').data(newEventObj[i].id));
+      //console.log('3.모든 event:');
+      //console.log($('#calendar').data());
     }
   }
   //경고창 팝업.
@@ -489,7 +555,7 @@ function plannerRenderingProcess(sd,ed,st,et,wfe) {
     }
     alert(alertMsg);
     console.log('4. 중복제외 등록 후 모든 event:');
-    console.log($('#calendar').data());
+    console.log($('#calendar').data('eventList'));
   }
   /*
   //캘린더에서 날짜로 위치검색
@@ -511,18 +577,19 @@ function plannerRenderingProcess(sd,ed,st,et,wfe) {
 // ./ End of Rendering process
 
 $('#submitPlan').click(function() {
-	var planData = $('#calendar').data();
+	// dataLocation: 스크립트 헤드에 적힌 전역변수
 	$.ajax({
-		url : 'owner/planning.do',
+		url : 'createplan',
 		method : 'post',
-		data : JSON.stringify(planData),
-		contentType: 'application/json',
+		data : JSON.stringify(dataLocation),
 		dataType : 'text',
-		error : function(response, message) {
-			alert("통신실패, response: " + message);
+		contentType: 'application/json;charset=UTF-8',
+		async : false,
+		error : function(response) {
+			alert("통신실패, response: " + response);
 		},
-		success : function(response,message) {
-			alert("통신성공, response: " + message);
+		success : function(response) {
+			alert("통신성공, response: " + response);
 			document.location.href = response;
 			//성공 시 이메일 존재여부 판별.
 			//존재 --> 이메일이 존재한다는 알림 띄움.
