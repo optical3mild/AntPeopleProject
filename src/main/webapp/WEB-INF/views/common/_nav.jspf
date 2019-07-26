@@ -25,49 +25,63 @@
             <i class="fa fa-calendar"></i><span>자유게시판</span>
           </a>
         </li>
-       <!-- 관리자, 사장, 직원 -->
-        <c:if test="${user.role.role == '사장'}">
-        <li class="treeview">
-          <a href="stafflist">
-            <i class="fa fa-dashboard"></i><span>직원정보</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="${path}/admin/staffinfo"><i class="fa fa-circle-o"></i>직원명부</a></li>
-            <li><a href="${path}/pages/todayStaff"><i class="fa fa-circle-o"></i>금일 근무자</a></li>
-          </ul>
-        </li>
+ <!-- 권한필요?  로그인 한 멤버만 열람가능하게???-->
+ 		<c:if test="${user.role.role == '사장'}">
+        
         </c:if>
       </ul>
       
 <!-- admin menu -->
-      <c:if test="${checkLogin == 'admin'}">
+      <c:if test="${user.role.role == '사장'}">
       	<ul class="sidebar-menu" data-widget="tree">
-	        <li class="header">Admin Menu</li>
 	        <li>
-	          <a href="${path}/admin/planning">
+	          <a href="${path}/owner/planning">
 	            <i class="fa fa-calendar"></i> <span>운영계획</span>
 	          </a>
 	        </li>
 	        
 	        <li>
-	          <a href="${path}/admin/accept">
+	          <a href="${path}/owner/accept">
 	            <i class="fa fa-calendar"></i> <span>승인화면</span>
 	          </a>
 	        </li>
 	        
-	        <li>
-	          <a href="${path}/admin/staffInfo">
-	            <i class="fa fa-calendar"></i> <span>직원관리</span>
+	        <li class="treeview">
+	          <a href="stafflist">
+	            <i class="fa fa-dashboard"></i><span>직원정보</span>
+	            <span class="pull-right-container">
+	              <i class="fa fa-angle-left pull-right"></i>
+	            </span>
 	          </a>
+	          <ul class="treeview-menu">
+	            <li><a href="${path}/owner/staffinfo"><i class="fa fa-circle-o"></i>직원명부</a></li>
+	            <li><a href="${path}/pages/todayStaff"><i class="fa fa-circle-o"></i>금일 근무자</a></li>
+	          </ul>
 	        </li>
+
 	  	</ul>
       </c:if>
       
+<!-- system menu -->
+      <c:if test="${user.role.role == '시스템 관리자'}">
+      	<ul class="sidebar-menu" data-widget="tree">
+	        <li class="header">Employee Menu</li>
+	        <li>
+	          <a href="${path}/#"/>
+	            <i class="fa fa-calendar"></i> <span>내역 확인</span>
+	          </a>
+	        </li>
+	        
+	        <li>
+	          <a href="${path}/#">
+	            <i class="fa fa-calendar"></i> <span>변경신청</span>
+	          </a>
+	        </li>
+	      </ul>
+      </c:if>
+      
 <!-- employee menu -->
-      <c:if test="${checkLogin == 'employee'}">
+      <c:if test="${user.role.role == '직원'}">
       	<ul class="sidebar-menu" data-widget="tree">
 	        <li class="header">Employee Menu</li>
 	        <li>

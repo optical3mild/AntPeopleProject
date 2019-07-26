@@ -11,7 +11,7 @@
         <li class="header">Common Menu</li>
         
         <li>
-          <a href="${path}/main/notice">
+          <a href="${path}/main/noticepage">
             <i class="fa fa-calendar"></i><span>공지사항</span>
 <!--             <span class="pull-right-container"> -->
 <!--               <small class="label pull-right bg-red">3</small> -->
@@ -21,7 +21,7 @@
         </li>
         
         <li>
-          <a href="${path}/main/bbs">
+          <a href="${path}/main/bbspage">
             <i class="fa fa-calendar"></i><span>자유게시판</span>
           </a>
         </li>
