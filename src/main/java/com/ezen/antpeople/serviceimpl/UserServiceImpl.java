@@ -118,11 +118,22 @@ public class UserServiceImpl implements UserService{
 		return userList;
 	}
 	
-	//직원 정보 
+	//전체 직원 정보 
 	@Override
 	public List<UserDetailDTO> findByRole(RoleDTO role) {
 		List<UserEntity> entitys = 
 				new ArrayList(userRepository.findByRole(new RoleEntity(role)));
+		List<UserDetailDTO> userList = new ArrayList();
+		for(UserEntity entity : entitys)
+			userList.add(entity.buildDTO());
+		return userList;
+	}
+	
+	//해당 지점의 직원 정보
+	@Override
+	public List<UserDetailDTO> findByStore(RoleDTO role,StoreDTO store) {
+		List<UserEntity> entitys = 
+				new ArrayList(userRepository.findByRoleAndStore(new RoleEntity(role), new StoreEntity(store)));
 		List<UserDetailDTO> userList = new ArrayList();
 		for(UserEntity entity : entitys)
 			userList.add(entity.buildDTO());

@@ -61,6 +61,13 @@ public class ScheDetailDTO {
 		this.manPower = manPower;
 		this.fromUser = fromUser;
 	}
+
+	@Override
+	public String toString() {
+		return "ScheDetailDTO [id=" + id + ", startDate=" + startDate + ", endDate=" + endDate + ", startTime="
+				+ startTime + ", endTime=" + endTime + ", title=" + title + ", state=" + state + ", manPower="
+				+ manPower + ", fromUser=" + fromUser + "]";
+	}
 	
 	
 	

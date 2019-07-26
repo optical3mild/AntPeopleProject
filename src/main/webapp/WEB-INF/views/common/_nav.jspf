@@ -35,19 +35,19 @@
       <c:if test="${user.role.role == '사장'}">
       	<ul class="sidebar-menu" data-widget="tree">
 	        <li>
-	          <a href="${path}/owner/planning">
+	          <a href="${path}/owner/planningpage">
 	            <i class="fa fa-calendar"></i> <span>운영계획</span>
 	          </a>
 	        </li>
 	        
 	        <li>
-	          <a href="${path}/owner/accept">
+	          <a href="${path}/owner/acceptpage">
 	            <i class="fa fa-calendar"></i> <span>승인화면</span>
 	          </a>
 	        </li>
 	        
 	        <li class="treeview">
-	          <a href="stafflist">
+	          <a href="#">
 	            <i class="fa fa-dashboard"></i><span>직원정보</span>
 	            <span class="pull-right-container">
 	              <i class="fa fa-angle-left pull-right"></i>
