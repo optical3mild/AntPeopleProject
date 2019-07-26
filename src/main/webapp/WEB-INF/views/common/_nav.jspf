@@ -47,7 +47,7 @@
 	        </li>
 	        
 	        <li class="treeview">
-	          <a href="stafflist">
+	          <a href="#">
 	            <i class="fa fa-dashboard"></i><span>직원정보</span>
 	            <span class="pull-right-container">
 	              <i class="fa fa-angle-left pull-right"></i>
