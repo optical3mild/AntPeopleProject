@@ -44,7 +44,7 @@
         <span class="checkMessage" style="color:green; display:none"></span>
       </div>
       <div class="form-group has-feedback">
-        <input name="password" id="password" type="password" class="form-control" placeholder="Password">
+        <input name="password" onkeyup="enterkey();" id="password" type="password" class="form-control" placeholder="Password">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         <span class="checkMessage" style="color:green; display:none"></span>
       </div>
@@ -79,6 +79,52 @@
 <!-- iCheck -->
 <script src="setfiles/plugins/iCheck/icheck.min.js"></script>
 <script>
+function loginProcess() {
+	//input란 기입여부 확인
+	var blankCheck = 0;
+	$('input[class="form-control"]').each(function() {
+		var attrName = $(this).attr("name");
+		var typeSelection = getName(attrName);
+		console.log(typeSelection)
+		if(typeof $(this).val() == "undefined" || $(this).val() == null || $(this).val() == ""){
+			$(this).siblings(".checkMessage").text(typeSelection + " 입력하세요.").css({'color':'red', 'display':'unset'});
+		}  else {
+			blankCheck++;
+		}
+	})
+	
+	//모두 기입된것을 확인. --> 전송
+	if(blankCheck = '2') {
+		var checkExist = { 
+			email : $("#email").val(),
+			password : $("#password").val(),
+		};
+		$.ajax({
+    		url : '${path}/user/logincheck',
+    		method : 'post',
+    		data : JSON.stringify(checkExist),
+    		contentType: 'application/json',
+    		//서버에서 보내줄 datatype.
+			//dataType : ,
+			error : function(response) {
+				alert("통신실패, response: " + response);
+			},
+			success : function(response) {
+				alert("통신성공, response: " + response);
+				document.location.href = response;
+				//성공 시 이메일 존재여부 판별.
+				//존재 --> 이메일이 존재한다는 알림 띄움.
+				//없음 --> 회원가입 폼 자동으로 전송.
+			}
+    	});
+	}
+}
+	function enterkey() {
+	    if (window.event.keyCode == 13) {
+	    	loginProcess();
+	    }
+	}
+
   function getName(targetName){
     switch(targetName) {
       case "email" : return "이메일을"; break;
@@ -100,44 +146,7 @@
     	// 3. 로그인 성공 시 				--> 페이지 리다이렉션
     	// 4. 로그인 실패 시				--> 리턴값으로 원인을 받아 span tag로 문구표시
     	
-    	//input란 기입여부 확인
-    	var blankCheck = 0;
-    	$('input[class="form-control"]').each(function() {
-    		var attrName = $(this).attr("name");
-			var typeSelection = getName(attrName);
-			console.log(typeSelection)
-    		if(typeof $(this).val() == "undefined" || $(this).val() == null || $(this).val() == ""){
-    			$(this).siblings(".checkMessage").text(typeSelection + " 입력하세요.").css({'color':'red', 'display':'unset'});
-    		}  else {
-    			blankCheck++;
-    		}
-    	})
-    	
-    	//모두 기입된것을 확인. --> 전송
-    	if(blankCheck = '2') {
-    		var checkExist = { 
-    			email : $("#email").val(),
-    			password : $("#password").val(),
-    		};
-    		$.ajax({
-	    		url : '${path}/user/logincheck',
-	    		method : 'post',
-	    		data : JSON.stringify(checkExist),
-	    		contentType: 'application/json',
-	    		//서버에서 보내줄 datatype.
-				//dataType : ,
-				error : function(response) {
-					alert("통신실패, response: " + response);
-				},
-				success : function(response) {
-					alert("통신성공, response: " + response);
-					document.location.href = response;
-					//성공 시 이메일 존재여부 판별.
-					//존재 --> 이메일이 존재한다는 알림 띄움.
-					//없음 --> 회원가입 폼 자동으로 전송.
-				}
-	    	});
-    	}
+    	loginProcess();
     });
     
     

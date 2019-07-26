@@ -329,7 +329,7 @@
         <!-- /.right col -->
       </div>
       <!-- /.row (main row) -->
-      
+      <c:if test="${user.email != null}">
       <!-- 2nd row -->
        <div class="row">
       	<!-- Left col -->
@@ -645,7 +645,7 @@
         <!-- right col -->
       </div>
       <!-- /.row (2nd row) -->
-
+	</c:if>
     </section>
     <!-- /.content -->
   </div>
