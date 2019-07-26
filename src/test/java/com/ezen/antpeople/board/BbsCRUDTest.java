@@ -36,7 +36,7 @@ public class BbsCRUDTest {
 	//게시물 업로드 테스트 - 완료
 	@Test @Ignore
 	public void bbsUploadTest() {
-		BbsDetailDTO bbs = new BbsDetailDTO("공지사항 테스트", "공지사항 테스트입니다.",1,6, "다른이름");
+		BbsDetailDTO bbs = null;
 		System.out.println(bbs.toString());
 		bs.uploadBbs(bbs);
 	}

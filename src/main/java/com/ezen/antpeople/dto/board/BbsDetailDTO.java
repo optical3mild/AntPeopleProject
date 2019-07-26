@@ -15,7 +15,6 @@ public class BbsDetailDTO {
 	
 	@NotEmpty(message = "제목은 필수 입니다.")
 	private String title;
-	
 	private String description;
 	private int state;
 	protected LocalDateTime createdAt;
@@ -25,11 +24,11 @@ public class BbsDetailDTO {
 	public BbsDetailDTO() {}
 	
 	//화면으로 부터 새로운 게시글을 받아옴 (게시물 업로드)
-	public BbsDetailDTO(String title, String description,int state, int user_id, String name) {
+	public BbsDetailDTO(String title, String description,int state, UserDetailDTO user) {
 		this.title = title;
 		this.description = description;
 		this.state = state;
-		this.user = new UserDetailDTO(user_id, name);
+		this.user = user;
 	}
 
 	//화면에 출력

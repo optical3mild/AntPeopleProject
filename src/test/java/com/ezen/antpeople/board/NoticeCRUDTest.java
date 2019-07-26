@@ -35,7 +35,7 @@ public class NoticeCRUDTest {
 	//공지사항 업로드 테스트 - 완료
 	@Test @Ignore
 	public void noticeUploadTest() {
-		NoticeDetailDTO notice = new NoticeDetailDTO("공지사항 테스트", "공지사항 테스트입니다.",1,6, "다른이름");
+		NoticeDetailDTO notice = null;
 		System.out.println(notice.toString());
 		ns.uploadNotice(notice);
 	}

@@ -67,7 +67,7 @@
             
               <!-- 새글작성 : order값으로 newArticle을 받으면 실행. -->
               <c:if test="${isNew == 'newArticle'}">
-	              <form role="form" action="${path}/#">
+	              <form role="form" action="articleallotter">
 	              	<input type="text" class="form-control" name="articleNum" value="${next}" style="display:none">
 	              	<input type="text" class="form-control" name="bbs_id" value="0" style="display:none">
 	                <!-- text input -->
@@ -99,7 +99,7 @@
               <!-- 수정 -->
               <c:set var="article" value="${requestScope.bbsDetail}"/>
               <c:if test="${isNew == 'modifyArticle'}">
-	              <form role="form" action="${path}">
+	              <form role="form" action="articleallotter">
 	              <input type="text" class="form-control" name="articleNum" value="${next}" style="display:none">
 	              <input type="text" class="form-control" name="bbs_id" value="${article.bbs_id}" style="display:none">
 	                <!-- text input -->
