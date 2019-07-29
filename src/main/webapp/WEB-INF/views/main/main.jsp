@@ -141,7 +141,7 @@
                 <tr>
                   <th style="width: 10px">#</th>
                   <th>제목</th>
-                  <th style="width: 40px">Label</th>
+                  <th style="width: 70px">Label</th>
                 </tr>
                 <c:set var="noticeList" value="${requestScope.noticeList}"/>
 				<c:forEach var="notice" items="${noticeList}">
@@ -183,7 +183,7 @@
                 <tr>
                   <th style="width: 10px">#</th>
                   <th>Task</th>
-                  <th style="width: 40px">Label</th>
+                  <th style="width: 70px">Label</th>
                 </tr>
                 <c:set var="boardList" value="${requestScope.bbsList}"/>
 				<c:forEach var="board" items="${boardList}">

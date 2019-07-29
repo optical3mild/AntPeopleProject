@@ -16,4 +16,7 @@ public interface ScheService {
 	//일정 변경하기 
 	public void updateSchedule();
 	
+	//일정 유무
+	public boolean isMonthSchedule();
+	
 }

@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import com.ezen.antpeople.entity.NoticeEntity;
 
-@Repository
+@Repository("Notice")
 public interface NoticeRepository extends JpaRepository<NoticeEntity, Integer>{
 }	

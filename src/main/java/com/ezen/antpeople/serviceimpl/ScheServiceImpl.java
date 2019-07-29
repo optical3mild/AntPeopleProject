@@ -64,6 +64,11 @@ public class ScheServiceImpl implements ScheService {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public boolean isMonthSchedule() {
+		return false;
+	}
 	
 	
 
