@@ -110,4 +110,4 @@
 - (성현) bbs, notice 컨트롤 작성  
 
 ### Day 17 : notice, bbs (19.07.29)
-- (성현) notice, bbs Controll  
+- (성현) notice, bbs Controll 완료  
