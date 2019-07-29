@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ezen.antpeople.dto.board.BbsDetailDTO;
@@ -24,6 +25,7 @@ import com.ezen.antpeople.service.NoticeService;
 import com.ezen.antpeople.service.UserService;
 
 @Controller
+@SessionAttributes("user")
 public class MainController {
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 

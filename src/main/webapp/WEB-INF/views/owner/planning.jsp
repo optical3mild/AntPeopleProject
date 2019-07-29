@@ -49,7 +49,7 @@
         <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="${path}/main/mainpage"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Calendar</li>
       </ol>
     </section>
@@ -197,6 +197,8 @@
 <!-- Page specific script -->
 <script>
 var userId = "${user.user_id}";
+console.log('userId')
+console.log(userId);
 
 //DayObj, TimeObj : 프로토타입 객체.
 var startDay = new DayObj();
@@ -212,6 +214,8 @@ var emptyObj = {}
 
 //수신데이터가 있을 경우, 저장.
 var gotData = "${plannereventdata}"
+console.log('gotData')
+console.log(gotData)
 if(gotData != "") {
   $.extend(emptyObj, gotData)
 }
@@ -582,7 +586,7 @@ $('#submitPlan').click(function() {
 		url : 'createplan',
 		method : 'post',
 		data : JSON.stringify(dataLocation),
-		dataType : 'text',
+		dataType : 'json',
 		contentType: 'application/json;charset=UTF-8',
 		async : false,
 		error : function(response) {
@@ -590,7 +594,7 @@ $('#submitPlan').click(function() {
 		},
 		success : function(response) {
 			alert("통신성공, response: " + response);
-			document.location.href = response;
+			//document.location.href = response;
 			//성공 시 이메일 존재여부 판별.
 			//존재 --> 이메일이 존재한다는 알림 띄움.
 			//없음 --> 회원가입 폼 자동으로 전송.
