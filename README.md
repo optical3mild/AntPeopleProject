@@ -112,3 +112,4 @@
 ### Day 17 : mainpage, notice, bbs (19.07.29)
 - (오인) mainpage 공지사항, 자유게시판 리스트 control
 - (성현) notice, bbs Controll 완료  
+
