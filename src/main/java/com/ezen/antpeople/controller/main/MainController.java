@@ -40,9 +40,14 @@ public class MainController {
 
 	// 메인 페이지
 	@RequestMapping("mainpage")
-	public String mainPage() {
+	public ModelAndView mainPage(ModelAndView mv) {
+		List<BbsDetailDTO> bbsDetailList = new ArrayList(bbsService.findByAll());
+		List<BbsDetailDTO> noticeDetailList = new ArrayList(noticeService.findByAll());
+		mv.addObject("bbsList", bbsDetailList);
+		mv.addObject("noticeList", noticeDetailList);
+		mv.setViewName("main");
 		logger.info("mainpage 페이지");
-		return "main";
+		return mv;
 	}
 
 	// --------------------------------------------------------------------------
