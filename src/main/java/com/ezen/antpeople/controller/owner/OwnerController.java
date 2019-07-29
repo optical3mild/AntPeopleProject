@@ -74,6 +74,7 @@ public class OwnerController {
 	}
 //	model.addAttribute("planereventdata", owner); 근무 일정 계획 보내기에 넣을예정
 	
+//	----------------------------- 승인 ---------------------------------------------
 	// 승인페이지 이동
 	@RequestMapping("acceptpage")
 	public String goAccept() throws Exception {
@@ -86,8 +87,7 @@ public class OwnerController {
 //	@ResponseBody
 //	public String accept(@RequestBody Map<String, ScheDetailDTO> scheDto, Model model) throws Exception {
 //		logger.info("근무 승인");
-//		scheService.acceptSchedules(scheDto);
-//		model.addAttribute("message", "건전마사지");
+//	#
 //		return "../main/mainpage";
 //	}
 }

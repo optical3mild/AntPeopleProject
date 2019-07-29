@@ -92,7 +92,7 @@
                 <tbody>
                   <tr>
                   	<td>001</td>
-                  	<td><a href="">testpage</a></td>
+                  	<td><a href="#">testpage</a></td>
                   	<td>2019.07.20</td>
                   	<td>으엌이</td>
                   </tr>
