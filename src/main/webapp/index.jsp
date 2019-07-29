@@ -1,1 +1,1 @@
-<%response.sendRedirect("main/guestmain");%>
+<%response.sendRedirect("main/mainpage");%>
