@@ -10,12 +10,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import com.ezen.antpeople.dto.board.BbsDetailDTO;
 import com.ezen.antpeople.dto.board.NoticeDetailDTO;
@@ -24,7 +24,8 @@ import com.ezen.antpeople.service.BbsService;
 import com.ezen.antpeople.service.NoticeService;
 import com.ezen.antpeople.service.UserService;
 
-@Controller("main")
+@Controller
+@SessionAttributes("user")
 public class MainController {
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
@@ -66,7 +67,7 @@ public class MainController {
 
 	// 게시글 작성 페이지
 	@RequestMapping("insertbbspage")
-	public ModelAndView insertBbs(ModelAndView mv) {
+	public ModelAndView insertBbsPage(ModelAndView mv) {
 		logger.info("insertbbspage");
 		mv.addObject("isNew", "newArticle");
 		mv.addObject("nextControl", 1);
@@ -117,7 +118,6 @@ public class MainController {
 	@RequestMapping("insertnoticepage")
 	public ModelAndView insertNotice(ModelAndView mv) {
 		logger.info("insertnoticepage");
-		
 		mv.addObject("isNew", "newArticle");
 		mv.addObject("nextControl", 3);
 		mv.setViewName("writearticle");
@@ -144,6 +144,7 @@ public class MainController {
 	// 공지글 수정하기
 	@RequestMapping("updatenoticepage")
 	public ModelAndView updateNotice(int id, ModelAndView mv) {
+		logger.info("MainController - updatenoticepage");
 		mv.addObject("noticeDetail", noticeService.findByOne(id));
 		mv.addObject("isNew", "modifyArticle");
 		mv.addObject("nextControl", 4);
@@ -153,54 +154,43 @@ public class MainController {
 	
 	@RequestMapping("articleallotter")
 	@ResponseBody
-	public ModelAndView nextControl(ModelAndView mav, int articleNum, String title, String discription, HttpServletRequest request, int bbs_id) throws Exception {
+	public ModelAndView nextControl(ModelAndView model, int articleNum, String title, String description, HttpServletRequest request, int bbs_id) {
 		logger.info("articleallotter");
 		HttpSession session = request.getSession();
 		UserDetailDTO user = (UserDetailDTO) session.getAttribute("user");
-		mav.addObject("bbs_id", bbs_id);
-		mav.addObject("user", user);
-		mav.addObject("title", title);
-		mav.addObject("discription", discription);
+		logger.info(user.toString());
+		model.addObject("bbs_id", bbs_id);
+		model.addObject("title", title);
+		model.addObject("description", description);
+		model.addObject("user", user);
+		logger.info("articleallotter.mav : "+model.toString());
+		String a = "" + articleNum;
+		logger.info(a.toString());
 		switch (articleNum) {
 		case 1 :
-			mav.setViewName("insertbbs");
+			logger.info("articleNum = 1");
+			bbsService.uploadBbs(new BbsDetailDTO(title, description, 1, user));
+			model.setViewName("redirect:bbspage");
 			break;
 		case 2 :
-			mav.setViewName("updatebbs");
+			logger.info("articleNum = 2");
+			bbsService.updateBbs(new BbsDetailDTO(bbs_id, title, description, 2));
+			model.setViewName("redirect:bbspage");
 			break;
 		case 3 :
-			mav.setViewName("insertnotice");
+			logger.info("articleNum = 3");
+			noticeService.uploadNotice(new NoticeDetailDTO(title, description, 1, user));
+			model.setViewName("redirect:noticepage");
 			break;
 		case 4 :
-			mav.setViewName("updatenotice");
+			logger.info("articleNum = 4");
+			noticeService.updateNotice(new NoticeDetailDTO(bbs_id, title, description, 2));
+			model.setViewName("redirect:noticepage");
 			break;
 		}
-		return mav;
+		return model;
 	}
 	
-	@RequestMapping("insertbbs")
-	public String insertBbs(Model model,@RequestParam("user") UserDetailDTO user, String title, String discription) throws Exception {
-		bbsService.uploadBbs(new BbsDetailDTO(title, discription, 1, user));
-		return "bbspage";
-	}
-	
-	@RequestMapping("updatebbs")
-	public String updateBbs(int bbs_id, String title, String discription) throws Exception {
-		bbsService.updateBbs(new BbsDetailDTO(bbs_id, title, discription, 2));
-		return "bbspage";
-	}
-	
-	@RequestMapping("insertnotice")
-	public String insertNotice(Model model,@RequestParam("user") UserDetailDTO user, String title, String discription) throws Exception {
-		noticeService.uploadNotice(new NoticeDetailDTO(title, discription, 1, user));
-		return "noticepage";
-	}
-	
-	@RequestMapping("updatenotice")
-	public String updateNotice(int bbs_id, String title, String discription) throws Exception {
-		noticeService.updateNotice(new NoticeDetailDTO(bbs_id, title, discription, 2));
-		return "noticepage";
-	}
 
 	// --------------------------------------------------------------------------
 

@@ -64,7 +64,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <form role="form">
+              <form role="form" method="post">
                 <!-- text input -->
                 <div class="form-group">
                   <label style="display:inline">작성자:&nbsp;&nbsp;${article.user.name}</label>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -124,7 +124,7 @@
 
 <script>
 //오류발생.. 주석내에 el이나 tag형식 사용하지 말것..
-$(function() {
+/*$(function() {
 	//jstl의 변수를 javascript로 바로 사용 불가. ' c:out value="jstl변수명" '을 사용할 것.
 	//바로 el로 받을경우 not defined(?) 같은 오류로 인식되지 않는다.
 	var articleCategory = '<c:out value="${categoryOption}" />';
@@ -133,7 +133,7 @@ $(function() {
 	
 	//:contains() --> ()안에 변수 삽입불가. 변수명을 문자열로 인식함.
 	//$('.selection option:contains(Board)').attr('selected', true);
-});
+});*/
 
 </script>
 

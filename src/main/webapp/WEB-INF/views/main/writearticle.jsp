@@ -45,7 +45,7 @@
         <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="${path}/main/mainpage"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Dashboard</li>
       </ol>
     </section>
@@ -67,7 +67,7 @@
             
               <!-- 새글작성 : order값으로 newArticle을 받으면 실행. -->
               <c:if test="${isNew == 'newArticle'}">
-	              <form role="form" action="articleallotter">
+	              <form role="form" action="articleallotter" method="post">
 	              	<input type="text" class="form-control" name="articleNum" value="${next}" style="display:none">
 	              	<input type="text" class="form-control" name="bbs_id" value="0" style="display:none">
 	                <!-- text input -->
@@ -89,7 +89,7 @@
 	                </div>
 	
 					<div class="box-footer" style="padding-left: 0; padding-right:0;">
-	                  <button type="button" class="btn btn-default" onclick="location.href='${path}/#' ">목록으로</button>
+	                  <button type="button" class="btn btn-default" onclick="location.href='${path}/main/insertbbspage">목록으로</button>
 	                  <button type="submit" class="btn btn-info pull-right">작성완료</button>
 	                </div>
 	                <!-- /.box-footer -->
@@ -99,7 +99,7 @@
               <!-- 수정 -->
               <c:set var="article" value="${requestScope.bbsDetail}"/>
               <c:if test="${isNew == 'modifyArticle'}">
-	              <form role="form" action="articleallotter">
+	              <form role="form" action="articleallotter" method="post">
 	              <input type="text" class="form-control" name="articleNum" value="${next}" style="display:none">
 	              <input type="text" class="form-control" name="bbs_id" value="${article.bbs_id}" style="display:none">
 	                <!-- text input -->
@@ -122,7 +122,7 @@
 	                  </textarea>
 	                </div>
 					<div class="box-footer" style="padding-left: 0; padding-right:0;">
-	                  <button type="button" class="btn btn-default" onclick="location.href='${path}/#' ">목록으로</button>
+	                  <button type="button" class="btn btn-default" onclick="location.href='${path}/main/bbspage' ">목록으로</button>
 	                  <button type="submit" class="btn btn-info pull-right">수정완료</button>
 	                </div>
 	                <!-- /.box-footer -->
