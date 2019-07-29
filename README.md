@@ -108,3 +108,6 @@
 ### Day 16 : schedule 서비스 (19.07.26)
 - (오인) schedule DB, Repository, Entity 구성
 - (성현) bbs, notice 컨트롤 작성
+
+### Day 17 : notice, bbs (19.07.29)
+- (성현) notice, bbs Controll 
