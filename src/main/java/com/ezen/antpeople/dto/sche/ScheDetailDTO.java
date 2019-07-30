@@ -62,8 +62,11 @@ public class ScheDetailDTO {
 		this.fromUser = fromUser;
 	}
 
+	
+	
 	@Override
 	public String toString() {
+		
 		return "{\"id\":\"" + id + "\", "
 				+ "\"startDate\":\"" + startDate + "\","
 				+ "\"endDate\":\"" + endDate + "\","
@@ -72,6 +75,7 @@ public class ScheDetailDTO {
 				+ "\"title\":\"" + title + "\","
 				+ "\"state\":" + state + ","
 				+ "\"manPower\":" + manPower + ","
+				+ "\"fromUser\":" + "{\"user_id\":"+fromUser.getUser_id()+"},"
 				+ "\"userId\":" + fromUser.getUser_id()
 				+ "}";
 	}

@@ -199,7 +199,7 @@
 
 <!-- Page specific script -->
 <script>
-var userId = "${user.user_id}";
+var userId = parseInt("${user.user_id}");
 console.log('userId')
 console.log(userId);
 
@@ -213,16 +213,21 @@ var state = 0;
 var initialData = [];
 
 //빈 객체.
-var emptyObj = new Object();
+var emptyObj = {};
 
 //수신데이터가 있을 경우, 저장.
-var gotData = '${jsonList}';
+var gotData = $.parseJSON('${jsonList}');
 console.log('gotData')
 console.log(gotData)
 if(gotData != "") {
-  emptyObj = $.parseJSON('${jsonList}');
-}
-
+	for(var i=0; i<gotData.length; i++){
+		var tempKey = gotData[i].id;
+		var tempObj = gotData[i];
+		emptyObj[""+tempKey+""] = tempObj;
+	}
+} 
+console.log('emptyObj')
+console.log(emptyObj)
 /*{
   testAdmin_19061501001906160623 : {
     id : 'testAdmin_19061501001906160623',
@@ -253,7 +258,7 @@ var dataLocation = $('#calendar').data('eventList');
 console.log('로딩확인')
 console.log(dataLocation)
 //페이지 로딩 시 받은 일정정보를 화면에 Rendering
-$.each(emptyObj, function(id, obj) {
+$.each(dataLocation, function(id, obj) {
   console.log('id')
   console.log(id);
   console.log('obj')
@@ -495,8 +500,8 @@ $(function() {
 $('#makeEvent').click(function() {
   var new_st = $('#modal-startT').val(); if(new_st == "") { new_st = "00:00"; }
   var new_en = $('#modal-endT').val(); if(new_en == "") { new_en = "00:00"; }
-  var workersForEvent = $('#modal-numP').val();
-  if(workersForEvent == "") { workersForEvent = "00:00"; }
+  var workersForEvent = parseInt($('#modal-numP').val());
+  if(workersForEvent == "") { workersForEvent = 0; }
 
   //정수형으로 시간정보 변환
   var newSTime = parseInt(new_st.slice(0,2));
@@ -515,8 +520,8 @@ $('#makeEvent').click(function() {
 // ./ End Of Modal창 이벤트 생성버튼
 
 // Rendering process
-function plannerRenderingProcess(sd,ed,st,et,wfe) {
-  var newEventObj = createObj (sd,ed,st,et,wfe);
+function plannerRenderingProcess(sd,ed,st,et,wfe,state) {
+  var newEventObj = createObj (sd,ed,st,et,wfe,state);
   console.log('[생성과정]')
   console.log('1.새로 생성된 obj배열:');
   console.log(newEventObj);
@@ -580,6 +585,7 @@ function plannerRenderingProcess(sd,ed,st,et,wfe) {
   console.log('드롭한 이벤트의 캘린더 행 내 위치')
   console.log(originPoint)
   */
+  console.log($('#calendar').data());
 }
 // ./ End of Rendering process
 
@@ -589,15 +595,19 @@ $('#submitPlan').click(function() {
 		url : 'createplan',
 		method : 'post',
 		data : JSON.stringify(dataLocation),
-		dataType : 'json',
+		
 		contentType: 'application/json;charset=UTF-8',
+		
+		dataType : 'text',
 		async : false,
 		error : function(response) {
 			alert("통신실패, response: " + response);
+			console.log(response);
 		},
-		success : function(response) {
-			alert("통신성공, response: " + response);
-			//document.location.href = response;
+		success : function(response,num2) {
+			alert("통신성공, response: " + response +","+ num2);
+			
+			document.location.href = response;
 			//성공 시 이메일 존재여부 판별.
 			//존재 --> 이메일이 존재한다는 알림 띄움.
 			//없음 --> 회원가입 폼 자동으로 전송.

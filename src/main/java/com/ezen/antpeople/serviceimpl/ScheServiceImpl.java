@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -33,7 +32,9 @@ public class ScheServiceImpl implements ScheService {
 	@Override
 	public void saveSchedules(Map<String, ScheDetailDTO> schedules) {
 		for(String key : schedules.keySet()) {
-			scheRepository.save(new ScheEntity(schedules.get(key)));
+			ScheEntity entity = new ScheEntity(schedules.get(key));
+			if(entity.equals(scheRepository.findById(entity.getId()).get()))
+			scheRepository.save();
 		}
 	}
 	
@@ -50,15 +51,14 @@ public class ScheServiceImpl implements ScheService {
 	
 	//일정 가져오기 - 월별
 		@Override
-		public JSONObject findAllMonth(int user_id, String startDate) {
+		public Set<ScheDetailDTO> findAllMonth(int user_id, String startDate) {
 			startDate = startDate + "*";
+			Set<ScheDetailDTO>  schedules = new HashSet<ScheDetailDTO>();
 			List<ScheEntity> entitys = new ArrayList<ScheEntity>(scheRepository.findByFromUserAndStartDate(userRepository.findById(user_id).get(),startDate));
-			JSONObject jsonObject = new JSONObject();
-			
 			for(ScheEntity entity :entitys) {
-				jsonObject.put(entity.getSche_unique(), entity.buildDTO());
+				schedules.add(entity.buildDTO());
 			}
-			return jsonObject;
+			return schedules;
 		}
 
 	@Override
