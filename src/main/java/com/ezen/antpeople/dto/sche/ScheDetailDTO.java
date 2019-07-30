@@ -64,13 +64,16 @@ public class ScheDetailDTO {
 
 	@Override
 	public String toString() {
-		return "ScheDetailDTO [id=" + id + ", startDate=" + startDate + ", endDate=" + endDate + ", startTime="
-				+ startTime + ", endTime=" + endTime + ", title=" + title + ", state=" + state + ", manPower="
-				+ manPower + ", fromUser=" + fromUser + "]";
+		return "{\"id\":\"" + id + "\", "
+				+ "\"startDate\":\"" + startDate + "\","
+				+ "\"endDate\":\"" + endDate + "\","
+				+ "\"startTime\":\"" + startTime + "\","
+				+ "\"endTime\":\"" + endTime + "\","
+				+ "\"title\":\"" + title + "\","
+				+ "\"state\":" + state + ","
+				+ "\"manPower\":" + manPower + ","
+				+ "\"userId\":" + fromUser.getUser_id()
+				+ "}";
 	}
-	
-	
-	
-	
 
 }

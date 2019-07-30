@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.ezen.antpeople.dto.board.BbsDetailDTO;
 import com.ezen.antpeople.entity.BbsEntity;
 
-@Repository
+@Repository("Bbs")
 public interface BbsRepository extends JpaRepository<BbsEntity, Integer>{
 }	

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,6 +47,7 @@
     <section class="content-header">
       <h1>
         Calendar
+       
         <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
@@ -63,6 +65,7 @@
             <div class="box-header with-border">
               <h4 class="box-title">Draggable Events</h4>
             </div>
+             
             <div class="box-body">
               <!-- the events -->
               <div id="external-events">
@@ -210,14 +213,14 @@ var state = 0;
 var initialData = [];
 
 //빈 객체.
-var emptyObj = {}
+var emptyObj = new Object();
 
 //수신데이터가 있을 경우, 저장.
-var gotData = "${plannereventdata}"
+var gotData = '${jsonList}';
 console.log('gotData')
 console.log(gotData)
 if(gotData != "") {
-  $.extend(emptyObj, gotData)
+  emptyObj = $.parseJSON('${jsonList}');
 }
 
 /*{
@@ -250,7 +253,7 @@ var dataLocation = $('#calendar').data('eventList');
 console.log('로딩확인')
 console.log(dataLocation)
 //페이지 로딩 시 받은 일정정보를 화면에 Rendering
-$.each(dataLocation, function(id, obj) {
+$.each(emptyObj, function(id, obj) {
   console.log('id')
   console.log(id);
   console.log('obj')
@@ -601,7 +604,6 @@ $('#submitPlan').click(function() {
 		}
 	});
 });
-
 
 </script>
 </body>

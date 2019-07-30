@@ -4,6 +4,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -15,12 +16,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ezen.antpeople.dto.board.BbsDetailDTO;
 import com.ezen.antpeople.dto.sche.ScheDetailDTO;
 import com.ezen.antpeople.dto.user.RoleDTO;
 import com.ezen.antpeople.dto.user.StoreDTO;
@@ -62,17 +61,19 @@ public class OwnerController {
 	//----------------------- 근무 일정 페이지 ---------------------------
 	// 운영 계획페이지로 이동
 	@RequestMapping("planningpage")
-	public ModelAndView goPlanning(ModelAndView mav, HttpServletRequest request, Map<String, ScheDetailDTO> scheDetailList) throws Exception {
+	@ResponseBody
+	public ModelAndView goPlanning(ModelAndView mav, HttpServletRequest request) throws Exception {
 		logger.info("planning 페이지");
 		HttpSession httpSession = request.getSession(true);
 		UserDetailDTO userDto = (UserDetailDTO) httpSession.getAttribute("user");
-		scheDetailList = scheService.findAllOnwer(userDto.getUser_id());
+		Set<ScheDetailDTO> scheDetailList = scheService.findAllOnwer(userDto.getUser_id());
 		logger.info(scheDetailList.toString());
-		mav.addObject("plannereventdata", scheDetailList);
+		mav.addObject("jsonList", scheDetailList);
 		mav.setViewName("planning");
 		return mav;
 	}
 	
+
 	// 운영 계획 저장
 	@RequestMapping(value="createplan", method=RequestMethod.POST)
 	@ResponseBody
