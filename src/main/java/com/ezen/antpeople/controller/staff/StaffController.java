@@ -31,7 +31,7 @@ public class StaffController {
 	@ResponseBody
 	public String requestworking(Model model, ScheDetailDTO sche) throws Exception {
 		logger.info("근무신청");
-//		ScheService.#;						// 추가 필요
+//		#						// 추가 필요
 		return "redirect:../main/main";
 	}
 	
@@ -45,7 +45,7 @@ public class StaffController {
 	@RequestMapping("modifyworking")
 	public String modifyworking(Model model, ScheDetailDTO sche) throws Exception {
 		logger.info("근무 수정");
-//		ScheService.#;						// 추가 필요
+//		#						// 추가 필요
 		return "redirect:../main/main";
 	}
 

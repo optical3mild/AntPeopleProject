@@ -32,9 +32,7 @@ public class ScheServiceImpl implements ScheService {
 	@Override
 	public void saveSchedules(Map<String, ScheDetailDTO> schedules) {
 		for(String key : schedules.keySet()) {
-			ScheEntity entity = new ScheEntity(schedules.get(key));
-			if(entity.equals(scheRepository.findById(entity.getId()).get()))
-			scheRepository.save();
+			scheRepository.save(new ScheEntity(schedules.get(key)));
 		}
 	}
 	
