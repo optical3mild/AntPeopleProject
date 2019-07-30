@@ -55,7 +55,7 @@
 	          </a>
 	          <ul class="treeview-menu">
 	            <li><a href="${path}/owner/staffinfo"><i class="fa fa-circle-o"></i>직원명부</a></li>
-	            <li><a href="${path}/pages/todayStaff"><i class="fa fa-circle-o"></i>금일 근무자</a></li>
+	            <li><a href="${path}/main/todaystaff"><i class="fa fa-circle-o"></i>금일 근무자</a></li>
 	          </ul>
 	        </li>
 
