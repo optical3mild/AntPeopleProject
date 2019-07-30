@@ -1,11 +1,11 @@
 package com.ezen.antpeople.schedule;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -46,14 +46,11 @@ public class ScheCRUDTest {
 	}
 	
 	//일정 가져오기 테스트 - 성공
-	@Test 
+	@Test @Ignore
 	public void scheduleListTest() {
 		UserDetailDTO user = us.findByEmail("tkwkd123@gmail.com"); //이메일은 DB에 따라 변경해야함!!
-		Map<String, ScheDetailDTO> testSchedules = scheService.findAllOnwer(user.getUser_id());
+		//List<ScheDetailDTO> testSchedules = scheService.findAllOnwer(user.getUser_id());
 		
-		for(String key: testSchedules.keySet()) {
-			System.out.println(testSchedules.get(key).toString());
-		}
 		
 	}
 	//인원수 채우기 테스트
