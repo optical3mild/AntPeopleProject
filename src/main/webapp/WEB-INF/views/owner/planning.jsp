@@ -426,6 +426,7 @@ $(function() {
 
         //rendering, DOM Element에 data로 객체 저장.
         plannerRenderingProcess(startDay,endDay,startTime,endTime,workersForEvent,state);
+        console.log(state)
 
       } else {
         //modal popup.
@@ -590,6 +591,7 @@ function plannerRenderingProcess(sd,ed,st,et,wfe,state) {
 // ./ End of Rendering process
 
 $('#submitPlan').click(function() {
+	console.log(dataLocation)
 	// dataLocation: 스크립트 헤드에 적힌 전역변수
 	$.ajax({
 		url : 'createplan',
