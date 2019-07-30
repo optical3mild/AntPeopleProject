@@ -421,6 +421,7 @@ $(function() {
 
         //rendering, DOM Element에 data로 객체 저장.
         plannerRenderingProcess(startDay,endDay,startTime,endTime,workersForEvent,state);
+        console.log(state)
 
       } else {
         //modal popup.
@@ -515,8 +516,8 @@ $('#makeEvent').click(function() {
 // ./ End Of Modal창 이벤트 생성버튼
 
 // Rendering process
-function plannerRenderingProcess(sd,ed,st,et,wfe) {
-  var newEventObj = createObj (sd,ed,st,et,wfe);
+function plannerRenderingProcess(sd,ed,st,et,wfe,state) {
+  var newEventObj = createObj (sd,ed,st,et,wfe,state);
   console.log('[생성과정]')
   console.log('1.새로 생성된 obj배열:');
   console.log(newEventObj);
@@ -584,6 +585,7 @@ function plannerRenderingProcess(sd,ed,st,et,wfe) {
 // ./ End of Rendering process
 
 $('#submitPlan').click(function() {
+	console.log(dataLocation)
 	// dataLocation: 스크립트 헤드에 적힌 전역변수
 	$.ajax({
 		url : 'createplan',
