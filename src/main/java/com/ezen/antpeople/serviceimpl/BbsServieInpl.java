@@ -28,6 +28,7 @@ public class BbsServieInpl implements BbsService {
 		BbsEntity entity = new BbsEntity(bbs);
 		bbsRepository.save(entity);
 	}
+	
 
 	//게시글 삭제
 	@Override

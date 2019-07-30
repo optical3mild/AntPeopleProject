@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,10 +47,11 @@
     <section class="content-header">
       <h1>
         Calendar
+       
         <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="${path}/main/mainpage"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Calendar</li>
       </ol>
     </section>
@@ -63,6 +65,7 @@
             <div class="box-header with-border">
               <h4 class="box-title">Draggable Events</h4>
             </div>
+             
             <div class="box-body">
               <!-- the events -->
               <div id="external-events">
@@ -182,6 +185,8 @@
 <script src="setfiles/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
 <script src="setfiles/bower_components/fastclick/lib/fastclick.js"></script>
+<!-- AdminLTE App : navbar 관련-->
+<script src="setfiles/dist/js/adminlte.min.js"></script>
 
 <%@ include file = "../common/_commonScriptList.jspf" %>
 
@@ -194,7 +199,9 @@
 
 <!-- Page specific script -->
 <script>
-var userId = "${user.user_id}";
+var userId = parseInt("${user.user_id}");
+console.log('userId')
+console.log(userId);
 
 //DayObj, TimeObj : 프로토타입 객체.
 var startDay = new DayObj();
@@ -206,14 +213,21 @@ var state = 0;
 var initialData = [];
 
 //빈 객체.
-var emptyObj = {}
+var emptyObj = {};
 
 //수신데이터가 있을 경우, 저장.
-var gotData = "${plannereventdata}"
+var gotData = $.parseJSON('${jsonList}');
+console.log('gotData')
+console.log(gotData)
 if(gotData != "") {
-  $.extend(emptyObj, gotData)
-}
-
+	for(var i=0; i<gotData.length; i++){
+		var tempKey = gotData[i].id;
+		var tempObj = gotData[i];
+		emptyObj[""+tempKey+""] = tempObj;
+	}
+} 
+console.log('emptyObj')
+console.log(emptyObj)
 /*{
   testAdmin_19061501001906160623 : {
     id : 'testAdmin_19061501001906160623',
@@ -412,6 +426,7 @@ $(function() {
 
         //rendering, DOM Element에 data로 객체 저장.
         plannerRenderingProcess(startDay,endDay,startTime,endTime,workersForEvent,state);
+        console.log(state)
 
       } else {
         //modal popup.
@@ -486,8 +501,8 @@ $(function() {
 $('#makeEvent').click(function() {
   var new_st = $('#modal-startT').val(); if(new_st == "") { new_st = "00:00"; }
   var new_en = $('#modal-endT').val(); if(new_en == "") { new_en = "00:00"; }
-  var workersForEvent = $('#modal-numP').val();
-  if(workersForEvent == "") { workersForEvent = "00:00"; }
+  var workersForEvent = parseInt($('#modal-numP').val());
+  if(workersForEvent == "") { workersForEvent = 0; }
 
   //정수형으로 시간정보 변환
   var newSTime = parseInt(new_st.slice(0,2));
@@ -506,8 +521,8 @@ $('#makeEvent').click(function() {
 // ./ End Of Modal창 이벤트 생성버튼
 
 // Rendering process
-function plannerRenderingProcess(sd,ed,st,et,wfe) {
-  var newEventObj = createObj (sd,ed,st,et,wfe);
+function plannerRenderingProcess(sd,ed,st,et,wfe,state) {
+  var newEventObj = createObj (sd,ed,st,et,wfe,state);
   console.log('[생성과정]')
   console.log('1.새로 생성된 obj배열:');
   console.log(newEventObj);
@@ -571,23 +586,29 @@ function plannerRenderingProcess(sd,ed,st,et,wfe) {
   console.log('드롭한 이벤트의 캘린더 행 내 위치')
   console.log(originPoint)
   */
+  console.log($('#calendar').data());
 }
 // ./ End of Rendering process
 
 $('#submitPlan').click(function() {
+	console.log(dataLocation)
 	// dataLocation: 스크립트 헤드에 적힌 전역변수
 	$.ajax({
-		url : 'owner/createplan',
+		url : 'createplan',
 		method : 'post',
 		data : JSON.stringify(dataLocation),
-		dataType : 'json',
+		
 		contentType: 'application/json;charset=UTF-8',
+		
+		dataType : 'text',
 		async : false,
-		error : function(response, message) {
-			alert("통신실패, response: " + message);
+		error : function(response) {
+			alert("통신실패, response: " + response);
+			console.log(response);
 		},
-		success : function(response,message) {
-			alert("통신성공, response: " + message);
+		success : function(response,num2) {
+			alert("통신성공, response: " + response +","+ num2);
+			
 			document.location.href = response;
 			//성공 시 이메일 존재여부 판별.
 			//존재 --> 이메일이 존재한다는 알림 띄움.
@@ -595,7 +616,6 @@ $('#submitPlan').click(function() {
 		}
 	});
 });
-
 
 </script>
 </body>

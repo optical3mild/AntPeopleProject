@@ -25,11 +25,11 @@ public class NoticeDetailDTO {
 	public NoticeDetailDTO() {}
 	
 	//화면으로 부터 새로운 게시글을 받아옴 (게시물 업로드)
-	public NoticeDetailDTO(String title, String description,int state, int user_id, String name) {
+	public NoticeDetailDTO(String title, String description,int state, UserDetailDTO user) {
 		this.title = title;
 		this.description = description;
 		this.state = state;
-		this.user = new UserDetailDTO(user_id, name);
+		this.user = user;
 	}
 
 	//화면에 출력

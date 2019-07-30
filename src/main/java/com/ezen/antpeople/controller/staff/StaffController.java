@@ -1,33 +1,52 @@
 package com.ezen.antpeople.controller.staff;
 
-import javax.inject.Inject;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.ezen.antpeople.controller.user.UserController;
-import com.ezen.antpeople.service.UserService;
+import com.ezen.antpeople.dto.sche.ScheDetailDTO;
 
 @Controller
 public class StaffController {
 	private static final Logger logger = LoggerFactory.getLogger(StaffController.class);
 	
-	@Inject
-	UserService userService;
+//	 StaffService staffService;
+//  
+//	 public StaffController (StaffService staffService) { 
+//		 this.staffService = staffService; 
+//	 }
 	
-	// 근무 신청
+	//근무신청 페이지로 이동
 	@RequestMapping("requestwork")
-	public String requestwork() throws Exception {
+	public String goRequestwork() throws Exception {
+		logger.info("requestWork");
 		return "requestwork";
 	}
+
+	// 근무 신청
+	@RequestMapping("requestworking")
+	@ResponseBody
+	public String requestworking(Model model, ScheDetailDTO sche) throws Exception {
+		logger.info("근무신청");
+//		ScheService.#;						// 추가 필요
+		return "redirect:../main/main";
+	}
 	
-	// 근무 수정
+	// 근무 수정 페이지로
 	@RequestMapping("modifywork")
 	public String modifywork() throws Exception {
 		return "modifywork";
+	}
+	
+	// 근무 수정
+	@RequestMapping("modifyworking")
+	public String modifyworking(Model model, ScheDetailDTO sche) throws Exception {
+		logger.info("근무 수정");
+//		ScheService.#;						// 추가 필요
+		return "redirect:../main/main";
 	}
 
 	// 출근

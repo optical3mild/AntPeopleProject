@@ -7,10 +7,10 @@ DROP TABLE IF EXISTS notice;
 DROP TABLE IF EXISTS user_sche;
 DROP TABLE IF EXISTS schedule;
 DROP TABLE IF EXISTS user_todo;
+DROP TABLE IF EXISTS todo;
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS role;
 DROP TABLE IF EXISTS store;
-DROP TABLE IF EXISTS todo;
 
 
 
@@ -45,7 +45,7 @@ CREATE TABLE notice
 
 CREATE TABLE role
 (
-	role_id int DEFAULT 100 NOT NULL,
+	role_id int NOT NULL,
 	role varchar(15) NOT NULL,
 	PRIMARY KEY (role_id)
 );
@@ -53,22 +53,23 @@ CREATE TABLE role
 
 CREATE TABLE schedule
 (
-	sche_id int DEFAULT 1 NOT NULL AUTO_INCREMENT,
+	sche_id int NOT NULL AUTO_INCREMENT,
+	sche_unique varchar(50) NOT NULL,
+	created_time datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	updated_time datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	start_date varchar(10) NOT NULL,
+	end_date varchar(10) NOT NULL,
+	start_time varchar(5) NOT NULL,
+	end_time varchar(5) NOT NULL,
+	title varchar(50) NOT NULL,
+	manpower int NOT NULL,
+	peoplecount int DEFAULT 0 NOT NULL,
 	-- 01 = 휴가
 	-- 02 = 조퇴 
 	-- 03 = 지각
 	state varchar(2) DEFAULT '00' COMMENT '01 = 휴가
 02 = 조퇴 
 03 = 지각',
-	created_time datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	updated_time datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	title varchar(50),
-	start_date varchar(10) NOT NULL,
-	end_date varchar(10) NOT NULL,
-	start_time varchar(5) NOT NULL,
-	end_time varchar(5) NOT NULL,
-	manpower int,
-	peoplecount int DEFAULT 0,
 	user_id int NOT NULL,
 	PRIMARY KEY (sche_id)
 );
@@ -89,6 +90,7 @@ CREATE TABLE todo
 	created_time datetime DEFAULT CURRENT_TIMESTAMP,
 	updated_time datetime DEFAULT CURRENT_TIMESTAMP,
 	state boolean NOT NULL,
+	from_id int NOT NULL,
 	PRIMARY KEY (todo_id)
 );
 
@@ -123,9 +125,7 @@ CREATE TABLE user_sche
 CREATE TABLE user_todo
 (
 	to_id int NOT NULL,
-	todo_id int NOT NULL,
-	dear_id int NOT NULL,
-	PRIMARY KEY (to_id, todo_id, dear_id)
+	todo_id int NOT NULL
 );
 
 
@@ -188,6 +188,14 @@ ALTER TABLE schedule
 ;
 
 
+ALTER TABLE todo
+	ADD FOREIGN KEY (from_id)
+	REFERENCES user (user_id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
 ALTER TABLE user_sche
 	ADD FOREIGN KEY (user_id)
 	REFERENCES user (user_id)
@@ -198,14 +206,6 @@ ALTER TABLE user_sche
 
 ALTER TABLE user_todo
 	ADD FOREIGN KEY (to_id)
-	REFERENCES user (user_id)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
-;
-
-
-ALTER TABLE user_todo
-	ADD FOREIGN KEY (dear_id)
 	REFERENCES user (user_id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT

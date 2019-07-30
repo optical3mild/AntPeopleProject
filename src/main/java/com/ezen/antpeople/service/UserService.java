@@ -17,6 +17,7 @@ public interface UserService {
 	public UserDetailDTO findByEmail(String email);
 	public List<UserDetailDTO> findByAll();
 	public List<UserDetailDTO> findByRole(RoleDTO role);
+	public List<UserDetailDTO> findByStore(RoleDTO role,StoreDTO store);
 	
 	//회원가입 리스트 출력
 	public List<RoleDTO> RoleList();

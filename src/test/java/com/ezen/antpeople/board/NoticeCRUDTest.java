@@ -18,6 +18,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.ezen.antpeople.config.RootConfig;
 import com.ezen.antpeople.config.SecurityConfig;
 import com.ezen.antpeople.dto.board.NoticeDetailDTO;
+import com.ezen.antpeople.dto.user.UserDetailDTO;
 import com.ezen.antpeople.repository.NoticeRepository;
 import com.ezen.antpeople.service.NoticeService;
 
@@ -35,7 +36,7 @@ public class NoticeCRUDTest {
 	//공지사항 업로드 테스트 - 완료
 	@Test @Ignore
 	public void noticeUploadTest() {
-		NoticeDetailDTO notice = new NoticeDetailDTO("공지사항 테스트", "공지사항 테스트입니다.",1,6, "다른이름");
+		NoticeDetailDTO notice = new NoticeDetailDTO("테스트 공지사항", "수정된 게시물 입니다.",1, new UserDetailDTO(3,""));
 		System.out.println(notice.toString());
 		ns.uploadNotice(notice);
 	}
