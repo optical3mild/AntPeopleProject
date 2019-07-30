@@ -113,3 +113,5 @@
 - (오인) mainpage 공지사항, 자유게시판 리스트 control
 - (성현) notice, bbs Controll 완료  
 
+### Day 18 : Schedule (19.07.30)
+- (오인) Schedule Object 만들기 (화면출력)
