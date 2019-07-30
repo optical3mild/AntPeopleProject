@@ -200,6 +200,17 @@
 <!-- Page specific script -->
 <script>
 var userId = parseInt("${user.user_id}");
+
+var selectedMonth = new Date(2019,1);
+var dateforCalendar = convertToMomentDateObj(setVal);
+
+//역파싱 : 입력값을 date객체로.
+function convertToMomentDateObj(val) {
+  var yearP = parseInt(val.slice(0,4));
+  var monthP = parseInt(val.slice(5))-1;
+  var newDateObj = new Date(yearP,monthP);
+  return newDateObj;
+}
 console.log('userId')
 console.log(userId);
 
@@ -394,6 +405,7 @@ $(function() {
       week : 'week',
       day  : 'day'
     },
+    defaultDate : selectedMonth,
 //>>//Ajax로 가져올 event data
     events : initialData,
 
@@ -616,6 +628,8 @@ $('#submitPlan').click(function() {
 		}
 	});
 });
+
+$('#calendar').fullCalendar('gotoDate',selectedMonth);
 
 </script>
 </body>
