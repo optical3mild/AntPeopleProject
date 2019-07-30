@@ -80,7 +80,7 @@ public class OwnerController {
 	public String planning(@RequestBody Map<String, ScheDetailDTO> scheDto, Model model) throws Exception {
 		logger.info("createplan");
 		scheService.saveSchedules(scheDto);
-	return "redirect:planningpage";
+	return "planningpage";
 	}
 	
 //	// 운영 계획

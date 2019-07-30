@@ -14,7 +14,7 @@ public interface ScheService {
 	
 	//사장의 일정 가져오기
 	public Set<ScheDetailDTO> findAllOnwer(int user_id);
-	public JSONObject findAllMonth(int user_id, String startDate);
+	public Set<ScheDetailDTO> findAllMonth(int user_id, String startDate);
 	
 	//일정 변경하기 
 	public void updateSchedule();
