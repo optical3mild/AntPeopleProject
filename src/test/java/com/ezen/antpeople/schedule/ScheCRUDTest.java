@@ -1,8 +1,9 @@
 package com.ezen.antpeople.schedule;
 
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -50,11 +51,19 @@ public class ScheCRUDTest {
 	public void scheduleListTest() {
 		UserDetailDTO user = us.findByEmail("tkwkd123@gmail.com"); //이메일은 DB에 따라 변경해야함!!
 		//List<ScheDetailDTO> testSchedules = scheService.findAllOnwer(user.getUser_id());
-		
-		
 	}
-	//인원수 채우기 테스트
 	
+	//월별 일정 가져오기 테스트
+	@Test @Ignore
+	public void scheduleMonthListTest() {
+		UserDetailDTO user = us.findByEmail("tkwkd123@gmail.com"); //이메일은 DB에 따라 변경해야함!!
+		Set<ScheDetailDTO> testSchedules = new HashSet<ScheDetailDTO>(scheService.findAllMonth(user.getUser_id(),"1906"));
+		for(ScheDetailDTO schedule : testSchedules)
+			System.out.println(schedule.toString());
+	}
+	
+	
+	//인원수 채우기 테스트
 	@Test @Ignore
 	public void changeScheduleTest() {
 		Map<String, ScheDetailDTO> testSchedules = new HashMap<String, ScheDetailDTO>();
