@@ -580,7 +580,7 @@ function getMonthlyPlan(inputVal) {
 		data : targetMonthInfo,
     // contentType : 서버로 보낼 데이터의 타입.
     contentType: 'application/json',
-    dataType : 'json',
+    dataType : 'text',
     // dataType : 서버로 부터 수신받을 데이터 타입.
     async : false,
 		error : function(response) {
