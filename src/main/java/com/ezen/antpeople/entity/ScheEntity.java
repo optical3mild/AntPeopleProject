@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -44,7 +45,7 @@ public class ScheEntity extends BaseEntity implements Serializable {
 	private int manPower;
 	private int peopleCount;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name="user_sche", joinColumns = @JoinColumn(name="sche_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private List<UserEntity> toUsers;
 	
@@ -54,6 +55,11 @@ public class ScheEntity extends BaseEntity implements Serializable {
 	
 	//일정 정보 등록
 	public ScheEntity(ScheDetailDTO schedule) {
+		
+		List<UserEntity> userList = new ArrayList<UserEntity>();
+		for(UserDetailDTO user: schedule.getToUsers())
+			userList.add(new UserEntity(user));
+		
 		
 		this.id = schedule.getSche_id();
 		this.sche_unique = schedule.getId();
@@ -65,14 +71,16 @@ public class ScheEntity extends BaseEntity implements Serializable {
 		this.state = schedule.getState();
 		this.manPower = schedule.getManPower();
 		this.fromUser = new UserEntity(schedule.getFromUser());
+		this.toUsers = userList;
+		
 	}
 	
 	//일정 상세 정보 내보내기
 	public ScheDetailDTO buildDTO() {
-//		List<UserDetailDTO> toUsersDTO = new ArrayList();
-//		for(UserEntity user : this.toUsers)
-//			toUsersDTO.add(user.buildDTO());
-		return new ScheDetailDTO(this.sche_unique, this.startDate, this.endDate, this.startTime, this.endTime, this.title, this.state, this.manPower,this.fromUser.buildDTO());
+		List<UserDetailDTO> toUsersDTO = new ArrayList();
+		for(UserEntity user : this.toUsers)
+			toUsersDTO.add(user.buildDTO());
+		return new ScheDetailDTO(this.id, this.sche_unique,this.createdAt, this.updatedAt, this.startDate, this.endDate, this.startTime, this.endTime, this.title, this.state, this.manPower,this.peopleCount, this.fromUser.buildDTO(),toUsersDTO );
 	}
 
 }
