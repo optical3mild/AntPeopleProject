@@ -58,11 +58,11 @@ public class UserController {
 		if (userService.verifiedPassword(user,userLogin.getPassword())) {
 			logger.info("로그인 성공");
 			model.addAttribute("user", user);
-			model.addAttribute("msg", "로그인 성공");
+			model.addAttribute("mmm", "로그인 성공");
 			return "../main/mainpage";
 		} else {
 			logger.info("로그인 실패");
-			model.addAttribute("msg", "로그인 실패");
+			model.addAttribute("mmm", "로그인 실패");
 			return "redirection";
 		}
 	}
