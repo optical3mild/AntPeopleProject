@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.ezen.antpeople.entity.ScheEntity;
 import com.ezen.antpeople.entity.UserEntity;
 
-@Repository("schedule")
+@Repository()
 public interface ScheRepository extends JpaRepository<ScheEntity, Integer> {
 	List<ScheEntity> findByFromUser(UserEntity user);
 	List<ScheEntity> findByFromUserAndStartDateStartingWith(UserEntity user, String startDate);

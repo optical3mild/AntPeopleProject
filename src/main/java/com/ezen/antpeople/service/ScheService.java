@@ -1,10 +1,10 @@
 package com.ezen.antpeople.service;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import com.ezen.antpeople.dto.sche.ScheDetailDTO;
+import com.ezen.antpeople.dto.sche.ScheUserListDTO;
 import com.ezen.antpeople.dto.user.UserDetailDTO;
 import com.ezen.antpeople.entity.ScheEntity;
 
@@ -15,7 +15,7 @@ public interface ScheService {
 	
 	//사장의 일정 가져오기
 	public Set<ScheDetailDTO> findAllOnwer(int user_id);
-	public Set<ScheDetailDTO> findAllMonth(int user_id, String startDate);
+	public ScheUserListDTO findAllMonth(int user_id, String startDate);
 	
 	//일정 변경하기, 삭제하기
 	public void updateSchedule(Map<String, ScheDetailDTO> schedules);

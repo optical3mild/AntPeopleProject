@@ -11,23 +11,29 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.ezen.antpeople.dto.sche.ScheDetailDTO;
+import com.ezen.antpeople.dto.sche.ScheUserDTO;
+import com.ezen.antpeople.dto.sche.ScheUserListDTO;
 import com.ezen.antpeople.dto.user.UserDetailDTO;
 import com.ezen.antpeople.entity.ScheEntity;
 import com.ezen.antpeople.entity.UserEntity;
 import com.ezen.antpeople.repository.ScheRepository;
+import com.ezen.antpeople.repository.USRepository;
 import com.ezen.antpeople.repository.UserRepository;
 import com.ezen.antpeople.service.ScheService;
 
-@Service("Schedule")
+@Service("schedule")
 public class ScheServiceImpl implements ScheService {
 	private static final Logger logger = LoggerFactory.getLogger(ScheServiceImpl.class);
 	
 	private ScheRepository scheRepository;
 	private UserRepository userRepository;
+	private USRepository usRepository;
 	
-	public ScheServiceImpl(ScheRepository scheRepository, UserRepository userRepository) {
+	public ScheServiceImpl(ScheRepository scheRepository, UserRepository userRepository,
+			USRepository usRepository) {
 		this.scheRepository = scheRepository;
 		this.userRepository = userRepository;
+		this.usRepository = usRepository;
 	}
 	
 	//새로운 일정 저장
@@ -50,16 +56,18 @@ public class ScheServiceImpl implements ScheService {
 	}
 	
 	//일정 가져오기 - 월별
-		@Override
-		public Set<ScheDetailDTO> findAllMonth(int user_id, String startDate) {
-			startDate = startDate;
-			Set<ScheDetailDTO>  schedules = new HashSet<ScheDetailDTO>();
-			List<ScheEntity> entitys = new ArrayList<ScheEntity>(scheRepository.findByFromUserAndStartDateStartingWith(userRepository.findById(user_id).get(),startDate));
-			for(ScheEntity entity :entitys) {
-				schedules.add(entity.buildDTO());
-			}
-			return schedules;
+	@Override
+	public ScheUserListDTO findAllMonth(int user_id, String startDate) {
+		logger.info("월별 일정 리스트 출력 메소드 시작");
+		Set<ScheDetailDTO> schedules = new HashSet<ScheDetailDTO>();
+		List<ScheEntity> entitys = new ArrayList<ScheEntity>(scheRepository.findByFromUserAndStartDateStartingWith(userRepository.findById(user_id).get(),startDate));
+		for(ScheEntity entity :entitys) {
+			schedules.add(entity.buildDTO());
 		}
+		logger.info("월별 일정 리스트 :" + schedules.toString());
+		ScheUserListDTO userAndMonth = new ScheUserListDTO(schedules);
+		return userAndMonth;
+	}
 
 	//일정 수정, 삭제 하기
 	@Override
@@ -88,6 +96,7 @@ public class ScheServiceImpl implements ScheService {
 		return monthList;
 	}
 	
+	//같은 일정인지 확인
 	@Override
 	public boolean equalsScheduleId(ScheEntity entity) {
 		ScheEntity compare = scheRepository.findById(entity.getId()).get();
@@ -96,7 +105,8 @@ public class ScheServiceImpl implements ScheService {
 		else 
 			return false;
 	}
-
+	
+	//같은 필요 직원 수 인지 확인
 	@Override
 	public boolean equalsScheduleManPower(ScheEntity entity) {
 		ScheEntity compare = scheRepository.findById(entity.getId()).get();

@@ -65,6 +65,16 @@ public class UserDetailDTO implements Serializable {
 		this.store = store;
 	}
 	
+	public UserDetailDTO(int user_id, String email, String name,
+			 RoleDTO role, StoreDTO store) {
+		super();
+		this.user_id = user_id;
+		this.email = email;
+		this.name = name;
+		this.role = role;
+		this.store = store;
+	}
+	
 	//Id, Name 받아오는 메소드
 	public UserDetailDTO(int user_id, String name) {
 		this.user_id = user_id;
