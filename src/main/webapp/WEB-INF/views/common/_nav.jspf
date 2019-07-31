@@ -35,7 +35,7 @@
       <c:if test="${user.role.role == '사장'}">
       	<ul class="sidebar-menu" data-widget="tree">
 	        <li>
-	          <a href="${path}/owner/planningpage">
+	          <a href="${path}/owner/monthplanpage">
 	            <i class="fa fa-calendar"></i> <span>운영계획</span>
 	          </a>
 	        </li>
