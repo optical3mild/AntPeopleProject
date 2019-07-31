@@ -200,8 +200,22 @@
 <!-- Page specific script -->
 <script>
 var userId = parseInt("${user.user_id}");
-console.log('userId')
-console.log(userId);
+
+//calendar 초기 로드값.
+var selectedMonth; //캘린더에 연결된 변수.
+//var getInitialMonth = '1901'; //테스트
+var getInitialMonth = "${monthIndex}";
+if(getInitialMonth > 0) {
+  var selectedMonth = convertToInitialDateInfo(getInitialMonth);
+}
+
+//받은 날짜정보를 Date객체로.
+function convertToInitialDateInfo(val) {
+  var yearP = parseInt("20"+val.slice(0,2));
+  var monthP = parseInt(val.slice(2));
+  var newDateObj = new Date(yearP,monthP,1);
+  return newDateObj;
+}
 
 //DayObj, TimeObj : 프로토타입 객체.
 var startDay = new DayObj();
@@ -394,6 +408,7 @@ $(function() {
       week : 'week',
       day  : 'day'
     },
+    defaultDate : selectedMonth,
 //>>//Ajax로 가져올 event data
     events : initialData,
 

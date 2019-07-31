@@ -116,6 +116,7 @@
 ### Day 18 : Schedule (19.07.30)
 - (오인) Schedule Object 만들기 (화면출력)
 - (오인) Schedule Object insert (DB 저장)
+- (정우) 일정등록 ui - monthplanpage.jsp (planner main page) 업데이트
 - (오인) Schedule Object 월별 리스트 Select
 
 ### Day 19 : Schedule Service (10.07.31)
