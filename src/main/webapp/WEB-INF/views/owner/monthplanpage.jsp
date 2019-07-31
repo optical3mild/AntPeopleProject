@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
   
   <!-- external eventbar style -->
-  <link rel="stylesheet" href="setfiles/css/ant_fullcalendar1.0.3.css">
+  <link rel="stylesheet" href="setfiles/css/ant_fullcalendar1.0.3.css?ver=1">
   
   <%@ include file= "../common/header.jsp" %>
   
@@ -141,7 +141,7 @@
 <%@ include file = "../common/_commonScriptList.jspf" %>
 
 <!-- AntPeople FullCalendar function -->
-<script src="setfiles/js/ant_fullcalendar1.0.3.js"></script>
+<script src="setfiles/js/ant_fullcalendar1.0.3.js?ver=1"></script>
 
 <!-- fullCalendar -->
 <script src="setfiles/bower_components/moment/moment.js"></script>
@@ -512,6 +512,9 @@ $(document).on('click','.external-event',function() {
     }
     //b. 월별이벤트 데이터를 받아온다. --> {key = 1901 : value = {해당월의 계획} }
     var targetMonth = $(this).data().monthIndex; // ex) 1901 = 19년 2월.
+    console.log('targetMonth')
+    console.log(targetMonth)
+    
     var userInfo = {'user_id' : userId};
 
     //수신받은 월별일정을 변환.
@@ -519,6 +522,7 @@ $(document).on('click','.external-event',function() {
 
     //ajax로 데이터 수신.
     var receivedData = getMonthlyPlan(targetMonth);
+    console.log('check')
     //var receivedData = receivedDummy; //테스트용. 수신받았다고 가정. --> 못받은 경우?
     var keyVal;
     var rEventList;
@@ -566,25 +570,31 @@ $(document).on('click','.external-event',function() {
 //b. 월별 이벤트 데이터를 받아오는 함수.
 function getMonthlyPlan(inputVal) {
   var targetMonthInfo = inputVal
+  var result;
+  console.log('targetMonthInfo')
+  console.log(targetMonthInfo)
   $.ajax({
 		url : 'monthplan',
 		method : 'post',
     // data : 서버로 보낼 데이터 - string or json(key/value)
 		data : targetMonthInfo,
     // contentType : 서버로 보낼 데이터의 타입.
-    contentType: 'text',
+    contentType: 'application/json',
+    dataType : 'json',
     // dataType : 서버로 부터 수신받을 데이터 타입.
-		dataType : 'JSON',
     async : false,
 		error : function(response) {
 			alert("통신실패, response: " + response);
+			console.log(response);
 		},
 		success : function(response) {
 			alert("통신성공, response: " + response);
 			//document.location.href = response;
-			return response;
+			console.log(response);
+			result = response;
 		}
 	});
+  return result;
 }
 
 //d. 화면 재구성함수.
