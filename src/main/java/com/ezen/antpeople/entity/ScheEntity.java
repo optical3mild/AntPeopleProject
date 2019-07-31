@@ -55,6 +55,7 @@ public class ScheEntity extends BaseEntity implements Serializable {
 	//일정 정보 등록
 	public ScheEntity(ScheDetailDTO schedule) {
 		
+		this.id = schedule.getSche_id();
 		this.sche_unique = schedule.getId();
 		this.startDate = schedule.getStartDate();
 		this.endDate = schedule.getEndDate();

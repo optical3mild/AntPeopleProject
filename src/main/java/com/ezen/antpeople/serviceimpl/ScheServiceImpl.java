@@ -11,7 +11,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.ezen.antpeople.dto.sche.ScheDetailDTO;
+import com.ezen.antpeople.dto.user.UserDetailDTO;
 import com.ezen.antpeople.entity.ScheEntity;
+import com.ezen.antpeople.entity.UserEntity;
 import com.ezen.antpeople.repository.ScheRepository;
 import com.ezen.antpeople.repository.UserRepository;
 import com.ezen.antpeople.service.ScheService;
@@ -28,7 +30,7 @@ public class ScheServiceImpl implements ScheService {
 		this.userRepository = userRepository;
 	}
 	
-	//일정 저장하기
+	//새로운 일정 저장
 	@Override
 	public void saveSchedules(Map<String, ScheDetailDTO> schedules) {
 		for(String key : schedules.keySet()) {
@@ -50,26 +52,65 @@ public class ScheServiceImpl implements ScheService {
 	//일정 가져오기 - 월별
 		@Override
 		public Set<ScheDetailDTO> findAllMonth(int user_id, String startDate) {
-			startDate = startDate + "*";
+			startDate = startDate;
 			Set<ScheDetailDTO>  schedules = new HashSet<ScheDetailDTO>();
-			List<ScheEntity> entitys = new ArrayList<ScheEntity>(scheRepository.findByFromUserAndStartDate(userRepository.findById(user_id).get(),startDate));
+			List<ScheEntity> entitys = new ArrayList<ScheEntity>(scheRepository.findByFromUserAndStartDateStartingWith(userRepository.findById(user_id).get(),startDate));
 			for(ScheEntity entity :entitys) {
 				schedules.add(entity.buildDTO());
 			}
 			return schedules;
 		}
 
+	//일정 수정, 삭제 하기
 	@Override
-	public void updateSchedule() {
-		// TODO Auto-generated method stub
+	public void updateSchedule(Map<String, ScheDetailDTO> schedules) {
+		for(String key : schedules.keySet()) {
+			ScheEntity entity = new ScheEntity(schedules.get(key));
+			if(!equalsScheduleId(entity)) { // 같은 일정이 없으면 일정 추가
+				scheRepository.save(entity);
+			}
+			else if(!equalsScheduleManPower(entity)) { //같은 일정이지만 필요 직원수가 다르면 추가
+				scheRepository.save(entity);
+			}
+		}
 		
 	}
 
+	//월별 일정 존재 여부
 	@Override
-	public boolean isMonthSchedule() {
-		return false;
+	public Set<String> isScheduleMonthList(UserDetailDTO user) {
+		Set<String> monthList = new HashSet<String>();
+		Set<ScheEntity> scheduleList = new HashSet<ScheEntity>(scheRepository.findByFromUser(new UserEntity(user)));
+		for(ScheEntity schedule : scheduleList) {
+			monthList.add(schedule.getStartDate().substring(0, 4));
+		}
+		
+		return monthList;
 	}
 	
+	@Override
+	public boolean equalsScheduleId(ScheEntity entity) {
+		ScheEntity compare = scheRepository.findById(entity.getId()).get();
+		if(entity.getSche_unique().equals(compare.getSche_unique()))
+			return true;
+		else 
+			return false;
+	}
+
+	@Override
+	public boolean equalsScheduleManPower(ScheEntity entity) {
+		ScheEntity compare = scheRepository.findById(entity.getId()).get();
+		if(entity.getManPower() == compare.getManPower())
+			return true;
+		else 
+			return false;
+	}
+
+	@Override
+	public void deleteSchedule(Map<String, ScheDetailDTO> schedules) {
+		//Set<ScheDetailDTO> scheduleList = new HashSet<ScheDetailDTO>(findAllMonth());
+		
+	}
 	
 
 }
