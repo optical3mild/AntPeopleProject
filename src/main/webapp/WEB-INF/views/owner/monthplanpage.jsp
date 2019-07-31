@@ -154,7 +154,9 @@ var userId = "${user.user_id}";
 // 페이지 로드 시 받을 수신받을 데이터 형태. --> '연월' : 수정가능여부
 var nowDate = new Date();
 
-var gotList = "${monthList}" //더미로 확인필요...
+var gotList = ${monthList} //더미로 확인필요...
+console.log('gotList');
+console.log(gotList);
 //현재 달을 확인하여 현재달 포함 이전은 수정불가로 List객체 조정.
 //var gotList = ['1907','1905','1906','1909','1900','1911']; //더미 목록, 월정보는 월 인덱스 값.
 function convertToMonthObj(originDate, array){
@@ -666,9 +668,13 @@ function direction(planName,target) {
     async : false,
 		error : function(response) {
 			alert("통신실패, response: " + response);
+			console.log('월별 - 실패')
+			console.log(response)
 		},
 		success : function(response) {
 			alert("통신성공, response: " + response);
+			console.log('월별 - 성공')
+			console.log(response)
 			document.location.href = response;
 		}
 	});

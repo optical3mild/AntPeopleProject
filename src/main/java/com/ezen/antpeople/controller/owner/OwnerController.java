@@ -57,44 +57,66 @@ public class OwnerController {
 	}
 	
 
-
 	//----------------------- 근무 일정 페이지 ---------------------------
-	// 2-1
-	@RequestMapping("insertplan")
-	@ResponseBody
-	public ModelAndView goPlanning(ModelAndView mav, HttpServletRequest request, String startDate) throws Exception {
-		logger.info("insertplan");
-		HttpSession httpSession = request.getSession(true);
-		UserDetailDTO userDto = (UserDetailDTO) httpSession.getAttribute("user");
-		scheService.findAllMonth(userDto.getUser_id(), startDate);
-		mav.setViewName("planning");
-		return mav;
-	}
-	
-	// 2-2
-	
-
-	// 운영 계획 저장 - 3
-	@RequestMapping(value="createplan", method=RequestMethod.POST)
-	@ResponseBody
-	public String planning(@RequestBody Map<String, ScheDetailDTO> scheDto, Model model) throws Exception {
-		logger.info("createplan");
-		scheService.saveSchedules(scheDto);
-	return "planningpage";
-	}
 	
 	// 운영 계획 - 1
 	@RequestMapping("monthplanpage")
-	public ModelAndView monthplanpage(ModelAndView mav,  HttpServletRequest request, String startDate) {
+	public ModelAndView monthplanpage(ModelAndView mav,  HttpServletRequest request) {
 		logger.info("monthplanpage");
 		HttpSession httpSession = request.getSession(true);
 		UserDetailDTO userDto = (UserDetailDTO) httpSession.getAttribute("user");
-		Set<ScheDetailDTO> sche = scheService.findAllOnwer(userDto.getUser_id());
+		Set<String> sche = scheService.isScheduleMonthList(userDto);
 		logger.info("monthplanpage Data : "+sche.toString());
-		mav.addObject("monthindex", sche);
+		mav.addObject("monthList", sche);
 		mav.setViewName("monthplanpage");
 		return mav;
 	}
+	
+	// 클릭한 월 받아서 해당 데이터 넘겨주기 - 2
+	@RequestMapping("monthplan")
+	@ResponseBody
+	public String monthplan(Model model, @RequestBody String data, HttpServletRequest request) throws Exception {
+		HttpSession httpSession = request.getSession(true);
+		UserDetailDTO userDto = (UserDetailDTO) httpSession.getAttribute("user");
+		model.addAttribute("monthplan", scheService.findAllMonth(userDto.getUser_id(), data));
+		return "monthplanpage";
+	}
+	
+	// 생성버튼 3-1
+	@RequestMapping("insertplanpage")
+	@ResponseBody
+	public String insertPlanPage(@RequestBody String month, Model model) throws Exception {
+		logger.info("insertplanpage");
+		model.addAttribute("month", month);
+		return "planning";
+	}
+	
+	// 생성 3-1-1
+	@RequestMapping("insertplan")
+	public String insertPlan(@RequestBody Map<String, ScheDetailDTO> schedules) throws Exception {
+		logger.info("insertplan");
+		scheService.saveSchedules(schedules);
+		return "monthplanpage";
+	}
+	
+	
+	// 수정 버튼  3-2
+	@RequestMapping("updateplan")
+	public String updatePlanPage(Model model, @RequestBody String month, HttpServletRequest request) throws Exception {
+		HttpSession httpSession = request.getSession(true);
+		UserDetailDTO userDto = (UserDetailDTO) httpSession.getAttribute("user");
+		int user_id = userDto.getUser_id();
+		model.addAttribute("updateplan", scheService.findAllMonth(user_id, month));
+		return "planning";
+	}
+	
+	// 수정 완료 3-2-1
+	@RequestMapping("updateplan")
+	public String updatePlan(@RequestBody Map<String, ScheDetailDTO> schedules) throws Exception {
+		scheService.updateSchedule(schedules);
+		return "monthplanpage";
+	}
+	
 //	----------------------------- 승인 ---------------------------------------------
 	// 승인페이지 이동
 	@RequestMapping("acceptpage")
