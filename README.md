@@ -117,3 +117,6 @@
 - (오인) Schedule Object 만들기 (화면출력)
 - (오인) Schedule Object insert (DB 저장)
 - (오인) Schedule Object 월별 리스트 Select
+
+### Day 19 : Schedule Service (10.07.31)
+- (오인) Schedule Service 구성
