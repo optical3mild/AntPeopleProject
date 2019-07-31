@@ -34,7 +34,11 @@ public class ScheUserListDTO {
 		//스케줄 생성 함수
 		String schedules = scheduleString(this.scheduleList);
 		String users = userString(this.scheduleList);
-		return "{\""+this.month+"\":"+schedules+","+users+"}";
+		log.info(users);
+		if(users != "")
+			return "{\""+this.month+"\":"+schedules+","+users+"}";
+		else
+			return "{\""+this.month+"\":"+schedules+"}";
 	}
 	
 	//스케줄 생성 함수
@@ -49,14 +53,15 @@ public class ScheUserListDTO {
 	
 	//사용자별 일정 리스트 생성 함수
 	public String userString(Set<ScheDetailDTO> scheduleList) {
-		Map<Integer, Set<String>> userSchedule = 
-				new HashMap<Integer, Set<String>>(userScheduleList(scheduleList));
-		String users = new String();
-		for(Integer user_id : userSchedule.keySet()) {
-			users += "\""+user_id+"\":"+userSchedule.get(user_id).toString()+",";
-		}
-		if(users != null)
+		Optional<Map<Integer, Set<String>>> userSchedule = Optional.of(userScheduleList(scheduleList));
+		String users = "";
+		if(!userSchedule.get().isEmpty()) {
+			log.info("일정에 대한 사용자 존재");
+			for(Integer user_id : userSchedule.get().keySet()) {
+				users += "\""+user_id+"\":"+userSchedule.get().get(user_id).toString()+",";
+			}
 			users = users.substring(0, users.length()-1);
+		}
 		return users;
 	}
 	

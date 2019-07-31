@@ -62,7 +62,7 @@ public class ScheCRUDTest {
 	}
 	
 	//월별 일정 가져오기 테스트 - 성공
-	@Test
+	@Test @Ignore
 	public void scheduleMonthListTest() {
 		UserDetailDTO user = us.findByEmail("tkwkd123@gmail.com"); //이메일은 DB에 따라 변경해야함!!
 		log.info("월별 일정 유저 ID : " + user.getUser_id());
