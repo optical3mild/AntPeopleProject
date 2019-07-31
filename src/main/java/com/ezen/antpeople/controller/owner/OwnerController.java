@@ -59,22 +59,22 @@ public class OwnerController {
 
 
 	//----------------------- 근무 일정 페이지 ---------------------------
-	// 운영 계획페이지로 이동
-	@RequestMapping("planningpage")
+	// 2-1
+	@RequestMapping("insertplan")
 	@ResponseBody
-	public ModelAndView goPlanning(ModelAndView mav, HttpServletRequest request) throws Exception {
-		logger.info("planning 페이지");
+	public ModelAndView goPlanning(ModelAndView mav, HttpServletRequest request, String startDate) throws Exception {
+		logger.info("insertplan");
 		HttpSession httpSession = request.getSession(true);
 		UserDetailDTO userDto = (UserDetailDTO) httpSession.getAttribute("user");
-		Set<ScheDetailDTO> scheDetailList = scheService.findAllOnwer(userDto.getUser_id());
-		logger.info(scheDetailList.toString());
-		mav.addObject("jsonList", scheDetailList);
+		scheService.findAllMonth(userDto.getUser_id(), startDate);
 		mav.setViewName("planning");
 		return mav;
 	}
 	
+	// 2-2
+	
 
-	// 운영 계획 저장
+	// 운영 계획 저장 - 3
 	@RequestMapping(value="createplan", method=RequestMethod.POST)
 	@ResponseBody
 	public String planning(@RequestBody Map<String, ScheDetailDTO> scheDto, Model model) throws Exception {
@@ -83,16 +83,18 @@ public class OwnerController {
 	return "planningpage";
 	}
 	
-//	// 운영 계획
-//	@RequestMapping("planningpage")
-//	public String showPlan(Model model, HttpServletRequest request, @RequestParam Map<String, ScheDetailDTO> scheDto) {
-//		logger.info("OwnerCon - submitPlan");
-//		HttpSession httpSession = request.getSession(true);
-//		UserDetailDTO userDto = (UserDetailDTO) httpSession.getAttribute("user");
-//		scheDto = scheService.findAllOnwer(userDto.getUser_id());
-//		model.addAttribute("planereventdata", scheDto);
-//		return "redirect:planning";
-//	}
+	// 운영 계획 - 1
+	@RequestMapping("monthplanpage")
+	public ModelAndView monthplanpage(ModelAndView mav,  HttpServletRequest request, String startDate) {
+		logger.info("monthplanpage");
+		HttpSession httpSession = request.getSession(true);
+		UserDetailDTO userDto = (UserDetailDTO) httpSession.getAttribute("user");
+		Set<ScheDetailDTO> sche = scheService.findAllOnwer(userDto.getUser_id());
+		logger.info("monthplanpage Data : "+sche.toString());
+		mav.addObject("monthindex", sche);
+		mav.setViewName("monthplanpage");
+		return mav;
+	}
 //	----------------------------- 승인 ---------------------------------------------
 	// 승인페이지 이동
 	@RequestMapping("acceptpage")
