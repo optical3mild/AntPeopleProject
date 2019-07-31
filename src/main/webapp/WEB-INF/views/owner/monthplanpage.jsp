@@ -632,7 +632,7 @@ $(document).on('click','.staffBar',function() {
 //5. 수정/등록버튼
 // 경우마다 수정과 등록페이지로 연결.
 $('#plannerButton').click(function() {
-  var target = $('monthForPlan').val();
+  var target = convertToMonthIndex($('#monthForPlan').val());
   if($('#plannerButton').hasClass('createPlanner') == true) {
     var planName = 'insertplan';
     direction(planName,target);
@@ -643,6 +643,18 @@ $('#plannerButton').click(function() {
     console.log("ajax : 수정")
   }
 })
+
+function convertToMonthIndex(inputVal) {
+  var yearPart = inputVal.slice(2,4);
+  var monthPart = parseInt(inputVal.slice(5)-1);
+  var newMonth;
+  if(monthPart< 10) {
+    newMonth = "0" + monthPart;
+  } else {
+    newMonth = "" + monthPart;
+  }
+  return yearPart + newMonth;
+}
 
 function direction(planName,target) {
   //url 지정.
