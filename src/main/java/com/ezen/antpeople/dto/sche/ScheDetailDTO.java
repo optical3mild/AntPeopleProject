@@ -61,7 +61,21 @@ public class ScheDetailDTO {
 		this.manPower = manPower;
 		this.fromUser = fromUser;
 	}
-
+	
+	public ScheDetailDTO(int sche_id, String sche_unique, String startDate, String endDate, String startTime, String endTime, String title,int state, int manPower,
+			UserDetailDTO fromUser) {
+		super();
+		this.sche_id = sche_id;
+		this.id = sche_unique;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.title = title;
+		this.state = state;
+		this.manPower = manPower;
+		this.fromUser = fromUser;
+	}
 	
 	
 	@Override
