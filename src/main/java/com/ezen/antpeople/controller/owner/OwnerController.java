@@ -74,13 +74,13 @@ public class OwnerController {
 	// 클릭한 월 받아서 해당 데이터 넘겨주기 - 2
 	@RequestMapping(value="monthplan", method = RequestMethod.POST)
 	@ResponseBody
-	public ScheUserListDTO monthplan(ModelAndView mav, @RequestBody String date, HttpServletRequest request, ScheUserListDTO schedules) throws Exception {
+	public String monthplan(ModelAndView mav, @RequestBody String date, HttpServletRequest request, ScheUserListDTO schedules) throws Exception {
 		logger.info("monthplan");
 		HttpSession httpSession = request.getSession(true);
 		UserDetailDTO userDto = (UserDetailDTO) httpSession.getAttribute("user");
 		schedules = scheService.findAllMonth(userDto.getUser_id(), date);
-		logger.info("schedules" + schedules.toString());
-		return schedules;
+		logger.info(schedules.toString());
+		return schedules.toString();
 	}
 	
 //	// 생성버튼 3-1

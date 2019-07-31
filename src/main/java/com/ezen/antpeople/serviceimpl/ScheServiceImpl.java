@@ -65,7 +65,7 @@ public class ScheServiceImpl implements ScheService {
 			schedules.add(entity.buildDTO());
 		}
 		logger.info("월별 일정 리스트 :" + schedules.toString());
-		ScheUserListDTO userAndMonth = new ScheUserListDTO(schedules);
+		ScheUserListDTO userAndMonth = new ScheUserListDTO(schedules,startDate);
 		return userAndMonth;
 	}
 

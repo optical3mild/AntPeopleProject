@@ -521,8 +521,9 @@ $(document).on('click','.external-event',function() {
     //var rEventList = convertToAntPeopleEventList(newMonthlyPlanDummyArray);
 
     //ajax로 데이터 수신.
-    var receivedData = getMonthlyPlan(targetMonth);
+    var receivedData = $.parseJSON(getMonthlyPlan(targetMonth));
     console.log('check')
+    console.log(receivedData)
     //var receivedData = receivedDummy; //테스트용. 수신받았다고 가정. --> 못받은 경우?
     var keyVal;
     var rEventList;
