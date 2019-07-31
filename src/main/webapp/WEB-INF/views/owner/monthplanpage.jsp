@@ -665,8 +665,12 @@ function direction(planName,target) {
   var selectedUrl;
   if(planName == modifyPlan) {
     selectedUrl = modifyPlan;
+    console.log('selectedUrl')
+    console.log(selectedUrl)
   } else if(planName == createPlan){
     selectedUrl = createPlan;
+    console.log('selectedUrl')
+    console.log(selectedUrl)
   };
   $.ajax({
 		url : selectedUrl,
