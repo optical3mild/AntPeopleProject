@@ -107,7 +107,7 @@ function convertToEventObj(antObj) {
 
   var eventForRendering = {
     id : antObj.id,
-    title : antObj.title,
+    title : antObj.id, //plannerMain0.0.2에서 바뀜. remakeDisplayedEvents()함수참조.
     start : new Date(syInfo,smInfo,sdInfo,sTInfo,sMInfo),
     end : new Date(eyInfo,emInfo,edInfo,eTInfo,eMInfo),
     allDay : false,
@@ -132,8 +132,8 @@ function createObj (startD,endD,startT,endT,numOfWorkers,state) {
   console.log('1.[fn : divideRange]생성할 기간 배열, 길이')
   console.log(dayObjArray);
   console.log(dayObjArray.length);
-  var objTitle = numOfWorkers+"__"+startT.colonType() + "~" + endT.colonType();
-
+  var objTitle = startT.colonType() + "~" + endT.colonType();
+  
   var newObjArray = new Array();
   for(var i=0; i<dayObjArray.length; i++) {
     var startObj = dayObjArray[i].startInfo;
@@ -159,6 +159,7 @@ function createObj (startD,endD,startT,endT,numOfWorkers,state) {
     newObjArray[i] = antPeopleObj;
     console.log('2.생성되는 관리객체 배열')
     console.log(newObjArray[i]);
+    console.log(newObjArray[i].title);
   }
   return newObjArray;
 };

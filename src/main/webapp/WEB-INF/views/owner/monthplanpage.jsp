@@ -634,11 +634,11 @@ $(document).on('click','.staffBar',function() {
 $('#plannerButton').click(function() {
   var target = convertToMonthIndex($('#monthForPlan').val());
   if($('#plannerButton').hasClass('createPlanner') == true) {
-    var planName = 'insertplan';
+    var planName = 'createplan';
     direction(planName,target);
     console.log("ajax : 생성")
   } else if($('#plannerButton').hasClass('modifyPlanner') == true) {
-    var planName = 'updateplan';
+    var planName = 'modifyplan';
     direction(planName,target);
     console.log("ajax : 수정")
   }
@@ -658,8 +658,8 @@ function convertToMonthIndex(inputVal) {
 
 function direction(planName,target) {
   //url 지정.
-  var modifyPlan = 'insertplan' //수정페이지 경로
-  var createPlan = 'updateplan' //생성페이지 경로
+  var modifyPlan = 'modifyplan' //수정페이지 경로
+  var createPlan = 'createplan' //생성페이지 경로
   var selectedUrl;
   if(planName == modifyPlan) {
     selectedUrl = modifyPlan;

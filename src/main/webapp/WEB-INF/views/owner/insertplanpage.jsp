@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
   
   <!-- external eventbar style -->
-  <link rel="stylesheet" href="setfiles/css/ant_fullcalendar1.0.3.css">
+  <link rel="stylesheet" href="setfiles/css/ant_fullcalendar1.0.3.css?ver=1">
   
   <%@ include file= "../common/header.jsp" %>
   
@@ -191,7 +191,7 @@
 <%@ include file = "../common/_commonScriptList.jspf" %>
 
 <!-- AntPeople FullCalendar function -->
-<script src="setfiles/js/ant_fullcalendar1.0.3.js"></script>
+<script src="setfiles/js/ant_fullcalendar1.0.3.js?ver=1"></script>
 
 <!-- fullCalendar -->
 <script src="setfiles/bower_components/moment/moment.js"></script>
@@ -505,8 +505,10 @@ $(function() {
       delete dataLocation[""+calEvent.id+""];
       console.log('3.삭제 후 모든 event:');
       console.log(dataLocation);
+      remakeDisplayedEvents(dataLocation);
     },
   });
+  remakeDisplayedEvents(dataLocation);
 });
 // ./ End of fullCalendar 초기화 -------------------------------------
 
@@ -573,6 +575,8 @@ function plannerRenderingProcess(sd,ed,st,et,wfe,state) {
       //console.log($('#calendar').data(newEventObj[i].id));
       //console.log('3.모든 event:');
       //console.log($('#calendar').data());
+      
+      remakeDisplayedEvents(dataLocation);
     }
   }
   //경고창 팝업.
@@ -609,7 +613,7 @@ $('#submitPlan').click(function() {
 	console.log(dataLocation)
 	// dataLocation: 스크립트 헤드에 적힌 전역변수
 	$.ajax({
-		url : 'createplan',
+		url : 'insertplan',
 		method : 'post',
 		data : JSON.stringify(dataLocation),
 		
@@ -631,6 +635,36 @@ $('#submitPlan').click(function() {
 		}
 	});
 });
+
+function remakeDisplayedEvents(antPeopleObjList){
+  for(var key in antPeopleObjList) {
+    //목록으로부터 요구 인원수를 추출.
+    var mpValue = antPeopleObjList[""+key+""].manPower;
+    var newTitle = antPeopleObjList[""+key+""].title;
+    //새로 생성한 tag가 있는경우 --> 값만 변경.
+
+    //tag정보 생성.
+    var mpSpan = $('<span />').addClass('eventMarker').css({'padding-left':3}).text(mpValue+"명");
+    var titleSpan = $('<span />').addClass('eventTitle').css({'margin-left':10}).text(newTitle);
+
+    //존재하는 span을 모두 숨김.
+    $('span:contains("'+key+'").fc-title').css({'display':'none'})
+    $('span:contains("'+key+'")').prev('span.fc-time').css({'display':'none'})
+
+    //생성한 span tag를 추가. - 추가된 span이 이미 있는지 확인 후, 있으면 값만 변경.
+    var checkExist = $('span:contains("'+key+'")').parent().find('.eventMarker');
+
+    if(checkExist.length <= 0) {
+      console.log('checkExist.is() = false')
+      $('span:contains("'+key+'")').parent().prepend(titleSpan);
+      $('span:contains("'+key+'")').parent().prepend(mpSpan);
+    } else if (checkExist.length > 0) {
+      console.log('checkExist.is() = true')
+      $('span:contains("'+key+'")').parent().find('.eventMarker').text(mpValue+"명");
+      $('span:contains("'+key+'")').parent().find('.eventTitle').text(newTitle);
+    }
+  }
+}
 
 </script>
 </body>
