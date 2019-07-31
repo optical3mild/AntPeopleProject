@@ -121,3 +121,4 @@
 
 ### Day 19 : Schedule Service (10.07.31)
 - (오인) Schedule Service 구성
+- (정우) 일정등록 ui - updateplanpage.jsp (운영계획 수정화면) 업데이트
