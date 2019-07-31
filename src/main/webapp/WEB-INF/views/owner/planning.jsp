@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
   
   <!-- external eventbar style -->
-  <link rel="stylesheet" href="setfiles/css/ant_fullcalendar1.0.2.css">
+  <link rel="stylesheet" href="setfiles/css/ant_fullcalendar1.0.3.css">
   
   <%@ include file= "../common/header.jsp" %>
   
