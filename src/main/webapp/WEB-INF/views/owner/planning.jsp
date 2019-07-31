@@ -201,18 +201,21 @@
 <script>
 var userId = parseInt("${user.user_id}");
 
-var selectedMonth = new Date(2019,1);
-var dateforCalendar = convertToMomentDateObj(setVal);
+//calendar 초기 로드값.
+var selectedMonth; //캘린더에 연결된 변수.
+//var getInitialMonth = '1901'; //테스트
+var getInitialMonth = "${monthIndex}";
+if(getInitialMonth > 0) {
+  var selectedMonth = convertToInitialDateInfo(getInitialMonth);
+}
 
-//역파싱 : 입력값을 date객체로.
-function convertToMomentDateObj(val) {
-  var yearP = parseInt(val.slice(0,4));
-  var monthP = parseInt(val.slice(5))-1;
-  var newDateObj = new Date(yearP,monthP);
+//받은 날짜정보를 Date객체로.
+function convertToInitialDateInfo(val) {
+  var yearP = parseInt("20"+val.slice(0,2));
+  var monthP = parseInt(val.slice(2));
+  var newDateObj = new Date(yearP,monthP,1);
   return newDateObj;
 }
-console.log('userId')
-console.log(userId);
 
 //DayObj, TimeObj : 프로토타입 객체.
 var startDay = new DayObj();
@@ -628,8 +631,6 @@ $('#submitPlan').click(function() {
 		}
 	});
 });
-
-$('#calendar').fullCalendar('gotoDate',selectedMonth);
 
 </script>
 </body>
