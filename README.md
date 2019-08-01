@@ -118,11 +118,15 @@
 - (오인) Schedule Object insert (DB 저장)
 - (정우) 일정등록 ui - monthplanpage.jsp (planner main page) 업데이트
 - (오인) Schedule Object 월별 리스트 Select
+- (성현) Schedule - OwnerController 월 리스트 연결
 
 ### Day 19 : Schedule Service (19.07.31)
 - (오인) Schedule Service 구성
 - (정우) 일정등록 ui - updateplanpage.jsp (운영계획 수정화면) 업데이트
+- (성현) monthplanpage  Schedule - OwnerControler 월별 데이터 연결
 
 ### Day 20 : Schedule 신청 로직 (10.08.01)
 - (오인) Schedule 신청 로직 구현 및 테스트 완료
 - (정우) 일정신청 ui - requestWork.jsp (일정신청화면) 업데이트
+- (성현) monthplanpage  Schedule 생성버튼 연결
+- (성현) insertplanpage  작성완료버튼 연결
