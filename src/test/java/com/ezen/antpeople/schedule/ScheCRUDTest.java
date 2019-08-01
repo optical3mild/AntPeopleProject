@@ -66,8 +66,15 @@ public class ScheCRUDTest {
 	public void scheduleMonthListTest() {
 		UserDetailDTO user = us.findByEmail("tkwkd123@gmail.com"); //이메일은 DB에 따라 변경해야함!!
 		log.info("월별 일정 유저 ID : " + user.getUser_id());
-		ScheUserListDTO testSchedules = scheService.findAllMonth(user.getUser_id(),"1906");
+		ScheUserListDTO testSchedules = scheService.findAllMonthAndUser(user.getUser_id(),"1906");
 		log.info("월별 일정 가져오기 테스트 결과 : "+ testSchedules.toString());
+	}
+	
+	//근무 신청 테스트 - 성공
+	@Test @Ignore
+	public void updatePeopleCountAndUsersTest() {
+		UserDetailDTO user = new UserDetailDTO(3,"");
+		scheService.updateUserSchedule(user,"6666666666");
 	}
 	
 	
