@@ -591,7 +591,7 @@ function getMonthlyPlan(inputVal) {
 			console.log(response);
 		},
 		success : function(response) {
-			alert("통신성공, response: " + response);
+			//alert("통신성공, response: " + response);
 			//document.location.href = response;
 			console.log(response);
 			result = response;
