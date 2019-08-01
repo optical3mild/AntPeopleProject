@@ -42,12 +42,6 @@ public class UserController {
 		return "login";
 	}
 
-	@RequestMapping("usersuccess")
-	public String loginSuccess(Model model) {
-		logger.info("로그인 성공 페이지");
-		return "${path}/main/guestmain";
-	}
-
 	// 로그인시 아이디 비밀번호 존재여부 체크
 	@RequestMapping(value = "logincheck", method = RequestMethod.POST)
 	@ResponseBody
