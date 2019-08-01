@@ -10,6 +10,7 @@ import com.ezen.antpeople.entity.UserEntity;
 
 @Repository()
 public interface ScheRepository extends JpaRepository<ScheEntity, Integer> {
+	ScheEntity findByUnique(String sche_unique);
 	List<ScheEntity> findByFromUser(UserEntity user);
 	List<ScheEntity> findByFromUserAndStartDateStartingWith(UserEntity user, String startDate);
 

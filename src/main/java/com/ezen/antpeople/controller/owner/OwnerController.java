@@ -78,7 +78,7 @@ public class OwnerController {
 		logger.info("monthplan");
 		HttpSession httpSession = request.getSession(true);
 		UserDetailDTO userDto = (UserDetailDTO) httpSession.getAttribute("user");
-		schedules = scheService.findAllMonth(userDto.getUser_id(), date);
+		schedules = scheService.findAllMonthAndUser(userDto.getUser_id(), date);
 		logger.info(schedules.toString());
 		return schedules.toString();
 	}

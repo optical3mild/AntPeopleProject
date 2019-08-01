@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -11,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.ezen.antpeople.dto.sche.ScheDetailDTO;
-import com.ezen.antpeople.dto.sche.ScheUserDTO;
 import com.ezen.antpeople.dto.sche.ScheUserListDTO;
 import com.ezen.antpeople.dto.user.UserDetailDTO;
 import com.ezen.antpeople.entity.ScheEntity;
@@ -55,9 +55,9 @@ public class ScheServiceImpl implements ScheService {
 		return schedules;
 	}
 	
-	//일정 가져오기 - 월별
+	//일정 가져오기 - 월별일정 + 신청 인원
 	@Override
-	public ScheUserListDTO findAllMonth(int user_id, String startDate) {
+	public ScheUserListDTO findAllMonthAndUser(int user_id, String startDate) {
 		logger.info("월별 일정 리스트 출력 메소드 시작");
 		Set<ScheDetailDTO> schedules = new HashSet<ScheDetailDTO>();
 		List<ScheEntity> entitys = new ArrayList<ScheEntity>(scheRepository.findByFromUserAndStartDateStartingWith(userRepository.findById(user_id).get(),startDate));
@@ -67,6 +67,18 @@ public class ScheServiceImpl implements ScheService {
 		logger.info("월별 일정 리스트 :" + schedules.toString());
 		ScheUserListDTO userAndMonth = new ScheUserListDTO(schedules,startDate);
 		return userAndMonth;
+	}
+	
+	//일정 가져오기 - 월별일정
+	@Override
+	public Set<ScheDetailDTO> findAllMonth(int user_id, String startDate) {
+		logger.info("월별 일정 리스트 출력 메소드 시작");
+		Set<ScheDetailDTO> schedules = new HashSet<ScheDetailDTO>();
+		List<ScheEntity> entitys = new ArrayList<ScheEntity>(scheRepository.findByFromUserAndStartDateStartingWith(userRepository.findById(user_id).get(),startDate));
+		for(ScheEntity entity :entitys) {
+			schedules.add(entity.buildDTO());
+		}
+		return schedules;
 	}
 
 	//일정 수정, 삭제 하기
@@ -100,7 +112,7 @@ public class ScheServiceImpl implements ScheService {
 	@Override
 	public boolean equalsScheduleId(ScheEntity entity) {
 		ScheEntity compare = scheRepository.findById(entity.getId()).get();
-		if(entity.getSche_unique().equals(compare.getSche_unique()))
+		if(entity.getUnique().equals(compare.getUnique()))
 			return true;
 		else 
 			return false;
@@ -120,6 +132,23 @@ public class ScheServiceImpl implements ScheService {
 	public void deleteSchedule(Map<String, ScheDetailDTO> schedules) {
 		//Set<ScheDetailDTO> scheduleList = new HashSet<ScheDetailDTO>(findAllMonth());
 		
+	}
+	
+	//일정에 근무 신청 시
+	@Override
+	public void updateUserSchedule(UserDetailDTO user, String schedule_id) {
+		//1. 해당 일정의 정보 가져오기
+		ScheEntity entity = scheRepository.findByUnique(schedule_id);
+		List<UserEntity> toUsers = new ArrayList<UserEntity>();	
+		Optional<List<UserEntity>> isToUsers = Optional.of(entity.getToUsers());
+		logger.info("toUsers에 들어있는 항목 : " + isToUsers.get());
+		if(isToUsers.isPresent()) {
+			toUsers = isToUsers.get();
+			toUsers.add(new UserEntity(user));
+		}
+		entity.updatePeopleCountAndUser(toUsers);
+		scheRepository.save(entity);
+		logger.info("근무 신청 완료");
 	}
 	
 
