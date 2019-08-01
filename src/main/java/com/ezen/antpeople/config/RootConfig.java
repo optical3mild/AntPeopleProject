@@ -17,6 +17,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -107,11 +108,13 @@ public class RootConfig implements WebMvcConfigurer{
 	
 	
 	  //Transaction Manager
-	/*
-	 * @Bean public HibernateTransactionManager txManager() {
-	 * HibernateTransactionManager txManager = new HibernateTransactionManager();
-	 * txManager.setSessionFactory(sessionFactory()); return txManager; }
-	 */
+	
+	 @Bean 
+	 public HibernateTransactionManager txManager() {
+		 HibernateTransactionManager txManager = new HibernateTransactionManager();
+		 txManager.setSessionFactory(sessionFactory()); return txManager; 
+	 }
+	 
 
 
 

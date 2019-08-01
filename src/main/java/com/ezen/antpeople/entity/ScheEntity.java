@@ -3,6 +3,7 @@ package com.ezen.antpeople.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
@@ -56,12 +57,12 @@ public class ScheEntity extends BaseEntity implements Serializable {
 	
 	//일정 정보 등록
 	public ScheEntity(ScheDetailDTO schedule) {
-		
 		List<UserEntity> userList = new ArrayList<UserEntity>();
-		for(UserDetailDTO user: schedule.getToUsers())
-			userList.add(new UserEntity(user));
-		
-		
+		Optional<List<UserDetailDTO>>users = Optional.ofNullable(schedule.getToUsers());
+		if(users.isPresent()) {
+			for(UserDetailDTO user: users.get())
+				userList.add(new UserEntity(user));
+		}
 		this.id = schedule.getSche_id();
 		this.unique = schedule.getId();
 		this.startDate = schedule.getStartDate();
@@ -88,6 +89,10 @@ public class ScheEntity extends BaseEntity implements Serializable {
 		for(UserEntity user : this.toUsers)
 			toUsersDTO.add(user.buildDTO());
 		return new ScheDetailDTO(this.id, this.unique,this.createdAt, this.updatedAt, this.startDate, this.endDate, this.startTime, this.endTime, this.title, this.state, this.manPower,this.peopleCount, this.fromUser.buildDTO(),toUsersDTO );
+	}
+	
+	public void updateManPower(int manPower) {
+		this.manPower = manPower;
 	}
 	
 	//일정의 신청 인원수  및 직원 명단 변경

@@ -64,7 +64,8 @@ public class ScheServiceImpl implements ScheService {
 		Set<ScheDetailDTO> schedules = new HashSet<ScheDetailDTO>();
 		Set<ScheUserDTO> userToSchedules = new HashSet<ScheUserDTO>();
 		List<ScheEntity> entitys = new ArrayList<ScheEntity>(scheRepository.findByFromUserAndStartDateStartingWith(userRepository.findById(user.getUser_id()).get(),startDate));
-		Optional<List<ScheRelation>> UserEntitys = Optional.of(usRepository.findByToUserStoreStore(user.getStore().getStore()));
+		Optional<List<ScheRelation>> UserEntitys = 
+				Optional.of(usRepository.findByToUserStoreStoreAndScheFromUserIdAndScheStartDateStartingWith(user.getStore().getStore(),user.getUser_id(),startDate));
 		for(ScheEntity entity :entitys) {
 			schedules.add(entity.buildDTO());
 		}
@@ -95,11 +96,24 @@ public class ScheServiceImpl implements ScheService {
 	public void updateSchedule(Map<String, ScheDetailDTO> schedules) {
 		for(String key : schedules.keySet()) {
 			ScheEntity entity = new ScheEntity(schedules.get(key));
-			if(!equalsScheduleId(entity)) { // 같은 일정이 없으면 일정 추가
-				scheRepository.save(entity);
+			logger.info("현재 일정 : " + entity.getUnique());
+			if(entity.getState() == -1) {
+				logger.info("삭제할 일정 : " + entity.getUnique());
+				usRepository.deleteBySche_unique(entity.getUnique());
+				scheRepository.deleteByUnique(entity.getUnique());
+				continue;
 			}
-			else if(!equalsScheduleManPower(entity)) { //같은 일정이지만 필요 직원수가 다르면 추가
+			logger.info("새로운 일정 검사");
+			if(!equalsScheduleId(entity)) { // 같은 일정이 없으면 일정 추가
+				logger.info("새로운 일정");
 				scheRepository.save(entity);
+				continue;
+			} 
+			if(!equalsScheduleManPower(entity)) { //같은 일정이지만 필요 직원수가 다르면 추가
+				logger.info("일정 변경");
+				Optional<ScheEntity> newEntity = scheRepository.findByUnique(entity.getUnique());
+				newEntity.get().updateManPower(entity.getManPower());
+				scheRepository.save(newEntity.get());
 			}
 		}
 		
@@ -117,11 +131,12 @@ public class ScheServiceImpl implements ScheService {
 		return monthList;
 	}
 	
-	//같은 일정인지 확인
+	//일정 존재 확인
 	@Override
 	public boolean equalsScheduleId(ScheEntity entity) {
-		ScheEntity compare = scheRepository.findById(entity.getId()).get();
-		if(entity.getUnique().equals(compare.getUnique()))
+		Optional<ScheEntity> compare = scheRepository.findByUnique(entity.getUnique());
+		logger.info("일정 존재 여부 :" + compare);
+		if(compare.isPresent())
 			return true;
 		else 
 			return false;
@@ -130,16 +145,16 @@ public class ScheServiceImpl implements ScheService {
 	//같은 필요 직원 수 인지 확인
 	@Override
 	public boolean equalsScheduleManPower(ScheEntity entity) {
-		ScheEntity compare = scheRepository.findById(entity.getId()).get();
-		if(entity.getManPower() == compare.getManPower())
+		Optional<ScheEntity> compare = scheRepository.findByUnique(entity.getUnique());
+		if(entity.getManPower() == compare.get().getManPower())
 			return true;
 		else 
 			return false;
 	}
-
+	
+	//일정 삭제 하기
 	@Override
 	public void deleteSchedule(Map<String, ScheDetailDTO> schedules) {
-		//Set<ScheDetailDTO> scheduleList = new HashSet<ScheDetailDTO>(findAllMonth());
 		
 	}
 	
@@ -147,28 +162,28 @@ public class ScheServiceImpl implements ScheService {
 	@Override
 	public void updateUserSchedule(UserDetailDTO user, String schedule_id) {
 		//1. 해당 일정의 정보 가져오기
-		ScheEntity entity = scheRepository.findByUnique(schedule_id);
+		Optional<ScheEntity> entity = scheRepository.findByUnique(schedule_id);
 		List<UserEntity> toUsers = new ArrayList<UserEntity>();	
-		Optional<List<UserEntity>> isToUsers = Optional.of(entity.getToUsers());
+		Optional<List<UserEntity>> isToUsers = Optional.of(entity.get().getToUsers());
 		logger.info("toUsers에 들어있는 항목 : " + isToUsers.get());
 		if(isToUsers.isPresent()) {
 			toUsers = isToUsers.get();
 			toUsers.add(new UserEntity(user));
 		}
-		entity.updatePeopleCountAndUser(toUsers);
-		scheRepository.save(entity);
+		entity.get().updatePeopleCountAndUser(toUsers);
+		scheRepository.save(entity.get());
 		logger.info("근무 신청 완료");
 	}
 
 	//일정 승인,거절하는 메소드
 	@Override
 	public void isPermissionSchedule(UserDetailDTO user, String schedule_id, int state) {
-		ScheEntity entity = scheRepository.findByUnique(schedule_id);
-		ScheUserDTO userToSche = new ScheUserDTO(user, entity.getId(),entity.getUnique(),state);
+		Optional<ScheEntity> entity = scheRepository.findByUnique(schedule_id);
+		ScheUserDTO userToSche = new ScheUserDTO(user, entity.get().getId(),entity.get().getUnique(),state);
 		usRepository.save(new ScheRelation(userToSche));
 		if(state == 3) {
-			entity.downPeopleCount();
-			scheRepository.save(entity);
+			entity.get().downPeopleCount();
+			scheRepository.save(entity.get());
 			logger.info("일정 신청 거절");
 		}
 		logger.info("일정 승인 or 거절 완료");

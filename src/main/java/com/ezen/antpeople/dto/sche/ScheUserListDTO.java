@@ -29,6 +29,7 @@ public class ScheUserListDTO {
 		this.scheduleList = scheduleList;
 		this.userToScheList = userToScheList;
 		this.month = month;
+		
 	}
 	
 	@Override
