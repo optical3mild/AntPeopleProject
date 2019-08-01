@@ -256,18 +256,6 @@ var gotData = [
 ];
 */
 
-//수신데이터가 있을 경우, 저장.
-var gotData = $.parseJSON('${jsonList}');
-console.log('gotData')
-console.log(gotData)
-if(gotData != "") {
-	for(var i=0; i<gotData.length; i++){
-		var tempKey = gotData[i].id;
-		var tempObj = gotData[i];
-		emptyObj[""+tempKey+""] = tempObj;
-	}
-} 
-
 $('#calendar').data('eventList',emptyObj);
 var dataLocation = $('#calendar').data('eventList');
 console.log('로딩확인')
