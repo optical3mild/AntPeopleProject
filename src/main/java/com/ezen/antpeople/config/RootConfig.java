@@ -105,17 +105,5 @@ public class RootConfig implements WebMvcConfigurer{
 		  return sessionFactory.getObject(); 
 	  }
 	 
-	
-	
-	  //Transaction Manager
-	
-	 @Bean 
-	 public HibernateTransactionManager txManager() {
-		 HibernateTransactionManager txManager = new HibernateTransactionManager();
-		 txManager.setSessionFactory(sessionFactory()); return txManager; 
-	 }
-	 
-
-
 
 }
