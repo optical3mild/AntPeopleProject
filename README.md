@@ -119,9 +119,10 @@
 - (정우) 일정등록 ui - monthplanpage.jsp (planner main page) 업데이트
 - (오인) Schedule Object 월별 리스트 Select
 
-### Day 19 : Schedule Service (10.07.31)
+### Day 19 : Schedule Service (19.07.31)
 - (오인) Schedule Service 구성
 - (정우) 일정등록 ui - updateplanpage.jsp (운영계획 수정화면) 업데이트
 
-### Day 19 : Schedule 신청 로직 (10.08.01)
+### Day 20 : Schedule 신청 로직 (10.08.01)
 - (오인) Schedule 신청 로직 구현 및 테스트 완료
+- (정우) 일정신청 ui - requestWork.jsp (일정신청화면) 업데이트
