@@ -51,7 +51,7 @@ public class OwnerController {
 		UserDetailDTO user = (UserDetailDTO) session.getAttribute("user");
 		StoreDTO store = user.getStore();
 		System.out.println(store.toString());
-		List<UserDetailDTO> userList = new ArrayList(userService.findByStore(new RoleDTO(102,""),store));
+		List<UserDetailDTO> userList = new ArrayList<UserDetailDTO>(userService.findByStore(new RoleDTO(102,""),store));
 		mv.addObject("userList", userList);
 		mv.setViewName("staffinfo");
 		return mv;
