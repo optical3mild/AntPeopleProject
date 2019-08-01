@@ -37,6 +37,7 @@ public class TodoEntity extends BaseEntity implements Serializable {
 	private String description;
 	
 	private int state;
+	private int checkPerson;
 	
 	@ManyToMany
 	@JoinTable(name="user_todo", joinColumns = @JoinColumn(name="todo_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))

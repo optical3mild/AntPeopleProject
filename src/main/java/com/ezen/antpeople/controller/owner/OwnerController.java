@@ -114,7 +114,6 @@ public class OwnerController {
 	
 	// 수정 버튼  3-2
 	@RequestMapping("modifyplan")		// monthplanpage에서 modifyplan(수정버튼)을 클릭함
-	@ResponseBody
 	public String updatePlanPage(Model model, @RequestBody String date, HttpServletRequest request) throws Exception {
 	logger.info("modifyplan");
 		HttpSession httpSession = request.getSession(true);
@@ -124,21 +123,21 @@ public class OwnerController {
 		return "updateplanpage";		// updateplanpage로 이동
 	}
 	
-//	// goupdateplanpage로 이동
-//	@RequestMapping("updateplanpage")
-//	public String goupdateplanpage() throws Exception {
-//		logger.info("updateplanpage");
-//		return "updateplanpage";
-//	}
+	// goupdateplanpage로 이동
+	@RequestMapping("updateplanpage")
+	public String goupdateplanpage() throws Exception {
+		logger.info("updateplanpage");
+		return "updateplanpage";
+	}
 	
-//	// 수정완료 버튼 3-2-1
-//	@RequestMapping("updateplan")		// updateplanpage에서 updateplan(완료버튼)을 클릭함
-//	logger.info("updateplan");
-//	@ResponseBody
-//	public String updatePlan(@RequestBody Map<String, ScheDetailDTO> schedules) throws Exception {
-//		scheService.updateSchedule(schedules);
-//		return "monthplanpage";			// monthplanpage로 이동
-//	}
+	// 수정완료 버튼 3-2-1
+	@RequestMapping("updateplan")		// updateplanpage에서 updateplan(완료버튼)을 클릭함
+	@ResponseBody
+	public String updatePlan(@RequestBody Map<String, ScheDetailDTO> schedules) throws Exception {
+		logger.info("updateplan");
+		scheService.updateSchedule(schedules);
+		return "monthplanpage";			// monthplanpage로 이동
+	}
 	
 //	----------------------------- 승인 ---------------------------------------------
 	// 승인페이지 이동
