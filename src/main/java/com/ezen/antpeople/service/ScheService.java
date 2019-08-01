@@ -15,11 +15,13 @@ public interface ScheService {
 	
 	//사장의 일정 가져오기
 	public Set<ScheDetailDTO> findAllOnwer(int user_id);
-	public ScheUserListDTO findAllMonth(int user_id, String startDate);
+	public Set<ScheDetailDTO> findAllMonth(int user_id, String startDate);
+	public ScheUserListDTO findAllMonthAndUser(UserDetailDTO user, String startDate);
 	
 	//일정 변경하기, 삭제하기
 	public void updateSchedule(Map<String, ScheDetailDTO> schedules);
 	public void deleteSchedule(Map<String, ScheDetailDTO> schedules);
+	public void updateUserSchedule(UserDetailDTO user, String schedule_id);
 	
 	//일정 유무
 	public Set<String> isScheduleMonthList(UserDetailDTO user);
@@ -29,4 +31,7 @@ public interface ScheService {
 	public boolean equalsScheduleId(ScheEntity entity);
 	public boolean equalsScheduleManPower(ScheEntity entity);
 	
+	
+	//일정 승인 관련
+	public void isPermissionSchedule(UserDetailDTO user, String schedule_id,int state);
 }

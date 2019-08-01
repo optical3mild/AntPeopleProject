@@ -14,11 +14,13 @@ import lombok.NoArgsConstructor;
 public class ScheUserDTO {
 	private UserDetailDTO user;
 	private int schedule_id;
+	private String unique;
 	private Integer state;
 	
-	public ScheUserDTO(UserDetailDTO user, int schedule_id, Integer state) {
+	public ScheUserDTO(UserDetailDTO user, int schedule_id,String unique, Integer state) {
 		this.user = user;
 		this.schedule_id = schedule_id;
+		this.unique = unique;
 		this.state = state;
 	}
 

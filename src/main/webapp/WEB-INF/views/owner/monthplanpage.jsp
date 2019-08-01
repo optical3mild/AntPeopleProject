@@ -691,7 +691,7 @@ function direction(planName,target) {
     // data : 서버로 보낼 데이터 - string or json(key/value)
 		data : target,
     // contentType : 서버로 보낼 데이터의 타입.
-    contentType: 'text',
+    contentType: 'application/json',
     // dataType : 서버로 부터 수신받을 데이터 타입.
 		dataType : 'text',
     async : false,
@@ -704,7 +704,7 @@ function direction(planName,target) {
 			alert("통신성공, response: " + response);
 			console.log('월별 - 성공')
 			console.log(response)
-			document.location.href = response;
+			document.location.href = response+'?date='+target;
 		}
 	});
 }
