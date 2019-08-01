@@ -227,8 +227,9 @@ var state = 0;
 // calendar로딩 시 표시될 객체배열
 var initialData = [];
 
-/*var gotData = [
-  {
+/*
+var gotData = {
+  testAdmin_19071501001907160623 : {
     id : 'testAdmin_19071501001907160623',
     title : '01:00~06:23',
     startDate : '190715',
@@ -240,7 +241,7 @@ var initialData = [];
     state : '0',
     manPower : '10',
   },
-  {
+  testAdmin_19071503001907160623 : {
     id : 'testAdmin_19071503001907160623',
     title : '01:00~06:23',
     startDate : '190715',
@@ -252,7 +253,7 @@ var initialData = [];
     state : '0',
     manPower : '10',
   },
-  {
+  testAdmin_19072101001907220623 : {
     id : 'testAdmin_19072101001907220623',
     title : '01:00~06:23',
     startDate : '190721',
@@ -264,7 +265,7 @@ var initialData = [];
     state : '0',
     manPower : '5',
   },
-  {
+  testAdmin_19070101001907020623 : {
     id : 'testAdmin_19070101001907020623',
     title : '01:00~06:23',
     startDate : '190701',
@@ -276,7 +277,7 @@ var initialData = [];
     state : '0',
     manPower : '7',
   }
-];
+};
 */
 
 //>> modifyplan0.0.1
@@ -298,11 +299,15 @@ console.log('gotData')
 console.log(gotData)
 //받은데이터가 있는 경우, calendar element에 data로 저장한다.
 if(gotData != "") {
-	for(var i=0; i<gotData.length; i++){
+	for(var key in gotData) {
+		originalDataLoc[""+key+""] = gotData[""+key+""];
+	}
+	/*for(var i=0; i<gotData.length; i++){
 		var tempKey = gotData[i].id;
 		var tempObj = gotData[i];
 		originalDataLoc[""+tempKey+""] = tempObj;
 	}
+	*/
 }
 
 console.log('로딩확인')
@@ -689,9 +694,9 @@ $('#submitPlan').click(function() {
 		url : 'updateplan',
 		method : 'post',
 		data : JSON.stringify(calEventList),
-		
+		//서버에 보낼 data type
 		contentType: 'application/json;charset=UTF-8',
-		
+		//받은 data : 이동할 컨트롤러
 		dataType : 'text',
 		async : false,
 		error : function(response) {
@@ -700,11 +705,8 @@ $('#submitPlan').click(function() {
 		},
 		success : function(response,num2) {
 			alert("통신성공, response: " + response +","+ num2);
-			
 			document.location.href = response;
-			//성공 시 이메일 존재여부 판별.
-			//존재 --> 이메일이 존재한다는 알림 띄움.
-			//없음 --> 회원가입 폼 자동으로 전송.
+			
 		}
 	});
 });
