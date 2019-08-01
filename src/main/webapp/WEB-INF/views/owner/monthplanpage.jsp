@@ -413,7 +413,9 @@ function drawMenuBar(title, convertedObj, targetDiv, bClass, color ) {
 }
 
 //month 배열에 정보가 있는경우, inputbox초기값 지정.
-insertMonthValue(monthlyMenu);
+if(monthlyMenu.length>0){
+  insertMonthValue(monthlyMenu);
+}
 
 function insertMonthValue(monthlyMenu) {
   var lastVal = monthlyMenu[monthlyMenu.length-1];

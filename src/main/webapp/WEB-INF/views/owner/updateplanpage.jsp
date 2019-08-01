@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Planning</title>
+  <title>Modify Plan</title>
   
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -205,6 +205,7 @@ var userId = parseInt("${user.user_id}");
 var selectedMonth; //캘린더에 연결된 변수.
 //var getInitialMonth = '1907'; //테스트
 var getInitialMonth = "${monthIndex}";
+//값의 존재여부 검사. --> 수정페이지에서는 값이 존재하여야 함.
 if(getInitialMonth > 0) {
   var selectedMonth = convertToInitialDateInfo(getInitialMonth);
 }
@@ -226,61 +227,95 @@ var state = 0;
 // calendar로딩 시 표시될 객체배열
 var initialData = [];
 
-//빈 객체.
-var emptyObj = {};
-
-/*
-var gotData = [
+/*var gotData = [
   {
-    id : 'testAdmin_19061501001906160623',
-    title : '1111111',
-    startDate : '190615',
-    endDate :'190616',
+    id : 'testAdmin_19071501001907160623',
+    title : '01:00~06:23',
+    startDate : '190715',
+    endDate :'190716',
     startTime : '0100',
     endTime : '0623',
     userId : 'testAdmin',
+    fromUser : {'user_id' : 'testAdmin'},
     state : '0',
     manPower : '10',
   },
   {
-    id : 'testAdmin_190615010019999160623',
-    title : '1111111',
-    startDate : '190615',
-    endDate :'190616',
+    id : 'testAdmin_19071503001907160623',
+    title : '01:00~06:23',
+    startDate : '190715',
+    endDate :'190716',
+    startTime : '1300',
+    endTime : '0623',
+    userId : 'testAdmin',
+    fromUser : {'user_id' : 'testAdmin'},
+    state : '0',
+    manPower : '10',
+  },
+  {
+    id : 'testAdmin_19072101001907220623',
+    title : '01:00~06:23',
+    startDate : '190721',
+    endDate :'190722',
     startTime : '0100',
     endTime : '0623',
     userId : 'testAdmin',
+    fromUser : {'user_id' : 'testAdmin'},
     state : '0',
-    manPower : '10',
+    manPower : '5',
+  },
+  {
+    id : 'testAdmin_19070101001907020623',
+    title : '01:00~06:23',
+    startDate : '190701',
+    endDate :'190702',
+    startTime : '0100',
+    endTime : '0623',
+    userId : 'testAdmin',
+    fromUser : {'user_id' : 'testAdmin'},
+    state : '0',
+    manPower : '7',
   }
 ];
 */
+
+//>> modifyplan0.0.1
+//페이지 로드 시 DB에서 받은 정보 : eventList (기존과 동일한 장소.)
+//생성 : newEventList
+//삭제(받은 이벤트정보에서 삭제) : delEventList
+//1. 객체 관리공간 정의.
+$('#calendar').data('eventList',{});
+$('#calendar').data('newEventList',{});
+$('#calendar').data('delEventList',{});
+//1-a. 각 공간별 위치를 전역변수에 정의.
+var originalDataLoc = $('#calendar').data('eventList');
+var createdDataLoc = $('#calendar').data('newEventList');
+var delOriginDataLoc = $('#calendar').data('delEventList');
 
 //수신데이터가 있을 경우, 저장.
 var gotData = $.parseJSON('${jsonList}');
 console.log('gotData')
 console.log(gotData)
+//받은데이터가 있는 경우, calendar element에 data로 저장한다.
 if(gotData != "") {
 	for(var i=0; i<gotData.length; i++){
 		var tempKey = gotData[i].id;
 		var tempObj = gotData[i];
-		emptyObj[""+tempKey+""] = tempObj;
+		originalDataLoc[""+tempKey+""] = tempObj;
 	}
-} 
+}
 
-$('#calendar').data('eventList',emptyObj);
-var dataLocation = $('#calendar').data('eventList');
 console.log('로딩확인')
-console.log(dataLocation)
-//페이지 로딩 시 받은 일정정보를 화면에 Rendering
-$.each(dataLocation, function(id, obj) {
-  console.log('id')
-  console.log(id);
-  console.log('obj')
-  console.log(obj)
-  initialData.push(convertToEventObj(obj))
+console.log(originalDataLoc)
+console.log($('#calendar').data('eventList'))
 
-  //$('#calendar').fullCalendar('renderEvent', obj, true);
+//페이지 로딩 시 받은 일정정보를 화면에 Rendering : calendar로딩 시 초기값으로 지정하여 표시.
+$.each(originalDataLoc, function(id, obj) {
+	console.log('id')
+	console.log(id);
+	console.log('obj')
+	console.log(obj)
+	initialData.push(convertToEventObj(obj))
 })
 
 // initialize the external events : 이벤트 바 생성 시 drag 가능하게 속성 추가.
@@ -410,9 +445,9 @@ $(function() {
       day  : 'day'
     },
 //>>//Ajax로 가져올 event data
-	defaultDate : selectedMonth,
+    defaultDate : selectedMonth,
     events : initialData,
-  	//월별 표시되는 달력의 길이조정.
+    //월별 표시되는 달력의 길이조정.
     fixedWeekCount : false,
     //현재 월 외의 날짜 표시조정. --> 현재표시된 날짜 외 이벤트 발생x.
     showNonCurrentDates : false,
@@ -462,6 +497,8 @@ $(function() {
       var originalEventObject = $(this).data('eventObject')
       // bar의 input값을 읽어옴
       var workersForEvent = $(this).siblings('input[type="number"]').val()
+      console.log('대가리 수')
+      console.log(workersForEvent)
       // we need to copy it, so that multiple events don't have a reference to the same object
       var copiedEventObject = $.extend({}, originalEventObject)
 
@@ -498,21 +535,35 @@ $(function() {
       //운영계획 이벤트의 경우 : 그 자리에 개인 일정 생성.
       //개인일정의 경우 : 삭제 후 운영계획 이벤트 재생성.
 
+      //>> modifyplan0.0.1
+      // 페이지 로드 시 DB에서 받은 정보 : eventList (기존과 동일한 장소.)
+      // 생성 : newEventList
+      // 삭제(받은 이벤트정보에서 삭제) : delEventList
+      // var originalDataLoc = $('#calendar').data('eventList');
+      // var createdDataLoc = $('#calendar').data('newEventList');
+      // var delOriginDataLoc = $('#calendar').data('delEventList');
       //calender에 보이는 부분과 내장객체 삭제
       $('#calendar').fullCalendar('removeEvents', calEvent.id);
       console.log('[삭제과정]');
       console.log('1.내장 이벤트:');
       console.log(calEvent.id);
-      console.log('2.관리 이벤트:');
-      console.log(dataLocation[""+calEvent.id+""]);
-      //var dataLocation = $('#calendar').data('eventList') 으로 저장된 위치에서 id와 일치하는 값 삭제.
-      delete dataLocation[""+calEvent.id+""];
+      console.log('2.받은 이벤트:');
+      console.log(originalDataLoc[""+calEvent.id+""]);
+      //데이터의 종류별로 관리.
+      if(originalDataLoc[""+calEvent.id+""] != null) {
+        delOriginDataLoc[""+calEvent.id+""] = originalDataLoc[""+calEvent.id+""];
+        delete originalDataLoc[""+calEvent.id+""];
+      } else if(createdDataLoc[""+calEvent.id+""] != null) {
+        delete createdDataLoc[""+calEvent.id+""];
+      }
       console.log('3.삭제 후 모든 event:');
-      console.log(dataLocation);
-      remakeDisplayedEvents(dataLocation);
+      console.log($('#calendar').data());
+      remakeDisplayedEvents(originalDataLoc);
+      remakeDisplayedEvents(createdDataLoc);
     },
   });
-  remakeDisplayedEvents(dataLocation);
+  remakeDisplayedEvents(originalDataLoc);
+  remakeDisplayedEvents(createdDataLoc);
 });
 // ./ End of fullCalendar 초기화 -------------------------------------
 
@@ -522,8 +573,8 @@ $(function() {
 $('#makeEvent').click(function() {
   var new_st = $('#modal-startT').val(); if(new_st == "") { new_st = "00:00"; }
   var new_en = $('#modal-endT').val(); if(new_en == "") { new_en = "00:00"; }
-  var workersForEvent = parseInt($('#modal-numP').val());
-  if(workersForEvent == "") { workersForEvent = 0; }
+  var workersForEvent = $('#modal-numP').val();
+  if(workersForEvent == "") { workersForEvent = "00:00"; }
 
   //정수형으로 시간정보 변환
   var newSTime = parseInt(new_st.slice(0,2));
@@ -553,46 +604,57 @@ function plannerRenderingProcess(sd,ed,st,et,wfe,stat) {
   //순차적으로 rendering
   for(var i=0; i<newEventObj.length; i++) {
 
-    //>> 1.0.3 data관리 방법 수정...
-    //var dataLocation = $('#calendar').data('eventList');
+//>> modifyplan0.0.1
+// 페이지 로드 시 DB에서 받은 정보 : eventList (기존과 동일한 장소.)
+// 생성 : newEventList
+// 삭제(받은 이벤트정보에서 삭제) : delEventList
+    //새로 생성하는 경우. -- newEventList
+    //var originalDataLoc = $('#calendar').data('eventList');
+    //var createdDataLoc = $('#calendar').data('newEventList');
     var objId = newEventObj[i].id
+    console.log('objId')
+    console.log(objId)
+    console.log(newEventObj[i])
+
     //동일 id를 찾아 존재하면 return값을 받아 전체 수행 이후 경고창을 띄워 알려준다.
-    if(dataLocation[""+objId+""] != null) {
-    	alreadyExistDatas.push(newEventObj[i].startDate + "_" + newEventObj[i].startTime
-                + " ~ " + newEventObj[i].endDate + "_" + newEventObj[i].endTime);
-	} else {
+    var tempCre = createdDataLoc[""+objId+""]
+    var tempOri = originalDataLoc[""+objId+""]
+    console.log('확인용')
+    console.log(tempCre)
+    console.log(tempOri)
+
+    //받은데이터를 저장하는 객체와 새로 생성된 이벤트를 저장하는 두 객체 모두에 해당 이벤트 아이디가 없는경우, 생성가능
+    if((createdDataLoc[""+objId+""] == undefined) && (originalDataLoc[""+objId+""] == undefined)) {
       //ConverTing : from antPeopleObj created by createObj() to fullCalendarObj
       var convertedEvent = convertToEventObj(newEventObj[i]);
       //Rendering
       $('#calendar').fullCalendar('renderEvent', convertedEvent, true);
+      //data 저장 : calendar DOM엘리먼트에 data()로 저장된 newEventList 객체 내.
+      createdDataLoc[""+objId+""] = newEventObj[i];
 
-//>>  //data 저장 : calendar DOM엘리먼트에 data()로 저장된 eventList 객체 내.
-      dataLocation[""+objId+""] = newEventObj[i];
-
-      console.log('2.생성한 event: ');
-      console.log(dataLocation[""+objId+""]);
-      console.log('3.모든 event:');
-      console.log($('#calendar').data('eventList'));
-
-      //$('#calendar').data(newEventObj[i].id, newEventObj[i]);
-      //console.log('2.생성한 event: ');
-      //console.log($('#calendar').data(newEventObj[i].id));
-      //console.log('3.모든 event:');
-      //console.log($('#calendar').data());
-      
-      remakeDisplayedEvents(dataLocation);
+      console.log('2.기존 event: ');
+      console.log(originalDataLoc[""+objId+""]);
+      console.log('3.생성한 event: ');
+      console.log(createdDataLoc[""+objId+""]);
+      console.log('4.모든 event: eventList(DB수신), newEventList(새로생성)');
+      console.log($('#calendar').data());
+    } else {
+      alreadyExistDatas.push(newEventObj[i].startDate + "_" + newEventObj[i].startTime
+                        + " ~ " + newEventObj[i].endDate + "_" + newEventObj[i].endTime);
     }
+    remakeDisplayedEvents(originalDataLoc);
+    remakeDisplayedEvents(createdDataLoc);
   }
   //경고창 팝업.
   if(alreadyExistDatas.length>0) {
     for(var i=0; i<alreadyExistDatas.length; i++) {
-      console.log(alreadyExistDatas[i]);
       alertMsg = alertMsg + alreadyExistDatas[i] + "\n";
     }
     alert(alertMsg);
-    console.log('4. 중복제외 등록 후 모든 event:');
-    console.log($('#calendar').data('eventList'));
+    console.log('5. 중복제외 등록 후 모든 event:');
+    console.log($('#calendar').data());
   }
+
   /*
   //캘린더에서 날짜로 위치검색
   function calVal(num) {
@@ -609,17 +671,24 @@ function plannerRenderingProcess(sd,ed,st,et,wfe,stat) {
   console.log('드롭한 이벤트의 캘린더 행 내 위치')
   console.log(originPoint)
   */
-  console.log($('#calendar').data());
 }
 // ./ End of Rendering process
 
 $('#submitPlan').click(function() {
-	console.log(dataLocation)
-	// dataLocation: 스크립트 헤드에 적힌 전역변수
+  //$('#calendar').data('calEventList',{});
+  //var calEventListLoc = $('#calendar').data('calEventList');
+  for(var key in delOriginDataLoc) {
+    delOriginDataLoc[""+key+""].state = -1;
+  }
+  //삭제한 내용과 추가된 내용을 하나의 객체에 넣어 전송준비.
+  var calEventList = $.extend({},delOriginDataLoc,createdDataLoc)
+  alert("ajax 송신")
+  console.log($("#calendar").data())
+  console.log(calEventList)
 	$.ajax({
-		url : 'insertplan',
+		url : 'updateplan',
 		method : 'post',
-		data : JSON.stringify(dataLocation),
+		data : JSON.stringify(calEventList),
 		
 		contentType: 'application/json;charset=UTF-8',
 		
@@ -640,7 +709,7 @@ $('#submitPlan').click(function() {
 	});
 });
 
-function remakeDisplayedEvents(antPeopleObjList) {
+function remakeDisplayedEvents(antPeopleObjList){
   //if(Object.keys(antPeopleObjList).length > 0) {
   //  console.log(antPeopleObjList)
   //  console.log(Object.keys(antPeopleObjList))
