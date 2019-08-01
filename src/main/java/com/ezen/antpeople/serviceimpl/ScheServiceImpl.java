@@ -12,9 +12,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.ezen.antpeople.dto.sche.ScheDetailDTO;
+import com.ezen.antpeople.dto.sche.ScheUserDTO;
 import com.ezen.antpeople.dto.sche.ScheUserListDTO;
 import com.ezen.antpeople.dto.user.UserDetailDTO;
 import com.ezen.antpeople.entity.ScheEntity;
+import com.ezen.antpeople.entity.ScheRelation;
 import com.ezen.antpeople.entity.UserEntity;
 import com.ezen.antpeople.repository.ScheRepository;
 import com.ezen.antpeople.repository.USRepository;
@@ -57,15 +59,22 @@ public class ScheServiceImpl implements ScheService {
 	
 	//일정 가져오기 - 월별일정 + 신청 인원
 	@Override
-	public ScheUserListDTO findAllMonthAndUser(int user_id, String startDate) {
+	public ScheUserListDTO findAllMonthAndUser(UserDetailDTO user, String startDate) {
 		logger.info("월별 일정 리스트 출력 메소드 시작");
 		Set<ScheDetailDTO> schedules = new HashSet<ScheDetailDTO>();
-		List<ScheEntity> entitys = new ArrayList<ScheEntity>(scheRepository.findByFromUserAndStartDateStartingWith(userRepository.findById(user_id).get(),startDate));
+		Set<ScheUserDTO> userToSchedules = new HashSet<ScheUserDTO>();
+		List<ScheEntity> entitys = new ArrayList<ScheEntity>(scheRepository.findByFromUserAndStartDateStartingWith(userRepository.findById(user.getUser_id()).get(),startDate));
+		Optional<List<ScheRelation>> UserEntitys = Optional.of(usRepository.findByToUserStoreStore(user.getStore().getStore()));
 		for(ScheEntity entity :entitys) {
 			schedules.add(entity.buildDTO());
 		}
+		if(UserEntitys.isPresent()) {
+			for(ScheRelation entity: UserEntitys.get()) {
+				userToSchedules.add(entity.buildDTO());
+			}
+		}
 		logger.info("월별 일정 리스트 :" + schedules.toString());
-		ScheUserListDTO userAndMonth = new ScheUserListDTO(schedules,startDate);
+		ScheUserListDTO userAndMonth = new ScheUserListDTO(schedules,userToSchedules,startDate);
 		return userAndMonth;
 	}
 	
@@ -150,6 +159,19 @@ public class ScheServiceImpl implements ScheService {
 		scheRepository.save(entity);
 		logger.info("근무 신청 완료");
 	}
-	
+
+	//일정 승인,거절하는 메소드
+	@Override
+	public void isPermissionSchedule(UserDetailDTO user, String schedule_id, int state) {
+		ScheEntity entity = scheRepository.findByUnique(schedule_id);
+		ScheUserDTO userToSche = new ScheUserDTO(user, entity.getId(),entity.getUnique(),state);
+		usRepository.save(new ScheRelation(userToSche));
+		if(state == 3) {
+			entity.downPeopleCount();
+			scheRepository.save(entity);
+			logger.info("일정 신청 거절");
+		}
+		logger.info("일정 승인 or 거절 완료");
+	}
 
 }
