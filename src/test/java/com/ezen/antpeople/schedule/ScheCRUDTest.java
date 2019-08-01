@@ -41,15 +41,14 @@ public class ScheCRUDTest {
 	@Test @Ignore
 	public void saveScheduleTest() {
 		Map<String, ScheDetailDTO> testSchedules = new HashMap<String, ScheDetailDTO>();
-		UserDetailDTO user = us.findByEmail("tkwkd123@gmail.com"); //이메일은 DB에 따라 변경해야함!!
+		UserDetailDTO user = new UserDetailDTO(2,"");//이메일은 DB에 따라 변경해야함!!
 		List<UserDetailDTO> users = new ArrayList<UserDetailDTO>();
-		users.add(new UserDetailDTO(1,""));
 		users.add(new UserDetailDTO(3,""));
 		users.add(new UserDetailDTO(5,""));
-		testSchedules.put("1", new ScheDetailDTO("6666666666","190705","190705","0100","0200","테스트 제목1",1,5,user,users));
-		testSchedules.put("2", new ScheDetailDTO("4445555555","190705","190705","0200","0300","테스트 제목2",2,6,user,users));
-		testSchedules.put("3", new ScheDetailDTO("6664444444","190705","190705","0300","0400","테스트 제목3",3,7,user,users));
-		testSchedules.put("4", new ScheDetailDTO("5553333333","190705","190705","0400","0500","테스트 제목4",4,8,user,users));
+		testSchedules.put("1", new ScheDetailDTO("6666666666","190705","190705","0100","0200","테스트 제목1",0,5,user,users));
+		testSchedules.put("2", new ScheDetailDTO("4445555555","190705","190705","0200","0300","테스트 제목2",0,5,user));
+		testSchedules.put("3", new ScheDetailDTO("6664444444","190705","190705","0300","0400","테스트 제목3",0,5,user,users));
+		testSchedules.put("4", new ScheDetailDTO("5553333333","190705","190705","0400","0500","테스트 제목4",0,5,user,users));
 		
 		scheService.saveSchedules(testSchedules);
 	}
@@ -70,6 +69,21 @@ public class ScheCRUDTest {
 		log.info("월별 일정 가져오기 테스트 결과 : "+ testSchedules.toString());
 	}
 	
+	//일정 수정 및 삭제 테스트 - 성공
+	@Test @Ignore
+	public void updateScheduleTest() {
+		Map<String, ScheDetailDTO> testSchedules = new HashMap<String, ScheDetailDTO>();
+		UserDetailDTO user = new UserDetailDTO(2,"");
+		List<UserDetailDTO> users = new ArrayList<UserDetailDTO>();
+		users.add(new UserDetailDTO(3,""));
+		users.add(new UserDetailDTO(4,""));
+		//testSchedules.put("1", new ScheDetailDTO("6666666666","190705","190705","0100","0200","테스트 제목1",-1,10,user)); // 일정 삭제
+		testSchedules.put("2", new ScheDetailDTO("4445555555","190705","190705","0200","0300","테스트 제목2",0,10,user)); // 일정 변경
+		testSchedules.put("3", new ScheDetailDTO("6664444444","190705","190705","0300","0400","테스트 제목3",0,15,user)); // 일정 변경
+		testSchedules.put("4", new ScheDetailDTO("5553333333","190705","190705","0400","0500","테스트 제목4",0,5,user)); // 일정 유지
+		scheService.updateSchedule(testSchedules);
+	}
+	
 	//근무 신청 테스트 - 성공
 	@Test @Ignore
 	public void updatePeopleCountAndUsersTest() {
@@ -78,7 +92,7 @@ public class ScheCRUDTest {
 	}
 	
 	//일정 승인, 거절 테스트 - 완료 
-	@Test 
+	@Test @Ignore
 	public void isPermissionScheduleTest() {
 		UserDetailDTO user = new UserDetailDTO(3,"");
 		scheService.isPermissionSchedule(user, "6666666666", 2); //승인
