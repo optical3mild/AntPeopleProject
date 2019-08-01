@@ -76,6 +76,12 @@ public class ScheEntity extends BaseEntity implements Serializable {
 		
 	}
 	
+	//일정 id & unique
+	public ScheEntity (int id, String unique) {
+		this.id = id;
+		this.unique = unique;
+	}
+	
 	//일정 상세 정보 내보내기
 	public ScheDetailDTO buildDTO() {
 		List<UserDetailDTO> toUsersDTO = new ArrayList<UserDetailDTO>();
@@ -89,6 +95,11 @@ public class ScheEntity extends BaseEntity implements Serializable {
 		this.toUsers = toUsers;
 		this.peopleCount += 1;
 	}
+	
+	//일정 신청 거절시 인원수 변경
+		public void downPeopleCount() {
+			this.peopleCount -= 1;
+		}
 	
 
 }

@@ -10,4 +10,6 @@ import com.ezen.antpeople.entity.ScheRelation;
 @Repository()
 public interface USRepository extends JpaRepository<ScheRelation, Integer>{
 	List<ScheRelation> findBySche_id(Integer sche_id);
+	List<ScheRelation> findByToUserStoreStore(String store);
+	
 }
