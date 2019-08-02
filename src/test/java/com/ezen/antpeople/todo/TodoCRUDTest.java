@@ -39,6 +39,14 @@ public class TodoCRUDTest {
 		log.info("사용자 리스트 생성");
 		TodoDetailDTO todo = new TodoDetailDTO("할일 테스트3 - 3에게",user,userList);
 		ts.uploadTodo(todo);
+	}
+	
+	//본인이 작성한 할일 리스트 테스트 
+	@Test
+	public void todoListTest() {
+		UserDetailDTO user = new UserDetailDTO(1,"");
+		List<TodoDetailDTO> todoList = new ArrayList<TodoDetailDTO>(ts.TodoListByUser(user));
+		log.info(todoList.toString());
 		
 	}
 	

@@ -93,7 +93,6 @@ public class ScheDetailDTO {
 		this.fromUser = fromUser;
 	}
 	
-	
 	@Override
 	public String toString() {
 		
