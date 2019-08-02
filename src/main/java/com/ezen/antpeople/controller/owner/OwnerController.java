@@ -93,7 +93,7 @@ public class OwnerController {
 		return "insertplanpage";	// insertplanpage로 이동
 	}
 	
-	// insertplanpage로 이동
+	// insertplanpage로 이동 3-1-1
 	@RequestMapping(value="insertplanpage", method=RequestMethod.GET)
 	public String goinsertplanpage(Model model, String date) throws Exception {
 		logger.info("insertplanpage");
@@ -115,30 +115,34 @@ public class OwnerController {
 	// 수정 버튼  3-2
 	@RequestMapping("modifyplan")		// monthplanpage에서 modifyplan(수정버튼)을 클릭함
 	@ResponseBody
-	public String updatePlanPage(Model model, @RequestBody String date, HttpServletRequest request) throws Exception {
+	public String updatePlanPage() throws Exception {
 	logger.info("modifyplan");
-		HttpSession httpSession = request.getSession(true);
-		UserDetailDTO userDto = (UserDetailDTO) httpSession.getAttribute("user");
-		int user_id = userDto.getUser_id();
-		model.addAttribute("updateplan", scheService.findAllMonth(user_id, date));
 		return "updateplanpage";		// updateplanpage로 이동
 	}
 	
-//	// goupdateplanpage로 이동
-//	@RequestMapping("updateplanpage")
-//	public String goupdateplanpage() throws Exception {
-//		logger.info("updateplanpage");
-//		return "updateplanpage";
-//	}
+	// goupdateplanpage로 이동 3-2-1
+	@RequestMapping(value="updateplanpage", method=RequestMethod.GET)
+	@ResponseBody
+	public String goupdateplanpage(Model model, String date, HttpServletRequest request, ScheUserListDTO schedules) throws Exception {
+		logger.info("updateplanpage");
+		HttpSession httpSession = request.getSession(true);
+		UserDetailDTO userDto = (UserDetailDTO) httpSession.getAttribute("user");
+		schedules = scheService.findAllMonthAndUser(userDto, date);
+		logger.info("date : "+ date);
+		logger.info("list : "+ schedules);
+		model.addAttribute("monthIndex", date);
+		model.addAttribute("jsonList", schedules);
+		return "updateplanpage";
+	}
 	
-//	// 수정완료 버튼 3-2-1
-//	@RequestMapping("updateplan")		// updateplanpage에서 updateplan(완료버튼)을 클릭함
-//	logger.info("updateplan");
-//	@ResponseBody
-//	public String updatePlan(@RequestBody Map<String, ScheDetailDTO> schedules) throws Exception {
-//		scheService.updateSchedule(schedules);
-//		return "monthplanpage";			// monthplanpage로 이동
-//	}
+	// 수정완료 버튼 3-2-2
+	@RequestMapping("updateplan")		// updateplanpage에서 updateplan(완료버튼)을 클릭함
+	@ResponseBody
+	public String updatePlan(@RequestBody Map<String, ScheDetailDTO> schedules) throws Exception {
+	logger.info("updateplan");
+		scheService.updateSchedule(schedules);
+		return "monthplanpage";			// monthplanpage로 이동
+	}
 	
 //	----------------------------- 승인 ---------------------------------------------
 	// 승인페이지 이동
