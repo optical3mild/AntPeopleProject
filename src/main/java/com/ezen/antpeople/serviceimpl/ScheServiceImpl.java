@@ -175,16 +175,18 @@ public class ScheServiceImpl implements ScheService {
 	@Override
 	public void updateUserSchedule(UserDetailDTO user, String schedule_id) {
 		//1. 해당 일정의 정보 가져오기
-		Optional<ScheEntity> entity = scheRepository.findByUnique(schedule_id);
+		logger.info("일정 유니크 아이디 : " + schedule_id);
+		ScheEntity entity = scheRepository.findByUnique(schedule_id).get();
+		logger.info(entity.toString());
 		List<UserEntity> toUsers = new ArrayList<UserEntity>();	
-		Optional<List<UserEntity>> isToUsers = Optional.of(entity.get().getToUsers());
+		Optional<List<UserEntity>> isToUsers = Optional.ofNullable(entity.getToUsers());
 		logger.info("toUsers에 들어있는 항목 : " + isToUsers.get());
 		if(isToUsers.isPresent()) {
 			toUsers = isToUsers.get();
 			toUsers.add(new UserEntity(user));
 		}
-		entity.get().updatePeopleCountAndUser(toUsers);
-		scheRepository.save(entity.get());
+		entity.updatePeopleCountAndUser(toUsers);
+		scheRepository.save(entity);
 		logger.info("근무 신청 완료");
 	}
 

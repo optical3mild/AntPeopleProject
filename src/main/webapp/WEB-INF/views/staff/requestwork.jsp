@@ -218,7 +218,9 @@ var userId = "${user.user_id}";
 //calendar 초기 로드값.
 var selectedMonth; //캘린더에 연결된 변수.
 //var getInitialMonth = '1907'; //테스트
-var getInitialMonth = ${monthIndex};
+var getInitialMonth = '${monthIndex}';
+console.log('monthIndex')
+console.log(getInitialMonth)
 //값의 존재여부 검사. --> 존재하여야 함.
 if(getInitialMonth > 0) {
   var selectedMonth = convertToInitialDateInfo(getInitialMonth);
@@ -332,19 +334,21 @@ var selectedDataLoc = $('#calendar').data('selectedList');
 var initialData = [];
 //수신데이터가 있을 경우, 저장.
 var gotData = $.parseJSON('${jsonList}');
+console.log("gotData")
+console.log(gotData)
 
 // 받은데이터가 있는 경우, calendar element에 data로 저장한다.
 if(gotData != "") {
-	for(var key in gotData) {
+	/*for(var key in gotData) {
 		originalDataLoc[""+key+""] = gotData[""+key+""];
 	}
-  /*
+  */
 	for(var i=0; i<gotData.length; i++){
 		var tempKey = gotData[i].id;
 		var tempObj = gotData[i];
 		originalDataLoc[""+tempKey+""] = tempObj;
 	}
-  */
+  
 }
 
 //페이지 로딩 시 받은 일정정보를 화면에 Rendering : calendar로딩 시 초기값으로 지정하여 표시.
@@ -456,16 +460,16 @@ function renderingProcessWithList(eList, sList) {
 }
 
 function createSendingObj(targetEvent, user) {
-  var newObj = {
-    userId : { user_id : user },
-    schedule_id : targetEvent
-  }
+  var newObj = 
+    //userId : { user_id : user },
+  targetEvent;
+  
   return newObj;
 }
 
 function sendInfo(sign, obj) {
   //controll url필요.
-  var addPlan = "add" //일정 신청.
+  var addPlan = "requestworking" //일정 신청.
   var rmPlan = "rm" //신청 취소.
   var selectedUrl;
   if(sign) {
@@ -478,7 +482,7 @@ function sendInfo(sign, obj) {
 		url : selectedUrl,
 		method : 'post',
     	// data : 서버로 보낼 데이터
-		data : JSON.stringify(obj),
+		data : obj,
     	// contentType : 서버로 보낼 데이터의 타입.
     	contentType : 'application/json;charset=UTF-8',
     	// dataType : 서버로 부터 수신받을 데이터 타입.
