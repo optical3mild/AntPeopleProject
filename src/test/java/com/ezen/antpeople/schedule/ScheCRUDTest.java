@@ -81,14 +81,22 @@ public class ScheCRUDTest {
 		}
 	
 	//월별 일정 가져오기 테스트 - 성공
-	@Test @Ignore
+	@Test 
 	public void scheduleMonthListTest() {
 		UserDetailDTO user = us.findByEmail("tkwkd123@gmail.com"); //이메일은 DB에 따라 변경해야함!!
 		log.info("월별 일정 유저 ID : " + user.getUser_id());
-		ScheUserListDTO testSchedules = scheService.findAllMonthAndUser(user,"1906");
+		ScheUserListDTO testSchedules = scheService.findAllMonthAndUser(user,"1907");
 		log.info("월별 일정 가져오기 테스트 결과 : "+ testSchedules.toString());
 	}
 	
+	//월별 직원 일정 가져오기 테스트 - 성공
+	@Test @Ignore
+	public void scheduleMonthStaffListTest() {
+		UserDetailDTO user = us.findByEmail("wlrdnjs111@gmail.com"); //이메일은 DB에 따라 변경해야함!!
+		log.info("직원 ID : " + user.getUser_id());
+		ScheUserListDTO testSchedules = scheService.findAllMonthAndStaff(user,"1907");
+		log.info("월별 일정 가져오기 테스트 결과 : "+ testSchedules.toString());
+	}
 	//일정 수정 및 삭제 테스트 - 성공
 	@Test @Ignore
 	public void updateScheduleTest() {
