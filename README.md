@@ -133,3 +133,5 @@
 
 ### Day 21 : Schedule 등록 마무리 (10.08.02)
 - (오인) Schedule 수정, 삭제 이동 controller 연결
+- (오인) MonthPlan DB, Repository, Entity 추가 (일정 수정 가능 여부 판단용)
+- (오인) ScheduleMonthAndStaff 추가 (해당 달의 일정과 직원이 일정을 신청했는지 여부 파악)
