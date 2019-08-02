@@ -561,14 +561,15 @@ function remakeDisplayedEvents(antPeopleObjList) {
   //console.log(Object.keys(antPeopleObjList))
   //console.log(Object.keys(antPeopleObjList).length > 0)
     for(var key in antPeopleObjList) {
-      //목록으로부터 요구 인원수를 추출.
+      //목록으로부터 요구 인원수를 추출.\
+      var pcValue = antPeopleObjList[""+key+""].peopleCount;
       var mpValue = antPeopleObjList[""+key+""].manPower;
       var newTitle = antPeopleObjList[""+key+""].title;
 
       //새로 생성한 tag가 있는경우 --> 값만 변경.
 
       //tag정보 생성.
-      var mpSpan = $('<span />').addClass('eventMarker').css({'padding-left':3}).text(mpValue+"명");
+      var mpSpan = $('<span />').addClass('eventMarker').css({'padding-left':3}).text(pcValue+'/'+mpValue+"명");
       var titleSpan = $('<span />').addClass('eventTitle').css({'margin-left':10}).text(newTitle);
 
       //존재하는 span을 모두 숨김.
@@ -582,7 +583,7 @@ function remakeDisplayedEvents(antPeopleObjList) {
         $('span:contains("'+key+'")').parent().prepend(titleSpan);
         $('span:contains("'+key+'")').parent().prepend(mpSpan);
       } else if (checkExist.length > 0) {
-        $('span:contains("'+key+'")').parent().find('.eventMarker').text(mpValue+"명");
+        $('span:contains("'+key+'")').parent().find('.eventMarker').text(pcValue+'/'+mpValue+"명");
         $('span:contains("'+key+'")').parent().find('.eventTitle').text(newTitle);
       }
     }
