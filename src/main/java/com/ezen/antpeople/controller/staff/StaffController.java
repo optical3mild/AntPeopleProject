@@ -1,38 +1,71 @@
 package com.ezen.antpeople.controller.staff;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ezen.antpeople.dto.sche.ScheDetailDTO;
+import com.ezen.antpeople.dto.user.UserDetailDTO;
+import com.ezen.antpeople.service.ScheService;
+import com.ezen.antpeople.service.UserService;
 
 @Controller
 public class StaffController {
 	private static final Logger logger = LoggerFactory.getLogger(StaffController.class);
 	
-//	 StaffService staffService;
-//  
-//	 public StaffController (StaffService staffService) { 
-//		 this.staffService = staffService; 
-//	 }
+	UserService userService;
+	ScheService scheService;
+	
+	public StaffController(UserService userService, ScheService scheService) {
+		this.userService = userService;
+		this.scheService = scheService;
+	}
 	
 	//근무신청 페이지로 이동
 	@RequestMapping("requestwork")
-	public String goRequestwork() throws Exception {
+	@ResponseBody
+	public ModelAndView goRequestwork(ModelAndView mav, HttpServletRequest request) throws Exception {
 		logger.info("requestWork");
-		return "requestwork";
+		HttpSession httpSession = request.getSession(true);
+		UserDetailDTO userDto = (UserDetailDTO) httpSession.getAttribute("user");
+		int date = Integer.parseInt(LocalDate.now().plusMonths(1).format(DateTimeFormatter.ofPattern("yyMM")))-1;
+		String month =  String.valueOf(date);
+		Set<ScheDetailDTO> jsonList = scheService.findAllStaff(userDto, month);
+		logger.info("jsonList : "+jsonList);
+		logger.info("monthIndex : "+ month);
+		mav.addObject("monthIndex", month);
+		mav.addObject("jsonList", jsonList);
+		mav.setViewName("requestwork");
+		return mav;
 	}
 
 	// 근무 신청
 	@RequestMapping("requestworking")
 	@ResponseBody
-	public String requestworking(Model model, ScheDetailDTO sche) throws Exception {
+	public ModelAndView requestworking(ModelAndView mav, HttpServletRequest request, @RequestBody String schedule_id) throws Exception {
 		logger.info("근무신청");
-//		#						// 추가 필요
-		return "redirect:../main/main";
+		HttpSession httpSession = request.getSession(true);
+		UserDetailDTO user = (UserDetailDTO) httpSession.getAttribute("user");
+		int date = Integer.parseInt(LocalDate.now().plusMonths(1).format(DateTimeFormatter.ofPattern("yyMM")))-1;
+		String month =  String.valueOf(date);
+		logger.info("schedule_id : "+schedule_id);
+		scheService.updateUserSchedule(user, schedule_id);
+		mav.addObject("", "");
+		mav.setViewName("requestWork");
+		return mav;
 	}
 	
 	// 근무 수정 페이지로
