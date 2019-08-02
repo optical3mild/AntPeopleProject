@@ -47,9 +47,8 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
-        Notice(공지사항)
-        <small>Control panel</small>
+      <h1>공지사항
+      <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="${path}/#"><i class="fa fa-dashboard"></i>Home</a></li>
@@ -87,13 +86,6 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                  	<td>001</td>
-                  	<td><a href="articledetail.jsp">testpage</a></td>
-                  	<td>2019.07.20</td>
-                  	<td>으엌이</td>
-                  </tr>
-                
                	  <c:set var="noticeList" value="${requestScope.noticeList}"/>
 				  <c:forEach var="notice" items="${noticeList}">
 					<tr>
