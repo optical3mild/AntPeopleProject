@@ -54,7 +54,6 @@ public class UserController {
 		if (userService.verifiedPassword(user,userLogin.getPassword())) {
 			logger.info("로그인 성공");
 			model.addAttribute("user", user);
-			model.addAttribute("mmm", "로그인 성공");
 //			if ( user.isUseCookie() ){ // dto 클래스 안에 useCookie 항목에 폼에서 넘어온 쿠키사용 여부(true/false)
 //                // 쿠키 사용이 체크되어 있으면
 //                // 쿠키를 생성하고 현재 로그인되어 있을 때 생성되었던 세션의 id를 쿠키에 저장
@@ -67,10 +66,16 @@ public class UserController {
 			return "../main/mainpage";
 		} else {
 			logger.info("로그인 실패");
-			model.addAttribute("mmm", "로그인 실패");
 			return "redirection";
 		}
 	}
+	
+	// 로그인 실패시 redirection으로 이동
+	@RequestMapping("redirection")
+	public String goRedirection() {
+		return "redirection";
+	}
+	
 	//로그아웃
 	@RequestMapping("logout")
 	public ModelAndView logout(SessionStatus sessionStatus, ModelAndView mv) {
