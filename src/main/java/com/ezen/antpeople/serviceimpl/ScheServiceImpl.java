@@ -57,6 +57,19 @@ public class ScheServiceImpl implements ScheService {
 		return schedules;
 	}
 	
+	//일정 가져오기 - 직원
+	@Override
+	public Set<ScheDetailDTO> findAllStaff(UserDetailDTO user, String date) {
+		Set<ScheDetailDTO>  schedules = new HashSet<ScheDetailDTO>();
+		List<ScheEntity> entitys = 
+				new ArrayList<ScheEntity>
+		(scheRepository.findByFromUserStoreStoreAndStartDateStartingWith(user.getStore().getStore(),date));
+		for(ScheEntity entity : entitys) {
+			schedules.add(entity.buildDTO());
+		}
+		return schedules;
+	}
+	
 	//일정 가져오기 - 월별일정 + 신청 인원
 	@Override
 	public ScheUserListDTO findAllMonthAndUser(UserDetailDTO user, String startDate) {

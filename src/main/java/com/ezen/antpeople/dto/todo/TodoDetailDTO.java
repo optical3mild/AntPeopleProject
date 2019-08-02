@@ -15,7 +15,7 @@ public class TodoDetailDTO implements Serializable{
 	private String description;
 	protected LocalDateTime createdAt;
 	protected LocalDateTime updatedAt;
-	private int state;
+	private boolean state;
 	private UserDetailDTO fromUser;
 	private List<UserDetailDTO> toUsers;
 	
@@ -29,7 +29,7 @@ public class TodoDetailDTO implements Serializable{
 	}
 	
 	//할일 불러오기
-	public TodoDetailDTO(int todo_id, String description, int state, LocalDateTime updatedAt, UserDetailDTO fromUser, List<UserDetailDTO> toUsers) {
+	public TodoDetailDTO(int todo_id, String description, boolean state, LocalDateTime updatedAt, UserDetailDTO fromUser, List<UserDetailDTO> toUsers) {
 		this.todo_id = todo_id;
 		this.description = description;
 		this.state = state;
