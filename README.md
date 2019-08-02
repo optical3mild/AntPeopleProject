@@ -22,7 +22,7 @@
 ---
 ### 프로젝트 commit 내용
 
-- **형식 :** "Day00 : 내용 (작성자)" 
+- **형식 :** "Day00 : 내용 (작성자)"
 - **ex) Day01 : ProjectPPT (권오인)**
 - 한글로 작성해도 상관 없음
 - 내용은 간략하게 ex) OOO DAO 추가 , web.xml file 삭제
@@ -33,7 +33,7 @@
 - 자신이 추가, 삭제한 내용 적어 놓기
 - **ex) (공통) PPT파일 작성**
 
-### Day 01 : Project 기획 PPT (19.07.04) 
+### Day 01 : Project 기획 PPT (19.07.04)
 - (공통) 프로젝트 기획 PPT 발표
 
 ### Day 02 : Project 시작 파일 (19.07.08)
@@ -45,7 +45,7 @@
 - (성현) login기능 (쿠키 DB연결 없음)
 - (오인) XML -> @Configuration 설정 클래스 변환 시작
 - (오인) MySQL, Hibernate 연결 및 단위 테스트 진행 (성공)
-- (오인) AOP Logging 기능 구현 
+- (오인) AOP Logging 기능 구현
 - (성현) 로그인 JUnit Test
 
 ### Day 05 : 레이어 아키텍처 구성 & 로그인 (19.07.11)
@@ -83,7 +83,7 @@
 
 ### Day 11 : View 추가, View Folder 개편 Controller 연결  (19.07.19)
 - (정우) view update : notice, board, article, write등 페이지 추가, 폴더구조 변경, 업데이트
-- (성현) controller : Controller 개편에 맞춰 URL 정리, Register기능 
+- (성현) controller : Controller 개편에 맞춰 URL 정리, Register기능
 - (오인) 회원가입 기능 추가, 로그인 화면 연결
 
 ### Day 12 : bbs DB구축 및 CRUD 테스트 (19.07.22)
@@ -99,7 +99,7 @@
 ### Day 14 : WebFlow (19.07.24)  
 - (성현) WebFlow 시각화 완료
 
-### Day 15 : notice, bbs 서비스 (19.07.25) 
+### Day 15 : notice, bbs 서비스 (19.07.25)
 - (오인) notice DB, Repository, Entity 구성
 - (오인) bbs, notice 화면 연동
 - (정우) 일정등록 ui - planning.jsp, ant_fullcalendar1.0.2.js 업데이트
@@ -135,3 +135,5 @@
 - (오인) Schedule 수정, 삭제 이동 controller 연결
 - (오인) MonthPlan DB, Repository, Entity 추가 (일정 수정 가능 여부 판단용)
 - (오인) ScheduleMonthAndStaff 추가 (해당 달의 일정과 직원이 일정을 신청했는지 여부 파악)
+- (종환) 공지사항, 게시판, 메인페이지 페이징 설정
+- (종환) DataTable 설정
