@@ -93,7 +93,7 @@ public class OwnerController {
 		return "insertplanpage";	// insertplanpage로 이동
 	}
 	
-	// insertplanpage로 이동
+	// insertplanpage로 이동 3-1-1
 	@RequestMapping(value="insertplanpage", method=RequestMethod.GET)
 	public String goinsertplanpage(Model model, String date) throws Exception {
 		logger.info("insertplanpage");
@@ -111,26 +111,31 @@ public class OwnerController {
 		return "monthplanpage";		// monthplanpage로 이동
 	}
 	
-	
-	// 수정 버튼  3-2
+	// 수정페이지 이동 버튼  3-2
 	@RequestMapping("modifyplan")		// monthplanpage에서 modifyplan(수정버튼)을 클릭함
-	public String updatePlanPage(Model model, @RequestBody String date, HttpServletRequest request) throws Exception {
+	@ResponseBody
+	public String updatePlanPage() throws Exception {
 	logger.info("modifyplan");
-		HttpSession httpSession = request.getSession(true);
-		UserDetailDTO userDto = (UserDetailDTO) httpSession.getAttribute("user");
-		int user_id = userDto.getUser_id();
-		model.addAttribute("updateplan", scheService.findAllMonth(user_id, date));
 		return "updateplanpage";		// updateplanpage로 이동
 	}
 	
-	// goupdateplanpage로 이동
-	@RequestMapping("updateplanpage")
-	public String goupdateplanpage() throws Exception {
+	// 수정페이지 이동 버튼 3-2-1
+	@RequestMapping(value="updateplanpage", method=RequestMethod.GET)
+	@ResponseBody
+	public ModelAndView goUpdatePlanPage(ModelAndView mv, String date, HttpServletRequest request) throws Exception {
 		logger.info("updateplanpage");
-		return "updateplanpage";
+		HttpSession httpSession = request.getSession(true);
+		UserDetailDTO userDto = (UserDetailDTO) httpSession.getAttribute("user");
+		Set<ScheDetailDTO> schedules = scheService.findAllMonth(userDto.getUser_id(), date);
+		logger.info("date : "+ date);
+		logger.info("list : "+ schedules);
+		mv.addObject("monthIndex", date);
+		mv.addObject("jsonList", schedules);
+		mv.setViewName("updateplanpage");
+		return mv;
 	}
 	
-	// 수정완료 버튼 3-2-1
+	// 수정완료 버튼 3-2-2
 	@RequestMapping("updateplan")		// updateplanpage에서 updateplan(완료버튼)을 클릭함
 	@ResponseBody
 	public String updatePlan(@RequestBody Map<String, ScheDetailDTO> schedules) throws Exception {

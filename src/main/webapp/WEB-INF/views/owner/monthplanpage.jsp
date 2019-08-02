@@ -591,7 +591,7 @@ function getMonthlyPlan(inputVal) {
 			console.log(response);
 		},
 		success : function(response) {
-			alert("통신성공, response: " + response);
+			//alert("통신성공, response: " + response);
 			//document.location.href = response;
 			console.log(response);
 			result = response;
@@ -648,6 +648,8 @@ $(document).on('click','.staffBar',function() {
 // 경우마다 수정과 등록페이지로 연결.
 $('#plannerButton').click(function() {
   var target = convertToMonthIndex($('#monthForPlan').val());
+  console.log("target")
+  console.log(target)
   if($('#plannerButton').hasClass('createPlanner') == true) {
     var planName = 'createplan';
     direction(planName,target);
