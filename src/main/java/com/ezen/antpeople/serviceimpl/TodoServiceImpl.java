@@ -53,5 +53,15 @@ public class TodoServiceImpl implements TodoService {
 			todoList.add(todoRelation.getTodo().buildDTO());
 		return todoList;
 	}
+	
+	//받는사람이 작성한 
+	@Override
+	public List<TodoDetailDTO> TodoListByFromUser(UserDetailDTO user) {
+		List<TodoRelation> todoRelations = utRepository.findByToUser(new UserEntity(user));
+		List<TodoDetailDTO> todoList = new ArrayList<TodoDetailDTO>();
+		for(TodoRelation todoRelation : todoRelations)
+			todoList.add(todoRelation.getTodo().buildDTO());
+		return todoList;
+	}
 
 }
