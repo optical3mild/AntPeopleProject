@@ -3,7 +3,9 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -45,7 +47,7 @@ public class UserController {
 	// 로그인시 아이디 비밀번호 존재여부 체크
 	@RequestMapping(value = "logincheck", method = RequestMethod.POST)
 	@ResponseBody
-	public String logincheck(@RequestBody UserLoginDTO userLogin, Model model)
+	public String logincheck(@RequestBody UserLoginDTO userLogin, Model model, HttpSession session, HttpServletResponse response)
 			throws Exception {
 		logger.info("체크 페이지");
 		UserDetailDTO user = userService.findByEmail(userLogin.getEmail());
@@ -53,6 +55,15 @@ public class UserController {
 			logger.info("로그인 성공");
 			model.addAttribute("user", user);
 			model.addAttribute("mmm", "로그인 성공");
+//			if ( user.isUseCookie() ){ // dto 클래스 안에 useCookie 항목에 폼에서 넘어온 쿠키사용 여부(true/false)
+//                // 쿠키 사용이 체크되어 있으면
+//                // 쿠키를 생성하고 현재 로그인되어 있을 때 생성되었던 세션의 id를 쿠키에 저장
+//                Cookie cookie = new Cookie("loginCookie", session.getId());
+//                // 쿠키를 찾을 경로를 컨텍스트 경로로 변경
+//                cookie.setPath("/");
+//                cookie.setMaxAge(60*60*24*7); // 유효시간 7일
+//                response.addCookie(cookie);
+//            }
 			return "../main/mainpage";
 		} else {
 			logger.info("로그인 실패");
