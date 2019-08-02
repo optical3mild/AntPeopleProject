@@ -236,7 +236,7 @@ var startDay = new DayObj();
 var endDay = new DayObj();
 var startTime = new TimeObj();
 var endTime = new TimeObj();
-var state = 0;
+//var state = 0;
 
 /*
 //DB로 부터 받을 객체배열의 Dummy
@@ -252,6 +252,7 @@ var gotData = {
     fromUser : {'user_id' : 'testAdmin'},
     state : '0',
     manPower : '10',
+    peopleCount : '0',
   },
   testAdmin_19071503001907160623 : {
     id : 'testAdmin_19071503001907160623',
@@ -264,6 +265,7 @@ var gotData = {
     fromUser : {'user_id' : 'testAdmin'},
     state : '0',
     manPower : '10',
+    peopleCount : '0',
   },
   testAdmin_19072101001907220623 : {
     id : 'testAdmin_19072101001907220623',
@@ -276,6 +278,7 @@ var gotData = {
     fromUser : {'user_id' : 'testAdmin'},
     state : '0',
     manPower : '5',
+    peopleCount : '5',
   },
   testAdmin_19070101001907020623 : {
     id : 'testAdmin_19070101001907020623',
@@ -288,6 +291,7 @@ var gotData = {
     fromUser : {'user_id' : 'testAdmin'},
     state : '0',
     manPower : '7',
+    peopleCount : '1',
   }
 };
 
@@ -303,7 +307,8 @@ var receiveD = {
     userId : 'testAdmin',
     fromUser : {'user_id' : 'testAdmin'},
     state : '0',
-    manPower : '2',
+    manPower : '7',
+    peopleCount : '0',
   }
 }
 //신청 취소 시 response더미
@@ -318,11 +323,12 @@ var receiveS = {
     userId : 'testAdmin',
     fromUser : {'user_id' : 'testAdmin'},
     state : '0',
-    manPower : '200',
+    manPower : '7',
+    peopleCount : '7',
   }
 }
 */
-//>> requestWork0.0.1
+//>> requestWork0.0.2
 // 페이지 로드 시 DB에서 받은 정보 : eventList (기존과 동일한 장소.)
 $('#calendar').data('eventList',{});
 var originalDataLoc = $('#calendar').data('eventList');
@@ -332,6 +338,8 @@ var selectedDataLoc = $('#calendar').data('selectedList');
 var initialData = [];
 //수신데이터가 있을 경우, 저장.
 var gotData = $.parseJSON('${jsonList}');
+//로그인한 staff가 신청했던 일정목록.
+var sselectedUserEvent = $.parseJSON('${selectedList}');
 
 // 받은데이터가 있는 경우, calendar element에 data로 저장한다.
 if(gotData != "") {
@@ -345,6 +353,11 @@ if(gotData != "") {
 		originalDataLoc[""+tempKey+""] = tempObj;
 	}
   */
+}
+if(selectedUserEvent != "") {
+	for(var key in receiveD) {
+		selectedDataLoc[""+key+""] = selectedUserEvent[""+key+""];
+	}
 }
 
 //페이지 로딩 시 받은 일정정보를 화면에 Rendering : calendar로딩 시 초기값으로 지정하여 표시.
@@ -376,27 +389,46 @@ $(function() {
 
     //이벤트 선택
     eventClick: function (calEvent, jsEvent, view) {
-      //이벤트를 눌렀을 때, ajax통신 발생, 이벤트 셀렉트 표시
-      var comSign = false;
-      if($('span:contains("'+calEvent.id+'")').parent().parent().hasClass('selectedEvent')) {
-        //alert('취소')
-        // 선택되어 있는 경우 --> 취소요청
-        comSign = false;
-        communicationProcess(comSign, calEvent.id, userId);
-      } else {
-        //alert('신청')
-        // 선택되어 있지 않은경우 --> 등록요청
-        comSign = true;
-        communicationProcess(comSign, calEvent.id, userId);
-      }
-    },
+        //mp와 pc가 일치하지 않는 경우 --> 일반작동
+        //mp와 pc가 일치하는경우
+        // --> 내 목록에 있으면 수정가능
+        // --> 내 목록에 없으면 수정불가.
+        //이벤트를 눌렀을 때, ajax통신 발생, 이벤트 셀렉트 표시
+        var thisMp = originalDataLoc[""+calEvent.id+""].manPower;
+        var thisPc = originalDataLoc[""+calEvent.id+""].peopleCount;
+
+        var checkExist = find('.eventMarker');
+        if(thisMp == thisPc) {
+          if(selectedDataLoc[""+calEvent.id+""].id == calEvent.id) {
+            checkAndSelectRequest(calEvent.id, userId)
+          }
+        } else {
+          checkAndSelectRequest(calEvent.id, userId)
+        }
+      },
   });
-  remakeDisplayedEvents(originalDataLoc);
+  //첫 화면 로드 시 화면을 다시 그려줌.
+  renderingProcessWithList(originalDataLoc, selectedDataLoc)
 });
 console.log('originalDataLoc : 일정 신청 전')
 console.log(originalDataLoc)
 
 // ./ End of fullCalendar 초기화 -------------------------------------
+
+function checkAndSelectRequest(eventId, user) {
+  var comSign = false;
+  if($('span:contains("'+eventId+'")').parent().parent().hasClass('selectedEvent')) {
+    alert('취소')
+    // 선택되어 있는 경우 --> 취소요청
+    comSign = false;
+    communicationProcess(comSign, eventId, user);
+  } else {
+    alert('신청')
+    // 선택되어 있지 않은경우 --> 등록요청
+    comSign = true;
+    communicationProcess(comSign, eventId, user);
+  }
+}
 
 function communicationProcess(sign, id, user) {
   //user = userId :전역변수. 세선값.
@@ -452,6 +484,26 @@ function renderingProcessWithList(eList, sList) {
   //신청된 목록을 다시 표시
   for(var key in sList) {
     $('span:contains("'+key+'")').parent().parent().addClass('selectedEvent');
+  }
+  //선택불가 항목 --> pc == mp but not selected events.
+  var selectedListKeys = Object.keys(sList);
+  var originalListKeys = Object.keys(eList);
+
+  for(var key in eList) {
+    var target = eList[""+key+""];
+    //동일한 경우를 조사.
+    if(target.manPower == target.peopleCount) {
+      if($('span:contains("'+key+'")').parent().parent().hasClass('selectedEvent') == false) {
+        //동일한 경우, 선택되지 않았으면 비활성화.
+        $('span:contains("'+key+'")').parent().parent().addClass('excessMp');
+      } else {
+        //동일한 경우, 선택되어 있으면 활성화.
+        $('span:contains("'+key+'")').parent().parent().removeClass('excessMp');
+      }
+    } else {
+      //동일하지 않은경우, 활성화
+      $('span:contains("'+key+'")').parent().parent().removeClass('excessMp');
+    }
   }
 }
 
