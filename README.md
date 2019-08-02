@@ -130,3 +130,6 @@
 - (정우) 일정신청 ui - requestWork.jsp (일정신청화면) 업데이트
 - (성현) monthplanpage  Schedule 생성버튼 연결
 - (성현) insertplanpage  작성완료버튼 연결
+
+### Day 21 : Schedule 등록 마무리 (10.08.02)
+- (오인) Schedule 수정, 삭제 이동 controller 
