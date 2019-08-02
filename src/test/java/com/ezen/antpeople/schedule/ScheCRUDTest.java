@@ -21,6 +21,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.ezen.antpeople.config.RootConfig;
 import com.ezen.antpeople.config.SecurityConfig;
 import com.ezen.antpeople.dto.sche.ScheDetailDTO;
+import com.ezen.antpeople.dto.sche.ScheUserDTO;
 import com.ezen.antpeople.dto.sche.ScheUserListDTO;
 import com.ezen.antpeople.dto.user.UserDetailDTO;
 import com.ezen.antpeople.service.ScheService;
@@ -62,23 +63,40 @@ public class ScheCRUDTest {
 		Set<ScheDetailDTO> testSchedules = new HashSet<ScheDetailDTO>(scheService.findAllOnwer(user.getUser_id()));
 		log.info(testSchedules.toString());
 	}
-	//일정 가져오기 직원 테스트 - 성공
+	//일정 가져오기 (직원신청가능) 테스트 - 성공
 	@Test @Ignore
 	public void scheduleListStaffTest() {
 		UserDetailDTO user = us.findByEmail("wlrdnjs111@gmail.com"); //이메일은 DB에 따라 변경해야함!!
 		Set<ScheDetailDTO> testSchedules = new HashSet<ScheDetailDTO>(scheService.findAllStaff(user,"1908"));
 		log.info(testSchedules.toString());
 	}
+	//일정 가져오기 직원 테스트 
+		@Test @Ignore
+		public void StaffApplyTest() {
+			UserDetailDTO user = us.findByEmail("wlrdnjs111@gmail.com"); //이메일은 DB에 따라 변경해야함!!
+			Set<ScheDetailDTO> testSchedules = new HashSet<ScheDetailDTO>(scheService.staffApply(user,"1907"));
+			for(ScheDetailDTO schedule : testSchedules) {
+				log.info(schedule.toString());
+			}
+		}
 	
 	//월별 일정 가져오기 테스트 - 성공
-	@Test @Ignore
+	@Test 
 	public void scheduleMonthListTest() {
 		UserDetailDTO user = us.findByEmail("tkwkd123@gmail.com"); //이메일은 DB에 따라 변경해야함!!
 		log.info("월별 일정 유저 ID : " + user.getUser_id());
-		ScheUserListDTO testSchedules = scheService.findAllMonthAndUser(user,"1906");
+		ScheUserListDTO testSchedules = scheService.findAllMonthAndUser(user,"1907");
 		log.info("월별 일정 가져오기 테스트 결과 : "+ testSchedules.toString());
 	}
 	
+	//월별 직원 일정 가져오기 테스트 - 성공
+	@Test @Ignore
+	public void scheduleMonthStaffListTest() {
+		UserDetailDTO user = us.findByEmail("wlrdnjs111@gmail.com"); //이메일은 DB에 따라 변경해야함!!
+		log.info("직원 ID : " + user.getUser_id());
+		ScheUserListDTO testSchedules = scheService.findAllMonthAndStaff(user,"1907");
+		log.info("월별 일정 가져오기 테스트 결과 : "+ testSchedules.toString());
+	}
 	//일정 수정 및 삭제 테스트 - 성공
 	@Test @Ignore
 	public void updateScheduleTest() {

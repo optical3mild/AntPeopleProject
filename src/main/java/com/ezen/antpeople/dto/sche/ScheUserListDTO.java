@@ -56,7 +56,7 @@ public class ScheUserListDTO {
 	
 	//사용자별 일정 리스트 생성 함수
 	public String userString(Set<ScheUserDTO> userToScheList) {
-		Optional<Map<String, Set<String>>> userSchedule = Optional.of(userScheduleListTest(userToScheList));
+		Optional<Map<String, Set<String>>> userSchedule = Optional.of(userScheduleList(userToScheList));
 		String users = "";
 		if(!userSchedule.get().isEmpty()) {
 			log.info("일정에 대한 사용자 존재");
@@ -69,24 +69,23 @@ public class ScheUserListDTO {
 	}
 	
 	//사용자별 신청 일정 리스트 만들기
-	public Map<String, Set<String>> userScheduleList(Set<ScheDetailDTO> scheduleList){
+	public Map<String, Set<String>> userScheduleList(Set<ScheUserDTO> scheduleList){
+		log.info("일정 리스트 : " + scheduleList);
 		Map<String,Set<String>> userSchedule = new HashMap<String,Set<String>>();
 		
-		for(ScheDetailDTO schedule : scheduleList) {
-			Optional<List<UserDetailDTO>> users = Optional.empty();
-			String scheduleId = schedule.getId();
-			users = Optional.of(schedule.getToUsers());
-			if(users.isPresent()) {
-				for(UserDetailDTO user : users.get()) {
-					Set<String> schedules = new HashSet<String>();
-					int user_id = user.getUser_id();
-					String name = user.getName();
-					if(userSchedule.get(user_id) != null) {
-						schedules = userSchedule.get(user_id);
-					}
-					schedules.add(scheduleId);
-					userSchedule.put("["+user_id+"] "+name,schedules);
+		for(ScheUserDTO schedule : scheduleList) {
+			Optional<UserDetailDTO> user = Optional.ofNullable(schedule.getUser());
+			String scheduleId = schedule.getUnique();
+			if(user.isPresent()) {
+				Set<String> schedules = new HashSet<String>();
+				String key = "["+user.get().getUser_id()+"] "+user.get().getName();
+				if(userSchedule.get(key) != null) {
+					log.info("기존의 등록된 정보가 있는 회원");
+					schedules = userSchedule.get(key);
 				}
+				schedules.add(scheduleId);
+				log.info("해당 유저가 신청한 schedule : " + schedule);
+				userSchedule.put(key,schedules);
 			}			
 		}
 		return userSchedule;
