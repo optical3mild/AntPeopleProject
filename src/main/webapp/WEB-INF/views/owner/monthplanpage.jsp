@@ -157,6 +157,7 @@ var nowDate = new Date();
 var gotList = ${monthList} //더미로 확인필요...
 console.log('gotList');
 console.log(gotList);
+/*//수정 : controll에서 [월:boolean, , ,] 형태로 전송.
 //현재 달을 확인하여 현재달 포함 이전은 수정불가로 List객체 조정.
 //var gotList = ['1907','1905','1906','1909','1900','1911']; //더미 목록, 월정보는 월 인덱스 값.
 function convertToMonthObj(originDate, array){
@@ -187,6 +188,8 @@ function convertToMonthObj(originDate, array){
   return result;
 }
 var convertedList = convertToMonthObj(nowDate,gotList);
+*/
+var convertedList = gotList;
 console.log('convertedList');
 console.log(convertedList);
 /*var gotList = {
