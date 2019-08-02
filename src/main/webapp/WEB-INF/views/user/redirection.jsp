@@ -26,9 +26,8 @@
 <body class="hold-transition login-page">
 
 <script type="text/javascript">
-	var message = '${requestScope.message}';
-	var returnUrl = 'login';
-	alert(message);
+	var returnUrl = "login";
+	alert("로그인 실패 - 비밀번호 오류");
 	document.location.href = returnUrl;
 </script>
 
