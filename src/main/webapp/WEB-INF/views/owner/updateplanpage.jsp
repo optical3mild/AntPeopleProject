@@ -299,15 +299,16 @@ console.log('gotData')
 console.log(gotData)
 //받은데이터가 있는 경우, calendar element에 data로 저장한다.
 if(gotData != "") {
-	for(var key in gotData) {
+	/*for(var key in gotData) {
 		originalDataLoc[""+key+""] = gotData[""+key+""];
 	}
-	/*for(var i=0; i<gotData.length; i++){
+	*/
+	for(var i=0; i<gotData.length; i++){
 		var tempKey = gotData[i].id;
 		var tempObj = gotData[i];
 		originalDataLoc[""+tempKey+""] = tempObj;
 	}
-	*/
+	
 }
 
 console.log('로딩확인')
