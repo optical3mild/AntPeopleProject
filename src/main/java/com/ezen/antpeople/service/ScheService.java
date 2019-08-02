@@ -20,6 +20,7 @@ public interface ScheService {
 	public Set<ScheDetailDTO> staffApply(UserDetailDTO user,String date);
 	public Set<ScheDetailDTO> findAllMonth(int user_id, String startDate);
 	public ScheUserListDTO findAllMonthAndUser(UserDetailDTO user, String startDate);
+	public ScheUserListDTO findAllMonthAndStaff(UserDetailDTO user, String startDate);
 	
 	//일정 변경하기, 삭제하기
 	public void updateSchedule(Map<String, ScheDetailDTO> schedules);

@@ -107,6 +107,29 @@ public class ScheServiceImpl implements ScheService {
 		return userAndMonth;
 	}
 	
+	//일정 가져오기 - 월별일정 + 해당 사용자
+	@Override
+	public ScheUserListDTO findAllMonthAndStaff(UserDetailDTO user, String startDate) {
+		logger.info("월별 일정 리스트 출력 메소드 시작");
+		Set<ScheDetailDTO> schedules = new HashSet<ScheDetailDTO>();
+		Set<ScheUserDTO> userToSchedules = new HashSet<ScheUserDTO>();
+		List<ScheEntity> entitys = new ArrayList<ScheEntity>(scheRepository.findByFromUserStoreStoreAndStartDateStartingWith(user.getStore().getStore(),startDate));
+		Optional<List<ScheRelation>> UserEntitys = 
+				Optional.of(usRepository.findByToUser_idAndScheStartDateStartingWith(user.getUser_id(),startDate));
+		for(ScheEntity entity :entitys) {
+			schedules.add(entity.buildDTO());
+		}
+		if(UserEntitys.isPresent()) {
+			for(ScheRelation entity: UserEntitys.get()) {
+				userToSchedules.add(entity.buildDTO());
+			}
+		}
+		logger.info("월별 일정 리스트 :" + schedules.toString());
+		logger.info("일정 신청한 직원 리스트 : " + userToSchedules.toString());
+		ScheUserListDTO userAndMonth = new ScheUserListDTO(schedules,userToSchedules,startDate);
+		return userAndMonth;
+	}
+	
 	//일정 가져오기 - 월별일정
 	@Override
 	public Set<ScheDetailDTO> findAllMonth(int user_id, String startDate) {

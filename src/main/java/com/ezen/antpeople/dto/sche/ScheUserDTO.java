@@ -24,4 +24,11 @@ public class ScheUserDTO {
 		this.state = state;
 	}
 
+	@Override
+	public String toString() {
+		return "schedule_id=" + user.getName();
+	}
+	
+	
+
 }
