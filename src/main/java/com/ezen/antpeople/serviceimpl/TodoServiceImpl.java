@@ -29,6 +29,7 @@ public class TodoServiceImpl implements TodoService {
 		this.utRepository = utRepository;
 	}
 
+	//할일 생성 함수
 	@Override
 	public void uploadTodo(TodoDetailDTO todo) {
 		log.info("할일 생성");
@@ -36,6 +37,7 @@ public class TodoServiceImpl implements TodoService {
 		todoRepository.save(entity);
 	}
 
+	//할일 삭제 함수
 	@Override
 	public void deleteTodo(int todo_id) {
 		Optional<TodoEntity> entity = todoRepository.findById(todo_id);

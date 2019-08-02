@@ -3,6 +3,7 @@ package com.ezen.antpeople.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
@@ -36,32 +37,32 @@ public class TodoEntity extends BaseEntity implements Serializable {
 	@NotEmpty(message = "*내용을 적어 주세요.")
 	private String description;
 	
-	private int state;
+	private boolean state;
 	private int checkPerson;
 	
 	@ManyToMany
-	@JoinTable(name="user_todo", joinColumns = @JoinColumn(name="todo_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+	@JoinTable(name="user_todo", joinColumns = @JoinColumn(name="todo_id"), inverseJoinColumns = @JoinColumn(name = "to_id"))
 	private List<UserEntity> toUsers;
 	
 	@ManyToOne
-	@JoinColumn(name="user_id")
+	@JoinColumn(name="from_id")
 	private UserEntity fromUser;
 	
-	//할일 DB저장
+	//할일 DB저장 - 반드시 userList의 Null값이 없는지 확인 해야 함
 	public TodoEntity(TodoDetailDTO todo) {
-		List<UserEntity> userList = new ArrayList();
-		for(UserDetailDTO user : todo.getToUsers()) {
-			userList.add(new UserEntity(user));
-			System.out.println(user.toString());
+		List<UserEntity> userList = new ArrayList<UserEntity>();
+		Optional<List<UserDetailDTO>>users = Optional.ofNullable(todo.getToUsers());
+		if(users.isPresent()) {
+			for(UserDetailDTO user: users.get())
+				userList.add(new UserEntity(user));
 		}
 		this.description = todo.getDescription();
 		this.fromUser = new UserEntity(todo.getFromUser());
 		this.toUsers = userList;
-		this.state = 1;
 	}
 	
 	public TodoDetailDTO buildDTO() {
-		List<UserDetailDTO> toUsers = new ArrayList();
+		List<UserDetailDTO> toUsers = new ArrayList<UserDetailDTO>();
 		for(UserEntity user : this.toUsers)
 			toUsers.add(user.buildDTO());
 		return new TodoDetailDTO(this.id, this.description, this.state, this.updatedAt, this.fromUser.buildDTO(),toUsers);

@@ -15,6 +15,7 @@ public interface ScheService {
 	
 	//사장의 일정 가져오기
 	public Set<ScheDetailDTO> findAllOnwer(int user_id);
+	public Set<ScheDetailDTO> findAllStaff(UserDetailDTO user,String date);
 	public Set<ScheDetailDTO> findAllMonth(int user_id, String startDate);
 	public ScheUserListDTO findAllMonthAndUser(UserDetailDTO user, String startDate);
 	

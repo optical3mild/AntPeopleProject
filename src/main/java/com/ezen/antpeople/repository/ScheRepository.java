@@ -15,6 +15,7 @@ import com.ezen.antpeople.entity.UserEntity;
 public interface ScheRepository extends JpaRepository<ScheEntity, Integer> {
 	Optional<ScheEntity> findByUnique(String sche_unique);
 	List<ScheEntity> findByFromUser(UserEntity user);
+	List<ScheEntity> findByFromUserStoreStoreAndStartDateStartingWith(String store, String startDate);
 	List<ScheEntity> findByFromUserAndStartDateStartingWith(UserEntity user, String startDate);
 	
 	@Transactional

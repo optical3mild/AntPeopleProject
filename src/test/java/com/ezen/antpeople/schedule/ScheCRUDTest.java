@@ -2,8 +2,10 @@ package com.ezen.antpeople.schedule;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -53,11 +55,19 @@ public class ScheCRUDTest {
 		scheService.saveSchedules(testSchedules);
 	}
 	
-	//일정 가져오기 테스트 - 성공
+	//일정 가져오기 사장 테스트 - 성공
 	@Test @Ignore
-	public void scheduleListTest() {
+	public void scheduleListOwnerTest() {
 		UserDetailDTO user = us.findByEmail("tkwkd123@gmail.com"); //이메일은 DB에 따라 변경해야함!!
-		//List<ScheDetailDTO> testSchedules = scheService.findAllOnwer(user.getUser_id());
+		Set<ScheDetailDTO> testSchedules = new HashSet<ScheDetailDTO>(scheService.findAllOnwer(user.getUser_id()));
+		log.info(testSchedules.toString());
+	}
+	//일정 가져오기 직원 테스트 - 성공
+	@Test @Ignore
+	public void scheduleListStaffTest() {
+		UserDetailDTO user = us.findByEmail("wlrdnjs111@gmail.com"); //이메일은 DB에 따라 변경해야함!!
+		Set<ScheDetailDTO> testSchedules = new HashSet<ScheDetailDTO>(scheService.findAllStaff(user,"1908"));
+		log.info(testSchedules.toString());
 	}
 	
 	//월별 일정 가져오기 테스트 - 성공
