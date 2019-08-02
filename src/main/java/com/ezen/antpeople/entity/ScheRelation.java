@@ -9,10 +9,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.ezen.antpeople.dto.sche.ScheDetailDTO;
 import com.ezen.antpeople.dto.sche.ScheUserDTO;
 
 import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -43,5 +43,8 @@ public class ScheRelation implements Serializable{
 	}
 	public ScheUserDTO buildDTO() {
 		return new ScheUserDTO(this.toUser.buildDTOSmall(), this.sche.getId(),this.sche.getUnique(),this.state);
+	}
+	public ScheDetailDTO buildDetailDTO() {
+		return this.sche.buildDTO();
 	}
 }

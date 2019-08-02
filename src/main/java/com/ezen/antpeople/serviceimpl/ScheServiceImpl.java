@@ -57,7 +57,7 @@ public class ScheServiceImpl implements ScheService {
 		return schedules;
 	}
 	
-	//일정 가져오기 - 직원
+	//일정 가져오기 - 직원신청가능 목록
 	@Override
 	public Set<ScheDetailDTO> findAllStaff(UserDetailDTO user, String date) {
 		Set<ScheDetailDTO>  schedules = new HashSet<ScheDetailDTO>();
@@ -69,6 +69,21 @@ public class ScheServiceImpl implements ScheService {
 		}
 		return schedules;
 	}
+	
+	//일정 가져오기 - 직원신청 완료 목록
+		@Override
+		public Set<ScheDetailDTO> staffApply(UserDetailDTO user, String date) {
+			Set<ScheDetailDTO>  schedules = new HashSet<ScheDetailDTO>();
+			Set<ScheRelation> entitys = 
+					new HashSet<ScheRelation>
+			(usRepository.findByToUser_idAndScheStartDateStartingWith(user.getUser_id(),date));
+			for(ScheRelation entity : entitys) {
+				schedules.add(entity.buildDetailDTO());
+			}
+			return schedules;
+		}
+	
+	
 	
 	//일정 가져오기 - 월별일정 + 신청 인원
 	@Override

@@ -21,6 +21,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.ezen.antpeople.config.RootConfig;
 import com.ezen.antpeople.config.SecurityConfig;
 import com.ezen.antpeople.dto.sche.ScheDetailDTO;
+import com.ezen.antpeople.dto.sche.ScheUserDTO;
 import com.ezen.antpeople.dto.sche.ScheUserListDTO;
 import com.ezen.antpeople.dto.user.UserDetailDTO;
 import com.ezen.antpeople.service.ScheService;
@@ -62,13 +63,22 @@ public class ScheCRUDTest {
 		Set<ScheDetailDTO> testSchedules = new HashSet<ScheDetailDTO>(scheService.findAllOnwer(user.getUser_id()));
 		log.info(testSchedules.toString());
 	}
-	//일정 가져오기 직원 테스트 - 성공
+	//일정 가져오기 (직원신청가능) 테스트 - 성공
 	@Test @Ignore
 	public void scheduleListStaffTest() {
 		UserDetailDTO user = us.findByEmail("wlrdnjs111@gmail.com"); //이메일은 DB에 따라 변경해야함!!
 		Set<ScheDetailDTO> testSchedules = new HashSet<ScheDetailDTO>(scheService.findAllStaff(user,"1908"));
 		log.info(testSchedules.toString());
 	}
+	//일정 가져오기 직원 테스트 
+		@Test @Ignore
+		public void StaffApplyTest() {
+			UserDetailDTO user = us.findByEmail("wlrdnjs111@gmail.com"); //이메일은 DB에 따라 변경해야함!!
+			Set<ScheDetailDTO> testSchedules = new HashSet<ScheDetailDTO>(scheService.staffApply(user,"1907"));
+			for(ScheDetailDTO schedule : testSchedules) {
+				log.info(schedule.toString());
+			}
+		}
 	
 	//월별 일정 가져오기 테스트 - 성공
 	@Test @Ignore
