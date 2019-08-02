@@ -132,4 +132,4 @@
 - (성현) insertplanpage  작성완료버튼 연결
 
 ### Day 21 : Schedule 등록 마무리 (10.08.02)
-- (오인) Schedule 수정, 삭제 이동 controller 
+- (오인) Schedule 수정, 삭제 이동 controller 연결
