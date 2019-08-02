@@ -63,6 +63,8 @@ public class StaffController {
 		String month =  String.valueOf(date);
 		logger.info("schedule_id : "+schedule_id);
 		scheService.updateUserSchedule(user, schedule_id);
+		mav.addObject("month", month);
+		mav.addObject("", "");
 		mav.addObject("", "");
 		mav.setViewName("requestWork");
 		return mav;
