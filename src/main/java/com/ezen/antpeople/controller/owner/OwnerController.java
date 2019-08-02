@@ -20,11 +20,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ezen.antpeople.dto.sche.MonthPlanDTO;
 import com.ezen.antpeople.dto.sche.ScheDetailDTO;
 import com.ezen.antpeople.dto.sche.ScheUserListDTO;
 import com.ezen.antpeople.dto.user.RoleDTO;
 import com.ezen.antpeople.dto.user.StoreDTO;
 import com.ezen.antpeople.dto.user.UserDetailDTO;
+import com.ezen.antpeople.service.MonthPlanService;
 import com.ezen.antpeople.service.ScheService;
 import com.ezen.antpeople.service.UserService;
 
@@ -36,10 +38,12 @@ public class OwnerController {
 	
 	UserService userService;
 	ScheService scheService;
+	MonthPlanService monthplanService;
 	
-	public OwnerController(UserService userService, ScheService scheService) {
+	public OwnerController(UserService userService, ScheService scheService, MonthPlanService monthplanService) {
 		this.userService = userService;
 		this.scheService = scheService;
+		this.monthplanService = monthplanService;
 	}
 	
 	// 직원 전체 정보 목록
@@ -66,7 +70,7 @@ public class OwnerController {
 		logger.info("monthplanpage");
 		HttpSession httpSession = request.getSession(true);
 		UserDetailDTO userDto = (UserDetailDTO) httpSession.getAttribute("user");
-		Set<String> sche = scheService.isScheduleMonthList(userDto);
+		List<MonthPlanDTO> sche = monthplanService.monthPlanList(userDto);
 		logger.info("monthplanpage Data : "+sche.toString());
 		mav.addObject("monthList", sche);	// DB에 데이터가 있는 월들을 저장
 		mav.setViewName("monthplanpage");	// monthplanpage로 이동

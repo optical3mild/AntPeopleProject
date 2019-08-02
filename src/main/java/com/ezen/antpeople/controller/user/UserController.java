@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -54,10 +55,12 @@ public class UserController {
 		if (userService.verifiedPassword(user, userLogin.getPassword())) {
 			logger.info("로그인 성공");
 			model.addAttribute("user", user);
-			Cookie cookie = new Cookie(user.getEmail(), user.getEmail());
+			String userid = String.valueOf(user.getUser_id());
+			Cookie cookie = new Cookie("user", userid);
 			cookie.setMaxAge(60*60*24*7); // 유효기한 1주일
 			cookie.setPath("/");
 			response.addCookie(cookie);
+			logger.info("쿠키남은시간 : "+cookie.getMaxAge());
 			logger.info("cookie : " + cookie.getName());
 //            }
 			return "../main/mainpage";
@@ -75,10 +78,15 @@ public class UserController {
 
 	// 로그아웃
 	@RequestMapping("logout")
-	public ModelAndView logout(HttpServletResponse response, SessionStatus sessionStatus, ModelAndView mv) {
+	public ModelAndView logout(@CookieValue(value="user", required=false) Cookie cookie, HttpServletResponse response, HttpServletRequest request, SessionStatus sessionStatus, ModelAndView mv) {
 		logger.info("쿠키 제거");
-		Cookie cookie = new Cookie("loginCookie", null);
-		cookie.setMaxAge(5);
+		HttpSession httpSession = request.getSession(true);
+		UserDetailDTO userDto = (UserDetailDTO) httpSession.getAttribute("user");
+		cookie.clone();
+		logger.info("쿠키값 : "+cookie.getValue());
+		logger.info("쿠키남은시간 : "+cookie.getMaxAge());
+		cookie.setValue(null);	
+		cookie.setMaxAge(4);
 		response.addCookie(cookie);
 		logger.info("쿠키값 : "+cookie.getValue());
 		logger.info("쿠키남은시간 : "+cookie.getMaxAge());

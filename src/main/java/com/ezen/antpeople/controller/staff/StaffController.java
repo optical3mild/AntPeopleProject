@@ -2,8 +2,7 @@ package com.ezen.antpeople.controller.staff;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Map;
-import java.util.Set;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -17,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ezen.antpeople.dto.sche.MonthPlanDTO;
 import com.ezen.antpeople.dto.sche.ScheDetailDTO;
 import com.ezen.antpeople.dto.user.UserDetailDTO;
+import com.ezen.antpeople.service.MonthPlanService;
 import com.ezen.antpeople.service.ScheService;
 import com.ezen.antpeople.service.UserService;
 
@@ -28,10 +29,12 @@ public class StaffController {
 	
 	UserService userService;
 	ScheService scheService;
+	MonthPlanService monthplanService;
 	
-	public StaffController(UserService userService, ScheService scheService) {
+	public StaffController(UserService userService, ScheService scheService, MonthPlanService monthplanService) {
 		this.userService = userService;
 		this.scheService = scheService;
+		this.monthplanService = monthplanService;
 	}
 	
 	//근무신청 페이지로 이동
@@ -43,11 +46,11 @@ public class StaffController {
 		UserDetailDTO userDto = (UserDetailDTO) httpSession.getAttribute("user");
 		int date = Integer.parseInt(LocalDate.now().plusMonths(1).format(DateTimeFormatter.ofPattern("yyMM")))-1;
 		String month =  String.valueOf(date);
-		Set<ScheDetailDTO> jsonList = scheService.findAllStaff(userDto, month);
-		logger.info("jsonList : "+jsonList);
+		List<MonthPlanDTO> sche = monthplanService.monthPlanList(userDto);
+		logger.info("jsonList : "+sche);
 		logger.info("monthIndex : "+ month);
 		mav.addObject("monthIndex", month);
-		mav.addObject("jsonList", jsonList);
+		mav.addObject("jsonList", sche);
 		mav.setViewName("requestwork");
 		return mav;
 	}
