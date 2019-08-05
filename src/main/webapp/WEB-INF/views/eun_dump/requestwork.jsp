@@ -203,6 +203,42 @@
 <script src="setfiles/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
 <!-- Page specific script -->
 <script>
+// 페이지 로드 시 몇월을 표시해 줄 건지, 해당월의 운영계획과 함께 넘겨준다.
+// --> 달력화면을 해당월로 이동하고, 이벤트를 표시한다.
+// 이벤트를 클릭할 때, ajax통신이 일어나고 신청한 정보를 보내주며
+// 현재 남은 자리수와 신청성공여부를 수신받는다.
+
+// **신청 시 보낼 정보형식
+// --> 신청시 ajax 통신 event당 1번
+/*
+{
+   user : { user_id : staffId },
+   schedule_id : objId
+},
+*/
+
+//로그인한 staff의 id
+var userId = "${user.user_id}";
+//var userId = 'testUser';
+
+//calendar 초기 로드값.
+var selectedMonth; //캘린더에 연결된 변수.
+//var getInitialMonth = '1907'; //테스트
+var getInitialMonth = '${monthIndex}';
+console.log('monthIndex')
+console.log(getInitialMonth)
+//값의 존재여부 검사. --> 존재하여야 함.
+if(getInitialMonth > 0) {
+  var selectedMonth = convertToInitialDateInfo(getInitialMonth);
+}
+//받은 날짜정보를 Date객체로.
+function convertToInitialDateInfo(val) {
+  var yearP = parseInt("20"+val.slice(0,2));
+  var monthP = parseInt(val.slice(2));
+  var newDateObj = new Date(yearP,monthP,1);
+  return newDateObj;
+}
+
 //DayObj, TimeObj : 프로토타입 객체.
 var startDay = new DayObj();
 var endDay = new DayObj();
@@ -210,91 +246,80 @@ var startTime = new TimeObj();
 var endTime = new TimeObj();
 //var state = 0;
 
-//로그인한 staff의 id
-//var userId = 'testUser';
-var userId = "${user.user_id}";
-
-// 페이지 로드 시 받을 수신받을 데이터 형태. --> '연월' : 수정가능여부
-var nowDate = new Date();
-
-var gotList = "${monthIndex}" //더미로 확인필요...
 /*
-var gotList = {
-  '1907' : true, '1905' : false, '1906' : true,
-  '1909' : false, '1900' : true , '1911' : false
-}; //더미 목록, 월정보는 월 인덱스 값.
-*/
-var convertedList = gotList;
-
-//>> requestWork0.0.3
-// 월별 계획과 직원이 신청한 내용을 따로 저장.
-$('#calendar').data('eventList',{});
-var originalDataLoc = $('#calendar').data('eventList');
-$('#calendar').data('selectedList',{});
-var selectedDataLoc = $('#calendar').data('selectedList');
-
-/*
-// receivedDummy : 월별목록 선택시 수신받을 데이터 형태.
-var receivedDummy = {
-  '1907' : {
-    testAdmin_19071501001907160623 : {
-      id : 'testAdmin_19071501001907160623',
-      title : '01:00~06:23',
-      startDate : '190715',
-      endDate :'190716',
-      startTime : '0100',
-      endTime : '0623',
-      userId : 'testAdmin',
-      fromUser : {'user_id' : 'testAdmin'},
-      state : '0',
-      manPower : '10',
-      peopleCount : '0',
-    },
-    testAdmin_19071503001907160623 : {
-      id : 'testAdmin_19071503001907160623',
-      title : '01:00~06:23',
-      startDate : '190715',
-      endDate :'190716',
-      startTime : '1300',
-      endTime : '0623',
-      userId : 'testAdmin',
-      fromUser : {'user_id' : 'testAdmin'},
-      state : '0',
-      manPower : '10',
-      peopleCount : '0',
-    },
-    testAdmin_19072101001907220623 : {
-      id : 'testAdmin_19072101001907220623',
-      title : '01:00~06:23',
-      startDate : '190721',
-      endDate :'190722',
-      startTime : '0100',
-      endTime : '0623',
-      userId : 'testAdmin',
-      fromUser : {'user_id' : 'testAdmin'},
-      state : '3',
-      manPower : '5',
-      peopleCount : '5',
-    },
-    testAdmin_19070101001907020623 : {
-      id : 'testAdmin_19070101001907020623',
-      title : '01:00~06:23',
-      startDate : '190701',
-      endDate :'190702',
-      startTime : '0100',
-      endTime : '0623',
-      userId : 'testAdmin',
-      fromUser : {'user_id' : 'testAdmin'},
-      state : '3',
-      manPower : '7',
-      peopleCount : '1',
-    }
+//DB로 부터 받을 객체배열의 Dummy
+var gotData = {
+  testAdmin_19071501001907160623 : {
+    id : 'testAdmin_19071501001907160623',
+    title : '01:00~06:23',
+    startDate : '190715',
+    endDate :'190716',
+    startTime : '0100',
+    endTime : '0623',
+    userId : 'testAdmin',
+    fromUser : {'user_id' : 'testAdmin'},
+    state : '0',
+    manPower : '10',
+    peopleCount : '0',
   },
-  user1 : [
-    'testAdmin_19070101001907020623','testAdmin_19072101001907220623'
-  ],
-}
+  testAdmin_19071503001907160623 : {
+    id : 'testAdmin_19071503001907160623',
+    title : '01:00~06:23',
+    startDate : '190715',
+    endDate :'190716',
+    startTime : '1300',
+    endTime : '0623',
+    userId : 'testAdmin',
+    fromUser : {'user_id' : 'testAdmin'},
+    state : '0',
+    manPower : '10',
+    peopleCount : '0',
+  },
+  testAdmin_19072101001907220623 : {
+    id : 'testAdmin_19072101001907220623',
+    title : '01:00~06:23',
+    startDate : '190721',
+    endDate :'190722',
+    startTime : '0100',
+    endTime : '0623',
+    userId : 'testAdmin',
+    fromUser : {'user_id' : 'testAdmin'},
+    state : '0',
+    manPower : '5',
+    peopleCount : '5',
+  },
+  testAdmin_19070101001907020623 : {
+    id : 'testAdmin_19070101001907020623',
+    title : '01:00~06:23',
+    startDate : '190701',
+    endDate :'190702',
+    startTime : '0100',
+    endTime : '0623',
+    userId : 'testAdmin',
+    fromUser : {'user_id' : 'testAdmin'},
+    state : '0',
+    manPower : '7',
+    peopleCount : '1',
+  }
+};
 
+//일정 신청 시 response더미
+var receiveD = {
+  testAdmin_19070101001907020623 : {
+    id : 'testAdmin_19070101001907020623',
+    title : '01:00~06:23',
+    startDate : '190701',
+    endDate :'190702',
+    startTime : '0100',
+    endTime : '0623',
+    userId : 'testAdmin',
+    fromUser : {'user_id' : 'testAdmin'},
+    state : '0',
+    manPower : '7',
+    peopleCount : '0',
+  }
+}
+//신청 취소 시 response더미
 var receiveS = {
   testAdmin_19070101001907020623 : {
     id : 'testAdmin_19070101001907020623',
@@ -307,266 +332,50 @@ var receiveS = {
     fromUser : {'user_id' : 'testAdmin'},
     state : '0',
     manPower : '7',
-    peopleCount : '3',
+    peopleCount : '7',
   }
 }
 */
+//>> requestWork0.0.2
+// 페이지 로드 시 DB에서 받은 정보 : eventList (기존과 동일한 장소.)
+$('#calendar').data('eventList',{});
+var originalDataLoc = $('#calendar').data('eventList');
+$('#calendar').data('selectedList',{});
+var selectedDataLoc = $('#calendar').data('selectedList');
+// calendar로딩 시 표시될 객체배열
+var initialData = [];
+//수신데이터가 있을 경우, 저장.
+var gotData = $.parseJSON('${jsonList}');
+//로그인한 staff가 신청했던 일정목록.
+var sselectedUserEvent = $.parseJSON('${selectedList}');
 
-//1. 이벤트바 자동생성 : 리스트를 수신받아서 push
-var monthlyMenu = [];
-var targetDiv = '#external-events'
-var barClass = 'external-event'
-//var tempColor = '#26678d'
-//페이지 로딩 시 목록을 수신받아 값이 있는경우 순차적으로 배열에 삽입.
-if( Object.keys(convertedList).length > 0 ) {
-  var afterConvert = convertForMonthlyMenuList(convertedList);
-  $.each(afterConvert, function(key, value){
-    monthlyMenu.push(key);
-  });
-  //배열 순서대로 정렬
-  monthlyMenu.sort();
-  console.log(monthlyMenu);
-  //month 배열을 읽어 전부 추가.
-  for(var i = 0; i<monthlyMenu.length; i++) {
-    var index = monthlyMenu[i];
-    var infObj = afterConvert[""+index+""];
-    var tempColor = 'rgb(60, 141, 188)'
-    if(infObj.mendable == false) {
-      tempColor = 'rgb(120, 136, 168)'
-    }
-    drawMenuBar(monthlyMenu[i], infObj, targetDiv, barClass, tempColor);
-  }
+console.log("gotData")
+console.log(gotData)
+
+
+// 받은데이터가 있는 경우, calendar element에 data로 저장한다.
+if(gotData != "") {
+	/*for(var key in gotData) {
+		originalDataLoc[""+key+""] = gotData[""+key+""];
+	}
+  */
+	for(var i=0; i<gotData.length; i++){
+		var tempKey = gotData[i].id;
+		var tempObj = gotData[i];
+		originalDataLoc[""+tempKey+""] = tempObj;
+	}
+  
+}
+if(selectedUserEvent != "") {
+	for(var key in receiveD) {
+		selectedDataLoc[""+key+""] = selectedUserEvent[""+key+""];
+	}
 }
 
-// 4자리를 객체로 변환.
-function convertForMonthlyMenuList(mapObj) {
-  // 객체의 key들을 array로 반환.
-  var list = Object.keys(mapObj);
-  console.log('list')
-  console.log(list)
-  var resultObj = {};
-  for(var i=0; i<list.length; i++) {
-    var yearPart = list[i].slice(0,2);
-    var monthPart = parseInt(list[i].slice(2));
-    var calYear = "20" + yearPart;
-    var calMonth = monthPart + 1;
-    //연월 인덱스 값을 표시될 현재연월 형태(inputbox에 사용)와 인덱스값(데이터 요청시 사용)이 들어있는 객체로 변환
-    if(calMonth < 10) {
-      calMonth = "0" + calMonth;
-    }
-    var title = calYear + "-" + calMonth;
-    var result = {
-      'title': title, 'monthIndex' : list[i], 'mendable' :  mapObj[""+list[i]+""]
-    }
-    resultObj[""+title+""] = result;
-  }
-  console.log("결과객체")
-  console.log(resultObj);
-  return resultObj;
-}
-
-// 목록생성 함수.
-function drawMenuBar(title, convertedObj, targetDiv, bClass, color ) {
-  //생성되는 이벤트 바 title.
-  var val = title;
-  //시간에 따른 색상변화
-  //var monthBarColor = '#26678d'; //for test.
-  //dropdown external eventbar 생성.
-  var monthEventBar = $('<div />');
-  monthEventBar.css({
-    'background-color': color,
-    'border-color': color,
-    'color': '#fff',
-    'width': '100%',
-    'display': 'inline-block',
-  }).addClass(''+bClass+'').html(val)
-  //생성될 바에 data()로 시간정보 저장.
-  monthEventBar.data(convertedObj);
-  //DOM 엘리먼트를 화면에 삽입
-  $(''+targetDiv+'').prepend(monthEventBar);
-}
-
-//>>accept.0.0.1에서 수정됨. : inputbox수정  --> 변수에 직접입력.
-//month 배열에 정보가 있는경우, 캘린더 초기값 지정.
-var initialMonth;
-if(monthlyMenu.length>0){
-  initialMonth = setCalendarToNextMonth(monthlyMenu);
-} else {
-  initialMonth = nowDate;
-}
-
-function setCalendarToNextMonth(menuList) {
-  var lastVal = menuList[menuList.length-1];
-  console.log('lastVal')
-  console.log(lastVal)
-
-  var year = parseInt(lastVal.slice(0,4));
-  var month = parseInt(lastVal.slice(5));
-  var newYear;
-  var newMonth;
-  if(month > 11) {
-    newMonth = 0;
-    newYear = year + 1;
-  } else {
-    newMonth = month;
-    newYear = year;
-  }
-  var result = new Date(newYear, newMonth, 1);
-
-  return result;
-}
-// ./ End of 1. 이벤트 바 등록
-
-//2. external eventbar 선택기능 + 버튼 형상 전환 + 캘린더에 표시될 내용 수신.
-$(document).on('click','.external-event',function() {
-  //data() 초기화
-  // 직원의 월별일정을 가져오기 전 저장되었던 data를 비운다.
-  $('#calendar').removeData('eventList');
-  $('#calendar').removeData('selectedList');
-  // 동일위치에 빈 객체를 생성한다.
-  $('#calendar').data('eventList',{});
-  originalDataLoc = $('#calendar').data('eventList');
-  $('#calendar').data('selectedList',{});
-  selectedDataLoc = $('#calendar').data('selectedList');
-
-  // 캘린더 초기화
-  $('#calendar').fullCalendar('removeEvents');
-  // 선택여부 표시 : 투명도 조정.
-  $('.clickEvent_Opacity').not($(this)).removeClass('clickEvent_Opacity');
-  // 선택된 것을 다시 누른것인지 판별.
-  var checkSelect = $(this).hasClass('clickEvent_Opacity');
-  // 변화시킬 버튼 선정.
-  var targetBtn = $('#modifyAndFinish');
-  targetBtn.removeClass('modifyFinish')
-  targetBtn.addClass('modify').text('작성')
-    .css({'background-color' : '#00a65a', 'border-color': '#00a65a;'});
-  targetBtn.attr('disabled', true);
-
-  // 선택되어 있는지 여부에 따라 실행.
-  // 선택되어 있었던 경우 = true.
-  if(checkSelect == true) {
-    // 1. 셀렉트 취소. --> 원래대로 되돌리고, 버튼 비활성화.
-    // 음영처리 제거.
-    $(this).removeClass('clickEvent_Opacity');
-
-    //캘린더의 화면을 목록의 마지막 다음달로 변경.
-    $('#calendar').fullCalendar('gotoDate',initialMonth);
-
-    // 월 인덱스가 저장되었던 변수를 초기화.
-    selectedMonthIndex = "";
-
-  } else if(checkSelect == false) {
-    // 2. 셀렉트
-    // 음영처리 : 선택한것을 시각적으로 보여줌.
-    $(this).addClass('clickEvent_Opacity');
-    // data로 저장된 monthIndex값을 읽어 화면 이동.
-    var thisMonthIndex = $(this).data().monthIndex;
-    console.log('thisMonthIndex');
-    console.log(thisMonthIndex);
-    var thisMonthObj = convertMonthIndexToMomentDateObj(thisMonthIndex);
-    $('#calendar').fullCalendar('gotoDate',thisMonthObj);
-
-    // 월 인덱스를 전역변수에 저장.
-    selectedMonthIndex = thisMonthIndex;
-
-    //calender rendering 작업, 화면을 해당월로 표기,
-    //a. 승인여부 판단하여 승인된 경우 버튼 비활성화.
-    targetBtn.attr('disabled', true);
-    var switchInfo = $(this).data().mendable;
-    if(switchInfo == false) {
-      // false : 수정불가 == 신청불가.
-      // 버튼 비활성화.
-      targetBtn.attr('disabled', true);
-    } else {
-      // true : 수정가능 == 신청가능
-      // 버튼 비활성화.
-      targetBtn.attr('disabled', false);
-    }
-    //b. 월별이벤트 데이터를 받아온다. --> {key = 1901 : value = {해당월의 계획} }
-    var targetMonth = $(this).data().monthIndex; // ex) 1901 = 19년 2월.
-    var userInfo = {'user_id' : userId};
-
-    //ajax로 데이터 수신. : 텍스트로 받아 parse.
-    var receivedData = $.parseJSON(getMonthlyPlan(targetMonth));
-    //var receivedData = receivedDummy; //테스트용. 수신받았다고 가정. --> 못받은 경우?
-
-    //직원별 정보 임시저장.
-    var individualList;
-    //이벤트 목록부분과 셀렉트된 부분을 나누어 저장한다.
-    for(var key in receivedData) {
-      if(key == targetMonth) {
-        originalDataLoc = receivedData[""+key+""];
-      } else {
-        individualList = receivedData[""+key+""];
-      }
-    }
-    // 선택된 목록을 바탕으로, 월별계획에서 객체를 선택하여 저장.
-    for(var i=0; i<individualList.length; i++) {
-      var thisEvent = individualList[i];
-      selectedDataLoc[""+thisEvent+""] = originalDataLoc[""+thisEvent+""];
-    }
-
-    console.log('individualList')
-    console.log(individualList)
-
-    //정보를 바탕으로 화면에 표시.
-    renderingProcessWithList(originalDataLoc, selectedDataLoc)
-  }
+//페이지 로딩 시 받은 일정정보를 화면에 Rendering : calendar로딩 시 초기값으로 지정하여 표시.
+$.each(originalDataLoc, function(id, obj) {
+  initialData.push(convertToEventObj(obj))
 })
-
-//a. 날짜 인덱스를 객체로 변환.
-function convertMonthIndexToMomentDateObj(mIndex) {
-  var yearPart = parseInt('20'+mIndex.slice(0,2));
-  var monthPart = parseInt(mIndex.slice(2));
-  return new Date(yearPart, monthPart);
-}
-
-//b. 월별 이벤트 데이터를 받아오는 함수.
-function getMonthlyPlan(inputVal) {
-  var targetMonthInfo = inputVal
-  var result;
-  console.log('targetMonthInfo')
-  console.log(targetMonthInfo)
-  $.ajax({
-		url : 'monthplan',
-		method : 'post',
-		// data : 서버로 보낼 데이터 - string or json(key/value)
-		data : targetMonthInfo,
-		// contentType : 서버로 보낼 데이터의 타입.
-		contentType: 'application/json',
-		// dataType : 서버로 부터 수신받을 데이터 타입.
-		dataType : 'text',
-		async : false,
-		error : function(response) {
-			alert("통신실패, response: " + response);
-			console.log(response);
-		},
-		success : function(response) {
-			console.log(response);
-			result = response;
-		}
-	});
-  return result;
-}
-//./ End of 3. external eventbar 선택기능
-
-
-//4. 작성/작성완료 #modifyAndFinish
-$('#modifyAndFinish').click(function() {
-  if($(this).hasClass('modify') == true) {
-    //수정으로 표시되는 경우, --> 수정완료로 변경.
-    $(this).removeClass('modify');
-    $(this).addClass('finishModify').text('작성완료')
-      .css({'background-color' : '#e47636', 'border-color': '#e47636'});
-
-  } else if($(this).hasClass('finishModify') == true) {
-    //수정완료로 표시되는 경우, --> 수정으로 변경
-    $(this).removeClass('finishModify');
-    $(this).addClass('modify').text('작성')
-      .css({'background-color' : '#00a65a', 'border-color': '#00a65a'});
-  }
-});
-
 
 //fullCalendar 로드, 초기화
 $(function() {
@@ -583,8 +392,8 @@ $(function() {
       day  : 'day'
     },
 //>>//Ajax로 가져올 event data
-    defaultDate : initialMonth,
-    //events : initialData,
+    defaultDate : selectedMonth,
+    events : initialData,
     //월별 표시되는 달력의 길이조정.
     fixedWeekCount : false,
     //현재 월 외의 날짜 표시조정. --> 현재표시된 날짜 외 이벤트 발생x.
@@ -592,10 +401,6 @@ $(function() {
 
     //이벤트 선택
     eventClick: function (calEvent, jsEvent, view) {
-      //state가 2인 경우, 작동하지 않음.
-      var thisState = originalDataLoc[""+calEvent.id+""].state;
-      //작성버튼이 눌러져 있을 때.
-      if(($('#modifyAndFinish').hasClass('finishModify') == true)&&(parseInt(thisState) != 2)) {
         //mp와 pc가 일치하지 않는 경우 --> 일반작동
         //mp와 pc가 일치하는경우
         // --> 내 목록에 있으면 수정가능
@@ -607,41 +412,39 @@ $(function() {
         var checkExist = find('.eventMarker');
         if(thisMp == thisPc) {
           if(selectedDataLoc[""+calEvent.id+""].id == calEvent.id) {
-            checkAndSelectRequest(calEvent.id)
+            checkAndSelectRequest(calEvent.id, userId)
           }
         } else {
-          checkAndSelectRequest(calEvent.id)
+          checkAndSelectRequest(calEvent.id, userId)
         }
-      }
-    },
+      },
   });
   //첫 화면 로드 시 화면을 다시 그려줌.
   renderingProcessWithList(originalDataLoc, selectedDataLoc)
-
 });
 console.log('originalDataLoc : 일정 신청 전')
 console.log(originalDataLoc)
 
 // ./ End of fullCalendar 초기화 -------------------------------------
 
-function checkAndSelectRequest(eventId) {
+function checkAndSelectRequest(eventId, user) {
   var comSign = false;
   if($('span:contains("'+eventId+'")').parent().parent().hasClass('selectedEvent')) {
     alert('취소')
     // 선택되어 있는 경우 --> 취소요청
     comSign = false;
-    communicationProcess(comSign, eventId);
+    communicationProcess(comSign, eventId, user);
   } else {
     alert('신청')
     // 선택되어 있지 않은경우 --> 등록요청
     comSign = true;
-    communicationProcess(comSign, eventId);
+    communicationProcess(comSign, eventId, user);
   }
 }
 
-function communicationProcess(sign, id) {
+function communicationProcess(sign, id, user) {
   //user = userId :전역변수. 세선값.
-  var packedTarget = id;
+  var packedTarget = createSendingObj(id, user);
   //ajax 통신 후 성공한 값을 수신 받는다.
   var communicateResult = sendInfo(sign, packedTarget);
   //var communicateResult = receiveS; //더미 - 일정신청 시
@@ -651,7 +454,7 @@ function communicationProcess(sign, id) {
   } else {
     //성공한 경우, 경우에 따라 리턴값 화면에 업데이트 방법 추가필요....
     if((sign == true) && (id == Object.keys(communicateResult)[0])){
-      alert('신청')
+      //alert('신청')
       //등록과정 --> 등록한 내용 List로 저장.
       //origin에 저장(for manpower업데이트 후 이벤트 렌더링)
       // & select에 저장(렌더링 후 신청여부 다시 표시하기 위해).
@@ -662,6 +465,7 @@ function communicationProcess(sign, id) {
       console.log(selectedDataLoc)
 
     } else if((sign == false) && (id == Object.keys(communicateResult)[0])) {
+      //alert('취소')
       //취소과정 --> 등록한 내용에서 삭제.
       //$('span:contains("'+id+'")').parent().parent().removeClass('selectedEvent');
       originalDataLoc[""+id+""] = communicateResult[""+id+""];
@@ -715,9 +519,16 @@ function renderingProcessWithList(eList, sList) {
   }
 }
 
+function createSendingObj(targetEvent, user) {
+  var newObj = 
+    //userId : { user_id : user },
+  targetEvent;
+  
+  return newObj;
+}
 
-function sendInfo(sign, eId) {
-  //control url필요.
+function sendInfo(sign, obj) {
+  //controll url필요.
   var addPlan = "requestworking" //일정 신청.
   var rmPlan = "rm" //신청 취소.
   var selectedUrl;
@@ -730,13 +541,13 @@ function sendInfo(sign, eId) {
   $.ajax({
 		url : selectedUrl,
 		method : 'post',
-		// data : 서버로 보낼 데이터
-		data : eId,
-		// contentType : 서버로 보낼 데이터의 타입.
-		contentType : 'application/json;charset=UTF-8',
-		// dataType : 서버로 부터 수신받을 데이터 타입.
+    	// data : 서버로 보낼 데이터
+		data : obj,
+    	// contentType : 서버로 보낼 데이터의 타입.
+    	contentType : 'application/json;charset=UTF-8',
+    	// dataType : 서버로 부터 수신받을 데이터 타입.
 		dataType : 'json',
-		async : false,
+    	async : false,
 		error : function(response) {
 			//alert("통신실패, response: " + response);
 			result = 'fail';
@@ -759,7 +570,7 @@ function remakeDisplayedEvents(antPeopleObjList) {
       var pcValue = antPeopleObjList[""+key+""].peopleCount;
       var mpValue = antPeopleObjList[""+key+""].manPower;
       var newTitle = antPeopleObjList[""+key+""].title;
-      var thisState = antPeopleObjList[""+key+""].state;
+
       //새로 생성한 tag가 있는경우 --> 값만 변경.
 
       //tag정보 생성.
@@ -780,13 +591,6 @@ function remakeDisplayedEvents(antPeopleObjList) {
         $('span:contains("'+key+'")').parent().find('.eventMarker').text(pcValue+'/'+mpValue+"명");
         $('span:contains("'+key+'")').parent().find('.eventTitle').text(newTitle);
       }
-      if(thisState == 2) {
-        $('span:contains("'+key+'")').parent().parent().css({'opacity' : '0.5'});
-      } else if(thisState == 3) {
-        $('span:contains("'+key+'")').parent().parent()
-          .css({'text-decoration':'line-through', 'background-color' : 'grey', 'border-color' : 'grey'})
-      }
-
     }
   //}
 }

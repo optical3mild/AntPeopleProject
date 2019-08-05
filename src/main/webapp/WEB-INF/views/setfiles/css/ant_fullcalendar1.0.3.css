@@ -1,12 +1,12 @@
-/* external eventbar style */
-.clickEvent_Opacity {
+/* select or disable marker */
+.clickEvent_Opacity, .selectStaffBar_Opacity, .excessMp {
   opacity : 0.5;
 }
 .divArea {
   border : 0.5px solid #ccc;
   margin : 5px;
 }
-/* ./ End of external eventbar style */
+/* ./ select or disable marker */
 
 /* plannerMain style */
 .staffBar {
@@ -17,9 +17,6 @@
   text-shadow: 0 1px 1px rgba(0,0,0,0.1);
   border-radius: 3px;
   /*cursor: move;*/
-}
-.selectStaffBar_Opacity {
-  opacity : 0.5;
 }
 .staffBar:hover {
   box-shadow: inset 0 0 90px rgba(0,0,0,0.2);
@@ -58,11 +55,11 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 }
 
 /* accept page */
-.approval, .finishModify {
+.approval, .finishModify, .finishModify:disabled, .modify {
   background-color: #00a65a;
   border-color: #00a65a;
 }
-.approval:hover, .finishModify:hover {
+.approval:hover, .finishModify:hover, .modify:hover {
   opacity : 0.5;
   background-color: #00a65a;
   border-color: #00a65a;
@@ -75,10 +72,6 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
   opacity : 0.5;
   background-color: #e47636;
   border-color:  #e47636;
-}
-.finishModify:disabled{
-  background-color: #00a65a;
-  border-color: #00a65a;
 }
 .btn-primary:focus {
   color: #fff;

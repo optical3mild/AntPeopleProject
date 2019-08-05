@@ -141,6 +141,6 @@
 - (종환) DataTable 설정
 
 ### Day 22 : Schedule 등록 마무리 (10.08.05)
-- (정우) 일정등록 ui - accept.jsp 추가. 
+- (정우) 일정등록 ui - accept.jsp 추가, requestWork.jsp 업데이트.  
 - (오인) 근무 신청 승인/거절 관련 Service 수정 및 테스트 완료
 - (오인) Owner Controller 근무 신청 승인/거절 및 월별 일정 리스트 완료 버튼 연결
