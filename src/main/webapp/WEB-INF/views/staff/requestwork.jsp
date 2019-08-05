@@ -29,13 +29,7 @@
   
   <!-- external eventbar style -->
   <link rel="stylesheet" href="setfiles/css/ant_fullcalendar1.0.3.css?ver=1">
-  
-  <style>
-    .excessMp {
-      opacity: 0.5;
-    }
-  </style>
-  
+
   <%@ include file= "../common/header.jsp" %>
   
 </head>
@@ -68,52 +62,18 @@
 
           <div class="box box-solid">
             <div class="box-header with-border">
-              <h4 class="box-title">Draggable Events</h4>
+              <h4 class="box-title">Monthly Plan List</h4>
             </div>
-             
             <div class="box-body">
               <!-- the events -->
               <div id="external-events">
               </div>
+              <hr class="divArea">
+              <button id="modifyAndFinish" type="button" class="btn btn-primary btn-flat pull-right modify" disabled>작성</button>
             </div>
             <!-- /.box-body -->
           </div>
           <!-- /. box -->
-          <div class="box box-solid">
-            <div class="box-header with-border">
-              <h3 class="box-title">Create Event</h3>
-            </div>
-            <div class="box-body">
-
-              <div class="input-group" style="width:100%">
-                <div>
-                  <label for="newE-startT">시작시간</label>
-                  <input class="form-control timeForm forColor panel" name='start-insert' type="time" id="newE-startT" value="00:00">
-                </div>
-                <br><br>
-                <div>
-                  <label for="newE-endT">종료시간</label>
-                  <input class="form-control timeForm" name='end-insert' type="time" id="newE-endT" value="00:00">
-                </div>
-                <br><br>
-                <hr class="divArea">
-                <button id="add-new-event" type="button" class="btn btn-primary btn-flat colorButton pull-right">Add</button>
-                <!-- /btn-group -->
-              </div>
-              <!-- /input-group -->
-            </div>
-          </div>
-
-          <div class="box box-solid">
-            <div class="box-body">
-                <label for="beforeSubmit">
-                  <input type="checkbox" id="beforeSubmit">
-                  일정을 등록합니다.
-                </label>
-                <button id="submitPlan" type="button" class="btn btn-primary btn-flat pull-right">작성완료</button>
-            </div>
-            <!-- /.box-body -->
-          </div>
 
         </div>
         <!-- /.col -->
@@ -140,46 +100,6 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- Input Modal Form  -->
-<div class="modal fade" id="selectPopup" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
-        <h4 class="modal-title">이벤트생성창</h4>
-      </div>
-      <div class="modal-body" id="inputTableForm">
-        <div class="input-group" style="width:100%">
-          <div>
-            <label for="insModal-S">시작시간</label>
-            <input class="form-control timeForm forColor in-modal" name='insModal-S' type="time" id="modal-startT" value="00:00">
-          </div>
-          <br><br>
-          <div>
-            <label for="insModal-E">종료시간</label>
-            <input class="form-control timeForm" name='insModal-S' type="time" id="modal-endT" value="00:00">
-          </div>
-          <br><br>
-          <div>
-            <label for="insModal-P">인원</label>
-            <input class="form-control timeForm" name='insModal-P' type="number" id="modal-numP" value="0">
-          </div>
-          <!-- /btn-group -->
-        </div>
-      </div>
-      <div class="modal-footer">
-        <!-- 이벤트 생성, 창닫기 -->
-        <button id="makeEvent" class="btn btn-primary btn-flat pull-right colorButton" type="button" data-dismiss="modal">확인</button>
-        <button id="closeEventModal" class="btn btn-primary btn-flat pull-left" type="button" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">취소</span>
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- jQuery 3 -->
 <script src="setfiles/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
@@ -201,6 +121,7 @@
 <!-- fullCalendar -->
 <script src="setfiles/bower_components/moment/moment.js"></script>
 <script src="setfiles/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+
 <!-- Page specific script -->
 <script>
 //DayObj, TimeObj : 프로토타입 객체.
