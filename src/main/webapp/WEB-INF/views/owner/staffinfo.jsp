@@ -26,6 +26,8 @@
   <!-- DataTables -->
   <link rel="stylesheet" href="setfiles/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   
+  <!-- pagination -->
+  <link rel="stylesheet" href="setfiles/css/ant_fullcalendar1.0.3.css">
   
   <%@ include file= "../common/header.jsp" %>
 </head>

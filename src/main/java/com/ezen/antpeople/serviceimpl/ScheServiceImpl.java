@@ -211,7 +211,7 @@ public class ScheServiceImpl implements ScheService {
 	
 	//일정에 근무 신청 시
 	@Override
-	public void updateUserSchedule(UserDetailDTO user, String schedule_id) {
+	public ScheDetailDTO updateUserSchedule(UserDetailDTO user, String schedule_id) {
 		//1. 해당 일정의 정보 가져오기
 		logger.info("일정 유니크 아이디 : " + schedule_id);
 		ScheEntity entity = scheRepository.findByUnique(schedule_id).get();
@@ -226,6 +226,7 @@ public class ScheServiceImpl implements ScheService {
 		entity.updatePeopleCountAndUser(toUsers);
 		scheRepository.save(entity);
 		logger.info("근무 신청 완료");
+		return entity.buildDTO();
 	}
 
 	//일정 승인,거절하는 메소드
@@ -240,6 +241,17 @@ public class ScheServiceImpl implements ScheService {
 			logger.info("일정 신청 거절");
 		}
 		logger.info("일정 승인 or 거절 완료");
+	}
+
+	//당일 근무자 리스트 가져오기
+	@Override
+	public List<ScheUserDTO> todayStaffList(String store, String month) {
+		List<ScheUserDTO> userList = new ArrayList<ScheUserDTO>();
+		List<ScheRelation> entitys = new ArrayList<ScheRelation>(usRepository.findByToUserStoreStoreAndScheStartDate(store, month));
+		for(ScheRelation entity : entitys) {
+			userList.add(entity.buildDTO());
+		}
+		return userList;
 	}
 
 }

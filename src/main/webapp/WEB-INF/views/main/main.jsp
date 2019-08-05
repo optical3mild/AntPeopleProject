@@ -22,6 +22,9 @@
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <!-- pagination -->
+  <link rel="stylesheet" href="setfiles/css/ant_fullcalendar1.0.3.css">
+ 
   <%@ include file= "../common/header.jsp" %>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -125,15 +128,6 @@
             <div class="box-header">
               <h3 class="box-title">공지사항</h3>
 
-              <div class="box-tools">
-                <ul class="pagination pagination-sm no-margin pull-right">
-                  <li><a href="#">&laquo;</a></li>
-                  <li><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">&raquo;</a></li>
-                </ul>
-              </div>
             </div>
             <!-- /.box-header -->
             <div class="box-body no-padding">
@@ -154,6 +148,15 @@
               </table>
             </div>
             <!-- /.box-body -->
+            <div class="box-footer text-center">
+                <ul class="pagination">
+                  <li><a href="#">&laquo;</a></li>
+                  <li><a href="#">1</a></li>
+                  <li><a href="#">2</a></li>
+                  <li><a href="#">3</a></li>
+                  <li><a href="#">&raquo;</a></li>
+                </ul>
+              </div>
           </div>
           <!-- /.box -->
           
@@ -166,16 +169,6 @@
          <div class="box">
             <div class="box-header">
               <h3 class="box-title">자유게시판</h3>
-
-              <div class="box-tools">
-                <ul class="pagination pagination-sm no-margin pull-right">
-                  <li><a href="#">&laquo;</a></li>
-                  <li><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">&raquo;</a></li>
-                </ul>
-              </div>
             </div>
             <!-- /.box-header -->
             <div class="box-body no-padding">
@@ -201,6 +194,15 @@
               </table>
             </div>
             <!-- /.box-body -->
+            <div class="box-footer text-center">
+                <ul class="pagination">
+                  <li><a href="#">&laquo;</a></li>
+                  <li><a href="#">1</a></li>
+                  <li><a href="#">2</a></li>
+                  <li><a href="#">3</a></li>
+                  <li><a href="#">&raquo;</a></li>
+                </ul>
+              </div>
           </div>
           <!-- /.box -->
           
@@ -545,6 +547,63 @@
 <script src="setfiles/dist/js/adminlte.min.js"></script>
 
 <%@ include file = "../common/_commonScriptList.jspf" %>
+<script>
+var board = {};
+var lstCnt = 10;
+board.boardList = {
+        init : function(cmpnNo, lstCnt) {
+            var page = 1;
+            board.boardList.param.pageNumber = Number(page);
+            board.boardList.param.cmpnNo = cmpnNo;
+            board.boardList.param.pageSize = lstCnt;
+            board.boardList.data();
+        },
+       data : function() {
+            $.ajax({
+                url : 'event/boardList',
+                data : board.boardList.param,
+                success : function(result) {
+                    var boardList = result.boardList;
+                    if(boardList.length != 0){
+                        board.boardList.totalCount = boardList[0].totalCount; // 총 건수
+                    };
+                    drawPagination(lstCnt);
+                    var markup ="";    // mark 로직 작성
+                    $("#event_div").html(markup);
+                },
+                error : function() {
+                    alert('게시판 조회 중 오류가 발생했습니다.');
+                }
+            });
+        },
+        param : {
+            pageNumber : 1,
+            pageSize : lstCnt
+        },
+        totalCount : 0
+    };
+ 
+//페이징을 설정하고 페이징 영역에 화면에 그리는 함수
+function drawPagination(lstCnt){
+    $("#boardPagingDiv").pagination({
+       items: board.boardList.totalCount,
+       currentPage : board.boardList.param.pageNumber,
+       itemsOnPage: lstCnt, // 설정 안할 경우 10
+       displayedPages : lstCnt, // 설정 안할 경우 10
+       selectOnClick : false, // 페이징 버튼을 눌렀을 때 자동으로 페이징을 다시 그릴지 여부 (기본값은 true)
+       onPageClick: function(currentPage){ // 페이징 버튼을 눌렀을 때 이벤트 바인딩
+           searchBoardListPaging(currentPage); // 페이징 버튼을 눌렀을 때 다시 비동기로 데이터를 가져와 화면과 페이징을 그립니다.
+       }
+   });
+}
+ 
+// 페이징 번호 눌렀을때 함수
+function searchBoardListPaging (page) {
+    board.boardList.param.pageNumber = Number(page);
+    board.boardList.data();
+    drawPagination(lstCnt);
+}
 
+</script>
 </body>
 </html>

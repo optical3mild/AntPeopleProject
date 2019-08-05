@@ -61,7 +61,7 @@ public class ScheUserListDTO {
 		if(!userSchedule.get().isEmpty()) {
 			log.info("일정에 대한 사용자 존재");
 			for(String user_id : userSchedule.get().keySet()) {
-				users += "\""+user_id+"\":"+userSchedule.get().get(user_id).toString()+",";
+				users += "\""+user_id+"\":\""+userSchedule.get().get(user_id).toString()+"\",";
 			}
 			users = users.substring(0, users.length()-1);
 		}
