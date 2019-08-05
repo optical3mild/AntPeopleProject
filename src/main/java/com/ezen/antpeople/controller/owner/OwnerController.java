@@ -66,13 +66,13 @@ public class OwnerController {
 	
 	// 운영 계획 - 1
 	@RequestMapping("monthplanpage")		// nav에 있는 monthplanpage(운영계획)을 클릭함
-	public ModelAndView monthplanpage(ModelAndView mav,  HttpServletRequest request) {
+	public ModelAndView monthplanpage(ModelAndView mav, HttpServletRequest request) {
 		logger.info("monthplanpage");
 		HttpSession httpSession = request.getSession(true);
 		UserDetailDTO userDto = (UserDetailDTO) httpSession.getAttribute("user");
 		logger.info("userDto : "+userDto.toString());
-		List<MonthPlanDTO> sche = monthplanService.monthPlanList(userDto);
-		logger.info("monthplanpage Data : "+sche.toString());
+		String sche = monthplanService.monthPlanList(userDto);
+		logger.info("monthList Data : "+sche.toString());
 		mav.addObject("monthList", sche);	// DB에 데이터가 있는 월들을 저장
 		mav.setViewName("monthplanpage");	// monthplanpage로 이동
 		return mav;
@@ -93,8 +93,12 @@ public class OwnerController {
 	// 생성 버튼 3-1
 	@RequestMapping("createplan")	// monthplanpage에서 createplan(생성버튼)을 클릭함
 	@ResponseBody
-	public String insertPlanPage() throws Exception {
+	public String insertPlanPage(HttpServletRequest request, @RequestBody String date) throws Exception {
 		logger.info("createplan");
+		HttpSession httpSession = request.getSession(true);
+		UserDetailDTO userDto = (UserDetailDTO) httpSession.getAttribute("user");
+		logger.info("userDto : "+userDto.toString());
+		monthplanService.newMonthPlan(userDto.getUser_id(), date);
 		return "insertplanpage";	// insertplanpage로 이동
 	}
 	
@@ -156,7 +160,7 @@ public class OwnerController {
 		logger.info("accept 페이지");
 		HttpSession httpSession = request.getSession(true);
 		UserDetailDTO userDto = (UserDetailDTO) httpSession.getAttribute("user");
-		List<MonthPlanDTO> sche = monthplanService.monthPlanList(userDto);
+		String sche = monthplanService.monthPlanList(userDto);
 		logger.info("userDto : "+userDto.toString());
 		logger.info("monthplanpage Data : "+sche.toString());
 		mav.addObject("monthIndex", sche);	// DB에 데이터가 있는 월들을 저장
