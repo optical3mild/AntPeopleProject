@@ -15,6 +15,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.ezen.antpeople.config.RootConfig;
 import com.ezen.antpeople.config.SecurityConfig;
 import com.ezen.antpeople.dto.sche.MonthPlanDTO;
+import com.ezen.antpeople.dto.sche.MonthPlanListDTO;
 import com.ezen.antpeople.dto.user.UserDetailDTO;
 import com.ezen.antpeople.repository.UserRepository;
 import com.ezen.antpeople.service.MonthPlanService;
@@ -43,11 +44,12 @@ public class MonthPlanCRUTest {
 	}
 	
 	//리스트 조회 테스트 - 성공
-	@Test @Ignore
+	@Test
 	public void monthPlanListTest() {
 		UserDetailDTO user = ur.findByEmail("tkwkd123@gmail.com").get().buildDTO();
 		List<MonthPlanDTO> planList = ms.monthPlanList(user);
-		log.info(planList.toString());
+		MonthPlanListDTO planMap = new MonthPlanListDTO(planList);
+		log.info(planMap.toString());
 		
 	}
 	
