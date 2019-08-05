@@ -61,7 +61,10 @@ public class ScheUserListDTO {
 		if(!userSchedule.get().isEmpty()) {
 			log.info("일정에 대한 사용자 존재");
 			for(String user_id : userSchedule.get().keySet()) {
-				users += "\""+user_id+"\":\""+userSchedule.get().get(user_id).toString()+"\",";
+				users += "\""+user_id+"\":[";
+				for(String schedule : userSchedule.get().get(user_id))
+					users +="\""+schedule +"\",";
+				users = users.substring(0, users.length()-1) +"] ,";
 			}
 			users = users.substring(0, users.length()-1);
 		}
@@ -78,7 +81,7 @@ public class ScheUserListDTO {
 			String scheduleId = schedule.getUnique();
 			if(user.isPresent()) {
 				Set<String> schedules = new HashSet<String>();
-				String key = "["+user.get().getUser_id()+"] "+user.get().getName();
+				String key = user.get().getUser_id()+"_"+user.get().getName();
 				if(userSchedule.get(key) != null) {
 					log.info("기존의 등록된 정보가 있는 회원");
 					schedules = userSchedule.get(key);
@@ -87,25 +90,6 @@ public class ScheUserListDTO {
 				log.info("해당 유저가 신청한 schedule : " + schedule);
 				userSchedule.put(key,schedules);
 			}			
-		}
-		return userSchedule;
-	}
-	//테스트
-	public Map<String, Set<String>> userScheduleListTest(Set<ScheUserDTO> userToScheList){
-		Map<String,Set<String>> userSchedule = new HashMap<String,Set<String>>();
-		
-		for(ScheUserDTO userToSchedule : userToScheList) {
-			if(userToSchedule.getState() != 3) {
-				String scheduleId = userToSchedule.getUnique();
-				Set<String> schedules = new HashSet<String>();
-				int user_id = userToSchedule.getUser().getUser_id();
-				String name = userToSchedule.getUser().getName();
-				if(userSchedule.get(user_id) != null) {
-					schedules = userSchedule.get(user_id);
-				}
-				schedules.add(scheduleId);
-				userSchedule.put("["+user_id+"] "+name,schedules);
-			}
 		}
 		return userSchedule;
 	}

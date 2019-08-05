@@ -2,6 +2,7 @@ package com.ezen.antpeople.serviceimpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ public class MonthPlanServiceImpl implements MonthPlanService {
 	//새로운 월별 테이블 등록
 	@Override
 	public void newMonthPlan(int user_id, String date) {
-		MonthPlanDTO monthPlan = new MonthPlanDTO(user_id, date);
+		MonthPlanDTO monthPlan = new MonthPlanDTO(user_id, date,true);
 		MonthPlanEntity entity = new MonthPlanEntity(monthPlan);
 		monthPlanRepository.save(entity);
 		
@@ -32,9 +33,12 @@ public class MonthPlanServiceImpl implements MonthPlanService {
 
 	//월별 테이블 수정 가능 여부 조정
 	@Override
-	public void stateMonthPlan(int user_id, String date, boolean state) {
-		MonthPlanEntity entity = monthPlanRepository.findByUser_idAndMonthStartingWith(user_id, date);
-		entity.updateState(state);
+	public void stateMonthPlan(int user_id, Map<String, Boolean> month) {
+		MonthPlanEntity entity = new MonthPlanEntity();
+		for(String key : month.keySet()) {
+			entity = monthPlanRepository.findByUser_idAndMonthStartingWith(user_id, key);
+			entity.updateState(month.get(key));
+		}
 		monthPlanRepository.save(entity);
 	}
 	

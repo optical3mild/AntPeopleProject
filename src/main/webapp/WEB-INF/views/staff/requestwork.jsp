@@ -340,13 +340,11 @@ var selectedDataLoc = $('#calendar').data('selectedList');
 var initialData = [];
 //수신데이터가 있을 경우, 저장.
 var gotData = $.parseJSON('${jsonList}');
-<<<<<<< HEAD
 //로그인한 staff가 신청했던 일정목록.
 var sselectedUserEvent = $.parseJSON('${selectedList}');
-=======
 console.log("gotData")
 console.log(gotData)
->>>>>>> d46ea2c3c80e93e45b53164bd93ff1d79e65c35d
+
 
 // 받은데이터가 있는 경우, calendar element에 data로 저장한다.
 if(gotData != "") {

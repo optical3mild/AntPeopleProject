@@ -104,6 +104,7 @@ public class ScheDetailDTO {
 				+ "\"title\":\"" + title + "\","
 				+ "\"state\":" + state + ","
 				+ "\"manPower\":" + manPower + ","
+				+ "\"peopleCount\":" + peopleCount + ","				
 				+ "\"fromUser\":" + "{\"user_id\":"+fromUser.getUser_id()+"},"
 				+ "\"userId\":" + fromUser.getUser_id()
 				+ "}";

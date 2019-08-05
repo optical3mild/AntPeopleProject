@@ -35,6 +35,10 @@ public class ScheUserDTO {
 		this.startTime = start_time;
 		this.endTime = end_time;
 	}
+	
+	public void updateScheState(int state) {
+		this.state = state;
+	}
 
 	@Override
 	public String toString() {
