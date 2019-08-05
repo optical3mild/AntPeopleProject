@@ -93,7 +93,7 @@ public class ScheServiceImpl implements ScheService {
 		Set<ScheUserDTO> userToSchedules = new HashSet<ScheUserDTO>();
 		List<ScheEntity> entitys = new ArrayList<ScheEntity>(scheRepository.findByFromUserAndStartDateStartingWith(userRepository.findById(user.getUser_id()).get(),startDate));
 		Optional<List<ScheRelation>> UserEntitys = 
-				Optional.of(usRepository.findByToUserStoreStoreAndScheFromUserIdAndScheStartDateStartingWith(user.getStore().getStore(),user.getUser_id(),startDate));
+				Optional.of(usRepository.findByToUserStoreStoreAndScheFromUserIdAndStateAndScheStartDateStartingWith(user.getStore().getStore(),user.getUser_id(),1,startDate));
 		for(ScheEntity entity :entitys) {
 			schedules.add(entity.buildDTO());
 		}
@@ -142,7 +142,7 @@ public class ScheServiceImpl implements ScheService {
 		return schedules;
 	}
 
-	//일정 수정, 삭제 하기
+	//사장이 등록한 일정 수정, 삭제 하기
 	@Override
 	public void updateSchedule(Map<String, ScheDetailDTO> schedules) {
 		for(String key : schedules.keySet()) {
@@ -211,7 +211,7 @@ public class ScheServiceImpl implements ScheService {
 	
 	//일정에 근무 신청 시
 	@Override
-	public void updateUserSchedule(UserDetailDTO user, String schedule_id) {
+	public ScheDetailDTO updateUserSchedule(UserDetailDTO user, String schedule_id) {
 		//1. 해당 일정의 정보 가져오기
 		logger.info("일정 유니크 아이디 : " + schedule_id);
 		ScheEntity entity = scheRepository.findByUnique(schedule_id).get();
@@ -226,6 +226,7 @@ public class ScheServiceImpl implements ScheService {
 		entity.updatePeopleCountAndUser(toUsers);
 		scheRepository.save(entity);
 		logger.info("근무 신청 완료");
+		return entity.buildDTO();
 	}
 
 	//일정 승인,거절하는 메소드
@@ -240,6 +241,54 @@ public class ScheServiceImpl implements ScheService {
 			logger.info("일정 신청 거절");
 		}
 		logger.info("일정 승인 or 거절 완료");
+	}
+	
+	//일정 승인,거절하는 메소드
+	@Override
+	public void permissionSchedule(Map<Integer,Set<String>> schedules, String month) {
+		List<ScheRelation> entitys = new ArrayList<ScheRelation>();
+		Set<String> deletedSchedules = new HashSet<String>();
+		for(Integer key : schedules.keySet()) {
+			logger.info("key값 : " + key);
+			entitys = usRepository.findByToUser_idAndScheStartDateStartingWith(key, month);
+			deletedSchedules = schedules.get(key);
+		}
+		logger.info("사용자의 일정 신청 리스트 : " + entitys.toString());
+		logger.info("일정 거절 리스트 : " + deletedSchedules.toString());
+		//만약 entity리스트의 요소가 deletedSchedules의 요소중 하나랑 같으면 일정 승인 거절 표시
+		for(ScheRelation entity : entitys) {
+			ScheUserDTO schedule = entity.buildDTO();
+			Optional<ScheEntity> scheEntity = scheRepository.findByUnique(schedule.getUnique());
+			for(String deletedSchedule : deletedSchedules) {
+				String schedule_unigue = schedule.getUnique();
+				logger.info("승인 신청 일정 : " + schedule_unigue);
+				logger.info("승인 신청 거절 일정 :"+deletedSchedule);
+				if(schedule_unigue.equals(deletedSchedule)) {
+					schedule.updateScheState(3); //일정 승인 거절
+					scheEntity.get().downPeopleCount(); //인원수 차감
+					scheRepository.save(scheEntity.get());
+					logger.info("일정 신청 거절");
+					break;
+				} else {
+					logger.info("거절이 없는 일정");
+					schedule.updateScheState(2);//일정 승인 완료
+				}
+			}
+			usRepository.save(new ScheRelation(schedule));
+		}
+		logger.info("일정 승인 or 거절 완료");
+	}
+
+
+	//당일 근무자 리스트 가져오기
+	@Override
+	public List<ScheUserDTO> todayStaffList(String store, String month) {
+		List<ScheUserDTO> userList = new ArrayList<ScheUserDTO>();
+		List<ScheRelation> entitys = new ArrayList<ScheRelation>(usRepository.findByToUserStoreStoreAndScheStartDate(store, month));
+		for(ScheRelation entity : entitys) {
+			userList.add(entity.buildDTO());
+		}
+		return userList;
 	}
 
 }

@@ -605,12 +605,10 @@ $('#submitPlan').click(function() {
 	console.log(dataLocation)
 	// dataLocation: 스크립트 헤드에 적힌 전역변수
 	$.ajax({
-		url : 'insertplan',
+		url : 'insertplan?month=${getInitialMonth}',
 		method : 'post',
-		data : JSON.stringify(dataLocation),
-		
-		contentType: 'application/json;charset=UTF-8',
-		
+		data : JSON.stringify(dataLocation),	
+		contentType: 'application/json;charset=UTF-8',	
 		dataType : 'text',
 		async : false,
 		error : function(response) {

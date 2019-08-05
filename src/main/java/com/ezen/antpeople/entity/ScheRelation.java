@@ -35,15 +35,26 @@ public class ScheRelation implements Serializable{
 	private ScheEntity sche;
 	
 	private int state;
+	private String start_time;
+	private String end_time;
 	
 	public ScheRelation(ScheUserDTO userToSche) {
 		this.toUser = new UserEntity(userToSche.getUser());
 		this.sche = new ScheEntity(userToSche.getSchedule_id(),"");	
 		this.state = userToSche.getState();
+		this.start_time = userToSche.getStartTime();
+		this.end_time = userToSche.getEndTime();
 	}
+	
 	public ScheUserDTO buildDTO() {
 		return new ScheUserDTO(this.toUser.buildDTOSmall(), this.sche.getId(),this.sche.getUnique(),this.state);
 	}
+	
+	public ScheUserDTO buildWorkDTO() {
+		return new ScheUserDTO(this.toUser.buildDTOSmall(), this.sche.getId(),this.sche.getUnique(),this.state, this.start_time, this.end_time);
+	}
+	
+	//ScheDetailDTO로 변환하는 메소드
 	public ScheDetailDTO buildDetailDTO() {
 		return this.sche.buildDTO();
 	}
