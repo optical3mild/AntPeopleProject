@@ -131,6 +131,8 @@ CREATE TABLE user_sche
 	-- 2 - 승인 완료
 	state int DEFAULT 1 COMMENT '1 - 승인 신청중
 2 - 승인 완료',
+	start_time varchar(10),
+	end_time varchar(10),
 	PRIMARY KEY (user_id, sche_id)
 );
 

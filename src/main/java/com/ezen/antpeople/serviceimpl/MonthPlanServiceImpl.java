@@ -39,12 +39,11 @@ public class MonthPlanServiceImpl implements MonthPlanService {
 	
 	//테이블 수정 가능 여부 확인
 	@Override
-	public MonthPlanDTO monthPlan() {
-		// TODO Auto-generated method stub
-		return null;
+	public MonthPlanDTO monthPlan(UserDetailDTO user, String month) {
+		return monthPlanRepository.findByUser_idAndMonthStartingWith(user.getUser_id(), month).buildDTO();
 	}
 	
-	//월별 테이블 수정 가능 여부 확인
+	//월별 테이블 수정 s가능 여부 확인
 	@Override
 	public List<MonthPlanDTO> monthPlanList(UserDetailDTO user) {
 		List<MonthPlanDTO> planList = new ArrayList<MonthPlanDTO>();

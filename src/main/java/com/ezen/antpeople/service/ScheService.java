@@ -1,5 +1,6 @@
 package com.ezen.antpeople.service;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -22,10 +23,15 @@ public interface ScheService {
 	public ScheUserListDTO findAllMonthAndUser(UserDetailDTO user, String startDate);
 	public ScheUserListDTO findAllMonthAndStaff(UserDetailDTO user, String startDate);
 	
+	//당일 근무자 목록 가져오기
+	public List<ScheUserDTO> todayStaffList(String store, String startDate);
+	
 	//일정 변경하기, 삭제하기
-	public void updateSchedule(Map<String, ScheDetailDTO> schedules);
+	public void updateSchedule(Map<String, ScheDetailDTO> schedules); 
 	public void deleteSchedule(Map<String, ScheDetailDTO> schedules);
-	public void updateUserSchedule(UserDetailDTO user, String schedule_id);
+	
+	//직원의 근무 신청에 대한 일정 변경
+	public ScheDetailDTO updateUserSchedule(UserDetailDTO user, String schedule_id);
 	
 	//일정 유무
 	public Set<String> isScheduleMonthList(UserDetailDTO user);

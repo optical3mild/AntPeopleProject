@@ -9,7 +9,5 @@ public interface TodoService {
 	public void uploadTodo(TodoDetailDTO todo); //할일 생성
 	public void deleteTodo(int todo_id); //할일 삭제
 	public List<TodoDetailDTO> TodoListByUser(UserDetailDTO user); //할일 리스트 받아오기
-	List<TodoDetailDTO> TodoListByFromUser(UserDetailDTO user);
-
-
+	public List<TodoDetailDTO> TodoListByFromUser(UserDetailDTO user);
 }
