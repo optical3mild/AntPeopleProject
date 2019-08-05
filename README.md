@@ -135,9 +135,12 @@
 - (오인) Schedule 수정, 삭제 이동 controller 연결
 - (오인) MonthPlan DB, Repository, Entity 추가 (일정 수정 가능 여부 판단용)
 - (오인) ScheduleMonthAndStaff 추가 (해당 달의 일정과 직원이 일정을 신청했는지 여부 파악)
+- (성현) StaffController 근무신청
 - (정우) 일정등록 ui - requestWork, monthplanpage 기능 수정. 
 - (종환) 공지사항, 게시판, 메인페이지 페이징 설정
 - (종환) DataTable 설정
 
-### Day 21 : Schedule 등록 마무리 (10.08.05)
-- (정우) 일정등록 ui - accept.jsp 추가, requestWork.jsp 기능업데이트. 
+### Day 22 : Schedule 등록 마무리 (10.08.05)
+- (정우) 일정등록 ui - accept.jsp 추가, requestWork.jsp 업데이트.  
+- (오인) 근무 신청 승인/거절 관련 Service 수정 및 테스트 완료
+- (오인) Owner Controller 근무 신청 승인/거절 및 월별 일정 리스트 완료 버튼 연결
