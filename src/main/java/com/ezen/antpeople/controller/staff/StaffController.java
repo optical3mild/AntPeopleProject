@@ -3,6 +3,7 @@ package com.ezen.antpeople.controller.staff;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -43,14 +44,14 @@ public class StaffController {
 	public ModelAndView goRequestwork(ModelAndView mav, HttpServletRequest request) throws Exception {
 		logger.info("requestWork");
 		HttpSession httpSession = request.getSession(true);
-		UserDetailDTO userDto = (UserDetailDTO) httpSession.getAttribute("user");
+		UserDetailDTO user = (UserDetailDTO) httpSession.getAttribute("user");
 		int date = Integer.parseInt(LocalDate.now().plusMonths(1).format(DateTimeFormatter.ofPattern("yyMM")))-1;
 		String month =  String.valueOf(date);
-		List<MonthPlanDTO> sche = monthplanService.monthPlanList(userDto);
-		logger.info("jsonList : "+sche);
+		Set<ScheDetailDTO> schedule = scheService.findAllStaff(user, month);
+		logger.info("user : "+user);
 		logger.info("monthIndex : "+ month);
 		mav.addObject("monthIndex", month);
-		mav.addObject("jsonList", sche);
+		mav.addObject("jsonList", schedule);
 		mav.setViewName("requestwork");
 		return mav;
 	}
@@ -64,12 +65,12 @@ public class StaffController {
 		UserDetailDTO user = (UserDetailDTO) httpSession.getAttribute("user");
 		int date = Integer.parseInt(LocalDate.now().plusMonths(1).format(DateTimeFormatter.ofPattern("yyMM")))-1;
 		String month =  String.valueOf(date);
-		logger.info("schedule_id : "+schedule_id);
 		scheService.updateUserSchedule(user, schedule_id);
-		mav.addObject("month", month);
-		mav.addObject("", "");
-		mav.addObject("", "");
-		mav.setViewName("requestWork");
+		logger.info("schedule_id : "+schedule_id);
+		Set<ScheDetailDTO> schedule = scheService.findAllStaff(user, month);
+		mav.addObject("monthIndex", month);
+		mav.addObject("jsonList", schedule);
+		mav.setViewName("requestwork");
 		return mav;
 	}
 	
