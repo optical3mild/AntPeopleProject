@@ -26,6 +26,9 @@
   <!-- DataTables -->
   <link rel="stylesheet" href="setfiles/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   
+  <!-- pagination -->
+  <link rel="stylesheet" href="setfiles/css/ant_fullcalendar1.0.3.css">
+  
   <!-- 적용여부 확인. -->
   <style>
 	  td, th {
@@ -90,13 +93,6 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                  	<td>001</td>
-                  	<td><a href="#">testpage</a></td>
-                  	<td>2019.07.20</td>
-                  	<td>으엌이</td>
-                  </tr>
-                
                	  <c:set var="boardList" value="${requestScope.bbsList}"/>
 				  <c:forEach var="board" items="${boardList}">
 					<tr>
@@ -154,10 +150,28 @@
 <script src="setfiles/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 
 <script>
-  $(function () {
-    $('#boardTable').DataTable()
-  })
+	$(document).ready(function() {
+		$('#boardTable').DataTable({
+			"language" : {
+				"loadingRecords" : "로딩중...",
+				"processing" : "처리중...",
+				"zeroRecords" : "검색된 데이터가 없습니다.",
+				"emptyTable" : "데이터가 없습니다.",
+				"lengthMenu" : " _MENU_ 개씩 보기",
+				"search" : "검색:",
+				"info" : "_START_ - _END_ (총 _TOTAL_ 건)",
+				"infoEmpty" : "0건",
+				"infoFiltered" : "(전체 _MAX_ 건 중 검색결과)",
+				"pagingType" : "full_numbers",
+				"paginate" : {
+					"first" : "첫 페이지",
+					"last" : "마지막 페이지",
+					"next" : "다음",
+					"previous" : "이전"
+				},
+			}
+		});
+	});
 </script>
-
 </body>
 </html>
