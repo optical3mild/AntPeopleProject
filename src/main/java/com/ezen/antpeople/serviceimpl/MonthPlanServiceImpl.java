@@ -43,7 +43,7 @@ public class MonthPlanServiceImpl implements MonthPlanService {
 		return monthPlanRepository.findByUser_idAndMonthStartingWith(user.getUser_id(), month).buildDTO();
 	}
 	
-	//월별 테이블 수정 s가능 여부 확인
+	//월별 테이블 수정 가능 여부 확인
 	@Override
 	public List<MonthPlanDTO> monthPlanList(UserDetailDTO user) {
 		List<MonthPlanDTO> planList = new ArrayList<MonthPlanDTO>();
