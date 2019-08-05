@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.ezen.antpeople.dto.sche.MonthPlanDTO;
+import com.ezen.antpeople.dto.sche.MonthPlanListDTO;
 import com.ezen.antpeople.dto.user.UserDetailDTO;
 import com.ezen.antpeople.entity.MonthPlanEntity;
 import com.ezen.antpeople.repository.MonthPlanRepository;
@@ -45,13 +46,14 @@ public class MonthPlanServiceImpl implements MonthPlanService {
 	
 	//월별 테이블 수정 가능 여부 확인
 	@Override
-	public List<MonthPlanDTO> monthPlanList(UserDetailDTO user) {
+	public String monthPlanList(UserDetailDTO user) {
 		List<MonthPlanDTO> planList = new ArrayList<MonthPlanDTO>();
 		List<MonthPlanEntity> entitys = monthPlanRepository.findByUserStoreStore(user.getStore().getStore());
 		for(MonthPlanEntity entity: entitys) {
 			planList.add(entity.buildDTO());
 		}
-		return planList;
+		MonthPlanListDTO planMap = new MonthPlanListDTO(planList);
+		return planMap.toString();
 	}
 
 
