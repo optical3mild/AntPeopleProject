@@ -772,6 +772,10 @@ $(function() {
     defaultDate : selectedMonth,
 //>>//Ajax로 가져올 event data
     events : initialData,
+    //월별 표시되는 달력의 길이조정.
+    fixedWeekCount : false,
+    //현재 월 외의 날짜 표시조정. --> 현재표시된 날짜 외 이벤트 발생x.
+    showNonCurrentDates : false,
   });
 });
 // ./ End of fullCalendar 초기화 -------------------------------------

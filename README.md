@@ -138,3 +138,6 @@
 - (정우) 일정등록 ui - requestWork, monthplanpage 기능 수정. 
 - (종환) 공지사항, 게시판, 메인페이지 페이징 설정
 - (종환) DataTable 설정
+
+### Day 21 : Schedule 등록 마무리 (10.08.05)
+- (정우) 일정등록 ui - accept.jsp 추가. 

@@ -55,3 +55,33 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
     border-top: 1px solid #f4f4f4;
     padding: 0px;
     background-color: #fff;
+}
+
+/* accept page */
+.approval, .finishModify {
+  background-color: #00a65a;
+  border-color: #00a65a;
+}
+.approval:hover, .finishModify:hover {
+  opacity : 0.5;
+  background-color: #00a65a;
+  border-color: #00a65a;
+}
+.approvalCanelation, .modifyStaffEvent {
+  background-color: #e47636;
+  border-color:  #e47636;
+}
+.approvalCanelation:hover, .modifyStaffEvent:hover {
+  opacity : 0.5;
+  background-color: #e47636;
+  border-color:  #e47636;
+}
+.finishModify:disabled{
+  background-color: #00a65a;
+  border-color: #00a65a;
+}
+.btn-primary:focus {
+  color: #fff;
+  border-color: lightgrey;
+}
+/* end of accept page */
