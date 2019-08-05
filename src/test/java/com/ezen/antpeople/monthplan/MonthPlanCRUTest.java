@@ -44,7 +44,7 @@ public class MonthPlanCRUTest {
 	}
 	
 	//리스트 조회 테스트 - 성공
-	@Test
+	@Test @Ignore
 	public void monthPlanListTest() {
 		UserDetailDTO user = ur.findByEmail("tkwkd123@gmail.com").get().buildDTO();
 		List<MonthPlanDTO> planList = ms.monthPlanList(user);
