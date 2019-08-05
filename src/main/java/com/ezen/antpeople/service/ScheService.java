@@ -44,4 +44,5 @@ public interface ScheService {
 	
 	//일정 승인 관련
 	public void isPermissionSchedule(UserDetailDTO user, String schedule_id,int state);
+	public void permissionSchedule(Map<Integer,Set<String>> schedules, String month);
 }
