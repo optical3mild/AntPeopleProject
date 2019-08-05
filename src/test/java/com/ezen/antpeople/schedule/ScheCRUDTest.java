@@ -128,6 +128,20 @@ public class ScheCRUDTest {
 		scheService.updateUserSchedule(user,"6666666666");
 	}
 	
+	//일정 승인, 거절 테스트
+	@Test @Ignore
+	public void permissionScheduleTest() {
+		Map<Integer,Set<String>> map = new HashMap<Integer,Set<String>>();
+		Set<String> set1 = new HashSet<String>();
+		//set1.add("5553333333");
+		Set<String> set2 = new HashSet<String>();
+		set2.add("5553333333");
+		set2.add("6664444444");
+		map.put(3, set1);
+		log.info("삭제 목록 : " + map);
+		scheService.permissionSchedule(map, "1907");
+	}
+	
 	//일정 승인, 거절 테스트 - 완료 
 	@Test @Ignore
 	public void isPermissionScheduleTest() {

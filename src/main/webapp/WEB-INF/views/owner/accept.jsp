@@ -123,7 +123,7 @@
 <!-- FastClick -->
 <script src="setfiles/bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
-<script src="../resources/dist/js/adminlte.min.js"></script>
+<script src="setfiles/dist/js/adminlte.min.js"></script>
 
 <%@ include file = "../common/_commonScriptList.jspf" %>
 
@@ -136,15 +136,15 @@
 
 <!-- Page specific script -->
 <script>
-var userId = 'testUser';
-//var userId = "${user.user_id}";
+//var userId = 'testUser';
+var userId = "${user.user_id}";
 // 페이지 로드 시 받을 수신받을 데이터 형태. --> '연월' : 수정가능여부
 var nowDate = new Date();
 
 //** 승인/승인취소 버튼 클릭 시 보낼 월의 인덱스를 저장할 변수.
 var selectedMonthIndex = "";
 
-var gotList = "${monthIndex}" //더미로 확인필요...
+var gotList = ${monthIndex} //더미로 확인필요...
 //현재 달을 확인하여 현재달 포함 이전은 수정불가로 List객체 조정.
 
 /*var gotList = {
@@ -404,6 +404,8 @@ $(document).on('click','.external-event',function() {
 
     //ajax로 데이터 수신. : 텍스트로 받아 parse.
     var receivedData = $.parseJSON(getMonthlyPlan(targetMonth));
+    console.log('receivedData')
+    console.log(receivedData)
     //var receivedData = receivedDummy; //테스트용. 수신받았다고 가정. --> 못받은 경우?
 
     var rEventList;
@@ -473,7 +475,7 @@ function getMonthlyPlan(inputVal) {
 		success : function(response) {
 			alert("통신성공, response: " + response);
 			//document.location.href = response;
-			return response;
+			//return response;
 			console.log(response);
 			result = response;
 		}
@@ -547,14 +549,16 @@ $('#approvalAndCancel').click(function() {
 
 //>>
 function changeApprovalState(targetMonthIndex, value) {
-  var monthInfoObj = {
-    targetMonthIndex : value
-  }
+  var monthInfoObj = {};
+  monthInfoObj[""+targetMonthIndex+""] = value;
+
+  console.log('monthInfoObj')
+  console.log(monthInfoObj)
   $.ajax({
 		url : 'monthtf',
 		method : 'post',
 		// data : 서버로 보낼 데이터 - string or json(key/value)
-		data : monthInfoObj,
+		data : JSON.stringify(monthInfoObj),
 		// contentType : 서버로 보낼 데이터의 타입.
 		contentType: 'application/json',
 		// dataType : 서버로 부터 수신받을 데이터 타입.
@@ -596,16 +600,20 @@ $('#modifyAndCancel').click(function() {
 });
 
 function communicateModifyStaffEvent(staffId, staffCancelInfo) {
+  var staffIdPart = staffId.split("_")[0];
   var canceledEventList = {};
-  canceledEventList[""+staffId+""] = staffCancelInfo;
+  canceledEventList[""+staffIdPart+""] = staffCancelInfo;
   console.log('canceledEventList')
   console.log(canceledEventList)
+  
+  console.log("selectedMonthIndex")
+  console.log(selectedMonthIndex)
 
   $.ajax({
-		url : 'modifymonthplan',
+		url : 'modifymonthplan?month='+selectedMonthIndex,
 		method : 'post',
 		// data : 서버로 보낼 데이터 - string or json(key/value)
-		data : canceledEventList,
+		data : JSON.stringify(canceledEventList),
 		// contentType : 서버로 보낼 데이터의 타입.
 		contentType: 'application/json',
 		// dataType : 서버로 부터 수신받을 데이터 타입.

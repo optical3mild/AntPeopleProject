@@ -12,7 +12,7 @@ import com.ezen.antpeople.entity.ScheRelation;
 @Repository()
 public interface USRepository extends JpaRepository<ScheRelation, Integer>{
 	List<ScheRelation> findBySche_id(Integer sche_id); //
-	List<ScheRelation> findByToUserStoreStoreAndScheFromUserIdAndScheStartDateStartingWith(String store,int userId,String month);
+	List<ScheRelation> findByToUserStoreStoreAndScheFromUserIdAndStateAndScheStartDateStartingWith(String store,int userId,int state,String month);
 	List<ScheRelation> findByToUser_idAndScheStartDateStartingWith(int userId,String month);
 	
 	//당일 근무자 찾기
