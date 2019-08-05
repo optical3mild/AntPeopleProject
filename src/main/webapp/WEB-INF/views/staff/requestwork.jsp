@@ -217,7 +217,7 @@ var userId = "${user.user_id}";
 // 페이지 로드 시 받을 수신받을 데이터 형태. --> '연월' : 수정가능여부
 var nowDate = new Date();
 
-var gotList = "${monthIndex}" //더미로 확인필요...
+var gotList = ${monthIndex} //더미로 확인필요...
 /*
 var gotList = {
   '1907' : true, '1905' : false, '1906' : true,
@@ -528,7 +528,7 @@ function getMonthlyPlan(inputVal) {
   console.log('targetMonthInfo')
   console.log(targetMonthInfo)
   $.ajax({
-		url : 'monthplan',
+		url : '',
 		method : 'post',
 		// data : 서버로 보낼 데이터 - string or json(key/value)
 		data : targetMonthInfo,

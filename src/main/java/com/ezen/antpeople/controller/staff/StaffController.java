@@ -47,12 +47,10 @@ public class StaffController {
 		HttpSession httpSession = request.getSession(true);
 		UserDetailDTO user = (UserDetailDTO) httpSession.getAttribute("user");
 		int date = Integer.parseInt(LocalDate.now().plusMonths(1).format(DateTimeFormatter.ofPattern("yyMM")))-1;
-		String month =  String.valueOf(date);
-		Set<ScheDetailDTO> schedule = scheService.findAllStaff(user, month);
+		String sche = monthplanService.monthPlanList(user);
 		logger.info("user : "+user);
-		logger.info("monthIndex : "+ month);
-		mav.addObject("monthIndex", month);
-		mav.addObject("jsonList", schedule);
+		logger.info("monthIndex : "+ date);
+		mav.addObject("monthIndex", sche);
 		mav.setViewName("requestwork");
 		return mav;
 	}
