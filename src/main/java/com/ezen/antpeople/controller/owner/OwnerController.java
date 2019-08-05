@@ -20,11 +20,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ezen.antpeople.dto.sche.MonthPlanDTO;
 import com.ezen.antpeople.dto.sche.ScheDetailDTO;
 import com.ezen.antpeople.dto.sche.ScheUserListDTO;
 import com.ezen.antpeople.dto.user.RoleDTO;
 import com.ezen.antpeople.dto.user.StoreDTO;
 import com.ezen.antpeople.dto.user.UserDetailDTO;
+import com.ezen.antpeople.service.MonthPlanService;
 import com.ezen.antpeople.service.ScheService;
 import com.ezen.antpeople.service.UserService;
 
@@ -36,10 +38,12 @@ public class OwnerController {
 	
 	UserService userService;
 	ScheService scheService;
+	MonthPlanService monthplanService;
 	
-	public OwnerController(UserService userService, ScheService scheService) {
+	public OwnerController(UserService userService, ScheService scheService, MonthPlanService monthplanService) {
 		this.userService = userService;
 		this.scheService = scheService;
+		this.monthplanService = monthplanService;
 	}
 	
 	// 직원 전체 정보 목록
@@ -62,12 +66,13 @@ public class OwnerController {
 	
 	// 운영 계획 - 1
 	@RequestMapping("monthplanpage")		// nav에 있는 monthplanpage(운영계획)을 클릭함
-	public ModelAndView monthplanpage(ModelAndView mav,  HttpServletRequest request) {
+	public ModelAndView monthplanpage(ModelAndView mav, HttpServletRequest request) {
 		logger.info("monthplanpage");
 		HttpSession httpSession = request.getSession(true);
 		UserDetailDTO userDto = (UserDetailDTO) httpSession.getAttribute("user");
-		Set<String> sche = scheService.isScheduleMonthList(userDto);
-		logger.info("monthplanpage Data : "+sche.toString());
+		logger.info("userDto : "+userDto.toString());
+		String sche = monthplanService.monthPlanList(userDto);
+		logger.info("monthList Data : "+sche.toString());
 		mav.addObject("monthList", sche);	// DB에 데이터가 있는 월들을 저장
 		mav.setViewName("monthplanpage");	// monthplanpage로 이동
 		return mav;
@@ -88,8 +93,12 @@ public class OwnerController {
 	// 생성 버튼 3-1
 	@RequestMapping("createplan")	// monthplanpage에서 createplan(생성버튼)을 클릭함
 	@ResponseBody
-	public String insertPlanPage() throws Exception {
+	public String insertPlanPage(HttpServletRequest request, @RequestBody String date) throws Exception {
 		logger.info("createplan");
+		HttpSession httpSession = request.getSession(true);
+		UserDetailDTO userDto = (UserDetailDTO) httpSession.getAttribute("user");
+		logger.info("userDto : "+userDto.toString());
+		monthplanService.newMonthPlan(userDto.getUser_id(), date);
 		return "insertplanpage";	// insertplanpage로 이동
 	}
 	
@@ -144,22 +153,51 @@ public class OwnerController {
 		return "monthplanpage";			// monthplanpage로 이동
 	}
 	
-//	----------------------------- 승인 ---------------------------------------------
+//	----------------------------- accept 페이지 ---------------------------------------------
 	// 승인페이지 이동
 	@RequestMapping("acceptpage")
-	public String goAccept() throws Exception {
+	public ModelAndView goAccept(ModelAndView mav,  HttpServletRequest request) throws Exception {
 		logger.info("accept 페이지");
-		return "accept";
+		HttpSession httpSession = request.getSession(true);
+		UserDetailDTO userDto = (UserDetailDTO) httpSession.getAttribute("user");
+		String sche = monthplanService.monthPlanList(userDto);
+		logger.info("userDto : "+userDto.toString());
+		logger.info("monthplanpage Data : "+sche.toString());
+		mav.addObject("monthIndex", sche);	// DB에 데이터가 있는 월들을 저장
+		mav.setViewName("accept");
+		return mav;
 	}
 	
-//	// 근무 승인
-//	@RequestMapping("accept")
-//	@ResponseBody
-//	public String accept(@RequestBody Map<String, ScheDetailDTO> scheDto, Model model) throws Exception {
-//		logger.info("근무 승인");
-//	#
-//		return "../main/mainpage";
-//	}
+	// 월 클릭시	클릭한 월 받아서 해당 데이터 보여줌
+	@RequestMapping(value="clickMonth", method = RequestMethod.POST)	// monthplanpage에 있는 monthplan(월별 리스트)를 클릭함
+	@ResponseBody
+	public String clickMonth(@RequestBody String date, HttpServletRequest request, ScheUserListDTO schedules) throws Exception {
+		logger.info("clickMonth");
+		HttpSession httpSession = request.getSession(true);
+		UserDetailDTO userDto = (UserDetailDTO) httpSession.getAttribute("user");
+		schedules = scheService.findAllMonthAndUser(userDto, date);
+		logger.info(schedules.toString());
+		return schedules.toString();	// 클릭한 월의 데이터를 보냄
+	}
+	
+	// 근무 승인
+	
+	@RequestMapping("accept")
+	@ResponseBody
+	public String accept(@RequestBody Map<String, ScheDetailDTO> scheDto, Model model) throws Exception {
+		logger.info("근무 승인");
+		return "../main/mainpage";
+	}
+	
+	// 근무 수정완료 버튼 클릭 시
+	@RequestMapping("modifymonthplan")
+	@ResponseBody
+	public ModelAndView modifyworking(ModelAndView mav, @RequestBody Map<String, ScheDetailDTO> schedules) throws Exception {
+		logger.info("근무 수정");
+		scheService.updateSchedule(schedules);
+		mav.setViewName("accept");
+		return mav;
+	}
 	
 //	----------------------------- 금일 근무자 ---------------------------------------------
 //	// 금일 근무자

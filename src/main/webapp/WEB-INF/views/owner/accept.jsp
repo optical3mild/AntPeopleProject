@@ -457,7 +457,7 @@ function getMonthlyPlan(inputVal) {
   console.log('targetMonthInfo')
   console.log(targetMonthInfo)
   $.ajax({
-		url : 'monthplan',
+		url : 'clickMonth',
 		method : 'post',
     	// data : 서버로 보낼 데이터 - string or json(key/value)
 		data : targetMonthInfo,
