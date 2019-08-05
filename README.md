@@ -140,4 +140,4 @@
 - (종환) DataTable 설정
 
 ### Day 21 : Schedule 등록 마무리 (10.08.05)
-- (정우) 일정등록 ui - accept.jsp 추가. 
+- (정우) 일정등록 ui - accept.jsp 추가, requestWork.jsp 기능업데이트. 
