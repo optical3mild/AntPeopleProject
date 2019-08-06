@@ -12,13 +12,16 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ezen.antpeople.dto.sche.MonthPlanDTO;
 import com.ezen.antpeople.dto.sche.ScheDetailDTO;
+import com.ezen.antpeople.dto.sche.ScheUserListDTO;
 import com.ezen.antpeople.dto.user.UserDetailDTO;
 import com.ezen.antpeople.service.MonthPlanService;
 import com.ezen.antpeople.service.ScheService;
@@ -47,32 +50,51 @@ public class StaffController {
 		HttpSession httpSession = request.getSession(true);
 		UserDetailDTO user = (UserDetailDTO) httpSession.getAttribute("user");
 		int date = Integer.parseInt(LocalDate.now().plusMonths(1).format(DateTimeFormatter.ofPattern("yyMM")))-1;
-		String month =  String.valueOf(date);
-		Set<ScheDetailDTO> schedule = scheService.findAllStaff(user, month);
+		String sche = monthplanService.monthPlanList(user);
 		logger.info("user : "+user);
-		logger.info("monthIndex : "+ month);
-		mav.addObject("monthIndex", month);
-		mav.addObject("jsonList", schedule);
+		logger.info("monthIndex : "+ date);
+		mav.addObject("monthIndex", sche);
 		mav.setViewName("requestwork");
 		return mav;
 	}
-
-	// 근무 신청
-	@RequestMapping("requestworking")
+	
+	// 월 클릭시 클릭한 월 받아서 해당 데이터 보여줌
+	@RequestMapping(value="monthlist", method = RequestMethod.POST)	// monthplanpage에 있는 monthplan(월별 리스트)를 클릭함
 	@ResponseBody
-	public ModelAndView requestworking(ModelAndView mav, HttpServletRequest request, @RequestBody String schedule_id) throws Exception {
+	public String monthList(@RequestBody String date, HttpServletRequest request, ScheUserListDTO schedules) throws Exception {
+		logger.info("clickMonth");
+		HttpSession httpSession = request.getSession(true);
+		UserDetailDTO userDto = (UserDetailDTO) httpSession.getAttribute("user");
+		schedules = scheService.findAllMonthAndStaff(userDto, date);
+		logger.info(schedules.toString());
+		return schedules.toString();	// 클릭한 월의 데이터를 보냄
+	}
+
+	//새로운 일정에 근무 신청 시
+	@RequestMapping("applyschedule")
+	@ResponseBody
+	public String applySchedule(HttpServletRequest request, @RequestBody String schedule_id) throws Exception {
 		logger.info("근무신청");
 		HttpSession httpSession = request.getSession(true);
 		UserDetailDTO user = (UserDetailDTO) httpSession.getAttribute("user");
-		int date = Integer.parseInt(LocalDate.now().plusMonths(1).format(DateTimeFormatter.ofPattern("yyMM")))-1;
-		String month =  String.valueOf(date);
-		scheService.updateUserSchedule(user, schedule_id);
+		String schedule = scheService.updateUserSchedule(user, schedule_id);
 		logger.info("schedule_id : "+schedule_id);
-		Set<ScheDetailDTO> schedule = scheService.findAllStaff(user, month);
-		mav.addObject("monthIndex", month);
-		mav.addObject("jsonList", schedule);
-		mav.setViewName("requestwork");
-		return mav;
+		logger.info("schedule : "+schedule);
+		return schedule;
+	}
+	
+	
+	//신청한 근무 일정 취소 시 
+	@RequestMapping("refuseschedule")
+	@ResponseBody
+	public String refuseSchedule(HttpServletRequest request, @RequestBody String schedule_id) throws Exception {
+		logger.info("근무신청 취소");
+		HttpSession httpSession = request.getSession(true);
+		UserDetailDTO user = (UserDetailDTO) httpSession.getAttribute("user");
+		String schedule = scheService.deleteSchedule(user, schedule_id);
+		logger.info("schedule_id : "+schedule_id);
+		logger.info("schedule : "+schedule);
+		return schedule;
 	}
 	
 	

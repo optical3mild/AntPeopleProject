@@ -11,6 +11,7 @@ import javax.persistence.Table;
 
 import com.ezen.antpeople.dto.sche.ScheDetailDTO;
 import com.ezen.antpeople.dto.sche.ScheUserDTO;
+import com.ezen.antpeople.dto.user.UserDetailDTO;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -44,6 +45,13 @@ public class ScheRelation implements Serializable{
 		this.state = userToSche.getState();
 		this.start_time = userToSche.getStartTime();
 		this.end_time = userToSche.getEndTime();
+	}
+	
+	//새로운 스케줄 등록
+	public ScheRelation(UserEntity user, ScheEntity schedule) {
+		this.toUser = user;
+		this.sche = schedule;	
+		this.state = 1; //처음 등록하는 스케줄은 무조건 신청 상태
 	}
 	
 	public ScheUserDTO buildDTO() {
