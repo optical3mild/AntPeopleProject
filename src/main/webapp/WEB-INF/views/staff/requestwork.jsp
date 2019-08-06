@@ -138,7 +138,7 @@ var userId = "${user.user_id}";
 // 페이지 로드 시 받을 수신받을 데이터 형태. --> '연월' : 수정가능여부
 var nowDate = new Date();
 
-var gotList = "${monthIndex}" //더미로 확인필요...
+var gotList = ${monthIndex} //더미로 확인필요...
 /*
 var gotList = {
   '1907' : true, '1905' : false, '1906' : true,
@@ -211,9 +211,15 @@ var receivedDummy = {
       peopleCount : '1',
     }
   },
-  user1 : [
-    'testAdmin_19070101001907020623','testAdmin_19072101001907220623'
-  ],
+  //>>>
+  //user1 : [
+  //  'testAdmin_19070101001907020623','testAdmin_19072101001907220623'
+  //],
+  //<<<
+  user1 : {
+    'testAdmin_19070101001907020623': { state : '2' },
+    'testAdmin_19072101001907220623': { state : '3' },
+  },
 }
 
 var receiveS = {
@@ -412,7 +418,7 @@ $(document).on('click','.external-event',function() {
     //var receivedData = receivedDummy; //테스트용. 수신받았다고 가정. --> 못받은 경우?
 
     //직원별 정보 임시저장.
-    var individualList;
+    var individualList ={};
     //이벤트 목록부분과 셀렉트된 부분을 나누어 저장한다.
     for(var key in receivedData) {
       if(key == targetMonth) {
@@ -421,12 +427,26 @@ $(document).on('click','.external-event',function() {
         individualList = receivedData[""+key+""];
       }
     }
-    // 선택된 목록을 바탕으로, 월별계획에서 객체를 선택하여 저장.
-    for(var i=0; i<individualList.length; i++) {
+	// 선택된 목록을 바탕으로, 월별계획에서 객체를 선택하여 저장.
+    /*
+	for(var i=0; i<individualList.length; i++) {
       var thisEvent = individualList[i];
       selectedDataLoc[""+thisEvent+""] = originalDataLoc[""+thisEvent+""];
     }
-
+	*/
+	
+	//19.08.06 11:15
+	for(var key in individualList) {
+      var pesonalEState = individualList[""+key+""].state;
+      console.log('pesonalEState')
+      console.log(pesonalEState)
+      //state변경.
+      originalDataLoc[""+key+""].state = pesonalEState;
+      //나누어 저장.
+      selectedDataLoc[""+key+""] = originalDataLoc[""+key+""];
+    }
+    // end of 19.08.06 11:15
+    
     console.log('individualList')
     console.log(individualList)
 
@@ -449,7 +469,7 @@ function getMonthlyPlan(inputVal) {
   console.log('targetMonthInfo')
   console.log(targetMonthInfo)
   $.ajax({
-		url : 'monthplan',
+		url : 'monthlist',
 		method : 'post',
 		// data : 서버로 보낼 데이터 - string or json(key/value)
 		data : targetMonthInfo,
@@ -528,10 +548,14 @@ $(function() {
         var checkExist = find('.eventMarker');
         if(thisMp == thisPc) {
           if(selectedDataLoc[""+calEvent.id+""].id == calEvent.id) {
-            checkAndSelectRequest(calEvent.id)
+            //checkAndSelectRequest(calEvent.id)
+            //19.08.06 11:15
+            checkAndSelectRequest(thisState, calEvent.id)
           }
         } else {
-          checkAndSelectRequest(calEvent.id)
+          //checkAndSelectRequest(calEvent.id)
+          //19.08.06 11:15
+          checkAndSelectRequest(thisState, calEvent.id)
         }
       }
     },
@@ -545,26 +569,26 @@ console.log(originalDataLoc)
 
 // ./ End of fullCalendar 초기화 -------------------------------------
 
-function checkAndSelectRequest(eventId) {
+function checkAndSelectRequest(state, eventId) {
   var comSign = false;
   if($('span:contains("'+eventId+'")').parent().parent().hasClass('selectedEvent')) {
     alert('취소')
     // 선택되어 있는 경우 --> 취소요청
     comSign = false;
-    communicationProcess(comSign, eventId);
+    communicationProcess(comSign, eventId, state);
   } else {
     alert('신청')
     // 선택되어 있지 않은경우 --> 등록요청
     comSign = true;
-    communicationProcess(comSign, eventId);
+    communicationProcess(comSign, eventId, state);
   }
 }
 
-function communicationProcess(sign, id) {
+function communicationProcess(sign, id, state) {
   //user = userId :전역변수. 세선값.
   var packedTarget = id;
   //ajax 통신 후 성공한 값을 수신 받는다.
-  var communicateResult = sendInfo(sign, packedTarget);
+  var communicateResult = $.parseJSON(sendInfo(sign, packedTarget, state));
   //var communicateResult = receiveS; //더미 - 일정신청 시
   //var communicateResult = receiveD; //더미 - 신청취소 시
   if(communicateResult == 'fail') {
@@ -637,10 +661,13 @@ function renderingProcessWithList(eList, sList) {
 }
 
 
-function sendInfo(sign, eId) {
+function sendInfo(sign, eId, state) {
+  var packaging = {
+    'schedule_id' : eId, 'state' : state,
+  };
   //control url필요.
-  var addPlan = "requestworking" //일정 신청.
-  var rmPlan = "rm" //신청 취소.
+  var addPlan = "applyschedule" //일정 신청.
+  var rmPlan = "refuseschedule" //신청 취소.
   var selectedUrl;
   if(sign) {
     selectedUrl = addPlan;
@@ -656,7 +683,7 @@ function sendInfo(sign, eId) {
 		// contentType : 서버로 보낼 데이터의 타입.
 		contentType : 'application/json;charset=UTF-8',
 		// dataType : 서버로 부터 수신받을 데이터 타입.
-		dataType : 'json',
+		dataType : 'text',
 		async : false,
 		error : function(response) {
 			//alert("통신실패, response: " + response);

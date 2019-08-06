@@ -82,7 +82,6 @@ public class UserController {
 		logger.info("쿠키 제거");
 		Cookie cookie = new Cookie("user", "");
 		cookie.setMaxAge(0);
-		response.addCookie(cookie);
 		logger.info("쿠키값 : "+cookie.getValue());
 		logger.info("쿠키남은시간 : "+cookie.getMaxAge());
 		logger.info("세션 제거");

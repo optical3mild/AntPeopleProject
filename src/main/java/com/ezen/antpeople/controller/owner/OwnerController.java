@@ -173,6 +173,7 @@ public class OwnerController {
 		return mav;
 	}
 	
+	// 월별 일정 수정 / 수정 불가 변경 버튼 조작
 	@RequestMapping("monthtf")
 	@ResponseBody
 	public String monthTF(@RequestBody Map<String,Boolean> month, HttpServletRequest request) throws Exception{
@@ -205,14 +206,5 @@ public class OwnerController {
 		scheService.permissionSchedule(schedules, month);
 		return "acceptpage";
 	}
-	
-//	----------------------------- 금일 근무자 ---------------------------------------------
-//	// 금일 근무자
-//	@RequestMapping("todaystaff")
-//	public String todayStaff(Model model) {
-//		logger.info("todayStaff");
-//		#
-//		return "todaystaff";
-//	}
 	
 }

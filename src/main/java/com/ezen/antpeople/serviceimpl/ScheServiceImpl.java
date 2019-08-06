@@ -211,38 +211,34 @@ public class ScheServiceImpl implements ScheService {
 	
 	//일정에 근무 신청 시
 	@Override
-	public ScheDetailDTO updateUserSchedule(UserDetailDTO user, String schedule_id) {
-		//1. 해당 일정의 정보 가져오기
+	public String updateUserSchedule(UserDetailDTO user, String schedule_id) {
 		logger.info("일정 유니크 아이디 : " + schedule_id);
 		ScheEntity entity = scheRepository.findByUnique(schedule_id).get();
 		logger.info(entity.toString());
-		List<UserEntity> toUsers = new ArrayList<UserEntity>();	
-		Optional<List<UserEntity>> isToUsers = Optional.ofNullable(entity.getToUsers());
-		logger.info("toUsers에 들어있는 항목 : " + isToUsers.get());
-		if(isToUsers.isPresent()) {
-			toUsers = isToUsers.get();
-			toUsers.add(new UserEntity(user));
-		}
-		entity.updatePeopleCountAndUser(toUsers);
+		ScheRelation userSchedule = new ScheRelation(new UserEntity(user), entity);
+		usRepository.save(userSchedule);
+		entity.updatePeopleCount(true); //인원수 증가
 		scheRepository.save(entity);
 		logger.info("근무 신청 완료");
-		return entity.buildDTO();
-	}
-
-	//일정 승인,거절하는 메소드
-	@Override
-	public void isPermissionSchedule(UserDetailDTO user, String schedule_id, int state) {
-		Optional<ScheEntity> entity = scheRepository.findByUnique(schedule_id);
-		ScheUserDTO userToSche = new ScheUserDTO(user, entity.get().getId(),entity.get().getUnique(),state);
-		usRepository.save(new ScheRelation(userToSche));
-		if(state == 3) {
-			entity.get().downPeopleCount();
-			scheRepository.save(entity.get());
-			logger.info("일정 신청 거절");
-		}
-		logger.info("일정 승인 or 거절 완료");
+		
+		return "{\""+entity.getUnique()+"\":" +entity.buildDTO().toString()+"}";
 	}
 	
+	//신청된 일정 취소하기
+	@Override
+	public String deleteSchedule(UserDetailDTO user, String schedule_id) {
+		logger.info("일정 유니크 아이디 : " + schedule_id);
+		ScheEntity entity = scheRepository.findByUnique(schedule_id).get();
+		logger.info(entity.toString());
+		ScheRelation userSchedule = new ScheRelation(new UserEntity(user), entity);
+		usRepository.delete(userSchedule);
+		entity.updatePeopleCount(false); //인원수 차감
+		scheRepository.save(entity);
+		logger.info("근무 신청 취소 완료");
+		return "{\""+entity.getUnique()+"\":" +entity.buildDTO().toString()+"}";
+		
+	}
+
 	//일정 승인,거절하는 메소드
 	@Override
 	public void permissionSchedule(Map<Integer,Set<String>> schedules, String month) {
@@ -265,7 +261,7 @@ public class ScheServiceImpl implements ScheService {
 				logger.info("승인 신청 거절 일정 :"+deletedSchedule);
 				if(schedule_unigue.equals(deletedSchedule)) {
 					schedule.updateScheState(3); //일정 승인 거절
-					scheEntity.get().downPeopleCount(); //인원수 차감
+					scheEntity.get().updatePeopleCount(false); //인원수 차감
 					scheRepository.save(scheEntity.get());
 					logger.info("일정 신청 거절");
 					break;
@@ -290,5 +286,7 @@ public class ScheServiceImpl implements ScheService {
 		}
 		return userList;
 	}
+
+
 
 }

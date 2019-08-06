@@ -1,5 +1,7 @@
 package com.ezen.antpeople.controller.main;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ezen.antpeople.dto.board.BbsDetailDTO;
 import com.ezen.antpeople.dto.board.NoticeDetailDTO;
 import com.ezen.antpeople.dto.user.UserDetailDTO;
+import com.ezen.antpeople.repository.USRepository;
 import com.ezen.antpeople.service.BbsService;
 import com.ezen.antpeople.service.NoticeService;
 import com.ezen.antpeople.service.UserService;
@@ -41,11 +44,17 @@ public class MainController {
 
 	// 메인 페이지
 	@RequestMapping("mainpage")
-	public ModelAndView mainPage(ModelAndView mv) {
-		List<BbsDetailDTO> bbsDetailList = new ArrayList(bbsService.findByAll());
-		List<BbsDetailDTO> noticeDetailList = new ArrayList(noticeService.findByAll());
+	public ModelAndView mainPage(ModelAndView mv,HttpServletRequest request) {
+		HttpSession session = request.getSession(true);
+		UserDetailDTO user = (UserDetailDTO) session.getAttribute("user");
+		int date = Integer.parseInt(LocalDate.now().plusMonths(1).format(DateTimeFormatter.ofPattern("yyMM")))-1;
+		List<BbsDetailDTO> bbsDetailList = new ArrayList<BbsDetailDTO>(bbsService.findByAll());
+		List<NoticeDetailDTO> noticeDetailList = new ArrayList<NoticeDetailDTO>(noticeService.findByAll());
+		List<UserDetailDTO> todayStaffList = 
+				new ArrayList<UserDetailDTO>(userService.todayStaff(user.getStore().getStore(), Integer.toString(date)));
 		mv.addObject("bbsList", bbsDetailList);
 		mv.addObject("noticeList", noticeDetailList);
+		mv.addObject("todayStaffList", todayStaffList);
 		mv.setViewName("main");
 		logger.info("mainpage 페이지");
 		return mv;
