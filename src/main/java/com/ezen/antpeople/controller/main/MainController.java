@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -12,9 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
@@ -46,12 +45,20 @@ public class MainController {
 	@RequestMapping("mainpage")
 	public ModelAndView mainPage(ModelAndView mv,HttpServletRequest request) {
 		HttpSession session = request.getSession(true);
-		UserDetailDTO user = (UserDetailDTO) session.getAttribute("user");
-		int date = Integer.parseInt(LocalDate.now().plusMonths(1).format(DateTimeFormatter.ofPattern("yyMM")))-1;
+		Optional<UserDetailDTO> user = Optional.ofNullable((UserDetailDTO) session.getAttribute("user")); //세션 존재 여부 확인
+		int date = Integer.parseInt(LocalDate.now().minusMonths(1).format(DateTimeFormatter.ofPattern("yyMMdd")));
+		int staffApply =0;
+		int staffRefuseApply =0;
 		List<BbsDetailDTO> bbsDetailList = new ArrayList<BbsDetailDTO>(bbsService.findByAll());
 		List<NoticeDetailDTO> noticeDetailList = new ArrayList<NoticeDetailDTO>(noticeService.findByAll());
-		List<UserDetailDTO> todayStaffList = 
-				new ArrayList<UserDetailDTO>(userService.todayStaff(user.getStore().getStore(), Integer.toString(date)));
+		List<UserDetailDTO> todayStaffList = new ArrayList<UserDetailDTO>();
+		if(user.isPresent()) {
+			todayStaffList = userService.todayStaff(user.get().getStore().getStore(), Integer.toString(date));
+			staffApply = userService.applyScheduleCount(user.get().getUser_id(), 1); //일정 신청 대기중인 목록 수
+			staffRefuseApply = userService.applyScheduleCount(user.get().getUser_id(), 3); // 일정 신청이 거절된 목록 수
+		}
+		mv.addObject("staffRefuseApply", staffRefuseApply);
+		mv.addObject("staffApply", staffApply);
 		mv.addObject("bbsList", bbsDetailList);
 		mv.addObject("noticeList", noticeDetailList);
 		mv.addObject("todayStaffList", todayStaffList);
@@ -106,7 +113,7 @@ public class MainController {
 	@RequestMapping("updatebbspage")
 	public ModelAndView updateBbs(int id, ModelAndView mv) {
 		mv.addObject("bbsDetail", bbsService.findByOne(id));
-		mv.addObject("isNew", "modifyArticle");
+		mv.addObject("isNew", "modifyBbs");
 		mv.addObject("nextControl", 2);
 		mv.setViewName("writearticle");
 		return mv;
@@ -154,8 +161,9 @@ public class MainController {
 	@RequestMapping("updatenoticepage")
 	public ModelAndView updateNotice(int id, ModelAndView mv) {
 		logger.info("MainController - updatenoticepage");
+		logger.info("사용자 id : " + id);
 		mv.addObject("noticeDetail", noticeService.findByOne(id));
-		mv.addObject("isNew", "modifyArticle");
+		mv.addObject("isNew", "modifyNotice");
 		mv.addObject("nextControl", 4);
 		mv.setViewName("writearticle");
 		return mv;
@@ -167,6 +175,7 @@ public class MainController {
 		logger.info("articleallotter");
 		HttpSession session = request.getSession();
 		UserDetailDTO user = (UserDetailDTO) session.getAttribute("user");
+		logger.info("내용 : "+ description);
 		logger.info(user.toString());
 		model.addObject("bbs_id", bbs_id);
 		model.addObject("title", title);

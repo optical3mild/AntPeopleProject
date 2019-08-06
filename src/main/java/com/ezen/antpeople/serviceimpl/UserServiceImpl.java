@@ -154,7 +154,20 @@ public class UserServiceImpl implements UserService{
 			for(ScheRelation staff : staffList.get())
 				todayStaffs.add(staff.getToUser().buildDTO());
 		}
+		logger.info("당일 근무자 : "+ todayStaffs);
 		return todayStaffs;
 	}
 
+	//------------------------------ Main관련 ----------------------------------
+	//직원이 신청한 일정 리스트
+	@Override
+	public int applyScheduleCount(int user_id, int state) {
+		int applyCount = 0;
+		List<ScheRelation> applyList = 
+				new ArrayList<ScheRelation>(usRepository.findByToUser_idAndState(user_id, state));
+		logger.info("직원수 : " + applyList.size());
+		if(applyList.size() != 0)
+			applyCount = applyList.size();
+		return applyCount;
+	}
 }

@@ -663,25 +663,27 @@ function renderingProcessWithList(eList, sList) {
 
 function sendInfo(sign, eId, state) {
   var packaging = {
-    'schedule_id' : eId, 'state' : state,
+    schedule_id : eId, 
+    state : state
   };
   //control url필요.
   var addPlan = "applyschedule" //일정 신청.
   var rmPlan = "refuseschedule" //신청 취소.
+  var cancelPlan = "cancelschedule" //일정 승인 거절 
   var selectedUrl;
+  
   if(sign) {
-    selectedUrl = addPlan;
-  } else {
-    selectedUrl = rmPlan;
-  }
+	    selectedUrl = addPlan;
+	  } else {
+	    selectedUrl = rmPlan;
+	  }
+  
   var result;
   $.ajax({
 		url : selectedUrl,
 		method : 'post',
 		// data : 서버로 보낼 데이터
-		data : eId,
-		// contentType : 서버로 보낼 데이터의 타입.
-		contentType : 'application/json;charset=UTF-8',
+		data : packaging,
 		// dataType : 서버로 부터 수신받을 데이터 타입.
 		dataType : 'text',
 		async : false,

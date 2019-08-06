@@ -226,17 +226,20 @@ public class ScheServiceImpl implements ScheService {
 	
 	//신청된 일정 취소하기
 	@Override
-	public String deleteSchedule(UserDetailDTO user, String schedule_id) {
+	public String deleteSchedule(UserDetailDTO user, String schedule_id, String state) {
 		logger.info("일정 유니크 아이디 : " + schedule_id);
+		logger.info("일정 상태 : " + state );
 		ScheEntity entity = scheRepository.findByUnique(schedule_id).get();
 		logger.info(entity.toString());
 		ScheRelation userSchedule = new ScheRelation(new UserEntity(user), entity);
 		usRepository.delete(userSchedule);
-		entity.updatePeopleCount(false); //인원수 차감
-		scheRepository.save(entity);
+		if(!state.equals("3")) { //새로운 신청에 대해서만 인원수 차감
+			logger.info("직원이 취소하는 일정");
+			entity.updatePeopleCount(false); //인원수 차감
+			scheRepository.save(entity);
+		}
 		logger.info("근무 신청 취소 완료");
 		return "{\""+entity.getUnique()+"\":" +entity.buildDTO().toString()+"}";
-		
 	}
 
 	//일정 승인,거절하는 메소드
@@ -255,6 +258,10 @@ public class ScheServiceImpl implements ScheService {
 		for(ScheRelation entity : entitys) {
 			ScheUserDTO schedule = entity.buildDTO();
 			Optional<ScheEntity> scheEntity = scheRepository.findByUnique(schedule.getUnique());
+			if(deletedSchedules.size() == 0) {
+				logger.info("거절이 없는 일정");
+				schedule.updateScheState(2);//일정 승인 완료
+			}
 			for(String deletedSchedule : deletedSchedules) {
 				String schedule_unigue = schedule.getUnique();
 				logger.info("승인 신청 일정 : " + schedule_unigue);

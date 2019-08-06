@@ -32,7 +32,7 @@ public interface ScheService {
 	
 	//직원의 근무 신청에 대한 일정 변경
 	public String updateUserSchedule(UserDetailDTO user, String schedule_id);
-	public String deleteSchedule(UserDetailDTO user, String schedule_id);
+	public String deleteSchedule(UserDetailDTO user, String schedule_id, String state);
 	
 	//일정 유무
 	public Set<String> isScheduleMonthList(UserDetailDTO user);
