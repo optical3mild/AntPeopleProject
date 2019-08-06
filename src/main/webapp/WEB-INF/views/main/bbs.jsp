@@ -152,6 +152,7 @@
 <script>
 	$(document).ready(function() {
 		$('#boardTable').DataTable({
+			"order": [0,'desc'],
 			"language" : {
 				"loadingRecords" : "로딩중...",
 				"processing" : "처리중...",
@@ -168,7 +169,7 @@
 					"last" : "마지막 페이지",
 					"next" : "다음",
 					"previous" : "이전"
-				},
+				}
 			}
 		});
 	});

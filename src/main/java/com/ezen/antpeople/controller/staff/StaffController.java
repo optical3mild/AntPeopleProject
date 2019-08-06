@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -66,14 +67,14 @@ public class StaffController {
 		HttpSession httpSession = request.getSession(true);
 		UserDetailDTO userDto = (UserDetailDTO) httpSession.getAttribute("user");
 		schedules = scheService.findAllMonthAndStaff(userDto, date);
-		logger.info(schedules.toString());
-		return schedules.toString();	// 클릭한 월의 데이터를 보냄
+		logger.info(schedules.toStringStaff());
+		return schedules.toStringStaff();	// 클릭한 월의 데이터를 보냄
 	}
 
 	//새로운 일정에 근무 신청 시
 	@RequestMapping("applyschedule")
 	@ResponseBody
-	public String applySchedule(HttpServletRequest request, @RequestBody String schedule_id) throws Exception {
+	public String applySchedule(HttpServletRequest request, String schedule_id) throws Exception {
 		logger.info("근무신청");
 		HttpSession httpSession = request.getSession(true);
 		UserDetailDTO user = (UserDetailDTO) httpSession.getAttribute("user");
@@ -85,18 +86,19 @@ public class StaffController {
 	
 	
 	//신청한 근무 일정 취소 시 
-	@RequestMapping("refuseschedule")
+	@RequestMapping(value = "refuseschedule", method= {RequestMethod.POST})
 	@ResponseBody
-	public String refuseSchedule(HttpServletRequest request, @RequestBody String schedule_id) throws Exception {
+	public String refuseSchedule(HttpServletRequest request, String schedule_id , String state) throws Exception {
 		logger.info("근무신청 취소");
+		schedule_id = request.getParameter("schedule_id");
+		state = request.getParameter("state");
 		HttpSession httpSession = request.getSession(true);
 		UserDetailDTO user = (UserDetailDTO) httpSession.getAttribute("user");
-		String schedule = scheService.deleteSchedule(user, schedule_id);
+		String schedule = scheService.deleteSchedule(user, schedule_id, state);
 		logger.info("schedule_id : "+schedule_id);
 		logger.info("schedule : "+schedule);
 		return schedule;
 	}
-	
 	
 	// -------------------------------- 근무 수정  -----------------------------------------
 	// 근무 수정 페이지로
@@ -114,49 +116,4 @@ public class StaffController {
 
 		return mav;
 	}
-	
-	// -------------------------------- 출 퇴근 -----------------------------------------------------
-	// 출근
-//	@RequestMapping(value = "goWork.do")
-//	public Model goWork(HttpServletRequest request, Model model) throws Exception {
-//		HttpSession session = request.getSession(); // 세션을 가져옴
-//		UserDetailDTO userDetail = new UserDetailDTO();
-//		boolean isSuccess = false; // 성공여부
-//		try {
-//			if (session.getAttribute("user_id") != null) { // 세션이 null일경우 String 으로 변환 안됨(Exception 발생)
-//				int user_id = (int) session.getAttribute("user_id"); // 세션에 저장한 user_id 가져옴
-//				userDetail.setId(user_id); // dto에 유저아이디를 저장함
-//				userService.saveGo(userDetail); // userService 에 saveGo 를 실행함
-//				isSuccess = true; // 결과값 = 성공
-//			}
-//			model.addAttribute("result", isSuccess);
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//
-//		return model;
-//	}
-
-	// 퇴근
-//	@RequestMapping(value = "outWork.do")
-//	public Model outWork(HttpServletRequest request, Model model) throws Exception {
-//		HttpSession session = request.getSession(); // 세션을 가져옴
-//		UserDetailDTO userDetail = new UserDetailDTO();
-//		boolean isSuccess = false; // 성공여부
-//		try {
-//			if (session.getAttribute("user_id") != null) { // 세션이 null일경우 String 으로 변환 안됨.(Exception 발생)
-//				int user_id = (int) session.getAttribute("user_id"); // 세션에 저장한 user_id 가져옴
-//				userDetail.setId(user_id); // dto에 유저아이디를 저장함
-//				userService.saveOut(userDetail); // userService 에 saveGo 를 실행함
-//				isSuccess = true; // 결과값 = 성공
-//			}
-//			model.addAttribute("result", isSuccess);
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//
-//		return model;
-//	}
 }

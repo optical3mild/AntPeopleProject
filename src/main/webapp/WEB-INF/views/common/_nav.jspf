@@ -36,7 +36,7 @@
       	<ul class="sidebar-menu" data-widget="tree">
 	        <li>
 	          <a href="${path}/owner/monthplanpage">
-	            <i class="fa fa-calendar"></i> <span>운영계획</span>
+	            <i class="fa fa-calendar-check-o"></i> <span>운영계획</span>
 	          </a>
 	        </li>
 	        
@@ -46,19 +46,11 @@
 	          </a>
 	        </li>
 	        
-	        <li class="treeview">
-	          <a href="#">
-	            <i class="fa fa-dashboard"></i><span>직원정보</span>
-	            <span class="pull-right-container">
-	              <i class="fa fa-angle-left pull-right"></i>
-	            </span>
+	        <li>
+	          <a href="${path}/owner/staffinfo">
+	            <i class="fa fa-calendar"></i> <span>직원정보</span>
 	          </a>
-	          <ul class="treeview-menu">
-	            <li><a href="${path}/owner/staffinfo"><i class="fa fa-circle-o"></i>직원명부</a></li>
-	            <li><a href="${path}/main/todaystaff"><i class="fa fa-circle-o"></i>금일 근무자</a></li>
-	          </ul>
 	        </li>
-
 	  	</ul>
       </c:if>
       
@@ -86,13 +78,7 @@
 	        <li class="header">Employee Menu</li>
 	        <li>
 	          <a href="${path}/staff/requestwork">
-	            <i class="fa fa-calendar"></i> <span>근무신청</span>
-	          </a>
-	        </li>
-	        
-	        <li>
-	          <a href="${path}/staff/modifywork">
-	            <i class="fa fa-calendar"></i> <span>변경신청</span>
+	            <i class="fa fa-calendar-plus-o"></i> <span>근무신청</span>
 	          </a>
 	        </li>
 	      </ul>

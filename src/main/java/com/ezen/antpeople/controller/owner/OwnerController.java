@@ -207,13 +207,4 @@ public class OwnerController {
 		return "acceptpage";
 	}
 	
-//	----------------------------- 금일 근무자 ---------------------------------------------
-//	// 금일 근무자
-//	@RequestMapping("todaystaff")
-//	public String todayStaff(Model model) {
-//		logger.info("todayStaff");
-//		#
-//		return "todaystaff";
-//	}
-	
 }
