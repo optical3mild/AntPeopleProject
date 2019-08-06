@@ -60,7 +60,7 @@ public class BbsServieInpl implements BbsService {
 	@Override
 	public List<BbsDetailDTO> findByAll() {
 		List<BbsDetailDTO> bbsDetailList = new ArrayList();
-		List<BbsEntity> bbsList = new ArrayList(bbsRepository.findAll());
+		List<BbsEntity> bbsList = new ArrayList(bbsRepository.findAllByOrderByIdDesc());
 		for(BbsEntity bbs : bbsList)
 			bbsDetailList.add(bbs.buildDto());
 		return bbsDetailList;
