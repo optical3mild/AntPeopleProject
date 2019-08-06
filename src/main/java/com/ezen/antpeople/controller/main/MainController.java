@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ezen.antpeople.dto.board.BbsDetailDTO;
 import com.ezen.antpeople.dto.board.NoticeDetailDTO;
 import com.ezen.antpeople.dto.user.UserDetailDTO;
+import com.ezen.antpeople.repository.USRepository;
 import com.ezen.antpeople.service.BbsService;
 import com.ezen.antpeople.service.NoticeService;
 import com.ezen.antpeople.service.UserService;

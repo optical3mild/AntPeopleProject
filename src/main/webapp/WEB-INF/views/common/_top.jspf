@@ -49,7 +49,8 @@
             <!-- 유저 정보 드롭다운 -->
             <ul class="dropdown-menu">
               <!-- 유저 이미지 -->
-              <li class="user-header" style="height:10em">
+              <li class="user-header" style="height:7em">
+
 				<!-- 유저 간략정보: 이름, 가입일 등등... -->
                 <p>아이디 : ${user.email}</p>
                 <p>직책 : ${user.role.role}</p>

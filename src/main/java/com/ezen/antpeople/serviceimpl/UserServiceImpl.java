@@ -170,5 +170,4 @@ public class UserServiceImpl implements UserService{
 			applyCount = applyList.size();
 		return applyCount;
 	}
-
 }

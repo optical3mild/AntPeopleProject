@@ -23,7 +23,6 @@ public interface UserService {
 	public List<UserDetailDTO> todayStaff(String store, String month);
 	public int applyScheduleCount(int user_id, int state);
 	
-	
 	//회원가입 리스트 출력
 	public List<RoleDTO> RoleList();
 	public List<StoreDTO> StoreList();
