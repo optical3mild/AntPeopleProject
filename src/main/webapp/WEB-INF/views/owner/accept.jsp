@@ -339,6 +339,9 @@ function convertMonthIndexToMomentDateObj(mIndex) {
 
 //2. external eventbar 선택기능 + 버튼 형상 전환 + 캘린더에 표시될 내용 수신.
 $(document).on('click','.external-event',function() {
+  //직원목록 아래 수정버튼 초기화.
+  $('#modifyAndCancel').removeClass('finishModify');
+  $('#modifyAndCancel').addClass('modifyStaffEvent').text('수정').css({'background-color' : '#e47636'});
   //직원목록 박스 숨기기
   $('#individual-box').css({'display':'none'});
   //직원목록 초기화
@@ -487,6 +490,10 @@ function getMonthlyPlan(inputVal) {
 
 //3. 직원목록 버튼 : 선택 시 캘린더 이벤트에 표시.
 $(document).on('click','.staffBar',function() {
+  //직원목록 클릭 시 수정버튼 초기화.
+  $('#modifyAndCancel').removeClass('finishModify');
+  $('#modifyAndCancel').addClass('modifyStaffEvent').text('수정').css({'background-color' : '#e47636'});
+  
   //var unSelectedDataLoc = $('#calendar').data('unSelectedList');
   //삭제할 이벤트의 id목록 초기화.
   $.removeData('#calendar','unSelectedList');
@@ -498,6 +505,7 @@ $(document).on('click','.staffBar',function() {
   var checkSelect = $(this).hasClass('selectStaffBar_Opacity');
   var targetIdList = $(this).data()
   console.log(targetIdList)
+  
   //클릭 시 선택 초기화.
   $('.selectedEvent').removeClass('selectedEvent');
   $('#modifyAndCancel').attr('disabled', true);
