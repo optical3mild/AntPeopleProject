@@ -58,8 +58,8 @@ public class NoticeServiceImpl implements NoticeService {
 	//게시글 전체 보기
 	@Override
 	public List<NoticeDetailDTO> findByAll() {
-		List<NoticeDetailDTO> NoticeDetailList = new ArrayList();
-		List<NoticeEntity> NoticeList = new ArrayList(noticeRepository.findAll());
+		List<NoticeDetailDTO> NoticeDetailList = new ArrayList<NoticeDetailDTO>();
+		List<NoticeEntity> NoticeList = new ArrayList<NoticeEntity>(noticeRepository.findAllByOrderByIdDesc());
 		for(NoticeEntity Notice : NoticeList)
 			NoticeDetailList.add(Notice.buildDto());
 		return NoticeDetailList;
