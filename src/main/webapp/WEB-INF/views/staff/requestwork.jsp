@@ -211,9 +211,15 @@ var receivedDummy = {
       peopleCount : '1',
     }
   },
-  user1 : [
-    'testAdmin_19070101001907020623','testAdmin_19072101001907220623'
-  ],
+  //>>>
+  //user1 : [
+  //  'testAdmin_19070101001907020623','testAdmin_19072101001907220623'
+  //],
+  //<<<
+  user1 : {
+    'testAdmin_19070101001907020623': { state : '2' },
+    'testAdmin_19072101001907220623': { state : '3' },
+  },
 }
 
 var receiveS = {
@@ -422,11 +428,25 @@ $(document).on('click','.external-event',function() {
       }
     }
 	// 선택된 목록을 바탕으로, 월별계획에서 객체를 선택하여 저장.
-    for(var i=0; i<individualList.length; i++) {
+    /*
+	for(var i=0; i<individualList.length; i++) {
       var thisEvent = individualList[i];
       selectedDataLoc[""+thisEvent+""] = originalDataLoc[""+thisEvent+""];
     }
-
+	*/
+	
+	//19.08.06 11:15
+	for(var key in individualList) {
+      var pesonalEState = individualList[""+key+""].state;
+      console.log('pesonalEState')
+      console.log(pesonalEState)
+      //state변경.
+      originalDataLoc[""+key+""].state = pesonalEState;
+      //나누어 저장.
+      selectedDataLoc[""+key+""] = originalDataLoc[""+key+""];
+    }
+    // end of 19.08.06 11:15
+    
     console.log('individualList')
     console.log(individualList)
 
@@ -528,10 +548,14 @@ $(function() {
         var checkExist = find('.eventMarker');
         if(thisMp == thisPc) {
           if(selectedDataLoc[""+calEvent.id+""].id == calEvent.id) {
-            checkAndSelectRequest(calEvent.id)
+            //checkAndSelectRequest(calEvent.id)
+            //19.08.06 11:15
+            checkAndSelectRequest(thisState, calEvent.id)
           }
         } else {
-          checkAndSelectRequest(calEvent.id)
+          //checkAndSelectRequest(calEvent.id)
+          //19.08.06 11:15
+          checkAndSelectRequest(thisState, calEvent.id)
         }
       }
     },
@@ -545,26 +569,26 @@ console.log(originalDataLoc)
 
 // ./ End of fullCalendar 초기화 -------------------------------------
 
-function checkAndSelectRequest(eventId) {
+function checkAndSelectRequest(state, eventId) {
   var comSign = false;
   if($('span:contains("'+eventId+'")').parent().parent().hasClass('selectedEvent')) {
     alert('취소')
     // 선택되어 있는 경우 --> 취소요청
     comSign = false;
-    communicationProcess(comSign, eventId);
+    communicationProcess(comSign, eventId, state);
   } else {
     alert('신청')
     // 선택되어 있지 않은경우 --> 등록요청
     comSign = true;
-    communicationProcess(comSign, eventId);
+    communicationProcess(comSign, eventId, state);
   }
 }
 
-function communicationProcess(sign, id) {
+function communicationProcess(sign, id, state) {
   //user = userId :전역변수. 세선값.
   var packedTarget = id;
   //ajax 통신 후 성공한 값을 수신 받는다.
-  var communicateResult = $.parseJSON(sendInfo(sign, packedTarget));
+  var communicateResult = $.parseJSON(sendInfo(sign, packedTarget, state));
   //var communicateResult = receiveS; //더미 - 일정신청 시
   //var communicateResult = receiveD; //더미 - 신청취소 시
   if(communicateResult == 'fail') {
@@ -637,7 +661,10 @@ function renderingProcessWithList(eList, sList) {
 }
 
 
-function sendInfo(sign, eId) {
+function sendInfo(sign, eId, state) {
+  var packaging = {
+    'schedule_id' : eId, 'state' : state,
+  };
   //control url필요.
   var addPlan = "applyschedule" //일정 신청.
   var rmPlan = "refuseschedule" //신청 취소.
