@@ -95,16 +95,14 @@ public class ScheEntity extends BaseEntity implements Serializable {
 		this.manPower = manPower;
 	}
 	
-	//일정의 신청 인원수  및 직원 명단 변경
-	public void updatePeopleCountAndUser(List<UserEntity> toUsers) {
-		this.toUsers = toUsers;
-		this.peopleCount += 1;
+	//일정의 신청 인원수 변경
+	public void updatePeopleCount(boolean people) {
+		if(people)
+			this.peopleCount += 1;
+		else
+			this.peopleCount -= 1;
 	}
 	
-	//일정 신청 거절시 인원수 변경
-		public void downPeopleCount() {
-			this.peopleCount -= 1;
-		}
 	
 
 }

@@ -142,14 +142,6 @@ public class ScheCRUDTest {
 		scheService.permissionSchedule(map, "1907");
 	}
 	
-	//일정 승인, 거절 테스트 - 완료 
-	@Test @Ignore
-	public void isPermissionScheduleTest() {
-		UserDetailDTO user = new UserDetailDTO(3,"");
-		scheService.isPermissionSchedule(user, "6666666666", 2); //승인
-	}
-	
-	
 	//인원수 채우기 테스트
 	@Test @Ignore
 	public void changeScheduleTest() {
