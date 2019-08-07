@@ -22,6 +22,9 @@
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <!-- pagination -->
+  <link rel="stylesheet" href="setfiles/css/ant_fullcalendar1.0.3.css">
+ 
   <%@ include file= "../common/header.jsp" %>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -38,31 +41,109 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Dashboard
-        <small>Control panel</small>
+        HOME
+        <small>메인페이지</small>
       </h1>
-      <ol class="breadcrumb">
+      <!-- <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Dashboard</li>
-      </ol>
+      </ol> -->
     </section>
 
     <!-- Main content -->
     <section class="content">
+    <c:set var = "todayStaffList" value ="${requestScope.todayStaffList}"/>
+    <c:set var = "todayStaffCount" value = "${fn:length(todayStaffList)}"/>
       <!-- Small boxes (Stat box) -->
+        <c:if test="${user.email != null }">
       <div class="row">
         <div class="col-lg-3 col-xs-6">
+        
+        <!-- 직원의 box -->
+          <c:if test="${user.role.role == '직원'}">
+          <!-- small box -->
+          <c:set var="staffApply" value="${requestScope.staffApply}"/>
+          <div class="small-box bg-aqua">
+            <div class="inner">
+              <h3>${staffApply}건</h3>
+
+              <p>신청한 일정 수</p>
+            </div>
+            <div class="icon">
+              <i class="fa  fa-calendar-plus-o"></i>
+            </div>
+            <a href="${path}/staff/requestwork" class="small-box-footer"> 근무 신청 페이지로 <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <c:set var="staffRefuseApply" value="${requestScope.staffRefuseApply}"/>
+          <div class="small-box bg-red">
+            <div class="inner">
+              <h3>${staffRefuseApply}건</h3>
+
+              <p>승인 거부된 일정 수</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-calendar-times-o"></i>
+            </div>
+            <a href="${path}/staff/requestwork" class="small-box-footer"> 근무 신청 페이지로 <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+        </c:if>
+        <!-- 직원의 box End -->
+        
+        
+        <!-- 사장의 box -->
+        <c:if test="${user.role.role == '사장'}">
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>150</h3>
+              <h3>53<sup style="font-size: 20px">%</sup></h3>
 
-              <p>New Orders</p>
+              <p>근무 일정 신청 수</p>
             </div>
             <div class="icon">
-              <i class="ion ion-bag"></i>
+              <i class="fa fa-list-alt"></i>
             </div>
             <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+          <div class="small-box bg-red">
+            <div class="inner">
+              <h3>53<sup style="font-size: 20px">%</sup></h3>
+
+              <p>금일 휴가자 수</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-user-times"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+        </c:if>
+        <!-- 사장의 box End -->
+
+        <!-- 공통 box -->
+          <!-- small box -->
+          <div class="small-box bg-yellow">
+            <div class="inner">
+              <h3>${todayStaffCount}명</h3>
+
+              <p>당일 근무자</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-users"></i>
+            </div>
+            <a href="${path}/main/staffinfo" class="small-box-footer">전체 직원 리스트 <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -70,63 +151,60 @@
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-              <p>Bounce Rate</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-stats-bars"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-yellow">
-            <div class="inner">
-              <h3>44</h3>
-
-              <p>User Registrations</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-person-add"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-red">
-            <div class="inner">
               <h3>65</h3>
 
-              <p>Unique Visitors</p>
+              <p>오늘의 할 일</p>
             </div>
             <div class="icon">
-              <i class="ion ion-pie-graph"></i>
+              <i class="fa fa-check-square-o"></i>
             </div>
             <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
+      <!-- 공통 box End -->
       </div>
+      </c:if>
       <!-- /.row -->
       
       
 <!-- Main row -->
       <div class="row">
       
-      	<!-- Left col -->
+      	<!-- Left col (공지사항 부분) -->
         <section class="col-lg-6 connectedSortable">
         
          <div class="box">
             <div class="box-header">
-              <h3 class="box-title">공지사항</h3>
+              <h3 class="fa fa-bell"><a href="${path}/main/noticepage"> 공지사항</a></h3>
 
-              <div class="box-tools">
-                <ul class="pagination pagination-sm no-margin pull-right">
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+              <table class="table">
+                <tr>
+                  <th style="width: 20%">게시글 번호</th>
+                  <th>제목</th>
+                  <th style="width: 15%">작성자</th>
+                </tr>
+                <c:set var="noticeList" value="${requestScope.noticeList}"/>
+				<c:forEach var="notice" items="${noticeList}">
+                <tr>
+                  <td>${notice.notice_id}</td>
+                  <td><a href="detailnotice?id=${notice.notice_id}">${notice.title}</a></td>
+                  <c:if test="${notice.user.role.role == '사장'}">
+                  <td><span class="badge bg-red">${notice.user.name}</span></td>
+                  </c:if>
+                  <c:if test="${notice.user.role.role == '직원'}">
+                  <td><span class="badge bg-blue">${notice.user.name}</span></td>
+                  </c:if>
+                </tr>
+                </c:forEach>
+              </table>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer text-center">
+                <ul class="pagination">
                   <li><a href="#">&laquo;</a></li>
                   <li><a href="#">1</a></li>
                   <li><a href="#">2</a></li>
@@ -134,89 +212,6 @@
                   <li><a href="#">&raquo;</a></li>
                 </ul>
               </div>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body no-padding">
-              <table class="table">
-                <tr>
-                  <th style="width: 10px">#</th>
-                  <th>Task</th>
-                  <th>Progress</th>
-                  <th style="width: 40px">Label</th>
-                </tr>
-                <tr>
-                  <td>1.</td>
-                  <td>Update software</td>
-                  <td>
-                    <div class="progress progress-xs">
-                      <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-red">55%</span></td>
-                </tr>
-                <tr>
-                  <td>2.</td>
-                  <td>Clean database</td>
-                  <td>
-                    <div class="progress progress-xs">
-                      <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-yellow">70%</span></td>
-                </tr>
-                <tr>
-                  <td>3.</td>
-                  <td>Cron job running</td>
-                  <td>
-                    <div class="progress progress-xs progress-striped active">
-                      <div class="progress-bar progress-bar-primary" style="width: 30%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-light-blue">30%</span></td>
-                </tr>
-                <tr>
-                  <td>4.</td>
-                  <td>Fix and squish bugs</td>
-                  <td>
-                    <div class="progress progress-xs progress-striped active">
-                      <div class="progress-bar progress-bar-success" style="width: 90%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-green">90%</span></td>
-                </tr>
-                <tr>
-                  <td>4.</td>
-                  <td>Fix and squish bugs</td>
-                  <td>
-                    <div class="progress progress-xs progress-striped active">
-                      <div class="progress-bar progress-bar-success" style="width: 90%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-green">90%</span></td>
-                </tr>
-                <tr>
-                  <td>4.</td>
-                  <td>Fix and squish bugs</td>
-                  <td>
-                    <div class="progress progress-xs progress-striped active">
-                      <div class="progress-bar progress-bar-success" style="width: 90%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-green">90%</span></td>
-                </tr>
-                <tr>
-                  <td>4.</td>
-                  <td>Fix and squish bugs</td>
-                  <td>
-                    <div class="progress progress-xs progress-striped active">
-                      <div class="progress-bar progress-bar-success" style="width: 90%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-green">90%</span></td>
-                </tr>
-              </table>
-            </div>
-            <!-- /.box-body -->
           </div>
           <!-- /.box -->
           
@@ -228,10 +223,34 @@
         
          <div class="box">
             <div class="box-header">
-              <h3 class="box-title">자유게시판</h3>
-
-              <div class="box-tools">
-                <ul class="pagination pagination-sm no-margin pull-right">
+              <h3 class="fa fa-comments"><a href="${path}/main/bbspage"> 자유게시판</a></h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+              <table class="table">
+                <tr>
+                  <th style="width: 20%">게시글 번호</th>
+                  <th>제목</th>
+                  <th style="width: 15%">작성자</th>
+                </tr>
+                <c:set var="boardList" value="${requestScope.bbsList}"/>
+				<c:forEach var="board" items="${boardList}">
+                <tr>
+                  <td>${board.bbs_id}</td>
+                  <td><a href="detailbbs?id=${board.bbs_id}">${board.title}</a></td>
+                  <c:if test="${board.user.role.role == '사장'}">
+                  <td><span class="badge bg-red">${board.user.name}</span></td>
+                  </c:if>
+                  <c:if test="${board.user.role.role == '직원'}">
+                  <td><span class="badge bg-blue">${board.user.name}</span></td>
+                  </c:if>
+                </tr>
+                </c:forEach>
+              </table>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer text-center">
+                <ul class="pagination">
                   <li><a href="#">&laquo;</a></li>
                   <li><a href="#">1</a></li>
                   <li><a href="#">2</a></li>
@@ -239,89 +258,6 @@
                   <li><a href="#">&raquo;</a></li>
                 </ul>
               </div>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body no-padding">
-              <table class="table">
-                <tr>
-                  <th style="width: 10px">#</th>
-                  <th>Task</th>
-                  <th>Progress</th>
-                  <th style="width: 40px">Label</th>
-                </tr>
-                <tr>
-                  <td>1.</td>
-                  <td>Update software</td>
-                  <td>
-                    <div class="progress progress-xs">
-                      <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-red">55%</span></td>
-                </tr>
-                <tr>
-                  <td>2.</td>
-                  <td>Clean database</td>
-                  <td>
-                    <div class="progress progress-xs">
-                      <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-yellow">70%</span></td>
-                </tr>
-                <tr>
-                  <td>3.</td>
-                  <td>Cron job running</td>
-                  <td>
-                    <div class="progress progress-xs progress-striped active">
-                      <div class="progress-bar progress-bar-primary" style="width: 30%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-light-blue">30%</span></td>
-                </tr>
-                <tr>
-                  <td>4.</td>
-                  <td>Fix and squish bugs</td>
-                  <td>
-                    <div class="progress progress-xs progress-striped active">
-                      <div class="progress-bar progress-bar-success" style="width: 90%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-green">90%</span></td>
-                </tr>
-                <tr>
-                  <td>4.</td>
-                  <td>Fix and squish bugs</td>
-                  <td>
-                    <div class="progress progress-xs progress-striped active">
-                      <div class="progress-bar progress-bar-success" style="width: 90%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-green">90%</span></td>
-                </tr>
-                <tr>
-                  <td>4.</td>
-                  <td>Fix and squish bugs</td>
-                  <td>
-                    <div class="progress progress-xs progress-striped active">
-                      <div class="progress-bar progress-bar-success" style="width: 90%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-green">90%</span></td>
-                </tr>
-                <tr>
-                  <td>4.</td>
-                  <td>Fix and squish bugs</td>
-                  <td>
-                    <div class="progress progress-xs progress-striped active">
-                      <div class="progress-bar progress-bar-success" style="width: 90%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-green">90%</span></td>
-                </tr>
-              </table>
-            </div>
-            <!-- /.box-body -->
           </div>
           <!-- /.box -->
           
@@ -338,10 +274,9 @@
           <!-- USERS LIST -->
               <div class="box box-danger">
                 <div class="box-header with-border">
-                  <h3 class="box-title">근무자 명단</h3>
-
+                  <h3 class="fa fa-users"> 근무자 명단</h3>
                   <div class="box-tools pull-right">
-                    <span class="label label-danger">8 New Members</span>
+                    <span class="label label-danger">${todayStaffCount} New Members</span>
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                     </button>
                     <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
@@ -351,46 +286,18 @@
                 <!-- /.box-header -->
                 <div class="box-body no-padding">
                   <ul class="users-list clearfix">
-                    <li>
-                      <img src="dist/img/user1-128x128.jpg" alt="User Image">
-                      <a class="users-list-name" href="#">Alexander Pierce</a>
-                      <span class="users-list-date">Today</span>
-                    </li>
-                    <li>
-                      <img src="dist/img/user8-128x128.jpg" alt="User Image">
-                      <a class="users-list-name" href="#">Norman</a>
-                      <span class="users-list-date">Yesterday</span>
-                    </li>
-                    <li>
-                      <img src="dist/img/user7-128x128.jpg" alt="User Image">
-                      <a class="users-list-name" href="#">Jane</a>
-                      <span class="users-list-date">12 Jan</span>
-                    </li>
-                    <li>
-                      <img src="dist/img/user6-128x128.jpg" alt="User Image">
-                      <a class="users-list-name" href="#">John</a>
-                      <span class="users-list-date">12 Jan</span>
-                    </li>
-                    <li>
-                      <img src="dist/img/user2-160x160.jpg" alt="User Image">
-                      <a class="users-list-name" href="#">Alexander</a>
-                      <span class="users-list-date">13 Jan</span>
-                    </li>
-                    <li>
-                      <img src="dist/img/user5-128x128.jpg" alt="User Image">
-                      <a class="users-list-name" href="#">Sarah</a>
-                      <span class="users-list-date">14 Jan</span>
-                    </li>
-                    <li>
-                      <img src="dist/img/user4-128x128.jpg" alt="User Image">
-                      <a class="users-list-name" href="#">Nora</a>
-                      <span class="users-list-date">15 Jan</span>
-                    </li>
-                    <li>
-                      <img src="dist/img/user3-128x128.jpg" alt="User Image">
-                      <a class="users-list-name" href="#">Nadia</a>
-                      <span class="users-list-date">15 Jan</span>
-                    </li>
+	                  <c:if test="${todayStaffCount != 0}">
+	                  	<c:forEach var="Staff" items="${todayStaffList}">
+		                  	<li>
+		                      <img src="dist/img/user1-128x128.jpg" alt="User Image">
+		                      <a class="users-list-name" href="#">Alexander Pierce</a>
+		                      <span class="users-list-date">Today</span>
+		                    </li>   
+	                  	</c:forEach>
+	                  </c:if>
+	                  <c:if test="${todayStaffCount == 0}">
+	                  		오늘 출근하는 직원이 없습니다.
+	                  </c:if>
                   </ul>
                   <!-- /.users-list -->
                 </div>
@@ -666,6 +573,63 @@
 <script src="setfiles/dist/js/adminlte.min.js"></script>
 
 <%@ include file = "../common/_commonScriptList.jspf" %>
+<script>
+var board = {};
+var lstCnt = 10;
+board.boardList = {
+        init : function(cmpnNo, lstCnt) {
+            var page = 1;
+            board.boardList.param.pageNumber = Number(page);
+            board.boardList.param.cmpnNo = cmpnNo;
+            board.boardList.param.pageSize = lstCnt;
+            board.boardList.data();
+        },
+       data : function() {
+            $.ajax({
+                url : 'event/boardList',
+                data : board.boardList.param,
+                success : function(result) {
+                    var boardList = result.boardList;
+                    if(boardList.length != 0){
+                        board.boardList.totalCount = boardList[0].totalCount; // 총 건수
+                    };
+                    drawPagination(lstCnt);
+                    var markup ="";    // mark 로직 작성
+                    $("#event_div").html(markup);
+                },
+                error : function() {
+                    alert('게시판 조회 중 오류가 발생했습니다.');
+                }
+            });
+        },
+        param : {
+            pageNumber : 1,
+            pageSize : lstCnt
+        },
+        totalCount : 0
+    };
+ 
+//페이징을 설정하고 페이징 영역에 화면에 그리는 함수
+function drawPagination(lstCnt){
+    $("#boardPagingDiv").pagination({
+       items: board.boardList.totalCount,
+       currentPage : board.boardList.param.pageNumber,
+       itemsOnPage: lstCnt, // 설정 안할 경우 10
+       displayedPages : lstCnt, // 설정 안할 경우 10
+       selectOnClick : false, // 페이징 버튼을 눌렀을 때 자동으로 페이징을 다시 그릴지 여부 (기본값은 true)
+       onPageClick: function(currentPage){ // 페이징 버튼을 눌렀을 때 이벤트 바인딩
+           searchBoardListPaging(currentPage); // 페이징 버튼을 눌렀을 때 다시 비동기로 데이터를 가져와 화면과 페이징을 그립니다.
+       }
+   });
+}
+ 
+// 페이징 번호 눌렀을때 함수
+function searchBoardListPaging (page) {
+    board.boardList.param.pageNumber = Number(page);
+    board.boardList.data();
+    drawPagination(lstCnt);
+}
 
+</script>
 </body>
 </html>

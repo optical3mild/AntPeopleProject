@@ -44,12 +44,11 @@
        	Write Article(글 쓰기)
         <small>Control panel</small>
       </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
-      </ol>
     </section>
-<!-- ------------------------------------------------- -->    
+<!-- ------------------------------------------------- --> 
+
+
+<!-- ------------------------------------------------- -->   
     <!-- Main content -->
     <section class="content">
     <c:set var="isNew" value="${requestScope.isNew}"/>
@@ -67,7 +66,7 @@
             
               <!-- 새글작성 : order값으로 newArticle을 받으면 실행. -->
               <c:if test="${isNew == 'newArticle'}">
-	              <form role="form" action="articleallotter">
+	              <form role="form" action="articleallotter" method="post">
 	              	<input type="text" class="form-control" name="articleNum" value="${next}" style="display:none">
 	              	<input type="text" class="form-control" name="bbs_id" value="0" style="display:none">
 	                <!-- text input -->
@@ -85,21 +84,23 @@
 	                <!-- textarea -->
 	                <div class="form-group">
 	                  <label>The Body</label>
-	                  <textarea class="form-control" rows="3" name="description"></textarea>
+	                	<textarea id="editor1" name="description" rows="10" cols="80">
+                              
+                    	</textarea>
 	                </div>
 	
 					<div class="box-footer" style="padding-left: 0; padding-right:0;">
-	                  <button type="button" class="btn btn-default" onclick="location.href='${path}/#' ">목록으로</button>
+	                  <button type="button" class="btn btn-default" onclick="location.href='${path}/main/insertbbspage">목록으로</button>
 	                  <button type="submit" class="btn btn-info pull-right">작성완료</button>
 	                </div>
 	                <!-- /.box-footer -->
 	              </form>
               </c:if>
               
-              <!-- 수정 -->
+              <!--게시글 수정 -->
+              <c:if test="${isNew == 'modifyBbs'}">
               <c:set var="article" value="${requestScope.bbsDetail}"/>
-              <c:if test="${isNew == 'modifyArticle'}">
-	              <form role="form" action="articleallotter">
+	              <form role="form" action="articleallotter" method="post">
 	              <input type="text" class="form-control" name="articleNum" value="${next}" style="display:none">
 	              <input type="text" class="form-control" name="bbs_id" value="${article.bbs_id}" style="display:none">
 	                <!-- text input -->
@@ -117,12 +118,45 @@
 	                <!-- textarea -->
 	                <div class="form-group">
 	                  <label>The Body</label>
-	                  <textarea class="form-control" rows="3" name="description">
+	                  <textarea id="editor1" class="form-control" rows="3" name="description">
 	                  	${article.description}
 	                  </textarea>
 	                </div>
 					<div class="box-footer" style="padding-left: 0; padding-right:0;">
-	                  <button type="button" class="btn btn-default" onclick="location.href='${path}/#' ">목록으로</button>
+	                  <button type="button" class="btn btn-default" onclick="location.href='${path}/main/bbspage' ">목록으로</button>
+	                  <button type="submit" class="btn btn-info pull-right">수정완료</button>
+	                </div>
+	                <!-- /.box-footer -->
+	              </form>
+              </c:if>
+              
+              <!--공지사항 수정 -->
+              <c:if test="${isNew == 'modifyNotice'}">
+              <c:set var="article" value="${requestScope.noticeDetail}"/>
+	              <form role="form" action="articleallotter" method="post">
+	              <input type="text" class="form-control" name="articleNum" value="${next}" style="display:none">
+	              <input type="text" class="form-control" name="bbs_id" value="${article.notice_id}" style="display:none">
+	                <!-- text input -->
+	                
+	                <div class="form-group">
+	                  <label style="display:inline">작성자:&nbsp;&nbsp;${article.user.name}</label>&nbsp;&nbsp;&nbsp;&nbsp;
+	                  <label style="display:inline">작성일:&nbsp;&nbsp;${article.updatedAt}</label>
+	                </div>
+	                
+	                <div class="form-group">
+	                  <label>Title</label>
+	                  <input type="text" class="form-control" name="title" value="${article.title}">
+	                </div>
+	
+	                <!-- textarea -->
+	                <div class="form-group">
+	                  <label>The Body</label>
+	                  <textarea id="editor1" class="form-control" rows="3" name="description">
+	                  	${article.description}
+	                  </textarea>
+	                </div>
+					<div class="box-footer" style="padding-left: 0; padding-right:0;">
+	                  <button type="button" class="btn btn-default" onclick="location.href='${path}/main/bbspage' ">목록으로</button>
 	                  <button type="submit" class="btn btn-info pull-right">수정완료</button>
 	                </div>
 	                <!-- /.box-footer -->
@@ -152,17 +186,18 @@
 <script src="setfiles/bower_components/jquery-ui/jquery-ui.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="setfiles/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
 <!-- AdminLTE App : navbar 관련-->
 <script src="setfiles/dist/js/adminlte.min.js"></script>
+<!-- CK Editor -->
+<script src="//cdn.ckeditor.com/4.12.1/basic/ckeditor.js"></script>
 
 <script>
 $(function() {
+	CKEDITOR.replace('editor1');
 	var articleCategory = '<c:out value="${categoryOption}" />';
 	console.log(articleCategory);
 	$('.selection option').val(articleCategory).attr('selected', true);
 });
-
 </script>
 
 

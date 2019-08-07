@@ -3,10 +3,12 @@ package com.ezen.antpeople.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -29,7 +31,8 @@ import lombok.NoArgsConstructor;
 @Getter
 public class ScheEntity extends BaseEntity implements Serializable {
 	
-	private String sche_unique;
+	@Column(name="sche_unique" , unique=true)
+	private String unique;
 	
 	@Column(name="start_date")
 	private String startDate;
@@ -44,7 +47,7 @@ public class ScheEntity extends BaseEntity implements Serializable {
 	private int manPower;
 	private int peopleCount;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name="user_sche", joinColumns = @JoinColumn(name="sche_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private List<UserEntity> toUsers;
 	
@@ -54,8 +57,14 @@ public class ScheEntity extends BaseEntity implements Serializable {
 	
 	//일정 정보 등록
 	public ScheEntity(ScheDetailDTO schedule) {
-		
-		this.sche_unique = schedule.getId();
+		List<UserEntity> userList = new ArrayList<UserEntity>();
+		Optional<List<UserDetailDTO>>users = Optional.ofNullable(schedule.getToUsers());
+		if(users.isPresent()) {
+			for(UserDetailDTO user: users.get())
+				userList.add(new UserEntity(user));
+		}
+		this.id = schedule.getSche_id();
+		this.unique = schedule.getId();
 		this.startDate = schedule.getStartDate();
 		this.endDate = schedule.getEndDate();
 		this.startTime = schedule.getStartTime();
@@ -64,14 +73,36 @@ public class ScheEntity extends BaseEntity implements Serializable {
 		this.state = schedule.getState();
 		this.manPower = schedule.getManPower();
 		this.fromUser = new UserEntity(schedule.getFromUser());
+		this.toUsers = userList;
+		
+	}
+	
+	//일정 id & unique
+	public ScheEntity (int id, String unique) {
+		this.id = id;
+		this.unique = unique;
 	}
 	
 	//일정 상세 정보 내보내기
 	public ScheDetailDTO buildDTO() {
-//		List<UserDetailDTO> toUsersDTO = new ArrayList();
-//		for(UserEntity user : this.toUsers)
-//			toUsersDTO.add(user.buildDTO());
-		return new ScheDetailDTO(this.sche_unique, this.startDate, this.endDate, this.startTime, this.endTime, this.title, this.state, this.manPower,this.fromUser.buildDTO());
+		List<UserDetailDTO> toUsersDTO = new ArrayList<UserDetailDTO>();
+		for(UserEntity user : this.toUsers)
+			toUsersDTO.add(user.buildDTO());
+		return new ScheDetailDTO(this.id, this.unique,this.createdAt, this.updatedAt, this.startDate, this.endDate, this.startTime, this.endTime, this.title, this.state, this.manPower,this.peopleCount, this.fromUser.buildDTO(),toUsersDTO );
 	}
+	
+	public void updateManPower(int manPower) {
+		this.manPower = manPower;
+	}
+	
+	//일정의 신청 인원수 변경
+	public void updatePeopleCount(boolean people) {
+		if(people)
+			this.peopleCount += 1;
+		else
+			this.peopleCount -= 1;
+	}
+	
+	
 
 }

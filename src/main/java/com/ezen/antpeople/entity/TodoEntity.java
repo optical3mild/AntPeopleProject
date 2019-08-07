@@ -1,18 +1,23 @@
 package com.ezen.antpeople.entity;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.AttributeOverride;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
+
+import com.ezen.antpeople.dto.todo.TodoDetailDTO;
+import com.ezen.antpeople.dto.user.UserDetailDTO;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -33,17 +38,34 @@ public class TodoEntity extends BaseEntity implements Serializable {
 	private String description;
 	
 	private boolean state;
+	private int checkPerson;
 	
-	@ManyToMany(cascade=CascadeType.ALL)
-	@JoinTable(	name="user_todo", 
-				joinColumns = @JoinColumn(name="todo_id",referencedColumnName = "todo_id"),
-				inverseJoinColumns = @JoinColumn(name="to_id", referencedColumnName = "user_id"))
-	private Set<UserEntity> toUser;
+	@ManyToMany
+	@JoinTable(name="user_todo", joinColumns = @JoinColumn(name="todo_id"), inverseJoinColumns = @JoinColumn(name = "to_id"))
+	private List<UserEntity> toUsers;
 	
-	@ManyToMany(cascade=CascadeType.ALL)
-	@JoinTable(	name="user_todo", 
-				joinColumns = @JoinColumn(name="todo_id",referencedColumnName = "todo_id"),
-				inverseJoinColumns = @JoinColumn(name="dear_id", referencedColumnName = "user_id"))
-	private Set<UserEntity> dearUser;
+	@ManyToOne
+	@JoinColumn(name="from_id")
+	private UserEntity fromUser;
+	
+	//할일 DB저장 - 반드시 userList의 Null값이 없는지 확인 해야 함
+	public TodoEntity(TodoDetailDTO todo) {
+		List<UserEntity> userList = new ArrayList<UserEntity>();
+		Optional<List<UserDetailDTO>>users = Optional.ofNullable(todo.getToUsers());
+		if(users.isPresent()) {
+			for(UserDetailDTO user: users.get())
+				userList.add(new UserEntity(user));
+		}
+		this.description = todo.getDescription();
+		this.fromUser = new UserEntity(todo.getFromUser());
+		this.toUsers = userList;
+	}
+	
+	public TodoDetailDTO buildDTO() {
+		List<UserDetailDTO> toUsers = new ArrayList<UserDetailDTO>();
+		for(UserEntity user : this.toUsers)
+			toUsers.add(user.buildDTO());
+		return new TodoDetailDTO(this.id, this.description, this.state, this.updatedAt, this.fromUser.buildDTO(),toUsers);
+	}
 
 }

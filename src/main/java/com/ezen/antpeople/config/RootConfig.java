@@ -1,6 +1,7 @@
 package com.ezen.antpeople.config;
 
 import java.io.IOException;
+import java.util.Properties;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
@@ -28,6 +29,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
 
 @Configuration
@@ -103,16 +105,5 @@ public class RootConfig implements WebMvcConfigurer{
 		  } 
 		  return sessionFactory.getObject(); 
 	  }
-	 
-	
-	
-	  //Transaction Manager
-	/*
-	 * @Bean public HibernateTransactionManager txManager() {
-	 * HibernateTransactionManager txManager = new HibernateTransactionManager();
-	 * txManager.setSessionFactory(sessionFactory()); return txManager; }
-	 */
-
-
 
 }

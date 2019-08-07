@@ -27,7 +27,7 @@ public class ScheDetailDTO {
 	
 	public ScheDetailDTO() {}
 
-	//일정 정보 등록시
+	//일정 정보 신청시
 	public ScheDetailDTO(int id, String sche_unique, LocalDateTime createdAt, LocalDateTime updatedAt,
 			String startDate, String endDate, String startTime, String endTime, String title,int state, int manPower,
 			int peopleCount, UserDetailDTO fromUser, List<UserDetailDTO> toUsers) {
@@ -48,6 +48,7 @@ public class ScheDetailDTO {
 		this.toUsers = toUsers;
 	}
 	
+	//일정 정보 등록시
 	public ScheDetailDTO( String sche_unique, String startDate, String endDate, String startTime, String endTime, String title,int state, int manPower,
 			UserDetailDTO fromUser) {
 		super();
@@ -61,16 +62,52 @@ public class ScheDetailDTO {
 		this.manPower = manPower;
 		this.fromUser = fromUser;
 	}
-
-	@Override
-	public String toString() {
-		return "ScheDetailDTO [id=" + id + ", startDate=" + startDate + ", endDate=" + endDate + ", startTime="
-				+ startTime + ", endTime=" + endTime + ", title=" + title + ", state=" + state + ", manPower="
-				+ manPower + ", fromUser=" + fromUser + "]";
+	//테스트용
+	public ScheDetailDTO( String sche_unique, String startDate, String endDate, String startTime, String endTime, String title,int state, int manPower,
+			UserDetailDTO fromUser, List<UserDetailDTO> toUsers) {
+		super();
+		this.id = sche_unique;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.title = title;
+		this.state = state;
+		this.manPower = manPower;
+		this.fromUser = fromUser;
+		this.toUsers = toUsers;
 	}
 	
+	public ScheDetailDTO(int sche_id, String sche_unique, String startDate, String endDate, String startTime, String endTime, String title,int state, int manPower,
+			UserDetailDTO fromUser) {
+		super();
+		this.sche_id = sche_id;
+		this.id = sche_unique;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.title = title;
+		this.state = state;
+		this.manPower = manPower;
+		this.fromUser = fromUser;
+	}
 	
-	
-	
+	@Override
+	public String toString() {
+		
+		return "{\"id\":\"" + id + "\", "
+				+ "\"startDate\":\"" + startDate + "\","
+				+ "\"endDate\":\"" + endDate + "\","
+				+ "\"startTime\":\"" + startTime + "\","
+				+ "\"endTime\":\"" + endTime + "\","
+				+ "\"title\":\"" + title + "\","
+				+ "\"state\":" + state + ","
+				+ "\"manPower\":" + manPower + ","
+				+ "\"peopleCount\":" + peopleCount + ","				
+				+ "\"fromUser\":" + "{\"user_id\":"+fromUser.getUser_id()+"},"
+				+ "\"userId\":" + fromUser.getUser_id()
+				+ "}";
+	}
 
 }
