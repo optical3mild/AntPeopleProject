@@ -176,8 +176,8 @@
         
          <div class="box">
             <div class="box-header">
-              <h3 class="fa fa-bell"><a href="${path}/main/noticepage"> 공지사항</a></h3>
-
+              <h3 class="fa fa-bell"> 공지사항</h3>
+			  <b class="pull-right" style="font-size:medium"><a href="${path}/main/noticepage">more..</a></b>
             </div>
             <!-- /.box-header -->
             <div class="box-body no-padding">
@@ -192,26 +192,27 @@
                 <tr>
                   <td>${notice.notice_id}</td>
                   <td><a href="detailnotice?id=${notice.notice_id}">${notice.title}</a></td>
-                  <c:if test="${notice.user.role.role == '사장'}">
-                  <td><span class="badge bg-red">${notice.user.name}</span></td>
+                  <c:if test="${notice.user.store.store == '둔산점'}">
+                  	<td><span class="badge bgDun">${notice.user.name}</span></td>
                   </c:if>
-                  <c:if test="${notice.user.role.role == '직원'}">
-                  <td><span class="badge bg-blue">${notice.user.name}</span></td>
+                  <c:if test="${notice.user.store.store == '월평점'}">
+                  	<td><span class="badge bgWal">${notice.user.name}</span></td>
+                  </c:if>
+                  <c:if test="${notice.user.store.store == '관저점'}">
+                  	<td><span class="badge bgGhwan">${notice.user.name}</span></td>
+                  </c:if>
+                  <c:if test="${notice.user.store.store == '갈마점'}">
+                  	<td><span class="badge bgGal">${notice.user.name}</span></td>
+                  </c:if>
+                  <c:if test="${notice.user.store.store == '탄방점'}">
+                  	<td><span class="badge bgTan">${notice.user.name}</span></td>
                   </c:if>
                 </tr>
                 </c:forEach>
               </table>
             </div>
             <!-- /.box-body -->
-            <div class="box-footer text-center">
-                <ul class="pagination">
-                  <li><a href="#">&laquo;</a></li>
-                  <li><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">&raquo;</a></li>
-                </ul>
-              </div>
+            
           </div>
           <!-- /.box -->
           
@@ -223,7 +224,8 @@
         
          <div class="box">
             <div class="box-header">
-              <h3 class="fa fa-comments"><a href="${path}/main/bbspage"> 자유게시판</a></h3>
+              <h3 class="fa fa-comments">자유게시판</h3>
+              <b class="pull-right" style="font-size:medium"><a href="${path}/main/bbspage">more..</a></b>
             </div>
             <!-- /.box-header -->
             <div class="box-body no-padding">
@@ -238,26 +240,27 @@
                 <tr>
                   <td>${board.bbs_id}</td>
                   <td><a href="detailbbs?id=${board.bbs_id}">${board.title}</a></td>
-                  <c:if test="${board.user.role.role == '사장'}">
-                  <td><span class="badge bg-red">${board.user.name}</span></td>
+                  <c:if test="${notice.user.store.store == '둔산점'}">
+                  	<td><span class="badge bgDun">${notice.user.name}</span></td>
                   </c:if>
-                  <c:if test="${board.user.role.role == '직원'}">
-                  <td><span class="badge bg-blue">${board.user.name}</span></td>
+                  <c:if test="${notice.user.store.store == '월평점'}">
+                  	<td><span class="badge bgWal">${notice.user.name}</span></td>
+                  </c:if>
+                  <c:if test="${notice.user.store.store == '관저점'}">
+                 	<td><span class="badge bgGhwan">${notice.user.name}</span></td>
+                  </c:if>
+                  <c:if test="${notice.user.store.store == '갈마점'}">
+                    <td><span class="badge bgGal">${notice.user.name}</span></td>
+                  </c:if>
+                  <c:if test="${notice.user.store.store == '탄방점'}">
+                  	<td><span class="badge bgTan">${notice.user.name}</span></td>
                   </c:if>
                 </tr>
                 </c:forEach>
               </table>
             </div>
             <!-- /.box-body -->
-            <div class="box-footer text-center">
-                <ul class="pagination">
-                  <li><a href="#">&laquo;</a></li>
-                  <li><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">&raquo;</a></li>
-                </ul>
-              </div>
+            
           </div>
           <!-- /.box -->
           
@@ -277,10 +280,6 @@
                   <h3 class="fa fa-users"> 근무자 명단</h3>
                   <div class="box-tools pull-right">
                     <span class="label label-danger">${todayStaffCount} New Members</span>
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
-                    </button>
                   </div>
                 </div>
                 <!-- /.box-header -->
