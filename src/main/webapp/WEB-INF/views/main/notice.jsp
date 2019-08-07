@@ -51,10 +51,10 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>공지사항
-      <small>Control panel</small>
+      <small>Notice</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="${path}/#"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li><a href="${path}/main/mainpage"><i class="fa fa-home"></i>Home</a></li>
         <li class="active">Main</li>
       </ol>
     </section>
@@ -155,6 +155,7 @@
 				"emptyTable" : "데이터가 없습니다.",
 				"lengthMenu" : " _MENU_ 개씩 보기",
 				"search" : "검색:",
+				"searchPlaceholder" : "검색어를 입력하세요",
 				"info" : "_START_ - _END_ (총 _TOTAL_ 건)",
 				"infoEmpty" : "0건",
 				"infoFiltered" : "(전체 _MAX_ 건 중 검색결과)",

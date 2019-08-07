@@ -44,11 +44,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Common - Staff List (직원목록)
-        <small>Control panel</small>
+        직원정보
+        <small>Staff List</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="${path}/#"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li><a href="${path}/main/mainpage"><i class="fa fa-home"></i>Home</a></li>
         <li class="active">Main</li>
       </ol>
     </section>
@@ -59,7 +59,7 @@
         <div class="col-xs-12">
           <div class="box box-info">
             <div class="box-header">
-              <h3 class="box-title">Data Table With Full Features</h3>
+              <h3 class="box-title"></h3>
               <hr style="margin-bottom: 0 ; border: 0.5px solid lightgrey">
             </div>
             <!-- /.box-header -->
@@ -72,13 +72,13 @@
 				</colgroup>
                 <thead>
                   <tr>
-                    <th>이름</th>
-                    <th>직급</th>
-                    <th>소속</th>
+                    <th style="text-align: center;">이름</th>
+                    <th style="text-align: center;">직급</th>
+                    <th style="text-align: center;">소속</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr style="text-align: center;">
                   	<td><a href="#">알바1</a></td>
                   	<td>알바</td>
                   	<td>점포1</td>
