@@ -78,3 +78,25 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
   border-color: lightgrey;
 }
 /* end of accept page */
+
+/* main page board badge color */
+.bgDun {
+  background-color: #3c8dbc;
+  border-color:  #3c8dbc;
+}
+.bgWal {
+  background-color: #00c0ef;
+  border-color:  #00c0ef;
+}
+.bgGhwan {
+  background-color: #00a65a;
+  border-color:  #00a65a;
+}
+.bgGal {
+  background-color: #001F3F;
+  border-color:  #001F3F;
+}
+.bgTan {
+  background-color: #605ca8;
+  border-color:  #605ca8;
+}
