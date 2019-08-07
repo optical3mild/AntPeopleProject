@@ -125,13 +125,13 @@
 - (정우) 일정등록 ui - updateplanpage.jsp (운영계획 수정화면) 업데이트
 - (성현) monthplanpage  Schedule - OwnerControler 월별 데이터 연결
 
-### Day 20 : Schedule 신청 로직 (10.08.01)
+### Day 20 : Schedule 신청 로직 (19.08.01)
 - (오인) Schedule 신청 로직 구현 및 테스트 완료
 - (정우) 일정신청 ui - requestWork.jsp (일정신청화면) 업데이트
 - (성현) monthplanpage  Schedule 생성버튼 연결
 - (성현) insertplanpage  작성완료버튼 연결
 
-### Day 21 : Schedule 등록 마무리 (10.08.02)
+### Day 21 : Schedule 등록 마무리 (19.08.02)
 - (오인) Schedule 수정, 삭제 이동 controller 연결
 - (오인) MonthPlan DB, Repository, Entity 추가 (일정 수정 가능 여부 판단용)
 - (오인) ScheduleMonthAndStaff 추가 (해당 달의 일정과 직원이 일정을 신청했는지 여부 파악)
@@ -140,7 +140,13 @@
 - (종환) 공지사항, 게시판, 메인페이지 페이징 설정
 - (종환) DataTable 설정
 
-### Day 22 : Schedule 등록 마무리 (10.08.05)
+### Day 22 : Schedule 등록 마무리 (19.08.05)
 - (정우) 일정등록 ui - accept.jsp 추가, requestWork.jsp 업데이트.  
 - (오인) 근무 신청 승인/거절 관련 Service 수정 및 테스트 완료
 - (오인) Owner Controller 근무 신청 승인/거절 및 월별 일정 리스트 완료 버튼 연결
+
+### Day 23 : (19.08.06)
+
+### Day 24 : View 정리 (19.08.07)
+- (성현) 전체 페이지 아이콘 변경
+- (성현) bbspage, notice 페이지 날짜 형식 변환 및 mainpage 공지, 자유게시판 제목 링크 연결
