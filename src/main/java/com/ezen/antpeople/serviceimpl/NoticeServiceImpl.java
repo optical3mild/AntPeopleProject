@@ -64,5 +64,15 @@ public class NoticeServiceImpl implements NoticeService {
 			NoticeDetailList.add(Notice.buildDto());
 		return NoticeDetailList;
 	}
+	
+	//메인 - 공지사항 5개만 보기
+	@Override
+	public List<NoticeDetailDTO> findTopFive() {
+		List<NoticeDetailDTO> NoticeDetailList = new ArrayList<NoticeDetailDTO>();
+		List<NoticeEntity> NoticeList = new ArrayList<NoticeEntity>(noticeRepository.findTop5ByOrderByIdDesc());
+		for(NoticeEntity Notice : NoticeList)
+			NoticeDetailList.add(Notice.buildDto());
+		return NoticeDetailList;
+	}
 
 }

@@ -41,8 +41,8 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Dashboard
-        <small>Control panel</small>
+        HOME
+        <small>메인페이지</small>
       </h1>
       <!-- <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -55,6 +55,7 @@
     <c:set var = "todayStaffList" value ="${requestScope.todayStaffList}"/>
     <c:set var = "todayStaffCount" value = "${fn:length(todayStaffList)}"/>
       <!-- Small boxes (Stat box) -->
+        <c:if test="${user.email != null }">
       <div class="row">
         <div class="col-lg-3 col-xs-6">
         
@@ -130,46 +131,7 @@
         <div class="col-lg-3 col-xs-6">
         </c:if>
         <!-- 사장의 box End -->
-        
-        
-        
-        <!-- 게스트의 box -->
-          
-        <c:if test="${user.email == null}">
-        <!-- small box -->
-          <div class="small-box bg-aqua">
-            <div class="inner">
-              <h3>53<sup style="font-size: 20px">%</sup></h3>
 
-              <p>아직 안정함</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-stats-bars"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-        <!-- small box -->
-          <div class="small-box bg-green">
-            <div class="inner">
-              <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-              <p>게스트 사용자 </p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-stats-bars"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-        </c:if>
-        
-        <!-- 게스트의 box End -->
-        
         <!-- 공통 box -->
           <!-- small box -->
           <div class="small-box bg-yellow">
@@ -181,7 +143,7 @@
             <div class="icon">
               <i class="fa fa-users"></i>
             </div>
-            <a href="${path}/owner/staffinfo" class="small-box-footer">전체 직원 리스트 <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="${path}/main/staffinfo" class="small-box-footer">전체 직원 리스트 <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -202,6 +164,7 @@
         <!-- ./col -->
       <!-- 공통 box End -->
       </div>
+      </c:if>
       <!-- /.row -->
       
       
@@ -220,9 +183,9 @@
             <div class="box-body no-padding">
               <table class="table">
                 <tr>
-                  <th style="width: 10px">#</th>
+                  <th style="width: 20%">게시글 번호</th>
                   <th>제목</th>
-                  <th style="width: 70px">글쓴이</th>
+                  <th style="width: 15%">작성자</th>
                 </tr>
                 <c:set var="noticeList" value="${requestScope.noticeList}"/>
 				<c:forEach var="notice" items="${noticeList}">
@@ -230,10 +193,10 @@
                   <td>${notice.notice_id}</td>
                   <td><a href="detailnotice?id=${notice.notice_id}">${notice.title}</a></td>
                   <c:if test="${notice.user.role.role == '사장'}">
-                  <td><span class="badge bg-red">${notice.user.role.role}</span></td>
+                  <td><span class="badge bg-red">${notice.user.name}</span></td>
                   </c:if>
                   <c:if test="${notice.user.role.role == '직원'}">
-                  <td><span class="badge bg-blue">${notice.user.role.role}</span></td>
+                  <td><span class="badge bg-blue">${notice.user.name}</span></td>
                   </c:if>
                 </tr>
                 </c:forEach>
@@ -266,9 +229,9 @@
             <div class="box-body no-padding">
               <table class="table">
                 <tr>
-                  <th style="width: 10px">#</th>
+                  <th style="width: 20%">게시글 번호</th>
                   <th>제목</th>
-                  <th style="width: 70px">글쓴이</th>
+                  <th style="width: 15%">작성자</th>
                 </tr>
                 <c:set var="boardList" value="${requestScope.bbsList}"/>
 				<c:forEach var="board" items="${boardList}">
@@ -276,10 +239,10 @@
                   <td>${board.bbs_id}</td>
                   <td><a href="detailbbs?id=${board.bbs_id}">${board.title}</a></td>
                   <c:if test="${board.user.role.role == '사장'}">
-                  <td><span class="badge bg-red">${board.user.role.role}</span></td>
+                  <td><span class="badge bg-red">${board.user.name}</span></td>
                   </c:if>
                   <c:if test="${board.user.role.role == '직원'}">
-                  <td><span class="badge bg-blue">${board.user.role.role}</span></td>
+                  <td><span class="badge bg-blue">${board.user.name}</span></td>
                   </c:if>
                 </tr>
                 </c:forEach>

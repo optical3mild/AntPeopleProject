@@ -10,4 +10,5 @@ public interface NoticeService {
 	public void deleteNotice(int bbs_id); //공지사항 삭제
 	public NoticeDetailDTO findByOne(Integer notice_id); // 공지사항 상세 보기
 	public List<NoticeDetailDTO> findByAll(); // 공지사항 리스트
+	public List<NoticeDetailDTO> findTopFive(); // 메인 - 공지사항 리스트 (5개만)
 }

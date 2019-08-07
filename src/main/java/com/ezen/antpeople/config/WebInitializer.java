@@ -12,13 +12,13 @@ import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
-import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
 
 import com.ezen.antpeople.controller.main.ServletConfigurationMain;
 import com.ezen.antpeople.controller.owner.ServletConfigurationOwner;
 import com.ezen.antpeople.controller.staff.ServletConfigurationStaff;
 import com.ezen.antpeople.controller.user.ServletConfigurationUser;
+import com.ezen.antpeople.exception.ServletConfigurationException;
 
 public class WebInitializer implements WebApplicationInitializer{
         @Override
@@ -66,6 +66,16 @@ public class WebInitializer implements WebApplicationInitializer{
     		dispatcherStaff.setLoadOnStartup(4);
     		dispatcherStaff.addMapping("/staff/*");
     		//-----------------------------------------------
+    		
+    		// ServeltContext_Exception - WebApplicationContext
+    		AnnotationConfigWebApplicationContext servletExceptionContext = new AnnotationConfigWebApplicationContext();
+    		servletExceptionContext.register(ServletConfigurationException.class);
+    		
+    		ServletRegistration.Dynamic dispatcherException = servletContext.addServlet("DispatcherServletException", new DispatcherServlet(servletExceptionContext));
+    		dispatcherException.setLoadOnStartup(5);
+    		dispatcherException.addMapping("/");
+    		//-----------------------------------------------
+    		
     		
             // 인코딩 필터 적용
             FilterRegistration.Dynamic charaterEncodingFilter = servletContext.addFilter("charaterEncodingFilter", new CharacterEncodingFilter());

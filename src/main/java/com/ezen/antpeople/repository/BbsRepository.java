@@ -10,4 +10,5 @@ import com.ezen.antpeople.entity.BbsEntity;
 @Repository("Bbs")
 public interface BbsRepository extends JpaRepository<BbsEntity, Integer>{
 	public List<BbsEntity> findAllByOrderByIdDesc();
+	public List<BbsEntity> findTop5ByOrderByIdDesc();
 }	

@@ -57,7 +57,7 @@
       </h1>
       <ol class="breadcrumb">
         <li><a href="${path}/main/mainpage"><i class="fa fa-home"></i>Home</a></li>
-        <li class="active">Main</li>
+        <li class="active">자유게시판</li>
       </ol>
     </section>
 <!-- ------------------------------------------------- -->    
@@ -80,17 +80,17 @@
             <div class="box-body">
               <table id="boardTable" class="table table-bordered table-striped">
 				<colgroup>
-				  <col style="width: 15%">
-				  <col style="width: 55%">
-				  <col style="width: 15%">
-				  <col style="width: 15%">
+				  <col style="width: 10%">
+				  <col style="width: 64%">
+				  <col style="width: 13%">
+				  <col style="width: 13%">
 				</colgroup>
                 <thead>
                   <tr>
                     <th>글번호</th>
                     <th>제목</th>
-                    <th>작성날짜</th>
                     <th>작성자</th>
+                    <th>작성날짜</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -99,20 +99,15 @@
 					<tr>
 					  <td style="text-align: center;">${board.bbs_id}</td>
 			          <%--Title 클릭 시 해당 글 링크로 넘어감. 서블릿 요청필요.--%>
-					  <td style="text-align: center;">
+					  <td>
 					    <a href="detailbbs?id=${board.bbs_id}">${board.title}</a>
 					  </td>
+					  <td style="text-align: center;">${board.user.name}</td>
 					  <td style="text-align: center;">
 					    <%-- <fmt:formatDate value="${board.updatedAt}" pattern="yyyy-MM-dd HH:mm" type="date"/> --%>
 					    <fmt:parseDate value="${board.updatedAt}" var="dateFmt" pattern="yyyy-MM-dd'T'HH:mm:ss"/>
 					    <fmt:formatDate value="${dateFmt}" pattern="yyyy-MM-dd HH:mm"/>
 					  </td>
-					  <%-- 날짜를 String으로 받아오는 경우 parseDate --> formatDate로 두번실행.
-					  <td style="text-align: center;">
-					    <fmt:parseDate value="${notice.noticeDate}" var="dateFmt" pattern="yyyyMMdd"/>
-					    <fmt:formatDate value="${dateFmt}" pattern="yy-MM-dd"/>
-					  </td> --%>
-					  <td style="text-align: center;">${board.user.name}</td>
 					</tr>
 				  </c:forEach>
 				  
