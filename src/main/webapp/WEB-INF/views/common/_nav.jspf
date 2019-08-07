@@ -12,7 +12,7 @@
         
         <li>
           <a href="${path}/main/noticepage">
-            <i class="fa fa-calendar"></i><span>공지사항</span>
+            <i class="fa fa-bell"></i><span>공지사항</span>
           </a>
         </li>
         

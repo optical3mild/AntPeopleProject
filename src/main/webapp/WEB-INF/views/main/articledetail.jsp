@@ -60,17 +60,16 @@
           <!-- general form elements disabled -->
           <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">[${category}] ${article.title}</h3>
+              <h3 class="box-title" style="display:inline-block"> [${category}] ${article.title}</h3>
+              <div class="pull-right" style="display:inline-block">
+                  <label style="display:inline">작성자:</label>&nbsp;&nbsp;${article.user.name}&nbsp;&nbsp;&nbsp;&nbsp;
+                  <label style="display:inline">작성일:</label>&nbsp;&nbsp;${article.updatedAt}
+              </div>
             </div>
+            
             <!-- /.box-header -->
             <div class="box-body">
               <form role="form" method="post">
-                <!-- text input -->
-                <div class="form-group">
-                  <label style="display:inline">작성자:&nbsp;&nbsp;${article.user.name}</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                  <label style="display:inline">작성일:&nbsp;&nbsp;${article.updatedAt}</label>
-                </div>
-                
                 <!-- textarea -->
                 <div class="form-group">
                     ${article.description}

@@ -66,7 +66,7 @@
               <div id="external-events">
               </div>
               <hr class="divArea">
-              <button id="approvalAndCancel" type="button" class="btn btn-primary btn-flat pull-right approval" disabled>승인</button>
+              <button id="approvalAndCancel" type="button" class="btn btn-primary btn-flat pull-right approval" disabled>일정 확정</button>
             </div>
             <!-- /.box-body -->
           </div>
@@ -141,7 +141,7 @@ var userId = "${user.user_id}";
 // 페이지 로드 시 받을 수신받을 데이터 형태. --> '연월' : 수정가능여부
 var nowDate = new Date();
 
-//** 승인/승인취소 버튼 클릭 시 보낼 월의 인덱스를 저장할 변수.
+//** 일정 확정/일정 확정 취소 버튼 클릭 시 보낼 월의 인덱스를 저장할 변수.
 var selectedMonthIndex = "";
 
 var gotList = ${monthIndex} //더미로 확인필요...
@@ -363,9 +363,9 @@ $(document).on('click','.external-event',function() {
     $('#individual-box').css({'display':'none'});
     // 음영처리 제거.
     $(this).removeClass('clickEvent_Opacity');
-    // 승인취소 --> 승인으로 변경, 버튼 비활성화.
+    // 일정 확정 취소 --> 일정 확정으로 변경, 버튼 비활성화.
     targetBtn.removeClass('approvalCanelation')
-    targetBtn.addClass('approval').text('승인').css({'background-color' : '#00a65a'});
+    targetBtn.addClass('approval').text('일정 확정').css({'background-color' : '#00a65a'});
     targetBtn.attr('disabled', true);
 
     //캘린더의 화면을 목록의 마지막 다음달로 변경.
@@ -389,17 +389,17 @@ $(document).on('click','.external-event',function() {
     selectedMonthIndex = thisMonthIndex;
 
     //calender rendering 작업, 화면을 해당월로 표기,
-    //a. 승인여부 판단하여 승인된 경우 승인취소로 표기
+    //a. 일정 확정여부 판단하여 일정 확정이 된 경우 일정 확정 취소로 표기
     targetBtn.attr('disabled', false);
     var switchInfo = $(this).data().mendable;
     if(switchInfo == false) {
-      // false : 수정불가 == 승인된 상태 --> 승인취소 가능하게 변경.
+      // false : 수정불가 == 일정 확정이 된 상태 --> 일정 확정 취소 가능하게 변경.
       targetBtn.removeClass('approval')
-      targetBtn.addClass('approvalCanelation').text('승인취소').css({'background-color' : '#e47636'});
+      targetBtn.addClass('approvalCanelation').text('일정 확정 취소').css({'background-color' : '#e47636'});
     } else {
-      // true : 수정가능 == 승인되지 않은 상태 --> 승인 가능하게 변경.
+      // true : 수정가능 == 일정 확정이 되지 않은 상태 --> 일정 확정 가능하게 변경.
       targetBtn.removeClass('approvalCanelation')
-      targetBtn.addClass('approval').text('승인').css({'background-color' : '#00a65a'});
+      targetBtn.addClass('approval').text('일정 확정').css({'background-color' : '#00a65a'});
     }
     //b. 월별이벤트 데이터를 받아온다. --> {key = 1901 : value = {해당월의 계획} }
     var targetMonth = $(this).data().monthIndex; // ex) 1901 = 19년 2월.
@@ -476,10 +476,7 @@ function getMonthlyPlan(inputVal) {
 			console.log(response);
 		},
 		success : function(response) {
-			alert("통신성공, response: " + response);
-			//document.location.href = response;
-			//return response;
-			console.log(response);
+			//console.log(response);
 			result = response;
 		}
 	});
@@ -499,7 +496,7 @@ $(document).on('click','.staffBar',function() {
   $.removeData('#calendar','unSelectedList');
   $('#calendar').data('unSelectedList',[]);
   unSelectedDataLoc = $('#calendar').data('unSelectedList');
-  //승인버튼 잠금 초기화 : <----- 직원목록 아래의 수정, 수정완료 버튼작동과 맞물려 잠금설정.
+  //일정 확정 버튼 잠금 초기화 : <----- 직원목록 아래의 수정, 수정완료 버튼작동과 맞물려 잠금설정.
   $('#approvalAndCancel').attr('disabled',false);
   $('.selectStaffBar_Opacity').not($(this)).removeClass('selectStaffBar_Opacity');
   var checkSelect = $(this).hasClass('selectStaffBar_Opacity');
@@ -523,7 +520,7 @@ $(document).on('click','.staffBar',function() {
       $('span:contains("'+targetId+'")').parent().parent().addClass('selectedEvent');
     }
     // selectedMonthIndex에 값이 있는 경우 --> 월 정보 선택되어 있음.
-    // 선택된 월별 이벤트 바의 data를 읽어 승인여부를 판단.
+    // 선택된 월별 이벤트 바의 data를 읽어 일정 확정 여부를 판단.
     var checkApprovalState = $('.clickEvent_Opacity').data().mendable;
     if((selectedMonthIndex != "")&&($(checkApprovalState == true))) {
       //해당 월의 인덱스 정보가 존재하고, 수정기능한 상태일때 수정버튼 활성화.
@@ -537,19 +534,19 @@ $(document).on('click','.staffBar',function() {
 })
 
 
-//4. 승인/ 승인취소 버튼
-// 셀렉트 된 월의 인덱스와 승인(== false로 변경) / 승인취소(== true로 변경)을 보냄..
+//4. 일정 확정/ 일정 확정 취소 버튼
+// 셀렉트 된 월의 인덱스와 일정 확정(== false로 변경) / 일정 확정 취소(== true로 변경)을 보냄..
 $('#approvalAndCancel').click(function() {
   var changeValue;
   var selectedMBar = $('.clickEvent_Opacity').data().title;
   if($(this).hasClass('approval') == true) {
-    //승인 --> 월별 수정가능 상태를 false(수정불가)로 바꾸도록 전송.
-    alert(selectedMBar+"를 승인합니다.");
+    //일정 확정 --> 월별 수정가능 상태를 false(수정불가)로 바꾸도록 전송.
+    alert(selectedMBar+"를 일정 확정을 합니다.");
     changeValue = false;
 
   } else if($(this).hasClass('approvalCanelation') == true) {
-    //승인취소 --> 월별 수정가능 상태를 true(수정가능)로 바꾸도록 전송.
-    alert(selectedMBar+"의 승인을 취소합니다.");
+    //일정 확정 취소 --> 월별 수정가능 상태를 true(수정가능)로 바꾸도록 전송.
+    alert(selectedMBar+"의 일정 확정을 취소합니다.");
     changeValue = true;
   }
   changeApprovalState(selectedMonthIndex, changeValue);
@@ -578,7 +575,6 @@ function changeApprovalState(targetMonthIndex, value) {
 		    console.log(response);
 		},
 		success : function(response) {
-			alert("승인되었습니다.");
 		    //승인 시 페이지 새로고침 --> 화면 초기화로 월별 이벤트 바를 다시 생성.
 			document.location.href = response;
 		}
@@ -695,7 +691,6 @@ $(function() {
       //수정버튼이 눌러져 있는경우에 작동. --> 수정완료로 표기되어 있고 == finishModify클래스가 있음.
       //클릭시 해당 직원의 선택된 일정을 취소. --> 취소목록을 list로 저장.
       // 수정완료를 누르면 { staffId : [이벤트 id 배열]}을 ajax로 송신.
-      alert('클릭')
       console.log($('modifyAndCancel').hasClass('finishModify'))
       if($('#modifyAndCancel').hasClass('finishModify') == true){
         $('span:contains("'+calEvent.id+'")').parent().parent().removeClass('selectedEvent');
