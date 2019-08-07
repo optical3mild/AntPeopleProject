@@ -99,11 +99,11 @@ public class ScheCRUDTest {
 	}
 	
 	//오늘 근무 직원 리스트 가져오기 테스트
-	@Test @Ignore
+	@Test 
 	public void todayStaffListTest() {
-		UserDetailDTO user = us.findByEmail("wlrdnjs111@gmail.com"); //이메일은 DB에 따라 변경해야함!!
+		UserDetailDTO user = us.findByEmail("wlrdnjs101@gmail.com"); //이메일은 DB에 따라 변경해야함!!
 		log.info("직원 ID : " + user.getUser_id());
-		List<ScheUserDTO> testSchedules = scheService.todayStaffList(user.getStore().getStore(),"190810");
+		List<ScheUserDTO> testSchedules = scheService.todayStaffList("둔산지점","190810");
 		log.info("당일 근무하는 직원 리스트 : "+ testSchedules.toString());
 	}
 	//일정 수정 및 삭제 테스트 - 성공

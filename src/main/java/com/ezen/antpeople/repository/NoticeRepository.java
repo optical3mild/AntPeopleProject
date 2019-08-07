@@ -11,4 +11,5 @@ import com.ezen.antpeople.entity.NoticeEntity;
 @Repository("Notice")
 public interface NoticeRepository extends JpaRepository<NoticeEntity, Integer>{
 	public List<NoticeEntity> findAllByOrderByIdDesc();
+	public List<NoticeEntity> findTop5ByOrderByIdDesc();
 }	

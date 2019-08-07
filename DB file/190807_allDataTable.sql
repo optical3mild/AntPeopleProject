@@ -1,5 +1,8 @@
 SET SESSION FOREIGN_KEY_CHECKS=0;
 
+CREATE SCHEMA IF NOT EXISTS `antpeople` DEFAULT CHARACTER SET utf8 ;
+use antpeople;
+
 /* Drop Tables */
 
 DROP TABLE IF EXISTS bbs;
@@ -25,7 +28,7 @@ CREATE TABLE bbs
 	description varchar(255) NOT NULL,
 	created_time datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	updated_time datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	state int NOT NULL,
+	state int NOT NULL DEFAULT 1,
 	user_id int NOT NULL,
 	PRIMARY KEY (bbs_id)
 );
@@ -35,7 +38,7 @@ CREATE TABLE month_plan
 (
 	user_id int NOT NULL,
 	month varchar(10) NOT NULL,
-	state boolean DEFAULT 'TRUE',
+	state boolean DEFAULT TRUE,
 	PRIMARY KEY (user_id, month)
 );
 
@@ -47,7 +50,7 @@ CREATE TABLE notice
 	description varchar(255) NOT NULL,
 	created_time datetime DEFAULT CURRENT_TIMESTAMP,
 	updated_time datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	state int NOT NULL,
+	state int NOT NULL DEFAULT 1,
 	user_id int NOT NULL,
 	PRIMARY KEY (notice_id)
 );
@@ -126,7 +129,7 @@ CREATE TABLE user
 CREATE TABLE user_sche
 (
 	user_id int NOT NULL,
-	sche_id int DEFAULT 1 NOT NULL,
+	sche_id int NOT NULL,
 	-- 1 - 승인 신청중
 	-- 2 - 승인 완료
 	state int DEFAULT 1 COMMENT '1 - 승인 신청중

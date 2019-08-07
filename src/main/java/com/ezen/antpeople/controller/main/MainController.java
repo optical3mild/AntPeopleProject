@@ -46,13 +46,15 @@ public class MainController {
 	// 메인 페이지
 	@RequestMapping("mainpage")
 	public ModelAndView mainPage(ModelAndView mv,HttpServletRequest request) {
+		logger.info("mainpage 페이지 시작");
 		HttpSession session = request.getSession(true);
 		Optional<UserDetailDTO> user = Optional.ofNullable((UserDetailDTO) session.getAttribute("user")); //세션 존재 여부 확인
+		logger.info("세션 받아옴");
 		int date = Integer.parseInt(LocalDate.now().minusMonths(1).format(DateTimeFormatter.ofPattern("yyMMdd")));
 		int staffApply =0;
 		int staffRefuseApply =0;
-		List<BbsDetailDTO> bbsDetailList = new ArrayList<BbsDetailDTO>(bbsService.findByAll());
-		List<NoticeDetailDTO> noticeDetailList = new ArrayList<NoticeDetailDTO>(noticeService.findByAll());
+		List<BbsDetailDTO> bbsDetailList = new ArrayList<BbsDetailDTO>(bbsService.findTopFive());
+		List<NoticeDetailDTO> noticeDetailList = new ArrayList<NoticeDetailDTO>(noticeService.findTopFive());
 		List<UserDetailDTO> todayStaffList = new ArrayList<UserDetailDTO>();
 		if(user.isPresent()) {
 			todayStaffList = userService.todayStaff(user.get().getStore().getStore(), Integer.toString(date));
