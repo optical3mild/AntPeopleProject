@@ -19,6 +19,7 @@ import com.ezen.antpeople.controller.main.ServletConfigurationMain;
 import com.ezen.antpeople.controller.owner.ServletConfigurationOwner;
 import com.ezen.antpeople.controller.staff.ServletConfigurationStaff;
 import com.ezen.antpeople.controller.user.ServletConfigurationUser;
+import com.ezen.antpeople.exception.ServletConfigurationError;
 
 public class WebInitializer implements WebApplicationInitializer{
         @Override
@@ -65,6 +66,15 @@ public class WebInitializer implements WebApplicationInitializer{
     		ServletRegistration.Dynamic dispatcherStaff = servletContext.addServlet("DispatcherServletStaff", new DispatcherServlet(servletStaffContext));
     		dispatcherStaff.setLoadOnStartup(4);
     		dispatcherStaff.addMapping("/staff/*");
+    		//-----------------------------------------------
+    		
+    		// ServeltContext_Error - WebApplicationContext
+    		AnnotationConfigWebApplicationContext servletErrorContext = new AnnotationConfigWebApplicationContext();
+    		servletErrorContext.register(ServletConfigurationError.class);
+    		
+    		ServletRegistration.Dynamic dispatcherError = servletContext.addServlet("DispatcherServletError", new DispatcherServlet(servletErrorContext));
+    		dispatcherError.setLoadOnStartup(5);
+    		dispatcherError.addMapping("/");
     		//-----------------------------------------------
     		
             // 인코딩 필터 적용

@@ -46,23 +46,6 @@ public class OwnerController {
 		this.scheService = scheService;
 		this.monthplanService = monthplanService;
 	}
-	
-	// 직원 전체 정보 목록
-	@RequestMapping("staffinfo")
-	public ModelAndView staffInfo(ModelAndView mv,HttpServletRequest request) throws Exception {
-		logger.info("staffInfo 페이지");
-		//세션 받아오기
-		HttpSession session = request.getSession();
-		UserDetailDTO user = (UserDetailDTO) session.getAttribute("user");
-		StoreDTO store = user.getStore();
-		System.out.println(store.toString());
-		List<UserDetailDTO> userList = new ArrayList<UserDetailDTO>(userService.findByStore(new RoleDTO(102,""),store));
-		mv.addObject("userList", userList);
-		mv.setViewName("staffinfo");
-		return mv;
-	}
-	
-
 	//----------------------- 근무 일정 페이지 ---------------------------
 	
 	// 운영 계획 - 1

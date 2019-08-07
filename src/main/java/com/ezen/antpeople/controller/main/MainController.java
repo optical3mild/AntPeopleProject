@@ -20,6 +20,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ezen.antpeople.dto.board.BbsDetailDTO;
 import com.ezen.antpeople.dto.board.NoticeDetailDTO;
+import com.ezen.antpeople.dto.user.RoleDTO;
+import com.ezen.antpeople.dto.user.StoreDTO;
 import com.ezen.antpeople.dto.user.UserDetailDTO;
 import com.ezen.antpeople.repository.USRepository;
 import com.ezen.antpeople.service.BbsService;
@@ -68,8 +70,21 @@ public class MainController {
 	}
 
 	// --------------------------------------------------------------------------
-	
-	
+	// ------------------------------ 직원 목록 관련 ----------------------------
+	// 직원 전체 정보 목록
+		@RequestMapping("staffinfo")
+		public ModelAndView staffInfo(ModelAndView mv,HttpServletRequest request) throws Exception {
+			logger.info("staffInfo 페이지");
+			//세션 받아오기
+			HttpSession session = request.getSession();
+			UserDetailDTO user = (UserDetailDTO) session.getAttribute("user");
+			StoreDTO store = user.getStore();
+			System.out.println(store.toString());
+			List<UserDetailDTO> userList = new ArrayList<UserDetailDTO>(userService.findByStore(new RoleDTO(102,""),store));
+			mv.addObject("userList", userList);
+			mv.setViewName("staffinfo");
+			return mv;
+		}
 	
 	// ----------------------------- bbs 관련 -------------------------------------
 	// bbs이동 및 리스트 호출

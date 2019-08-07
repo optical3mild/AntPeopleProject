@@ -11,7 +11,7 @@
         <li class="header">Common Menu</li>
         
         <li>
-          <a href="${path}/main/noticepage">
+          <a href="${path}/main/notice">
             <i class="fa fa-calendar"></i><span>공지사항</span>
 <!--             <span class="pull-right-container"> -->
 <!--               <small class="label pull-right bg-red">3</small> -->
@@ -43,12 +43,6 @@
 	        <li>
 	          <a href="${path}/owner/acceptpage">
 	            <i class="fa fa-calendar"></i> <span>승인화면</span>
-	          </a>
-	        </li>
-	        
-	        <li>
-	          <a href="${path}/owner/staffinfo">
-	            <i class="fa fa-calendar"></i> <span>직원정보</span>
 	          </a>
 	        </li>
 	  	</ul>

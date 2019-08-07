@@ -148,6 +148,7 @@
 <script>
 	$(document).ready(function() {
 		$('#noticeTable').DataTable({
+			"order": [0,'desc'],
 			"language" : {
 				"loadingRecords" : "로딩중...",
 				"processing" : "처리중...",
