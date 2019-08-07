@@ -213,7 +213,7 @@
         
          <div class="box">
             <div class="box-header">
-              <h3 class="fa fa-bell"> 공지사항</h3>
+              <h3 class="fa fa-bell"><a href="${path}/main/noticepage"> 공지사항</a></h3>
 
             </div>
             <!-- /.box-header -->
@@ -260,7 +260,7 @@
         
          <div class="box">
             <div class="box-header">
-              <h3 class="fa fa-comments"> 자유게시판</h3>
+              <h3 class="fa fa-comments"><a href="${path}/main/bbspage"> 자유게시판</a></h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body no-padding">

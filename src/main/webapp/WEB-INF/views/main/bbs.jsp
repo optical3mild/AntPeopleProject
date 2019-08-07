@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -102,7 +103,9 @@
 					    <a href="detailbbs?id=${board.bbs_id}">${board.title}</a>
 					  </td>
 					  <td style="text-align: center;">
-					    ${board.updatedAt}"
+					    <%-- <fmt:formatDate value="${board.updatedAt}" pattern="yyyy-MM-dd HH:mm" type="date"/> --%>
+					    <fmt:parseDate value="${board.updatedAt}" var="dateFmt" pattern="yyyy-MM-dd'T'HH:mm:ss"/>
+					    <fmt:formatDate value="${dateFmt}" pattern="yyyy-MM-dd HH:mm"/>
 					  </td>
 					  <%-- 날짜를 String으로 받아오는 경우 parseDate --> formatDate로 두번실행.
 					  <td style="text-align: center;">
