@@ -69,7 +69,7 @@
               <p>신청한 일정 수</p>
             </div>
             <div class="icon">
-              <i class="ion ion-bag"></i>
+              <i class="fa  fa-calendar-plus-o"></i>
             </div>
             <a href="${path}/staff/requestwork" class="small-box-footer"> 근무 신청 페이지로 <i class="fa fa-arrow-circle-right"></i></a>
           </div>
@@ -85,7 +85,7 @@
               <p>승인 거부된 일정 수</p>
             </div>
             <div class="icon">
-              <i class="ion ion-stats-bars"></i>
+              <i class="fa fa-calendar-times-o"></i>
             </div>
             <a href="${path}/staff/requestwork" class="small-box-footer"> 근무 신청 페이지로 <i class="fa fa-arrow-circle-right"></i></a>
           </div>
@@ -106,7 +106,7 @@
               <p>근무 일정 신청 수</p>
             </div>
             <div class="icon">
-              <i class="ion ion-stats-bars"></i>
+              <i class="fa fa-list-alt"></i>
             </div>
             <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
@@ -179,7 +179,7 @@
               <p>당일 근무자</p>
             </div>
             <div class="icon">
-              <i class="ion ion-person-add"></i>
+              <i class="fa fa-users"></i>
             </div>
             <a href="${path}/owner/staffinfo" class="small-box-footer">전체 직원 리스트 <i class="fa fa-arrow-circle-right"></i></a>
           </div>
@@ -213,7 +213,7 @@
         
          <div class="box">
             <div class="box-header">
-              <h3 class="box-title">공지사항</h3>
+              <h3 class="fa fa-bell"> 공지사항</h3>
 
             </div>
             <!-- /.box-header -->
@@ -222,7 +222,7 @@
                 <tr>
                   <th style="width: 10px">#</th>
                   <th>제목</th>
-                  <th style="width: 70px">Label</th>
+                  <th style="width: 70px">글쓴이</th>
                 </tr>
                 <c:set var="noticeList" value="${requestScope.noticeList}"/>
 				<c:forEach var="notice" items="${noticeList}">
@@ -260,15 +260,15 @@
         
          <div class="box">
             <div class="box-header">
-              <h3 class="box-title">자유게시판</h3>
+              <h3 class="fa fa-comments"> 자유게시판</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body no-padding">
               <table class="table">
                 <tr>
                   <th style="width: 10px">#</th>
-                  <th>Task</th>
-                  <th style="width: 70px">Label</th>
+                  <th>제목</th>
+                  <th style="width: 70px">글쓴이</th>
                 </tr>
                 <c:set var="boardList" value="${requestScope.bbsList}"/>
 				<c:forEach var="board" items="${boardList}">
@@ -311,7 +311,7 @@
           <!-- USERS LIST -->
               <div class="box box-danger">
                 <div class="box-header with-border">
-                  <h3 class="box-title">근무자 명단</h3>
+                  <h3 class="fa fa-users"> 근무자 명단</h3>
                   <div class="box-tools pull-right">
                     <span class="label label-danger">${todayStaffCount} New Members</span>
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>

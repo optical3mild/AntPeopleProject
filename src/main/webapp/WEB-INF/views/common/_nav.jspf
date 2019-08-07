@@ -12,7 +12,7 @@
         
         <li>
           <a href="${path}/main/noticepage">
-            <i class="fa fa-calendar"></i><span>공지사항</span>
+            <i class="fa fa-bell"></i><span>공지사항</span>
 <!--             <span class="pull-right-container"> -->
 <!--               <small class="label pull-right bg-red">3</small> -->
 <!--               <small class="label pull-right bg-blue">17</small> -->
@@ -22,7 +22,7 @@
         
         <li>
           <a href="${path}/main/bbspage">
-            <i class="fa fa-calendar"></i><span>자유게시판</span>
+            <i class="fa fa-comments"></i><span>자유게시판</span>
           </a>
         </li>
  <!-- 권한필요?  로그인 한 멤버만 열람가능하게???-->
@@ -36,19 +36,19 @@
       	<ul class="sidebar-menu" data-widget="tree">
 	        <li>
 	          <a href="${path}/owner/monthplanpage">
-	            <i class="fa fa-calendar-check-o"></i> <span>운영계획</span>
+	            <i class="fa fa-calendar"></i> <span>운영계획</span>
 	          </a>
 	        </li>
 	        
 	        <li>
 	          <a href="${path}/owner/acceptpage">
-	            <i class="fa fa-calendar"></i> <span>승인화면</span>
+	            <i class="fa fa-calendar-check-o"></i> <span>승인화면</span>
 	          </a>
 	        </li>
 	        
 	        <li>
 	          <a href="${path}/owner/staffinfo">
-	            <i class="fa fa-calendar"></i> <span>직원정보</span>
+	            <i class="fa fa-users"></i> <span>직원정보</span>
 	          </a>
 	        </li>
 	  	</ul>

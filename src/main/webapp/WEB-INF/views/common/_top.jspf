@@ -24,12 +24,12 @@
 	      <ul class="nav navbar-nav">
 	        <!-- Messages: style can be found in dropdown.less-->
 	        <li class="dropdown messages-menu">
-	          <a href="${path}/user/login" class="dropdown-toggle">
+	          <a href="${path}/user/login" class="fa fa-unlock-alt">
 	            로그인
 	          </a>
 	        </li>
 	        <li class="dropdown messages-menu">
-	          <a href="${path}/user/register" class="dropdown-toggle">
+	          <a href="${path}/user/register" class="fa fa-user-plus">
 	            회원가입
 	          </a>
 	        </li>
