@@ -79,7 +79,7 @@
         <div class="col-lg-3 col-xs-6">
         <!-- small box -->
         <c:set var="staffRefuseApply" value="${requestScope.staffRefuseApply}"/>
-          <div class="small-box bg-green">
+          <div class="small-box bg-red">
             <div class="inner">
               <h3>${staffRefuseApply}건</h3>
 
@@ -115,14 +115,14 @@
         <!-- ./col -->
         <div class="col-lg-3 col-xs-6">
         <!-- small box -->
-          <div class="small-box bg-green">
+          <div class="small-box bg-red">
             <div class="inner">
               <h3>53<sup style="font-size: 20px">%</sup></h3>
 
-              <p>아직 정하지 않았음</p>
+              <p>금일 휴가자 수</p>
             </div>
             <div class="icon">
-              <i class="ion ion-stats-bars"></i>
+              <i class="fa fa-user-times"></i>
             </div>
             <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
@@ -149,14 +149,14 @@
         <!-- ./col -->
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
-          <div class="small-box bg-red">
+          <div class="small-box bg-green">
             <div class="inner">
               <h3>65</h3>
 
-              <p>Unique Visitors</p>
+              <p>오늘의 할 일</p>
             </div>
             <div class="icon">
-              <i class="ion ion-pie-graph"></i>
+              <i class="fa fa-check-square-o"></i>
             </div>
             <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
@@ -176,7 +176,7 @@
         
          <div class="box">
             <div class="box-header">
-              <h3 class="fa fa-bell"> 공지사항</h3>
+              <h3 class="fa fa-bell"><a href="${path}/main/noticepage"> 공지사항</a></h3>
 
             </div>
             <!-- /.box-header -->
@@ -223,7 +223,7 @@
         
          <div class="box">
             <div class="box-header">
-              <h3 class="fa fa-comments"> 자유게시판</h3>
+              <h3 class="fa fa-comments"><a href="${path}/main/bbspage"> 자유게시판</a></h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body no-padding">
