@@ -20,6 +20,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ezen.antpeople.dto.board.BbsDetailDTO;
 import com.ezen.antpeople.dto.board.NoticeDetailDTO;
+import com.ezen.antpeople.dto.user.RoleDTO;
+import com.ezen.antpeople.dto.user.StoreDTO;
 import com.ezen.antpeople.dto.user.UserDetailDTO;
 import com.ezen.antpeople.repository.USRepository;
 import com.ezen.antpeople.service.BbsService;
@@ -44,13 +46,15 @@ public class MainController {
 	// 메인 페이지
 	@RequestMapping("mainpage")
 	public ModelAndView mainPage(ModelAndView mv,HttpServletRequest request) {
+		logger.info("mainpage 페이지 시작");
 		HttpSession session = request.getSession(true);
 		Optional<UserDetailDTO> user = Optional.ofNullable((UserDetailDTO) session.getAttribute("user")); //세션 존재 여부 확인
+		logger.info("세션 받아옴");
 		int date = Integer.parseInt(LocalDate.now().minusMonths(1).format(DateTimeFormatter.ofPattern("yyMMdd")));
 		int staffApply =0;
 		int staffRefuseApply =0;
-		List<BbsDetailDTO> bbsDetailList = new ArrayList<BbsDetailDTO>(bbsService.findByAll());
-		List<NoticeDetailDTO> noticeDetailList = new ArrayList<NoticeDetailDTO>(noticeService.findByAll());
+		List<BbsDetailDTO> bbsDetailList = new ArrayList<BbsDetailDTO>(bbsService.findTopFive());
+		List<NoticeDetailDTO> noticeDetailList = new ArrayList<NoticeDetailDTO>(noticeService.findTopFive());
 		List<UserDetailDTO> todayStaffList = new ArrayList<UserDetailDTO>();
 		if(user.isPresent()) {
 			todayStaffList = userService.todayStaff(user.get().getStore().getStore(), Integer.toString(date));
@@ -68,8 +72,21 @@ public class MainController {
 	}
 
 	// --------------------------------------------------------------------------
-	
-	
+	// ------------------------------ 직원 목록 관련 ----------------------------
+	// 직원 전체 정보 목록
+		@RequestMapping("staffinfo")
+		public ModelAndView staffInfo(ModelAndView mv,HttpServletRequest request) throws Exception {
+			logger.info("staffInfo 페이지");
+			//세션 받아오기
+			HttpSession session = request.getSession();
+			UserDetailDTO user = (UserDetailDTO) session.getAttribute("user");
+			StoreDTO store = user.getStore();
+			System.out.println(store.toString());
+			List<UserDetailDTO> userList = new ArrayList<UserDetailDTO>(userService.findByStore(new RoleDTO(102,""),store));
+			mv.addObject("userList", userList);
+			mv.setViewName("staffinfo");
+			return mv;
+		}
 	
 	// ----------------------------- bbs 관련 -------------------------------------
 	// bbs이동 및 리스트 호출
@@ -123,7 +140,7 @@ public class MainController {
 	// ------------------------- notice 관련 --------------------------------------
 	// notice이동 및 리스트 호출
 	@RequestMapping("noticepage")
-	public String noticePage(Model model) {
+	public String noticePage(Model model) throws Exception {
 		List<BbsDetailDTO> noticeDetailList = new ArrayList(noticeService.findByAll());
 		model.addAttribute("noticeList", noticeDetailList);
 		logger.info("notice 페이지");

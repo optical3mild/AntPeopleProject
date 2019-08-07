@@ -65,5 +65,14 @@ public class BbsServieInpl implements BbsService {
 			bbsDetailList.add(bbs.buildDto());
 		return bbsDetailList;
 	}
+	
+	@Override
+	public List<BbsDetailDTO> findTopFive() {
+		List<BbsDetailDTO> bbsDetailList = new ArrayList();
+		List<BbsEntity> bbsList = new ArrayList(bbsRepository.findTop5ByOrderByIdDesc());
+		for(BbsEntity bbs : bbsList)
+			bbsDetailList.add(bbs.buildDto());
+		return bbsDetailList;
+	}
 
 }

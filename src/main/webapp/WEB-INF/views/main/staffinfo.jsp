@@ -72,9 +72,9 @@
 				</colgroup>
                 <thead>
                   <tr>
-                    <th style="text-align: center;">이름</th>
-                    <th style="text-align: center;">직급</th>
-                    <th style="text-align: center;">소속</th>
+                    <th style="text-align: center;"><i class="fa fa-tags"></i> 이름</th>
+                    <th style="text-align: center;"><i class="fa fa-street-view"></i> 직급</th>
+                    <th style="text-align: center;"><i class="fa fa-building"></i> 소속</th>
                   </tr>
                 </thead>
                 <tbody>
