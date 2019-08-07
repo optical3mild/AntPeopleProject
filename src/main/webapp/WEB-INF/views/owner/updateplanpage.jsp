@@ -46,12 +46,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Calendar
-       
-        <small>Control panel</small>
+       update plan
+        <small>Calendar</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="${path}/main/mainpage"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="${path}/main/mainpage"><i class="fa fa-home"></i> Home</a></li>
         <li class="active">Calendar</li>
       </ol>
     </section>

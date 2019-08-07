@@ -12,14 +12,13 @@ import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
-import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
 
 import com.ezen.antpeople.controller.main.ServletConfigurationMain;
 import com.ezen.antpeople.controller.owner.ServletConfigurationOwner;
 import com.ezen.antpeople.controller.staff.ServletConfigurationStaff;
 import com.ezen.antpeople.controller.user.ServletConfigurationUser;
-import com.ezen.antpeople.exception.ServletConfigurationError;
+import com.ezen.antpeople.exception.ServletConfigurationException;
 
 public class WebInitializer implements WebApplicationInitializer{
         @Override
@@ -68,14 +67,15 @@ public class WebInitializer implements WebApplicationInitializer{
     		dispatcherStaff.addMapping("/staff/*");
     		//-----------------------------------------------
     		
-    		// ServeltContext_Error - WebApplicationContext
-    		AnnotationConfigWebApplicationContext servletErrorContext = new AnnotationConfigWebApplicationContext();
-    		servletErrorContext.register(ServletConfigurationError.class);
+    		// ServeltContext_Exception - WebApplicationContext
+    		AnnotationConfigWebApplicationContext servletExceptionContext = new AnnotationConfigWebApplicationContext();
+    		servletExceptionContext.register(ServletConfigurationException.class);
     		
-    		ServletRegistration.Dynamic dispatcherError = servletContext.addServlet("DispatcherServletError", new DispatcherServlet(servletErrorContext));
-    		dispatcherError.setLoadOnStartup(5);
-    		dispatcherError.addMapping("/");
+    		ServletRegistration.Dynamic dispatcherException = servletContext.addServlet("DispatcherServletException", new DispatcherServlet(servletExceptionContext));
+    		dispatcherException.setLoadOnStartup(5);
+    		dispatcherException.addMapping("/");
     		//-----------------------------------------------
+    		
     		
             // 인코딩 필터 적용
             FilterRegistration.Dynamic charaterEncodingFilter = servletContext.addFilter("charaterEncodingFilter", new CharacterEncodingFilter());

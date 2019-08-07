@@ -105,14 +105,5 @@ public class RootConfig implements WebMvcConfigurer{
 		  } 
 		  return sessionFactory.getObject(); 
 	  }
-	  
-      @Override
-      public void customize(ConfigurableEmbeddedServletContainer container)
-      {
-          super.customize(container);
-          container.addErrorPages(new ErrorPage(HttpStatus.FORBIDDEN, "/403"));
-          container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/404"));
-          container.addErrorPages(new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/500"));
-      }
 
 }

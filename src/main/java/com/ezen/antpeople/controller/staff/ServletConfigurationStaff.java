@@ -11,7 +11,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc //xml의 <annotation-driven>
-@ComponentScan(basePackages="com.ezen.antpeople") // xml의 context component-scan
+@ComponentScan(basePackages="com.ezen.antpeople.controller.staff") // xml의 context component-scan
 public class ServletConfigurationStaff extends WebMvcConfigurerAdapter{
     
     @Override
@@ -22,8 +22,8 @@ public class ServletConfigurationStaff extends WebMvcConfigurerAdapter{
     @Bean
     public InternalResourceViewResolver internalResourceViewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setPrefix("/WEB-INF/views/");
-        resolver.setSuffix(".html");
+        resolver.setPrefix("/WEB-INF/views/staff/");
+        resolver.setSuffix(".jsp");
         return resolver;
     }
     

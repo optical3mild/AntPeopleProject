@@ -51,10 +51,10 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>공지사항
-      <small>Control panel</small>
+      <small>Notice</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="${path}/#"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li><a href="${path}/main/mainpage"><i class="fa fa-home"></i>Home</a></li>
         <li class="active">Main</li>
       </ol>
     </section>

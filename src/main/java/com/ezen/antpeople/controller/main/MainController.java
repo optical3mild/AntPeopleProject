@@ -138,7 +138,7 @@ public class MainController {
 	// ------------------------- notice 관련 --------------------------------------
 	// notice이동 및 리스트 호출
 	@RequestMapping("noticepage")
-	public String noticePage(Model model) {
+	public String noticePage(Model model) throws Exception {
 		List<BbsDetailDTO> noticeDetailList = new ArrayList(noticeService.findByAll());
 		model.addAttribute("noticeList", noticeDetailList);
 		logger.info("notice 페이지");

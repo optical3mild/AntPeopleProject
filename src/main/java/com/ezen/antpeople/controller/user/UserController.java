@@ -78,15 +78,10 @@ public class UserController {
 
 	// 로그아웃
 	@RequestMapping("logout")
-	public ModelAndView logout(@CookieValue(value="user", required=false) Cookie cookie, HttpServletResponse response, HttpServletRequest request, SessionStatus sessionStatus, ModelAndView mv) {
+	public ModelAndView logout(HttpServletResponse response, SessionStatus sessionStatus, ModelAndView mv) {
 		logger.info("쿠키 제거");
-		HttpSession httpSession = request.getSession(true);
-		UserDetailDTO userDto = (UserDetailDTO) httpSession.getAttribute("user");
-		logger.info("쿠키값 : "+cookie.getValue());
-		logger.info("쿠키남은시간 : "+cookie.getMaxAge());
-		cookie.setValue(null);	
-		cookie.setMaxAge(4);
-		response.addCookie(cookie);
+		Cookie cookie = new Cookie("user", "");
+		cookie.setMaxAge(0);
 		logger.info("쿠키값 : "+cookie.getValue());
 		logger.info("쿠키남은시간 : "+cookie.getMaxAge());
 		logger.info("세션 제거");
