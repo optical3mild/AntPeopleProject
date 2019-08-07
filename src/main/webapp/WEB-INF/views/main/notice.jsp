@@ -98,7 +98,8 @@
 					    <a href="detailnotice?id=${notice.notice_id}">${notice.title}</a>
 					  </td>
 					  <td style="text-align: center;">
-					    "${notice.updatedAt}"
+					    <fmt:parseDate value="${notice.updatedAt}" var="dateFmt" pattern="yyyy-MM-dd'T'HH:mm:ss"/>
+					    <fmt:formatDate value="${dateFmt}" pattern="yyyy-MM-dd HH:mm"/>
 					  </td>
 					  <%-- 날짜를 String으로 받아오는 경우 parseDate --> formatDate로 두번실행.
 					  <td style="text-align: center;">
