@@ -78,7 +78,7 @@
         <div class="col-lg-3 col-xs-6">
         <!-- small box -->
         <c:set var="staffRefuseApply" value="${requestScope.staffRefuseApply}"/>
-          <div class="small-box bg-green">
+          <div class="small-box bg-red">
             <div class="inner">
               <h3>${staffRefuseApply}건</h3>
 
@@ -194,7 +194,7 @@
               <p>오늘의 할 일</p>
             </div>
             <div class="icon">
-              <i class="fa fa-check-square"></i>
+              <i class="fa fa-check-square-o"></i>
             </div>
             <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
