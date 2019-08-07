@@ -51,11 +51,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Board(자유게시판)
-        <small>Control panel</small>
+    	    자유게시판
+        <small>Board</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="${path}/#"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li><a href="${path}/main/mainpage"><i class="fa fa-home"></i>Home</a></li>
         <li class="active">Main</li>
       </ol>
     </section>
@@ -66,7 +66,7 @@
         <div class="col-xs-12">
           <div class="box box-info">
             <div class="box-header">
-              <h3 class="box-title">Data Table With Full Features</h3>
+              <h3 class="box-title"></h3>
               <c:if test="${user.email == null}">
               	<div class="pull-right">글작성은 로그인 후에 가능 합니다.</div>
               </c:if>
