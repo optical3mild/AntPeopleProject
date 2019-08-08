@@ -138,7 +138,7 @@
             <div class="inner">
               <h3>${todayStaffCount}명</h3>
 
-              <p>당일 근무자</p>
+              <p>금일 근무자</p>
             </div>
             <div class="icon">
               <i class="fa fa-users"></i>
@@ -224,7 +224,7 @@
         
          <div class="box">
             <div class="box-header">
-              <h3 class="fa fa-comments">자유게시판</h3>
+              <h3 class="fa fa-comments"> 자유게시판</h3>
               <b class="pull-right" style="font-size:medium"><a href="${path}/main/bbspage">more..</a></b>
             </div>
             <!-- /.box-header -->
