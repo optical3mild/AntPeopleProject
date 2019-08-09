@@ -81,8 +81,8 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 
 /* main page board badge color */
 .bgDun {
-  background-color: #3c8dbc;
-  border-color:  #3c8dbc;
+  background-color: #D81B60;
+  border-color:  #D81B60;
 }
 .bgWal {
   background-color: #00c0ef;
@@ -97,6 +97,6 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
   border-color:  #001F3F;
 }
 .bgTan {
-  background-color: #605ca8;
-  border-color:  #605ca8;
+  background-color: #ff851b;
+  border-color:  #ff851b;
 }

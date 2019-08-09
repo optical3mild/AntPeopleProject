@@ -64,7 +64,7 @@ public class OwnerController {
 	}
 	
 	// 클릭한 월 받아서 해당 데이터 넘겨주기 - 2
-	@RequestMapping(value="monthplan", method = RequestMethod.POST)	// monthplanpage에 있는 monthplan(월별 리스트)를 클릭함
+	@RequestMapping(value="monthplan", method = RequestMethod.POST, produces = "application/json; charset=utf8")	// monthplanpage에 있는 monthplan(월별 리스트)를 클릭함
 	@ResponseBody
 	public String monthplan(@RequestBody String date, HttpServletRequest request, ScheUserListDTO schedules) throws Exception {
 		logger.info("monthplan");
@@ -83,7 +83,6 @@ public class OwnerController {
 		HttpSession httpSession = request.getSession(true);
 		UserDetailDTO userDto = (UserDetailDTO) httpSession.getAttribute("user");
 		logger.info("userDto : "+userDto.toString());
-		monthplanService.newMonthPlan(userDto.getUser_id(), date);
 		return "insertplanpage";	// insertplanpage로 이동
 	}
 	
@@ -168,7 +167,7 @@ public class OwnerController {
 	}
 	
 	// 월 클릭시 클릭한 월 받아서 해당 데이터 보여줌
-	@RequestMapping(value="clickMonth", method = RequestMethod.POST)	// monthplanpage에 있는 monthplan(월별 리스트)를 클릭함
+	@RequestMapping(value="clickMonth", method = RequestMethod.POST, produces = "application/json; charset=utf8")	// monthplanpage에 있는 monthplan(월별 리스트)를 클릭함
 	@ResponseBody
 	public String clickMonth(@RequestBody String date, HttpServletRequest request, ScheUserListDTO schedules) throws Exception {
 		logger.info("clickMonth");

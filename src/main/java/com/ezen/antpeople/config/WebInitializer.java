@@ -66,16 +66,7 @@ public class WebInitializer implements WebApplicationInitializer{
     		dispatcherStaff.setLoadOnStartup(4);
     		dispatcherStaff.addMapping("/staff/*");
     		//-----------------------------------------------
-    		
-    		// ServeltContext_Exception - WebApplicationContext
-    		AnnotationConfigWebApplicationContext servletExceptionContext = new AnnotationConfigWebApplicationContext();
-    		servletExceptionContext.register(ServletConfigurationException.class);
-    		
-    		ServletRegistration.Dynamic dispatcherException = servletContext.addServlet("DispatcherServletException", new DispatcherServlet(servletExceptionContext));
-    		dispatcherException.setLoadOnStartup(5);
-    		dispatcherException.addMapping("/");
-    		//-----------------------------------------------
-    		
+
     		
             // 인코딩 필터 적용
             FilterRegistration.Dynamic charaterEncodingFilter = servletContext.addFilter("charaterEncodingFilter", new CharacterEncodingFilter());

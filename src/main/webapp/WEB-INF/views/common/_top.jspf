@@ -41,19 +41,19 @@
 <!-- 로그인시 확인된 유저 정보를 받아 나타나도록... -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <c:if test="${notice.user.store.store == '둔산점'}">
+              <c:if test="${user.store.store == '둔산점'}">
                 <span class="badge bgDun">${user.store.store}</span>
               </c:if>
-              <c:if test="${notice.user.store.store == '월평점'}">
+              <c:if test="${user.store.store == '월평점'}">
               	<span class="badge bgWal">${user.store.store}</span>
               </c:if>
-              <c:if test="${notice.user.store.store == '관저점'}">
+              <c:if test="${user.store.store == '관저점'}">
               	<span class="badge bgGhwan">${user.store.store}</span>
               </c:if>
-              <c:if test="${notice.user.store.store == '갈마점'}">
+              <c:if test="${user.store.store == '갈마점'}">
               	<span class="badge bgGal">${user.store.store}</span>
               </c:if>
-              <c:if test="${notice.user.store.store == '탄방점'}">
+              <c:if test="${user.store.store == '탄방점'}">
               	<span class="badge bgTan">${user.store.store}</span>
               </c:if>
               <!-- 유저지점 

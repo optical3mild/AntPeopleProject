@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>자유게시판 게시글 수정</title>
+  <title>게시글 작성</title>
   
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -41,9 +41,13 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-       	Write Article(글 쓰기)
-        <small>Control panel</small>
+       	게시글 작성
+        <small>Article</small>
       </h1>
+      <ol class="breadcrumb">
+        <li><a href="${path}/main/mainpage"><i class="fa fa-home"></i>Home</a></li>
+        <li class="active">게시글 작성</li>
+      </ol>
     </section>
 <!-- ------------------------------------------------- --> 
 
@@ -66,24 +70,24 @@
             
               <!-- 새글작성 : order값으로 newArticle을 받으면 실행. -->
               <c:if test="${isNew == 'newArticle'}">
-	              <form role="form" action="articleallotter" method="post">
+	              <form role="form" action="articleallotter" method="post" >
 	              	<input type="text" class="form-control" name="articleNum" value="${next}" style="display:none">
 	              	<input type="text" class="form-control" name="bbs_id" value="0" style="display:none">
 	                <!-- text input -->
-	                <div class="form-group">
-	                <jsp:useBean id="toDay" class="java.util.Date" />
-	                  <label style="display:inline">작성자:&nbsp;&nbsp;${user.name}</label>&nbsp;&nbsp;&nbsp;&nbsp;
-	                  <label style="display:inline">작성일:&nbsp;&nbsp;${toDay}</label>
-	                </div>
 	                
+	                <div class="form-group pull-right" style="display:inline-block">
+	                <jsp:useBean id="toDay" class="java.util.Date" />
+		                <label style="display:inline">작성자:</label>&nbsp;&nbsp;${user.name}&nbsp;&nbsp;&nbsp;&nbsp;
+             		</div>
+             		
 	                <div class="form-group">
-	                  <label>Title</label>
+	                  <label>제목</label>
 	                  <input type="text" class="form-control" name="title">
 	                </div>
 	
 	                <!-- textarea -->
 	                <div class="form-group">
-	                  <label>The Body</label>
+	                  <label>내용</label>
 	                	<textarea id="editor1" name="description" rows="10" cols="80">
                               
                     	</textarea>
@@ -100,24 +104,27 @@
               <!--게시글 수정 -->
               <c:if test="${isNew == 'modifyBbs'}">
               <c:set var="article" value="${requestScope.bbsDetail}"/>
-	              <form role="form" action="articleallotter" method="post">
+	              <form role="form" action="articleallotter" method="post" onsubmit="return check()">
 	              <input type="text" class="form-control" name="articleNum" value="${next}" style="display:none">
 	              <input type="text" class="form-control" name="bbs_id" value="${article.bbs_id}" style="display:none">
 	                <!-- text input -->
 	                
-	                <div class="form-group">
-	                  <label style="display:inline">작성자:&nbsp;&nbsp;${article.user.name}</label>&nbsp;&nbsp;&nbsp;&nbsp;
-	                  <label style="display:inline">작성일:&nbsp;&nbsp;${article.updatedAt}</label>
-	                </div>
+	              <div class="pull-right" style="display:inline-block">
+	                  <label style="display:inline">작성자:</label>&nbsp;&nbsp;${article.user.name}&nbsp;&nbsp;&nbsp;&nbsp;
+	                  <label style="display:inline">작성날짜:</label>&nbsp;&nbsp;
+	                  <%-- <fmt:formatDate value="${board.updatedAt}" pattern="yyyy-MM-dd HH:mm" type="date"/> --%>
+						    <fmt:parseDate value="${article.updatedAt}" var="dateFmt" pattern="yyyy-MM-dd'T'HH:mm:ss"/>
+						    <fmt:formatDate value="${dateFmt}" pattern="yyyy-MM-dd HH:mm"/>
+	              </div>
 	                
 	                <div class="form-group">
-	                  <label>Title</label>
+	                  <label>제목</label>
 	                  <input type="text" class="form-control" name="title" value="${article.title}">
 	                </div>
 	
 	                <!-- textarea -->
 	                <div class="form-group">
-	                  <label>The Body</label>
+	                  <label>내용</label>
 	                  <textarea id="editor1" class="form-control" rows="3" name="description">
 	                  	${article.description}
 	                  </textarea>
@@ -133,30 +140,32 @@
               <!--공지사항 수정 -->
               <c:if test="${isNew == 'modifyNotice'}">
               <c:set var="article" value="${requestScope.noticeDetail}"/>
-	              <form role="form" action="articleallotter" method="post">
+	              <form role="form" action="articleallotter" method="post" onsubmit="return check()">
 	              <input type="text" class="form-control" name="articleNum" value="${next}" style="display:none">
 	              <input type="text" class="form-control" name="bbs_id" value="${article.notice_id}" style="display:none">
 	                <!-- text input -->
+	              	<div class="pull-right" style="display:inline-block">
+	                  <label style="display:inline">작성자:</label>&nbsp;&nbsp;${article.user.name}&nbsp;&nbsp;&nbsp;&nbsp;
+	                  <label style="display:inline">작성날짜:</label>&nbsp;&nbsp;
+	                  <%-- <fmt:formatDate value="${board.updatedAt}" pattern="yyyy-MM-dd HH:mm" type="date"/> --%>
+						    <fmt:parseDate value="${article.updatedAt}" var="dateFmt" pattern="yyyy-MM-dd'T'HH:mm:ss"/>
+						    <fmt:formatDate value="${dateFmt}" pattern="yyyy-MM-dd HH:mm"/>
+	              	</div>
 	                
 	                <div class="form-group">
-	                  <label style="display:inline">작성자:&nbsp;&nbsp;${article.user.name}</label>&nbsp;&nbsp;&nbsp;&nbsp;
-	                  <label style="display:inline">작성일:&nbsp;&nbsp;${article.updatedAt}</label>
-	                </div>
-	                
-	                <div class="form-group">
-	                  <label>Title</label>
+	                  <label>제목</label>
 	                  <input type="text" class="form-control" name="title" value="${article.title}">
 	                </div>
 	
 	                <!-- textarea -->
 	                <div class="form-group">
-	                  <label>The Body</label>
+	                  <label>내용</label>
 	                  <textarea id="editor1" class="form-control" rows="3" name="description">
 	                  	${article.description}
 	                  </textarea>
 	                </div>
 					<div class="box-footer" style="padding-left: 0; padding-right:0;">
-	                  <button type="button" class="btn btn-default" onclick="location.href='${path}/main/bbspage' ">목록으로</button>
+	                  <button type="button" class="btn btn-default" onclick="location.href='${path}/main/noticepage' ">목록으로</button>
 	                  <button type="submit" class="btn btn-info pull-right">수정완료</button>
 	                </div>
 	                <!-- /.box-footer -->
@@ -198,6 +207,13 @@ $(function() {
 	console.log(articleCategory);
 	$('.selection option').val(articleCategory).attr('selected', true);
 });
+
+function check(){
+	if(confirm("게시물을 수정하시겠습니까?")){
+		return true;
+	} else return false;
+}
+
 </script>
 
 

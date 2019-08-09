@@ -8,7 +8,7 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         
-        <li class="header">Common Menu</li>
+        <li class="header">공지사항 & 자유게시판</li>
         
         <li>
           <a href="${path}/main/noticepage">
@@ -30,6 +30,7 @@
 <!-- admin menu -->
       <c:if test="${user.role.role == '사장'}">
       	<ul class="sidebar-menu" data-widget="tree">
+      		<li class="header">근무 일정 관리 </li>
 	        <li>
 	          <a href="${path}/owner/monthplanpage">
 	            <i class="fa fa-calendar"></i> <span>운영계획</span>
@@ -38,7 +39,7 @@
 	        
 	        <li>
 	          <a href="${path}/owner/acceptpage">
-	            <i class="fa fa-calendar-check-o"></i> <span>승인화면</span>
+	            <i class="fa fa-calendar-check-o"></i> <span>근무 승인</span>
 	          </a>
 	        </li>
 	  	</ul>
@@ -65,7 +66,7 @@
 <!-- employee menu -->
       <c:if test="${user.role.role == '직원'}">
       	<ul class="sidebar-menu" data-widget="tree">
-	        <li class="header">Employee Menu</li>
+	        <li class="header">근무 일정 관리 </li>
 	        <li>
 	          <a href="${path}/staff/requestwork">
 	            <i class="fa fa-calendar-plus-o"></i> <span>근무신청</span>

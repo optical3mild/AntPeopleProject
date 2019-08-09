@@ -43,12 +43,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        근무승인화면
-        <small>Accept</small>
+        근무 승인
+        <small>Calendar</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="${path}/main/mainpage"><i class="fa fa-home"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+        <li class="active">근무 승인</li>
       </ol>
     </section>
     

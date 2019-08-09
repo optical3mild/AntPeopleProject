@@ -17,6 +17,7 @@ public interface USRepository extends JpaRepository<ScheRelation, Integer>{
 	
 	//당일 근무자 찾기
 	List<ScheRelation> findByToUserStoreStoreAndScheStartDate(String store, String month);
+	List<ScheRelation> findByToUserStoreStoreAndScheStartDateAndState(String store, String month, int state);
 	
 	//상태에 따른 근무일정 찾기 
 	List<ScheRelation> findByToUser_idAndState(int user_id, int state);
