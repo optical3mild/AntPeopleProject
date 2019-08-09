@@ -55,7 +55,7 @@ public class ScheCRUDTest {
 		
 		scheService.saveSchedules(testSchedules);
 	}
-	
+
 	//일정 가져오기 사장 테스트 - 성공
 	@Test @Ignore
 	public void scheduleListOwnerTest() {
