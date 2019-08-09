@@ -3,7 +3,7 @@
 ### :calendar: EgovframeProject : AntPeople :ant:
 
 ---
-### 프로젝트 기간 : 19. 07. 04 ~
+### 프로젝트 기간 : 19. 07. 04 ~ 19. 08. 14
 ### 프로젝트 제목 : AntPeople  
 
 ### 프로젝트 내용
