@@ -149,7 +149,7 @@ public class UserServiceImpl implements UserService{
 	public List<UserDetailDTO> todayStaff(String store, String month) {
 		List<UserDetailDTO> todayStaffs = new ArrayList<UserDetailDTO>();
 		Optional<List<ScheRelation>> staffList = 
-				Optional.ofNullable(usRepository.findByToUserStoreStoreAndScheStartDate(store, month));
+				Optional.ofNullable(usRepository.findByToUserStoreStoreAndScheStartDateAndState(store, month,2));
 		if(staffList.isPresent()) {
 			for(ScheRelation staff : staffList.get())
 				todayStaffs.add(staff.getToUser().buildDTO());
