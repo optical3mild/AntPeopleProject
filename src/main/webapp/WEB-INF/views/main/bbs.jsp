@@ -104,8 +104,7 @@
 					  </td>
 					  <td style="text-align: center;">${board.user.name}</td>
 					  <td style="text-align: center;">
-					    <%-- <fmt:formatDate value="${board.updatedAt}" pattern="yyyy-MM-dd HH:mm" type="date"/> --%>
-					    <fmt:parseDate value="${board.updatedAt}" var="dateFmt" pattern="yyyy-MM-dd'T'HH:mm:ss"/>
+					    <fmt:parseDate value="${board.updatedAt}" var="dateFmt" pattern="yyyy-MM-dd'T'HH:mm"/>
 					    <fmt:formatDate value="${dateFmt}" pattern="yyyy-MM-dd HH:mm"/>
 					  </td>
 					</tr>

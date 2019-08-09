@@ -16,8 +16,9 @@ public class ScheUserDTO {
 	private int schedule_id;
 	private String unique;
 	private Integer state;
-	private String startTime;
-	private String endTime;
+	private String title;
+	private String startTime; //근무 시작 시간
+	private String endTime; // 근무 종료 시간
 	
 	public ScheUserDTO(UserDetailDTO user, int schedule_id,String unique, Integer state) {
 		this.user = user;
@@ -26,14 +27,14 @@ public class ScheUserDTO {
 		this.state = state;
 	}
 	
-	//출근, 퇴근 관련 생성자
-	public ScheUserDTO(UserDetailDTO user, int schedule_id,String unique, Integer state, String start_time, String end_time) {
+	
+	//출근, 퇴근 시간 관련 생성자
+	public ScheUserDTO(UserDetailDTO user, int schedule_id,String unique, Integer state, String title) {
 		this.user = user;
 		this.schedule_id = schedule_id;
 		this.unique = unique;
 		this.state = state;
-		this.startTime = start_time;
-		this.endTime = end_time;
+		this.title = title;
 	}
 	
 	public void updateScheState(int state) {

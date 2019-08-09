@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Modify Plan</title>
+  <title>일정 계획표 수정</title>
   
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -46,12 +46,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-       update plan
+       일정 계획표 수정
         <small>Calendar</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="${path}/main/mainpage"><i class="fa fa-home"></i> Home</a></li>
-        <li class="active">Calendar</li>
+        <li class="active">일정 계획표 수정</li>
       </ol>
     </section>
 
@@ -62,7 +62,7 @@
 
           <div class="box box-solid">
             <div class="box-header with-border">
-              <h4 class="box-title">Draggable Events</h4>
+              <h4 class="box-title">운영 일정 목록</h4>
             </div>
              
             <div class="box-body">
@@ -75,7 +75,7 @@
           <!-- /. box -->
           <div class="box box-solid">
             <div class="box-header with-border">
-              <h3 class="box-title">Create Event</h3>
+              <h3 class="box-title">일정 생성</h3>
             </div>
             <div class="box-body">
 
@@ -100,11 +100,7 @@
 
           <div class="box box-solid">
             <div class="box-body">
-                <label for="beforeSubmit">
-                  <input type="checkbox" id="beforeSubmit">
-                  일정을 등록합니다.
-                </label>
-                <button id="submitPlan" type="button" class="btn btn-primary btn-flat pull-right">작성완료</button>
+                <button id="submitPlan" type="button" class="btn btn-primary btn-flat pull-right">수정완료</button>
             </div>
             <!-- /.box-body -->
           </div>
@@ -142,7 +138,7 @@
         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span>
         </button>
-        <h4 class="modal-title">이벤트생성창</h4>
+        <h4 class="modal-title">일정 등록</h4>
       </div>
       <div class="modal-body" id="inputTableForm">
         <div class="input-group" style="width:100%">
@@ -687,7 +683,6 @@ $('#submitPlan').click(function() {
   }
   //삭제한 내용과 추가된 내용을 하나의 객체에 넣어 전송준비.
   var calEventList = $.extend({},delOriginDataLoc,createdDataLoc)
-  alert("ajax 송신")
   console.log($("#calendar").data())
   console.log(calEventList)
 	$.ajax({
@@ -704,7 +699,7 @@ $('#submitPlan').click(function() {
 			console.log(response);
 		},
 		success : function(response,num2) {
-			alert("통신성공, response: " + response +","+ num2);
+			alert("운영계획 수정이 완료되었습니다.");
 			document.location.href = response;
 			
 		}

@@ -63,7 +63,8 @@ public class ScheUserListDTO {
 		String schedules = "{";
 		for(ScheDetailDTO schedule : scheduleList)
 			schedules += "\""+ schedule.getId() + "\":"+ schedule.toString()+",";
-		schedules = schedules.substring(0, schedules.length()-1);
+		if(!schedules.equals("{"))
+			schedules = schedules.substring(0, schedules.length()-1);
 		schedules += "}";
 		return schedules;
 	}
