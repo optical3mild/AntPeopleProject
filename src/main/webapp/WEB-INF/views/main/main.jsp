@@ -18,16 +18,13 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="setfiles/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="setfiles/dist/css/skins/skin-blue.css">
-
-  <!-- Google Font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <link rel="stylesheet" href="setfiles/dist/css/skins/skin-black.css">
   <!-- pagination -->
   <link rel="stylesheet" href="setfiles/css/ant_fullcalendar1.0.3.css?ver=1">
- 
   <%@ include file= "../common/header.jsp" %>
+
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-black sidebar-mini">
 <div class="wrapper">
   <!-- _top.jspf -->
     <%@ include file="../common/_top.jspf" %>
