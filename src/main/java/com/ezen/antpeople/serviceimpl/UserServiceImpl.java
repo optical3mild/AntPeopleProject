@@ -13,12 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ezen.antpeople.dto.user.RoleDTO;
 import com.ezen.antpeople.dto.user.StoreDTO;
 import com.ezen.antpeople.dto.user.UserDetailDTO;
-import com.ezen.antpeople.dto.user.UserLoginDTO;
 import com.ezen.antpeople.entity.RoleEntity;
+import com.ezen.antpeople.entity.ScheRelation;
 import com.ezen.antpeople.entity.StoreEntity;
 import com.ezen.antpeople.entity.UserEntity;
 import com.ezen.antpeople.repository.RoleRepository;
 import com.ezen.antpeople.repository.StoreRepository;
+import com.ezen.antpeople.repository.USRepository;
 import com.ezen.antpeople.repository.UserRepository;
 import com.ezen.antpeople.service.UserService;
 
@@ -29,18 +30,21 @@ public class UserServiceImpl implements UserService{
 	
 	private UserRepository userRepository;
 	private RoleRepository roleRepository;
-	private StoreRepository storeRepositoty;
+	private StoreRepository storeRepository;
+	private USRepository usRepository;
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	//생성자 의존성 추가
 	private UserServiceImpl(UserRepository userRepository 
 			,RoleRepository roleRepository
+			,USRepository usRepository
 			,BCryptPasswordEncoder bCryptPasswordEncoder
 			,StoreRepository storeRepository) {
 		this.userRepository = userRepository;
 		this.roleRepository = roleRepository;
+		this.usRepository = usRepository;
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-		this.storeRepositoty = storeRepository;
+		this.storeRepository = storeRepository;
 	}
 	
 	//회원 정보 확인 
@@ -92,8 +96,8 @@ public class UserServiceImpl implements UserService{
 	//회원 가입시 역할, 지점 리스트 출력
 	@Override
 	public List<RoleDTO> RoleList() {
-		List<RoleEntity> entitys = new ArrayList(roleRepository.findAll());
-		List<RoleDTO> roles = new ArrayList();
+		List<RoleEntity> entitys = new ArrayList<RoleEntity>(roleRepository.findAll());
+		List<RoleDTO> roles = new ArrayList<RoleDTO>();
 		for(RoleEntity entity : entitys)
 			roles.add(entity.buildDTO());
 		return roles;
@@ -101,8 +105,8 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public List<StoreDTO> StoreList() {
-		List<StoreEntity> entitys = new ArrayList(storeRepositoty.findAll());
-		List<StoreDTO> stores = new ArrayList();
+		List<StoreEntity> entitys = new ArrayList<StoreEntity>(storeRepository.findAll());
+		List<StoreDTO> stores = new ArrayList<StoreDTO>();
 		for(StoreEntity entity : entitys)
 			stores.add(entity.buildDTO());
 		return stores;
@@ -111,8 +115,8 @@ public class UserServiceImpl implements UserService{
 	//전체 회원 정보 
 	@Override
 	public List<UserDetailDTO> findByAll() {
-		List<UserEntity> entitys = new ArrayList(userRepository.findAll());
-		List<UserDetailDTO> userList = new ArrayList();
+		List<UserEntity> entitys = new ArrayList<UserEntity>(userRepository.findAll());
+		List<UserDetailDTO> userList = new ArrayList<UserDetailDTO>();
 		for(UserEntity entity : entitys)
 			userList.add(entity.buildDTO());
 		return userList;
@@ -122,8 +126,8 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public List<UserDetailDTO> findByRole(RoleDTO role) {
 		List<UserEntity> entitys = 
-				new ArrayList(userRepository.findByRole(new RoleEntity(role)));
-		List<UserDetailDTO> userList = new ArrayList();
+				new ArrayList<UserEntity>(userRepository.findByRole(new RoleEntity(role)));
+		List<UserDetailDTO> userList = new ArrayList<UserDetailDTO>();
 		for(UserEntity entity : entitys)
 			userList.add(entity.buildDTO());
 		return userList;
@@ -133,11 +137,37 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public List<UserDetailDTO> findByStore(RoleDTO role,StoreDTO store) {
 		List<UserEntity> entitys = 
-				new ArrayList(userRepository.findByRoleAndStore(new RoleEntity(role), new StoreEntity(store)));
-		List<UserDetailDTO> userList = new ArrayList();
+				new ArrayList<UserEntity>(userRepository.findByRoleAndStore(new RoleEntity(role), new StoreEntity(store)));
+		List<UserDetailDTO> userList = new ArrayList<UserDetailDTO>();
 		for(UserEntity entity : entitys)
 			userList.add(entity.buildDTO());
 		return userList;
 	}
 
+	//당일 출근 직원 정보 검색
+	@Override
+	public List<UserDetailDTO> todayStaff(String store, String month) {
+		List<UserDetailDTO> todayStaffs = new ArrayList<UserDetailDTO>();
+		Optional<List<ScheRelation>> staffList = 
+				Optional.ofNullable(usRepository.findByToUserStoreStoreAndScheStartDate(store, month));
+		if(staffList.isPresent()) {
+			for(ScheRelation staff : staffList.get())
+				todayStaffs.add(staff.getToUser().buildDTO());
+		}
+		logger.info("당일 근무자 : "+ todayStaffs);
+		return todayStaffs;
+	}
+
+	//------------------------------ Main관련 ----------------------------------
+	//직원이 신청한 일정 리스트
+	@Override
+	public int applyScheduleCount(int user_id, int state) {
+		int applyCount = 0;
+		List<ScheRelation> applyList = 
+				new ArrayList<ScheRelation>(usRepository.findByToUser_idAndState(user_id, state));
+		logger.info("직원수 : " + applyList.size());
+		if(applyList.size() != 0)
+			applyCount = applyList.size();
+		return applyCount;
+	}
 }

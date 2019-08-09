@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,6 +27,9 @@
   <!-- DataTables -->
   <link rel="stylesheet" href="setfiles/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   
+  <!-- pagination -->
+  <link rel="stylesheet" href="setfiles/css/ant_fullcalendar1.0.3.css">
+  
   <!-- 적용여부 확인. -->
   <style>
 	  td, th {
@@ -48,12 +52,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Board(자유게시판)
-        <small>Control panel</small>
+    	    자유게시판
+        <small>Board</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="${path}/#"><i class="fa fa-dashboard"></i>Home</a></li>
-        <li class="active">Main</li>
+        <li><a href="${path}/main/mainpage"><i class="fa fa-home"></i>Home</a></li>
+        <li class="active">자유게시판</li>
       </ol>
     </section>
 <!-- ------------------------------------------------- -->    
@@ -63,7 +67,7 @@
         <div class="col-xs-12">
           <div class="box box-info">
             <div class="box-header">
-              <h3 class="box-title">Data Table With Full Features</h3>
+              <h3 class="box-title"></h3>
               <c:if test="${user.email == null}">
               	<div class="pull-right">글작성은 로그인 후에 가능 합니다.</div>
               </c:if>
@@ -76,44 +80,34 @@
             <div class="box-body">
               <table id="boardTable" class="table table-bordered table-striped">
 				<colgroup>
-				  <col style="width: 15%">
-				  <col style="width: 55%">
-				  <col style="width: 15%">
-				  <col style="width: 15%">
+				  <col style="width: 10%">
+				  <col style="width: 64%">
+				  <col style="width: 13%">
+				  <col style="width: 13%">
 				</colgroup>
                 <thead>
                   <tr>
                     <th>글번호</th>
                     <th>제목</th>
-                    <th>작성날짜</th>
                     <th>작성자</th>
+                    <th>작성날짜</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                  	<td>001</td>
-                  	<td><a href="">testpage</a></td>
-                  	<td>2019.07.20</td>
-                  	<td>으엌이</td>
-                  </tr>
-                
                	  <c:set var="boardList" value="${requestScope.bbsList}"/>
 				  <c:forEach var="board" items="${boardList}">
 					<tr>
 					  <td style="text-align: center;">${board.bbs_id}</td>
 			          <%--Title 클릭 시 해당 글 링크로 넘어감. 서블릿 요청필요.--%>
-					  <td style="text-align: center;">
+					  <td>
 					    <a href="detailbbs?id=${board.bbs_id}">${board.title}</a>
 					  </td>
-					  <td style="text-align: center;">
-					    ${board.updatedAt}"
-					  </td>
-					  <%-- 날짜를 String으로 받아오는 경우 parseDate --> formatDate로 두번실행.
-					  <td style="text-align: center;">
-					    <fmt:parseDate value="${notice.noticeDate}" var="dateFmt" pattern="yyyyMMdd"/>
-					    <fmt:formatDate value="${dateFmt}" pattern="yy-MM-dd"/>
-					  </td> --%>
 					  <td style="text-align: center;">${board.user.name}</td>
+					  <td style="text-align: center;">
+					    <%-- <fmt:formatDate value="${board.updatedAt}" pattern="yyyy-MM-dd HH:mm" type="date"/> --%>
+					    <fmt:parseDate value="${board.updatedAt}" var="dateFmt" pattern="yyyy-MM-dd'T'HH:mm:ss"/>
+					    <fmt:formatDate value="${dateFmt}" pattern="yyyy-MM-dd HH:mm"/>
+					  </td>
 					</tr>
 				  </c:forEach>
 				  
@@ -154,10 +148,29 @@
 <script src="setfiles/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 
 <script>
-  $(function () {
-    $('#boardTable').DataTable()
-  })
+	$(document).ready(function() {
+		$('#boardTable').DataTable({
+			"order": [0,'desc'],
+			"language" : {
+				"loadingRecords" : "로딩중...",
+				"processing" : "처리중...",
+				"zeroRecords" : "검색된 데이터가 없습니다.",
+				"emptyTable" : "데이터가 없습니다.",
+				"lengthMenu" : " _MENU_ 개씩 보기",
+				"search" : "검색:",
+				"info" : "_START_ - _END_ (총 _TOTAL_ 건)",
+				"infoEmpty" : "0건",
+				"infoFiltered" : "(전체 _MAX_ 건 중 검색결과)",
+				"pagingType" : "full_numbers",
+				"paginate" : {
+					"first" : "첫 페이지",
+					"last" : "마지막 페이지",
+					"next" : "다음",
+					"previous" : "이전"
+				}
+			}
+		});
+	});
 </script>
-
 </body>
 </html>

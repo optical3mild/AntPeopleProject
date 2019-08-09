@@ -10,4 +10,5 @@ public interface BbsService {
 	public void deleteBbs(int bbs_id); //게시글 삭제
 	public BbsDetailDTO findByOne(Integer bbs_id); // 게시글 상세 보기
 	public List<BbsDetailDTO> findByAll(); // 게시글 리스트
+	public List<BbsDetailDTO> findTopFive(); // 메인 - 게시글 보기 (5개만)
 }

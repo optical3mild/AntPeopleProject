@@ -63,6 +63,10 @@ public class UserEntity extends BaseEntity implements Serializable{
 		return new UserDetailDTO(this.id, this.email, this.password, this.name,
 				this.state, this.createdAt,this.updatedAt, this.role.buildDTO(), this.store.buildDTO() );
 	}
+	//유저 간략 정보 
+	public UserDetailDTO buildDTOSmall() {
+		return new UserDetailDTO(this.id, this.email, this.name, this.role.buildDTO(), this.store.buildDTO() );
+	}
 
 	@Override
 	public String toString() {

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +28,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
   
   <!-- external eventbar style -->
-  <link rel="stylesheet" href="setfiles/css/ant_fullcalendar1.0.2.css">
+  <link rel="stylesheet" href="setfiles/css/ant_fullcalendar1.0.3.css?ver=1">
   
   <%@ include file= "../common/header.jsp" %>
   
@@ -46,10 +47,11 @@
     <section class="content-header">
       <h1>
         Calendar
+       
         <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="${path}/main/mainpage"><i class="fa fa-home"></i> Home</a></li>
         <li class="active">Calendar</li>
       </ol>
     </section>
@@ -63,6 +65,7 @@
             <div class="box-header with-border">
               <h4 class="box-title">Draggable Events</h4>
             </div>
+             
             <div class="box-body">
               <!-- the events -->
               <div id="external-events">
@@ -188,7 +191,7 @@
 <%@ include file = "../common/_commonScriptList.jspf" %>
 
 <!-- AntPeople FullCalendar function -->
-<script src="setfiles/js/ant_fullcalendar1.0.3.js"></script>
+<script src="setfiles/js/ant_fullcalendar1.0.3.js?ver=1"></script>
 
 <!-- fullCalendar -->
 <script src="setfiles/bower_components/moment/moment.js"></script>
@@ -196,7 +199,23 @@
 
 <!-- Page specific script -->
 <script>
-var userId = "${user.user_id}";
+var userId = parseInt("${user.user_id}");
+
+//calendar 초기 로드값.
+var selectedMonth; //캘린더에 연결된 변수.
+//var getInitialMonth = '1907'; //테스트
+var getInitialMonth = "${monthIndex}";
+if(getInitialMonth > 0) {
+  var selectedMonth = convertToInitialDateInfo(getInitialMonth);
+}
+
+//받은 날짜정보를 Date객체로.
+function convertToInitialDateInfo(val) {
+  var yearP = parseInt("20"+val.slice(0,2));
+  var monthP = parseInt(val.slice(2));
+  var newDateObj = new Date(yearP,monthP,1);
+  return newDateObj;
+}
 
 //DayObj, TimeObj : 프로토타입 객체.
 var startDay = new DayObj();
@@ -208,16 +227,11 @@ var state = 0;
 var initialData = [];
 
 //빈 객체.
-var emptyObj = {}
+var emptyObj = {};
 
-//수신데이터가 있을 경우, 저장.
-var gotData = "${plannereventdata}"
-if(gotData != "") {
-  $.extend(emptyObj, gotData)
-}
-
-/*{
-  testAdmin_19061501001906160623 : {
+/*
+var gotData = [
+  {
     id : 'testAdmin_19061501001906160623',
     title : '1111111',
     startDate : '190615',
@@ -228,7 +242,7 @@ if(gotData != "") {
     state : '0',
     manPower : '10',
   },
-  testAdmin_190615010019999160623 : {
+  {
     id : 'testAdmin_190615010019999160623',
     title : '1111111',
     startDate : '190615',
@@ -239,7 +253,8 @@ if(gotData != "") {
     state : '0',
     manPower : '10',
   }
-};*/
+];
+*/
 
 $('#calendar').data('eventList',emptyObj);
 var dataLocation = $('#calendar').data('eventList');
@@ -383,7 +398,12 @@ $(function() {
       day  : 'day'
     },
 //>>//Ajax로 가져올 event data
+	defaultDate : selectedMonth,
     events : initialData,
+  	//월별 표시되는 달력의 길이조정.
+    fixedWeekCount : false,
+    //현재 월 외의 날짜 표시조정. --> 현재표시된 날짜 외 이벤트 발생x.
+    showNonCurrentDates : false,
 
     //create
     // select dates.
@@ -477,8 +497,10 @@ $(function() {
       delete dataLocation[""+calEvent.id+""];
       console.log('3.삭제 후 모든 event:');
       console.log(dataLocation);
+      remakeDisplayedEvents(dataLocation);
     },
   });
+  remakeDisplayedEvents(dataLocation);
 });
 // ./ End of fullCalendar 초기화 -------------------------------------
 
@@ -488,8 +510,8 @@ $(function() {
 $('#makeEvent').click(function() {
   var new_st = $('#modal-startT').val(); if(new_st == "") { new_st = "00:00"; }
   var new_en = $('#modal-endT').val(); if(new_en == "") { new_en = "00:00"; }
-  var workersForEvent = $('#modal-numP').val();
-  if(workersForEvent == "") { workersForEvent = "00:00"; }
+  var workersForEvent = parseInt($('#modal-numP').val());
+  if(workersForEvent == "") { workersForEvent = 0; }
 
   //정수형으로 시간정보 변환
   var newSTime = parseInt(new_st.slice(0,2));
@@ -508,8 +530,8 @@ $('#makeEvent').click(function() {
 // ./ End Of Modal창 이벤트 생성버튼
 
 // Rendering process
-function plannerRenderingProcess(sd,ed,st,et,wfe) {
-  var newEventObj = createObj (sd,ed,st,et,wfe);
+function plannerRenderingProcess(sd,ed,st,et,wfe,stat) {
+  var newEventObj = createObj (sd,ed,st,et,wfe,stat);
   console.log('[생성과정]')
   console.log('1.새로 생성된 obj배열:');
   console.log(newEventObj);
@@ -524,9 +546,9 @@ function plannerRenderingProcess(sd,ed,st,et,wfe) {
     var objId = newEventObj[i].id
     //동일 id를 찾아 존재하면 return값을 받아 전체 수행 이후 경고창을 띄워 알려준다.
     if(dataLocation[""+objId+""] != null) {
-      alreadyExistDatas[i] = newEventObj[i].startDate + "_" + newEventObj[i].startTime
-                        + " ~ " + newEventObj[i].endDate + "_" + newEventObj[i].endTime;
-    } else {
+    	alreadyExistDatas.push(newEventObj[i].startDate + "_" + newEventObj[i].startTime
+                + " ~ " + newEventObj[i].endDate + "_" + newEventObj[i].endTime);
+	} else {
       //ConverTing : from antPeopleObj created by createObj() to fullCalendarObj
       var convertedEvent = convertToEventObj(newEventObj[i]);
       //Rendering
@@ -545,6 +567,8 @@ function plannerRenderingProcess(sd,ed,st,et,wfe) {
       //console.log($('#calendar').data(newEventObj[i].id));
       //console.log('3.모든 event:');
       //console.log($('#calendar').data());
+      
+      remakeDisplayedEvents(dataLocation);
     }
   }
   //경고창 팝업.
@@ -573,31 +597,67 @@ function plannerRenderingProcess(sd,ed,st,et,wfe) {
   console.log('드롭한 이벤트의 캘린더 행 내 위치')
   console.log(originPoint)
   */
+  console.log($('#calendar').data());
 }
 // ./ End of Rendering process
 
 $('#submitPlan').click(function() {
+	console.log(dataLocation)
 	// dataLocation: 스크립트 헤드에 적힌 전역변수
 	$.ajax({
-		url : 'createplan',
+		url : 'insertplan?month=${getInitialMonth}',
 		method : 'post',
-		data : JSON.stringify(dataLocation),
+		data : JSON.stringify(dataLocation),	
+		contentType: 'application/json;charset=UTF-8',	
 		dataType : 'text',
-		contentType: 'application/json;charset=UTF-8',
 		async : false,
 		error : function(response) {
 			alert("통신실패, response: " + response);
+			console.log(response);
 		},
-		success : function(response) {
-			alert("통신성공, response: " + response);
+		success : function(response,num2) {
+			alert("통신성공, response: " + response +","+ num2);
+			
 			document.location.href = response;
-			//성공 시 이메일 존재여부 판별.
-			//존재 --> 이메일이 존재한다는 알림 띄움.
-			//없음 --> 회원가입 폼 자동으로 전송.
+			
 		}
 	});
 });
 
+function remakeDisplayedEvents(antPeopleObjList) {
+  //if(Object.keys(antPeopleObjList).length > 0) {
+  //  console.log(antPeopleObjList)
+  //  console.log(Object.keys(antPeopleObjList))
+  //  console.log(Object.keys(antPeopleObjList).length > 0)
+    for(var key in antPeopleObjList) {
+      //목록으로부터 요구 인원수를 추출.
+      var mpValue = antPeopleObjList[""+key+""].manPower;
+      var newTitle = antPeopleObjList[""+key+""].title;
+      //새로 생성한 tag가 있는경우 --> 값만 변경.
+
+      //tag정보 생성.
+      var mpSpan = $('<span />').addClass('eventMarker').css({'padding-left':3}).text(mpValue+"명");
+      var titleSpan = $('<span />').addClass('eventTitle').css({'margin-left':10}).text(newTitle);
+
+      //존재하는 span을 모두 숨김.
+      $('span:contains("'+key+'").fc-title').css({'display':'none'})
+      $('span:contains("'+key+'")').prev('span.fc-time').css({'display':'none'})
+
+      //생성한 span tag를 추가. - 추가된 span이 이미 있는지 확인 후, 있으면 값만 변경.
+      var checkExist = $('span:contains("'+key+'")').parent().find('.eventMarker');
+
+      if(checkExist.length <= 0) {
+        console.log('checkExist.is() = false')
+        $('span:contains("'+key+'")').parent().prepend(titleSpan);
+        $('span:contains("'+key+'")').parent().prepend(mpSpan);
+      } else if (checkExist.length > 0) {
+        console.log('checkExist.is() = true')
+        $('span:contains("'+key+'")').parent().find('.eventMarker').text(mpValue+"명");
+        $('span:contains("'+key+'")').parent().find('.eventTitle').text(newTitle);
+      }
+    }
+  //}
+}
 
 </script>
 </body>

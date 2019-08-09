@@ -3,14 +3,15 @@ SET SESSION FOREIGN_KEY_CHECKS=0;
 /* Drop Tables */
 
 DROP TABLE IF EXISTS bbs;
+DROP TABLE IF EXISTS month_plan;
 DROP TABLE IF EXISTS notice;
 DROP TABLE IF EXISTS user_sche;
 DROP TABLE IF EXISTS schedule;
 DROP TABLE IF EXISTS user_todo;
+DROP TABLE IF EXISTS todo;
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS role;
 DROP TABLE IF EXISTS store;
-DROP TABLE IF EXISTS todo;
 
 
 
@@ -30,12 +31,21 @@ CREATE TABLE bbs
 );
 
 
+CREATE TABLE month_plan
+(
+	user_id int NOT NULL,
+	month varchar(10) NOT NULL,
+	state boolean DEFAULT 'TRUE',
+	PRIMARY KEY (user_id, month)
+);
+
+
 CREATE TABLE notice
 (
 	notice_id int NOT NULL AUTO_INCREMENT,
 	title varchar(50) NOT NULL,
 	description varchar(255) NOT NULL,
-	created_time datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	created_time datetime DEFAULT CURRENT_TIMESTAMP,
 	updated_time datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	state int NOT NULL,
 	user_id int NOT NULL,
@@ -87,9 +97,11 @@ CREATE TABLE todo
 (
 	todo_id int NOT NULL AUTO_INCREMENT,
 	description varchar(255) NOT NULL,
-	created_time datetime DEFAULT CURRENT_TIMESTAMP,
-	updated_time datetime DEFAULT CURRENT_TIMESTAMP,
+	created_time datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	updated_time datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	state boolean NOT NULL,
+	checkPerson int DEFAULT 0,
+	from_id int NOT NULL,
 	PRIMARY KEY (todo_id)
 );
 
@@ -103,6 +115,7 @@ CREATE TABLE user
 	created_time datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	updated_time datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	state int,
+	picture_url varchar(50),
 	store_id int NOT NULL,
 	role_id int NOT NULL,
 	PRIMARY KEY (user_id),
@@ -117,7 +130,8 @@ CREATE TABLE user_sche
 	-- 1 - 승인 신청중
 	-- 2 - 승인 완료
 	state int DEFAULT 1 COMMENT '1 - 승인 신청중
-2 - 승인 완료'
+2 - 승인 완료',
+	PRIMARY KEY (user_id, sche_id)
 );
 
 
@@ -125,8 +139,7 @@ CREATE TABLE user_todo
 (
 	to_id int NOT NULL,
 	todo_id int NOT NULL,
-	dear_id int NOT NULL,
-	PRIMARY KEY (to_id, todo_id, dear_id)
+	state boolean NOT NULL
 );
 
 
@@ -173,6 +186,14 @@ ALTER TABLE bbs
 ;
 
 
+ALTER TABLE month_plan
+	ADD FOREIGN KEY (user_id)
+	REFERENCES user (user_id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
 ALTER TABLE notice
 	ADD FOREIGN KEY (user_id)
 	REFERENCES user (user_id)
@@ -189,6 +210,14 @@ ALTER TABLE schedule
 ;
 
 
+ALTER TABLE todo
+	ADD FOREIGN KEY (from_id)
+	REFERENCES user (user_id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
 ALTER TABLE user_sche
 	ADD FOREIGN KEY (user_id)
 	REFERENCES user (user_id)
@@ -199,14 +228,6 @@ ALTER TABLE user_sche
 
 ALTER TABLE user_todo
 	ADD FOREIGN KEY (to_id)
-	REFERENCES user (user_id)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
-;
-
-
-ALTER TABLE user_todo
-	ADD FOREIGN KEY (dear_id)
 	REFERENCES user (user_id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT

@@ -18,6 +18,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.ezen.antpeople.config.RootConfig;
 import com.ezen.antpeople.config.SecurityConfig;
 import com.ezen.antpeople.dto.board.BbsDetailDTO;
+import com.ezen.antpeople.dto.user.UserDetailDTO;
 import com.ezen.antpeople.entity.BbsEntity;
 import com.ezen.antpeople.repository.BbsRepository;
 import com.ezen.antpeople.service.BbsService;
@@ -36,7 +37,7 @@ public class BbsCRUDTest {
 	//게시물 업로드 테스트 - 완료
 	@Test @Ignore
 	public void bbsUploadTest() {
-		BbsDetailDTO bbs = null;
+		BbsDetailDTO bbs = new BbsDetailDTO("사장 게시물", "자유게시판 테스트",1,new UserDetailDTO(2,""));
 		System.out.println(bbs.toString());
 		bs.uploadBbs(bbs);
 	}

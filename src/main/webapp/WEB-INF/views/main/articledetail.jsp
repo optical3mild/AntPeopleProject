@@ -44,7 +44,7 @@
         <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="${path}/#"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li><a href="${path}/main/mainpage"><i class="fa fa-home"></i>Home</a></li>
         <li class="active">Main</li>
       </ol>
     </section>
@@ -60,37 +60,38 @@
           <!-- general form elements disabled -->
           <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">[${category}] ${article.title}</h3>
+              <h3 class="box-title" style="display:inline-block"> [${category}] ${article.title}</h3>
+              <div class="pull-right" style="display:inline-block">
+                  <label style="display:inline">작성자:</label>&nbsp;&nbsp;${article.user.name}&nbsp;&nbsp;&nbsp;&nbsp;
+                  <label style="display:inline">작성일:</label>&nbsp;&nbsp;${article.updatedAt}
+              </div>
             </div>
+            
             <!-- /.box-header -->
             <div class="box-body">
-              <form role="form">
-                <!-- text input -->
-                <div class="form-group">
-                  <label style="display:inline">작성자:&nbsp;&nbsp;${article.user.name}</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                  <label style="display:inline">작성일:&nbsp;&nbsp;${article.updatedAt}</label>
-                </div>
-                
+              <form role="form" method="post">
                 <!-- textarea -->
                 <div class="form-group">
-                  <textarea class="form-control" rows="3" disabled style="background-color: white;">
                     ${article.description}
-                  </textarea>
                 </div>
-                <c:if test="${category == '공지사항'}">
                 <div class="box-footer" style="padding-left: 0; padding-right:0;">
-                  <button type="button" class="btn btn-default" onclick="location.href='noticepage' ">목록으로</button>
-                  <button type="button" class="btn btn-info pull-right" style="margin: 0 0 0 20px" onclick="location.href='location.href='deletenotice?id=${article.notice_id} ">삭제</button>
-                  <button type="button" class="btn btn-info pull-right" onclick="location.href='updatenoticepage?id=${article.notice_id}' ">수정</button>
+               		<c:if test="${category == '공지사항'}">
+                  		<button type="button" class="btn btn-default" onclick="location.href='noticepage' ">목록으로</button>
+                	</c:if>
+                  	<c:if test="${category == '자유게시판'}">
+                  		<button type="button" class="btn btn-default" onclick="location.href='bbspage' ">목록으로</button>
+                	</c:if>
+               		<c:if test="${user.name == article.user.name }">
+	                	<c:if test="${category == '공지사항'}">
+	                  		<button type="button" class="btn btn-info pull-right" style="margin: 0 0 0 20px" onclick="location.href='location.href='deletenotice?id=${article.notice_id} ">삭제</button>
+	                  		<button type="button" class="btn btn-info pull-right" onclick="location.href='updatenoticepage?id=${article.notice_id}' ">수정</button>
+	                	</c:if>
+	                	<c:if test="${category == '자유게시판'}">
+	                		 <button type="button" class="btn btn-info pull-right" style="margin: 0 0 0 20px" onclick="location.href='deletebbs?id=${article.bbs_id}'">삭제</button>
+	                		 <button type="button" class="btn btn-info pull-right" onclick="location.href='updatebbspage?id=${article.bbs_id}'">수정</button>
+	               		</c:if>
+                	</c:if>
                 </div>
-                </c:if>
-                <c:if test="${category == '자유게시판'}">
-                <div class="box-footer" style="padding-left: 0; padding-right:0;">
-                  <button type="button" class="btn btn-default" onclick="location.href='bbspage' ">목록으로</button>
-                  <button type="button" class="btn btn-info pull-right" style="margin: 0 0 0 20px" onclick="location.href='deletebbs?id=${article.bbs_id}'">삭제</button>
-                  <button type="button" class="btn btn-info pull-right" onclick="location.href='updatebbspage?id=${article.bbs_id}'">수정</button>
-                </div>
-                </c:if>
               </form>
             </div>
             <!-- /.box-body -->
@@ -122,7 +123,7 @@
 
 <script>
 //오류발생.. 주석내에 el이나 tag형식 사용하지 말것..
-$(function() {
+/*$(function() {
 	//jstl의 변수를 javascript로 바로 사용 불가. ' c:out value="jstl변수명" '을 사용할 것.
 	//바로 el로 받을경우 not defined(?) 같은 오류로 인식되지 않는다.
 	var articleCategory = '<c:out value="${categoryOption}" />';
@@ -131,7 +132,7 @@ $(function() {
 	
 	//:contains() --> ()안에 변수 삽입불가. 변수명을 문자열로 인식함.
 	//$('.selection option:contains(Board)').attr('selected', true);
-});
+});*/
 
 </script>
 
