@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Article</title>
+  <title>AntPeople - 상세보기</title>
   
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -40,12 +40,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Common - Notice - ArticleDetail(글 상세보기)
-        <small>Control panel</small>
+        글 상세보기
+        <small>Article</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="${path}/main/mainpage"><i class="fa fa-home"></i>Home</a></li>
-        <li class="active">Main</li>
+        <li class="active">글 상세보기</li>
       </ol>
     </section>
 <!-- ------------------------------------------------- -->    

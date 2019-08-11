@@ -182,30 +182,35 @@
             <!-- /.box-header -->
             <div class="box-body no-padding">
               <table class="table">
+              	<colgroup>
+				  <col style="width: 15%">
+				  <col style="width: 65%">
+				  <col style="width: 20%">
+				</colgroup>
                 <tr>
-                  <th style="width: 20%">게시글 번호</th>
+                  <th style="text-align: center;">게시글 번호</th>
                   <th>제목</th>
-                  <th style="width: 15%">작성자</th>
+                  <th style="text-align: center;">작성자</th>
                 </tr>
                 <c:set var="noticeList" value="${requestScope.noticeList}"/>
 				<c:forEach var="notice" items="${noticeList}">
                 <tr>
-                  <td>${notice.notice_id}</td>
+                  <td style="text-align: center;">${notice.notice_id}</td>
                   <td><a href="detailnotice?id=${notice.notice_id}">${notice.title}</a></td>
                   <c:if test="${notice.user.store.store == '둔산점'}">
-                  	<td><span class="badge bgDun">${notice.user.name}</span></td>
+                  	<td style="text-align: center;"><span class="badge bgDun">${notice.user.name}</span></td>
                   </c:if>
                   <c:if test="${notice.user.store.store == '월평점'}">
-                  	<td><span class="badge bgWal">${notice.user.name}</span></td>
+                  	<td style="text-align: center;"><span class="badge bgWal">${notice.user.name}</span></td>
                   </c:if>
                   <c:if test="${notice.user.store.store == '관저점'}">
-                  	<td><span class="badge bgGhwan">${notice.user.name}</span></td>
+                  	<td style="text-align: center;"><span class="badge bgGhwan">${notice.user.name}</span></td>
                   </c:if>
                   <c:if test="${notice.user.store.store == '갈마점'}">
-                  	<td><span class="badge bgGal">${notice.user.name}</span></td>
+                  	<td style="text-align: center;"><span class="badge bgGal">${notice.user.name}</span></td>
                   </c:if>
                   <c:if test="${notice.user.store.store == '탄방점'}">
-                  	<td><span class="badge bgTan">${notice.user.name}</span></td>
+                  	<td style="text-align: center;"><span class="badge bgTan">${notice.user.name}</span></td>
                   </c:if>
                 </tr>
                 </c:forEach>
@@ -224,36 +229,41 @@
         
          <div class="box">
             <div class="box-header">
-              <h3 class="fa fa-comments">자유게시판</h3>
+              <h3 class="fa fa-comments"> 자유게시판</h3>
               <b class="pull-right" style="font-size:medium"><a href="${path}/main/bbspage">more..</a></b>
             </div>
             <!-- /.box-header -->
             <div class="box-body no-padding">
               <table class="table">
+              	<colgroup>
+				  <col style="width: 15%">
+				  <col style="width: 65%">
+				  <col style="width: 20%">
+				</colgroup>
                 <tr>
-                  <th style="width: 20%">게시글 번호</th>
+                  <th style="text-align: center;">게시글 번호</th>
                   <th>제목</th>
-                  <th style="width: 15%">작성자</th>
+                  <th style="text-align: center;">작성자</th>
                 </tr>
                 <c:set var="boardList" value="${requestScope.bbsList}"/>
 				<c:forEach var="board" items="${boardList}">
                 <tr>
-                  <td>${board.bbs_id}</td>
+                  <td style="text-align: center;">${board.bbs_id}</td>
                   <td><a href="detailbbs?id=${board.bbs_id}">${board.title}</a></td>
-                  <c:if test="${notice.user.store.store == '둔산점'}">
-                  	<td><span class="badge bgDun">${notice.user.name}</span></td>
+                  <c:if test="${board.user.store.store == '둔산점'}">
+                  	<td style="text-align: center;" ><span class="badge bgDun">${board.user.name}</span></td>
                   </c:if>
-                  <c:if test="${notice.user.store.store == '월평점'}">
-                  	<td><span class="badge bgWal">${notice.user.name}</span></td>
+                  <c:if test="${board.user.store.store == '월평점'}">
+                  	<td style="text-align: center;" ><span class="badge bgWal">${board.user.name}</span></td>
                   </c:if>
-                  <c:if test="${notice.user.store.store == '관저점'}">
-                 	<td><span class="badge bgGhwan">${notice.user.name}</span></td>
+                  <c:if test="${board.user.store.store == '관저점'}">
+                 	<td style="text-align: center;" ><span class="badge bgGhwan">${board.user.name}</span></td>
                   </c:if>
-                  <c:if test="${notice.user.store.store == '갈마점'}">
-                    <td><span class="badge bgGal">${notice.user.name}</span></td>
+                  <c:if test="${board.user.store.store == '갈마점'}">
+                    <td style="text-align: center;" ><span class="badge bgGal">${board.user.name}</span></td>
                   </c:if>
-                  <c:if test="${notice.user.store.store == '탄방점'}">
-                  	<td><span class="badge bgTan">${notice.user.name}</span></td>
+                  <c:if test="${board.user.store.store == '탄방점'}">
+                  	<td style="text-align: center;" ><span class="badge bgTan">${board.user.name}</span></td>
                   </c:if>
                 </tr>
                 </c:forEach>
