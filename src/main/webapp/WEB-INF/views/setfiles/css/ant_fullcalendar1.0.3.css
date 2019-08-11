@@ -38,11 +38,12 @@
 }
 /* ./ End of planner main style*/
 
-/* pagination 설정 */
+/* bbs pagination 설정 */
 div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 	width: 100%;
 	text-align: center;
 }
+
 /* Main페이지 pagination 크기 조절 */
 .box-footer {
     border-top-left-radius: 0;

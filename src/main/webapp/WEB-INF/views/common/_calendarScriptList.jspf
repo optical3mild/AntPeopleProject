@@ -1,0 +1,15 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<!-- Slimscroll -->
+<script src="setfiles/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+
+<!-- FastClick -->
+<script src="setfiles/bower_components/fastclick/lib/fastclick.js"></script>
+
+<!-- AntPeople FullCalendar function -->
+<script src="setfiles/js/ant_fullcalendar1.0.3.js?ver=1"></script>
+
+<!-- fullCalendar -->
+<script src="setfiles/bower_components/moment/moment.js"></script>
+<script src="setfiles/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>

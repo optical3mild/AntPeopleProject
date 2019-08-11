@@ -112,7 +112,7 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery 3 -->
+<!-- jQuery 3.3.1 -->
 <script src="setfiles/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="setfiles/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
