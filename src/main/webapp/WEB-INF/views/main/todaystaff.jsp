@@ -9,20 +9,9 @@
   
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="setfiles/bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="setfiles/bower_components/font-awesome/css/font-awesome.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="setfiles/bower_components/Ionicons/css/ionicons.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="setfiles/dist/css/AdminLTE.min.css">
-  <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="setfiles/dist/css/skins/skin-blue.css">
-
-  <!-- Google Font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-  <%@ include file= "../common/header.jsp" %>
+  
+  <%@ include file= "../common/_header_css_sum.jspf" %>
+  
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -120,16 +109,7 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery 3.3.1 -->
-<script src="setfiles/bower_components/jquery/dist/jquery.min.js"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="setfiles/bower_components/jquery-ui/jquery-ui.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="setfiles/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
-<!-- AdminLTE App : navbar 관련-->
-<script src="setfiles/dist/js/adminlte.min.js"></script>
-
+<%@ include file = "../common/_commonScriptList.jspf" %>
 
 </body>
 </html>

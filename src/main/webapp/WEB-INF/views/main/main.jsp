@@ -9,22 +9,14 @@
   
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="setfiles/bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="setfiles/bower_components/font-awesome/css/font-awesome.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="setfiles/bower_components/Ionicons/css/ionicons.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="setfiles/dist/css/AdminLTE.min.css">
-  <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="setfiles/dist/css/skins/skin-blue.css">
-  <!-- Google Font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-  <!-- AntPeople Custom -->
-  <link rel="stylesheet" href="setfiles/css/ant_fullcalendar1.0.3.css?ver=1">
-  <%@ include file= "../common/header.jsp" %>
-
+  
+  <%@ include file= "../common/_header_css_sum.jspf" %>
+  <style>
+  .item {
+  	background-position: center;
+  }
+  </style>
+ 
 </head>
 <body class="hold-transition skin-black sidebar-mini">
 <div class="wrapper">
@@ -67,25 +59,25 @@
                     <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
                   </ol>
                   <div class="carousel-inner">
-                    <div class="item active">
-                      <img src="http://placehold.it/900x500/39CCCC/ffffff&text=I+Love+Bootstrap" alt="First slide">
+                    <div class="item active" style="background-image : url('http://placehold.it/900x500/39CCCC/ffffff&text=I+Love+Bootstrap')">
                       <!--
+                      <img src="http://placehold.it/900x500/39CCCC/ffffff&text=I+Love+Bootstrap" alt="First slide">
                       <div class="carousel-caption">
                         First Slide
                       </div>
                       -->
                     </div>
-                    <div class="item">
-                      <img src="http://placehold.it/900x500/3c8dbc/ffffff&text=I+Love+Bootstrap" alt="Second slide">
+                    <div class="item" style="background-image : url('http://placehold.it/900x500/3c8dbc/ffffff&text=I+Love+Bootstrap')">
                       <!--
+                      <img src="http://placehold.it/900x500/3c8dbc/ffffff&text=I+Love+Bootstrap" alt="Second slide">
                       <div class="carousel-caption">
                         Second Slide
                       </div>
                       -->
                     </div>
-                    <div class="item">
-                      <img src="http://placehold.it/900x500/f39c12/ffffff&text=I+Love+Bootstrap" alt="Third slide">
+                    <div class="item" style="background-image : url('http://placehold.it/900x500/f39c12/ffffff&text=I+Love+Bootstrap')">
                       <!--
+                      <img src="http://placehold.it/900x500/f39c12/ffffff&text=I+Love+Bootstrap" alt="Third slide">
                       <div class="carousel-caption">
                         Third Slide
                       </div>
@@ -345,7 +337,9 @@
                	</c:forEach>
                </c:if>
                <c:if test="${todayStaffCount == 0}">
-               		오늘 출근하는 직원이 없습니다.
+                 <div style="text-align:center;margin: 30px 0 30px 0;">
+                   <span><b>오늘 출근하는 직원이 없습니다.</b></span>
+                 </div>
                </c:if>
               </ul>
               <!-- /.users-list -->
@@ -466,24 +460,16 @@
   </div>
 </div>
 
-<!-- jQuery 3.3.1 -->
-<script src="setfiles/bower_components/jquery/dist/jquery.min.js"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="setfiles/bower_components/jquery-ui/jquery-ui.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="setfiles/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
-<!-- AdminLTE App : navbar 관련-->
-<script src="setfiles/dist/js/adminlte.min.js"></script>
-
 <%@ include file = "../common/_commonScriptList.jspf" %>
+
 <script>
 // '//>>'로 표시된 부분 수정반영 필요.
 
 // 1. To Do. ----------------------------------------------------------------
 // 페이지 초기 수신 데이터 Dummy
+/*
 var dummyInitialData = {
-  'forRecievedList' : [
+  forRecievedList : [
     {
       id : '211',
       description : 'received - test1',
@@ -605,7 +591,7 @@ var dummyInitialData = {
       state : 'false',
     },
   ],
-  'forSendList' : [
+  forSendList : [
     { id : '111', description : 'send - test1', checkperson : '0', },
     { id : '112', description : 'send - test2', checkperson : '2', },
     { id : '113', description : 'send - test3', checkperson : '3', },
@@ -639,6 +625,7 @@ var dummyInitialData = {
     { id : '141', description : 'send - test31', checkperson : '1', },
   ]
 }
+
 var fromServer = '${todoList}';
 //>> 데이터 수신.
 var initialData = $.parseJSON(fromServer);
@@ -874,23 +861,25 @@ function addToReceivedToDoList(target, obj) {
 $(document).on('click','.toolOnList',function(){
   var selected = $(this);
   var selectedData = $(this).data('thisItemObj');
-  var target;
-  if(selected.hasClass('sendListDel')) {
-    target = 'sendListDel';
-  } else if(selected.hasClass('receivedListDel')) {
-    target = 'receivedListDel';
-  } else if(selected.hasClass('receivedListCheck')) {
-    target = 'receivedListCheck';
+  if(('dummy' in selectedData) == false) {
+	  var target;
+	  if(selected.hasClass('sendListDel')) {
+	    target = 'sendListDel';
+	  } else if(selected.hasClass('receivedListDel')) {
+	    target = 'receivedListDel';
+	  } else if(selected.hasClass('receivedListCheck')) {
+	    target = 'receivedListCheck';
+	  }
+	  console.log('확인')
+	  console.log(target);
+	  console.log(selectedData);
+
+	  //>> ajax통신 결과를 리턴한다.
+	  //var commResult = $.parseJSON(toolButtonOnList(target, selectedData));
+
+	  //화면을 새로 그림.
+	  wholeRewrite(commResult)
   }
-  console.log('확인')
-  console.log(target);
-  console.log(selectedData);
-
-  //>> ajax통신 결과를 리턴한다.
-  var commResult = $.parseJSON(toolButtonOnList(target, selectedData));
-
-  //화면을 새로 그림.
-  wholeRewrite(commResult)
 })
 
 //화면 재구성.
