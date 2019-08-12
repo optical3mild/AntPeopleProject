@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>MonthPlanPage</title>
+  <title>운영 계획</title>
   
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -50,7 +50,7 @@
       </h1>
       <ol class="breadcrumb">
         <li><a href="${path}/main/mainpage"><i class="fa fa-home"></i> Home</a></li>
-        <li class="active">Calendar</li>
+        <li class="active">운영 계획</li>
       </ol>
     </section>
 
@@ -125,7 +125,7 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery 3 -->
+<!-- jQuery 3.3.1 -->
 <script src="setfiles/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="setfiles/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -706,7 +706,6 @@ function direction(planName,target) {
 			console.log(response)
 		},
 		success : function(response) {
-			alert("통신성공, response: " + response);
 			console.log('월별 - 성공')
 			console.log(response)
 			document.location.href = response+'?date='+target;

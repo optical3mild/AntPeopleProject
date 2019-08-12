@@ -25,6 +25,11 @@ import lombok.NoArgsConstructor;
 @Getter
 public class ScheRelation implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@ManyToOne
 	@JoinColumn(name="user_id")
@@ -52,6 +57,12 @@ public class ScheRelation implements Serializable{
 	
 	public ScheUserDTO buildDTO() {
 		return new ScheUserDTO(this.toUser.buildDTOSmall(), this.sche.getId(),this.sche.getUnique(),this.state);
+	}
+	
+	public ScheUserDTO buildDTOToday() {
+		
+		return new ScheUserDTO(this.toUser.buildDTOSmall(), this.sche.getId(),this.sche.getUnique(),
+				this.state, this.sche.getTitle());
 	}
 	
 	public ScheUserDTO buildWorkDTO() {

@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.ezen.antpeople.dto.todo.TodoDetailDTO;
+import com.ezen.antpeople.dto.todo.TodoUserDTO;
 import com.ezen.antpeople.dto.user.UserDetailDTO;
 import com.ezen.antpeople.entity.TodoEntity;
 import com.ezen.antpeople.entity.TodoRelation;
@@ -44,24 +45,38 @@ public class TodoServiceImpl implements TodoService {
 		todoRepository.delete(entity.get());
 	}
 	
-	//할일 리스트 
+	//자신이 받은 할 일 확인
+	@Override
+	public void checkTodo(int todo_id) {
+		Optional<TodoEntity> entity = todoRepository.findById(todo_id);
+		TodoRelation todo = utRepository.findByTodo_id(todo_id);
+		entity.get().downCheckPerson();
+		todoRepository.save(entity.get()); //할일을 확인한 사람의 수를 확인
+		todo.checkTodo();
+		utRepository.save(todo); //할일 확인 기록
+		
+	}
+	
+	//자신이 보낸 할 일 리스트 
 	@Override
 	public List<TodoDetailDTO> TodoListByUser(UserDetailDTO user) {
-		List<TodoRelation> todoRelations = utRepository.findByToUser(new UserEntity(user));
+		List<TodoEntity> entitys = todoRepository.findByFromUser_id(user.getUser_id());
 		List<TodoDetailDTO> todoList = new ArrayList<TodoDetailDTO>();
-		for(TodoRelation todoRelation : todoRelations)
-			todoList.add(todoRelation.getTodo().buildDTO());
+		for(TodoEntity entity : entitys)
+			todoList.add(entity.buildDTO());
 		return todoList;
 	}
 	
-	//받는사람이 작성한 
+	//자신이 받아야 하는 할 일 리스트 
 	@Override
-	public List<TodoDetailDTO> TodoListByFromUser(UserDetailDTO user) {
+	public List<TodoUserDTO> TodoListByToUser(UserDetailDTO user) {
 		List<TodoRelation> todoRelations = utRepository.findByToUser(new UserEntity(user));
-		List<TodoDetailDTO> todoList = new ArrayList<TodoDetailDTO>();
+		List<TodoUserDTO> todoList = new ArrayList<TodoUserDTO>();
 		for(TodoRelation todoRelation : todoRelations)
-			todoList.add(todoRelation.getTodo().buildDTO());
+			todoList.add(todoRelation.buildDTO());
 		return todoList;
 	}
+
+
 
 }

@@ -38,11 +38,12 @@
 }
 /* ./ End of planner main style*/
 
-/* pagination 설정 */
+/* bbs pagination 설정 */
 div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 	width: 100%;
 	text-align: center;
 }
+
 /* Main페이지 pagination 크기 조절 */
 .box-footer {
     border-top-left-radius: 0;
@@ -81,8 +82,8 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 
 /* main page board badge color */
 .bgDun {
-  background-color: #3c8dbc;
-  border-color:  #3c8dbc;
+  background-color: #D81B60;
+  border-color:  #D81B60;
 }
 .bgWal {
   background-color: #00c0ef;
@@ -97,6 +98,76 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
   border-color:  #001F3F;
 }
 .bgTan {
-  background-color: #605ca8;
-  border-color:  #605ca8;
+  background-color: #ff851b;
+  border-color:  #ff851b;
 }
+
+
+/* main page toDo style */
+li > .label {
+  position : relative;
+  bottom : 2px;
+}
+li > input[type=checkbox] {
+  position : relative;
+  top : 2.5px;
+}
+.label-system {
+  background-color: #049df6;
+  border-color: #049df6;
+}
+.toUserFrame {
+  overflow-x : visible;
+  width : 100%;
+  min-height : 3.2rem;
+  border : 1px solid lightgrey;
+  font-size : 1rem;
+}
+.itemFrame {
+  display:inline-block;
+  width : fit-content;
+  /*border-radius : 0.5rem;
+ border : 1px solid lightblue;*/
+  margin : 2px 5px 2px 5px;
+}
+.itemDelSign {
+  font-size : 1.5rem;
+  color: #e14242;
+  opacity: 0.5;
+  position: relative;
+  top : 1px;
+  margin : 0 2px 0 2px;
+}
+.itemDelSign:hover {
+  opacity: 1;
+}
+/* End of main page toDo style */
+ 
+/* main page item height adjust style */
+.box-footer {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+}
+.toDoBtnBox {
+  margin: 5px 10px 0 10px;
+  height : 20px;
+}
+.inline {
+  position: absolute;
+  bottom: 0px;
+  margin : 0 0 10px 0;
+}
+/* End of main page item height adjust style */
+
+/* Carousel height */
+.carousel {
+  height : 300px;
+}
+.carousel-inner{
+  height : 300px;
+}
+.item {
+  height : inherit;
+}
+/* End of Carousel height */

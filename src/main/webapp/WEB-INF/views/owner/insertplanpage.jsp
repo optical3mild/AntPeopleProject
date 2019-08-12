@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Planning</title>
+  <title>근무 일정 계획표 작성</title>
   
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -46,13 +46,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Calendar
-       
-        <small>Control panel</small>
+        운영 계획 작성
+        <small>Plan</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="${path}/main/mainpage"><i class="fa fa-home"></i> Home</a></li>
-        <li class="active">Calendar</li>
+        <li class="active">운영 계획 작성</li>
       </ol>
     </section>
 
@@ -63,7 +62,7 @@
 
           <div class="box box-solid">
             <div class="box-header with-border">
-              <h4 class="box-title">Draggable Events</h4>
+              <h4 class="box-title">운영 일정 목록</h4>
             </div>
              
             <div class="box-body">
@@ -76,7 +75,7 @@
           <!-- /. box -->
           <div class="box box-solid">
             <div class="box-header with-border">
-              <h3 class="box-title">Create Event</h3>
+              <h3 class="box-title">일정 생성</h3>
             </div>
             <div class="box-body">
 
@@ -101,10 +100,6 @@
 
           <div class="box box-solid">
             <div class="box-body">
-                <label for="beforeSubmit">
-                  <input type="checkbox" id="beforeSubmit">
-                  일정을 등록합니다.
-                </label>
                 <button id="submitPlan" type="button" class="btn btn-primary btn-flat pull-right">작성완료</button>
             </div>
             <!-- /.box-body -->
@@ -175,7 +170,7 @@
   </div>
 </div>
 
-<!-- jQuery 3 -->
+<!-- jQuery 3.3.1 -->
 <script src="setfiles/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="setfiles/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -389,7 +384,6 @@ $(function() {
     header    : {
       left  : 'prev,next today',
       center: 'title',
-      right : 'month,agendaWeek,agendaDay'
     },
     buttonText: {
       today: 'today',
@@ -605,7 +599,7 @@ $('#submitPlan').click(function() {
 	console.log(dataLocation)
 	// dataLocation: 스크립트 헤드에 적힌 전역변수
 	$.ajax({
-		url : 'insertplan?month=${getInitialMonth}',
+		url : 'insertplan?month=${monthIndex}',
 		method : 'post',
 		data : JSON.stringify(dataLocation),	
 		contentType: 'application/json;charset=UTF-8',	
@@ -615,8 +609,8 @@ $('#submitPlan').click(function() {
 			alert("통신실패, response: " + response);
 			console.log(response);
 		},
-		success : function(response,num2) {
-			alert("통신성공, response: " + response +","+ num2);
+		success : function(response) {
+			alert("운영계획 등록이 완료되었습니다.");
 			
 			document.location.href = response;
 			

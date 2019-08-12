@@ -30,7 +30,7 @@
   <!-- pagination -->
   <link rel="stylesheet" href="setfiles/css/ant_fullcalendar1.0.3.css">
   
-  <!-- 적용여부 확인. -->
+  <!-- table text overflow 설정 -->
   <style>
 	  td, th {
 	  	text-overflow: ellipsis;
@@ -104,8 +104,7 @@
 					  </td>
 					  <td style="text-align: center;">${board.user.name}</td>
 					  <td style="text-align: center;">
-					    <%-- <fmt:formatDate value="${board.updatedAt}" pattern="yyyy-MM-dd HH:mm" type="date"/> --%>
-					    <fmt:parseDate value="${board.updatedAt}" var="dateFmt" pattern="yyyy-MM-dd'T'HH:mm:ss"/>
+					    <fmt:parseDate value="${board.updatedAt}" var="dateFmt" pattern="yyyy-MM-dd'T'HH:mm"/>
 					    <fmt:formatDate value="${dateFmt}" pattern="yyyy-MM-dd HH:mm"/>
 					  </td>
 					</tr>

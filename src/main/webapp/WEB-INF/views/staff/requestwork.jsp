@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Request Work</title>
+  <title>근무 신청</title>
   
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -46,12 +46,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Staff - Request Work
-        <small>Control panel</small>
+        근무 신청
+        <small>Calendar</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="${path}/main/mainpage"><i class="fa fa-home"></i> Home</a></li>
-        <li class="active">Calendar</li>
+        <li class="active">근무 신청</li>
       </ol>
     </section>
 
@@ -62,7 +62,7 @@
 
           <div class="box box-solid">
             <div class="box-header with-border">
-              <h4 class="box-title">Monthly Plan List</h4>
+              <h4 class="box-title">월별 근무 일정표</h4>
             </div>
             <div class="box-body">
               <!-- the events -->
@@ -100,7 +100,7 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery 3 -->
+<!-- jQuery 3.3.1 -->
 <script src="setfiles/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="setfiles/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -572,15 +572,19 @@ console.log(originalDataLoc)
 function checkAndSelectRequest(state, eventId) {
   var comSign = false;
   if($('span:contains("'+eventId+'")').parent().parent().hasClass('selectedEvent')) {
-    alert('취소')
-    // 선택되어 있는 경우 --> 취소요청
-    comSign = false;
-    communicationProcess(comSign, eventId, state);
+	var apply = confirm("일정 신청을 취소하시겠습니까?")
+	if(apply){
+	    // 선택되어 있는 경우 --> 취소요청
+	    comSign = false;
+	    communicationProcess(comSign, eventId, state);
+	}
   } else {
-    alert('신청')
-    // 선택되어 있지 않은경우 --> 등록요청
-    comSign = true;
-    communicationProcess(comSign, eventId, state);
+	  var apply = confirm("일정 신청하시겠습니까?")
+		if(apply){
+		    // 선택되어 있지 않은경우 --> 등록요청
+		    comSign = true;
+		    communicationProcess(comSign, eventId, state);
+		}
   }
 }
 
@@ -596,7 +600,6 @@ function communicationProcess(sign, id, state) {
   } else {
     //성공한 경우, 경우에 따라 리턴값 화면에 업데이트 방법 추가필요....
     if((sign == true) && (id == Object.keys(communicateResult)[0])){
-      alert('신청')
       //등록과정 --> 등록한 내용 List로 저장.
       //origin에 저장(for manpower업데이트 후 이벤트 렌더링)
       // & select에 저장(렌더링 후 신청여부 다시 표시하기 위해).
@@ -668,14 +671,16 @@ function sendInfo(sign, eId, state) {
   };
   //control url필요.
   var addPlan = "applyschedule" //일정 신청.
-  var rmPlan = "refuseschedule" //신청 취소.
-  var cancelPlan = "cancelschedule" //일정 승인 거절 
+  var rmPlan = "refuseschedule" //신청 취소. 
+  var alterString;
   var selectedUrl;
   
   if(sign) {
 	    selectedUrl = addPlan;
+	    alterString = "일정을 신청하였습니다.";
 	  } else {
 	    selectedUrl = rmPlan;
+	    alterString = "일정을 취소하였습니다.";
 	  }
   
   var result;
@@ -688,11 +693,11 @@ function sendInfo(sign, eId, state) {
 		dataType : 'text',
 		async : false,
 		error : function(response) {
-			//alert("통신실패, response: " + response);
+			alert("통신실패, response: " + response);
 			result = 'fail';
 		},
 		success : function(response) {
-			alert("통신성공, response: " + response);
+			alert(alterString);
       	result = response;
 		}
 	});

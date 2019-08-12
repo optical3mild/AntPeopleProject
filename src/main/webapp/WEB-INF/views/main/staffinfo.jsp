@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>StaffList</title>
+  <title>점포별 직원 정보</title>
   
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -49,7 +49,7 @@
       </h1>
       <ol class="breadcrumb">
         <li><a href="${path}/main/mainpage"><i class="fa fa-home"></i>Home</a></li>
-        <li class="active">Main</li>
+        <li class="active">직원 정보</li>
       </ol>
     </section>
 <!-- ------------------------------------------------- -->    
@@ -78,12 +78,6 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr style="text-align: center;">
-                  	<td><a href="#">알바1</a></td>
-                  	<td>알바</td>
-                  	<td>점포1</td>
-                  </tr>
-                
                	  <c:set var="staffList" value="${requestScope.userList}"/>
 				  <c:forEach var="staff" items="${staffList}">
 					<tr>
@@ -93,8 +87,7 @@
 					  <td style="text-align: center;">${staff.role.role}</td>
 					  <td style="text-align: center;">${staff.store.store}</td>
 					</tr>
-				  </c:forEach>
-				  
+				  </c:forEach>  
                 </tbody>
               </table>
             </div>

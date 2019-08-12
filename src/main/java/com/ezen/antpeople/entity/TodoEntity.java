@@ -59,13 +59,18 @@ public class TodoEntity extends BaseEntity implements Serializable {
 		this.description = todo.getDescription();
 		this.fromUser = new UserEntity(todo.getFromUser());
 		this.toUsers = userList;
+		this.checkPerson = userList.size();
 	}
 	
 	public TodoDetailDTO buildDTO() {
 		List<UserDetailDTO> toUsers = new ArrayList<UserDetailDTO>();
 		for(UserEntity user : this.toUsers)
 			toUsers.add(user.buildDTO());
-		return new TodoDetailDTO(this.id, this.description, this.state, this.updatedAt, this.fromUser.buildDTO(),toUsers);
+		return new TodoDetailDTO(this.id, this.description, this.state,this.checkPerson, this.updatedAt, this.fromUser.buildDTO(),toUsers);
+	}
+	
+	public void downCheckPerson() {
+		this.checkPerson -= 1;
 	}
 
 }

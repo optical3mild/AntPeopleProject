@@ -5,7 +5,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Registration Page</title>
+	<title>회원 가입</title>
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<!-- Bootstrap 3.3.7 -->
@@ -32,39 +32,11 @@
   </div>
 
   <div class="register-box-body">
-    <p class="login-box-msg">Register a new membership</p>
+    <p class="login-box-msg">회원가입 정보 작성</p>
 
 	<!-- 연결할 경로 -->
     <!-- <form action="registercheck" method="post"> -->
     <form>
-      <div class="form-group has-feedback">
-        <input type="text" id="userName" name="userName" class="form-control" placeholder="Your name">
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-        <span class="checkMessage" style="color:green; display:none"></span>
-      </div>
-      
-      <div class="form-group has-feedback" style="height:34px">
-        <select name ="role" id="role" class="form-control" style="padding-left:7px;">
-          <option value ='0' selected>Position</option>
-          <c:set var="roleList" value="${requestScope.roleList}"/>
-		  <c:forEach var="rName" items="${roleList}">
-		    <option value="${rName.role_id}">${rName.role}</option>
-		  </c:forEach>
-        </select>
-        <span class="checkMessage" style="color:green; display:none"></span>
-      </div>
-      
-      <div class="form-group has-feedback" style="height:34px">
-        <select name ="store" id="store" class="form-control" style="padding-left:7px">
-          <option value='0' selected>Place</option>
-          <c:set var="storeList" value="${requestScope.storeList}"/>
-		  <c:forEach var="sName" items="${storeList}">
-		    <option value="${sName.store_id}">${sName.store}</option>
-		  </c:forEach>
-        </select>
-        <span class="checkMessage" style="color:green; display:none"></span>
-      </div>
-      
       <div class="form-group has-feedback">
         <input type="email" name="email" id="email" class="form-control" placeholder="Email">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -80,35 +52,60 @@
       
       <div class="form-group has-feedback">
         <input type="password" name="password2" id="password2" class="form-control" placeholder="Retype password">
-        <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+        <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+        <span class="checkMessage" style="color:green; display:none"></span>
+      </div>
+    
+    
+      <div class="form-group has-feedback">
+        <input type="text" id="userName" name="userName" class="form-control" placeholder="Your name">
+        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+        <span class="checkMessage" style="color:green; display:none"></span>
+      </div>
+      
+      <div class="form-group has-feedback" style="height:34px">
+        <select name ="role" id="role" class="form-control" style="padding-left:7px;">
+          <option value ='0' selected>Position</option>
+          <c:set var="roleList" value="${requestScope.roleList}"/>
+		  <c:forEach var="rName" items="${roleList}">
+		  	<c:if test="${rName.role != '관리자'}"> 
+		    	<option value="${rName.role_id}">${rName.role}</option>
+		  	</c:if>
+		  </c:forEach>
+        </select>
+        <span class="checkMessage" style="color:green; display:none"></span>
+      </div>
+      
+      <div class="form-group has-feedback" style="height:34px">
+        <select name ="store" id="store" class="form-control" style="padding-left:7px">
+          <option value='0' selected>Place</option>
+          <c:set var="storeList" value="${requestScope.storeList}"/>
+		  <c:forEach var="sName" items="${storeList}">
+		  	<c:if test="${sName.store != '관리자'}"> 
+			    <option value="${sName.store_id}">${sName.store}</option>
+		  	</c:if>
+		  </c:forEach>
+        </select>
         <span class="checkMessage" style="color:green; display:none"></span>
       </div>
       
       <div class="row">
-        <!-- 약관동의 항목
-        <div class="col-xs-8">
-          <div class="checkbox icheck">
-            <label>
-              <input type="checkbox"> I agree to the <a href="#">terms</a>
-            </label>
-          </div>
-        </div>
-         -->
-        <!-- /.col -->
         <div class="col-xs-4">
-          <button id="register" type="button" class="btn btn-primary btn-block btn-flat">Register</button>
+        </div>
+        <div class="col-xs-4">
+          <button id="register" type="button" class="btn btn-primary btn-block btn-flat">회원가입</button>
         </div>
         <!-- /.col -->
       </div>
     </form>
 
-    <a href="${path}/user/login" class="text-center">I already have a membership</a>
+    <a href="login" class="text-center">AntPeople 회원이신가요?</a>
   </div>
   <!-- /.form-box -->
 </div>
 <!-- /.register-box -->
 
-<!-- jQuery 3 -->
+<!-- jQuery 3.3.1 -->
 <script src="setfiles/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="setfiles/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
