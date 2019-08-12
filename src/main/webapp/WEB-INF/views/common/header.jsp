@@ -9,3 +9,4 @@
  
 <link rel="shortcut icon" href="setfiles/img/ant.ico" type="image/x-icon" />
 <link rel="icon" href="setfiles/img/ant.ico" type="image/x-icon" />
+<link rel="stylesheet" href="setfiles/bower_components/bootstrap/dist/css/hangeul.css?ver=1">

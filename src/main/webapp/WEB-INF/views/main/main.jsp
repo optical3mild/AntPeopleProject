@@ -18,7 +18,7 @@
   </style>
  
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-black sidebar-mini">
 <div class="wrapper">
   <!-- _top.jspf -->
   <%@ include file="../common/_top.jspf" %>
