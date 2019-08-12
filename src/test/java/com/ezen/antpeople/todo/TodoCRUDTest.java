@@ -79,7 +79,7 @@ public class TodoCRUDTest {
 	}
 	
 	//본인이 작성한 할 일 리스트 삭제 - 성공
-	@Test
+	@Test @Ignore
 	public void deleteTodo() {
 		ts.deleteTodo(18);
 	}

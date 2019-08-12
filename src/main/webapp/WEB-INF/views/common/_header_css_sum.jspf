@@ -41,4 +41,5 @@
 	<link rel="stylesheet" href="setfiles/bower_components/fullcalendar/dist/fullcalendar.print.min.css" media="print">
 	
 	<!-- AntPeople project custom style -->
-	<link rel="stylesheet" href="setfiles/css/ant_fullcalendar1.0.3.css?ver=1">
+	<link rel="stylesheet" href="setfiles/css/ant_fullcalendar1.0.3.css">
+	<link rel="stylesheet" href="setfiles/bower_components/bootstrap/dist/css/hangeul.css">
