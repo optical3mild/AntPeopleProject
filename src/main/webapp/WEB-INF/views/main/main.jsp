@@ -9,7 +9,7 @@
   
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <%@ include file= "../common/_header_css_sum.jspf" %>
+  <%@ include file="../common/_header_css_sum.jspf" %>
   <style>
   .item {
   	background-position: center;
@@ -58,29 +58,35 @@
                   </ol>
                   <div class="carousel-inner">
 
-                    <div class="item active" style="background-image : url('http://placehold.it/900x500/39CCCC/ffffff&text=I+Love+Bootstrap')">
+                    <div class="item active" style="background-image : url('setfiles/img/office.jpg'); opacity : 0.5">
                       <!--
                       <img src="http://placehold.it/900x500/39CCCC/ffffff&text=I+Love+Bootstrap" alt="First slide">
                       -->
-                      <div class="carousel-caption" style="font-size: 10rem">
-                        First Slide
+                      <div class="carousel-caption" style="text-align:center; margin:0 0 20px 0">
+                      	<span style="font-size: 6rem;">간편한 업무 일정 신청</span>
+                      	<br>
+                      	<span style="font-size: 3rem">당신의 업무일정을 더욱 간편하게 신청할 수 있습니다.</span>
                       </div>
 
                     </div>
-                    <div class="item" style="background-image : url('http://placehold.it/900x500/3c8dbc/ffffff&text=I+Love+Bootstrap')">
+                    <div class="item" style="background-image : url('setfiles/img/dayplanner.jpg')">
                       <!--
                       <img src="http://placehold.it/900x500/3c8dbc/ffffff&text=I+Love+Bootstrap" alt="Second slide">
                       -->
-                      <div class="carousel-caption" style="font-size: 10rem">
-                        Second Slide
+                      <div class="carousel-caption" style="text-align:center; margin:0 0 20px 0">
+                        <span style="font-size: 6rem;">중요한 업무 메모기능</span>
+                      	<br>
+                      	<span style="font-size: 3rem">해야할 업무를 자신의 할 일 목록으로 작성할 수 있습니다.</span>
                       </div>
                     </div>
-                    <div class="item" style="background-image : url('http://placehold.it/900x500/f39c12/ffffff&text=I+Love+Bootstrap')">
+                    <div class="item" style="background-image : url('setfiles/img/paper.jpg')">
                       <!--
                       <img src="http://placehold.it/900x500/f39c12/ffffff&text=I+Love+Bootstrap" alt="Third slide">
                       -->
-                      <div class="carousel-caption" style="font-size: 10rem">
-                        Third Slide
+                      <div class="carousel-caption" style="text-align:center; margin:0 0 20px 0">
+                        <span style="font-size: 6rem;">통합된 운영계획 관리</span>
+                      	<br>
+                      	<span style="font-size: 3rem">월별 운영계획을 수정, 확정, 반려할 수 있습니다.</span>
                       </div>
                     </div>
                   </div>
@@ -163,7 +169,7 @@
           <div class="small-box bg-red">
             <div class="inner">
               <h3>53<sup style="font-size: 20px">%</sup></h3>
-              <p>금일 휴가자 수</p>
+              <p>확정되지 않은 운영계획</p>
             </div>
             <div class="icon">
               <i class="fa fa-user-times"></i>
@@ -196,7 +202,7 @@
           <div class="small-box bg-green">
             <div class="inner">
               <h3>65</h3>
-              <p>오늘의 할 일</p>
+              <p>남은 할일</p>
             </div>
             <div class="icon">
               <i class="fa fa-check-square-o"></i>
