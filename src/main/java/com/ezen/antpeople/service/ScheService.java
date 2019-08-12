@@ -26,6 +26,9 @@ public interface ScheService {
 	//당일 근무자 목록 가져오기
 	public List<ScheUserDTO> todayStaffList(String store, String startDate);
 	
+	//사장의 근무일정에 근무를 신청한 사람
+	public List<ScheUserDTO> scheUserList(String store);
+	
 	//일정 변경하기, 삭제하기
 	public void updateSchedule(Map<String, ScheDetailDTO> schedules); 
 	public void deleteSchedule(Map<String, ScheDetailDTO> schedules);
