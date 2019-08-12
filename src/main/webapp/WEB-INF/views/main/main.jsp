@@ -625,7 +625,7 @@ var dummyInitialData = {
     { id : '141', description : 'send - test31', checkperson : '1', },
   ]
 }
-
+*/
 var fromServer = '${todoList}';
 //>> 데이터 수신.
 var initialData = $.parseJSON(fromServer);
