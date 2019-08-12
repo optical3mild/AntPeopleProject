@@ -641,7 +641,7 @@ var dummyInitialData = {
   ]
 }
 //>> 데이터 수신.
-//var initialData = ${}
+//var initialData;
 //var initialData = {}; //DB가 없는 경우에는 빈 객체를 입력하여야 한다.
 var initialData = dummyInitialData
 
