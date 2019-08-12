@@ -43,7 +43,7 @@
 
           <div class="box box-solid">
             <div class="box-header with-border">
-              <h4 class="box-title">운영 일정 목록</h4>
+              <label style="margin-bottom: 0;">운영일정 목록</label>
             </div>
              
             <div class="box-body">
@@ -55,9 +55,7 @@
           </div>
           <!-- /. box -->
           <div class="box box-solid">
-            <div class="box-header with-border">
-              <h3 class="box-title">일정 생성</h3>
-            </div>
+            
             <div class="box-body">
 
               <div class="input-group" style="width:100%">
@@ -72,7 +70,7 @@
                 </div>
                 <br><br>
                 <hr class="divArea">
-                <button id="add-new-event" type="button" class="btn btn-primary btn-flat colorButton pull-right">Add</button>
+                <button id="add-new-event" type="button" class="btn btn-primary btn-flat colorButton pull-right">추가</button>
                 <!-- /btn-group -->
               </div>
               <!-- /input-group -->
@@ -348,12 +346,14 @@ $(function() {
       left  : 'prev,next today',
       center: 'title',
     },
+    /*
     buttonText: {
       today: 'today',
       month: 'month',
       week : 'week',
       day  : 'day'
     },
+    */
 //>>//Ajax로 가져올 event data
 	defaultDate : selectedMonth,
     events : initialData,

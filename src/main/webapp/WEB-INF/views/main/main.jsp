@@ -62,26 +62,26 @@
                     <div class="item active" style="background-image : url('http://placehold.it/900x500/39CCCC/ffffff&text=I+Love+Bootstrap')">
                       <!--
                       <img src="http://placehold.it/900x500/39CCCC/ffffff&text=I+Love+Bootstrap" alt="First slide">
-                      <div class="carousel-caption">
+                      -->
+                      <div class="carousel-caption" style="font-size: 10rem">
                         First Slide
                       </div>
-                      -->
                     </div>
                     <div class="item" style="background-image : url('http://placehold.it/900x500/3c8dbc/ffffff&text=I+Love+Bootstrap')">
                       <!--
                       <img src="http://placehold.it/900x500/3c8dbc/ffffff&text=I+Love+Bootstrap" alt="Second slide">
-                      <div class="carousel-caption">
+                      -->
+                      <div class="carousel-caption" style="font-size: 10rem">
                         Second Slide
                       </div>
-                      -->
                     </div>
                     <div class="item" style="background-image : url('http://placehold.it/900x500/f39c12/ffffff&text=I+Love+Bootstrap')">
                       <!--
                       <img src="http://placehold.it/900x500/f39c12/ffffff&text=I+Love+Bootstrap" alt="Third slide">
-                      <div class="carousel-caption">
+                      -->
+                      <div class="carousel-caption" style="font-size: 10rem">
                         Third Slide
                       </div>
-                      -->
                     </div>
                   </div>
                   <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
@@ -266,7 +266,7 @@
         
          <div class="box">
             <div class="box-header">
-              <h3 class="fa fa-comments">자유게시판</h3>
+              <h3 class="fa fa-comments"> 자유게시판</h3>
               <b class="pull-right" style="font-size:medium"><a href="${path}/main/bbspage">more..</a></b>
             </div>
             <!-- /.box-header -->
@@ -362,7 +362,7 @@
           <div class="box box-primary">
             <div class="box-header" style="border-bottom: 1px solid #f4f4f4;">
               <i class="ion ion-clipboard"></i>
-              <h3 class="box-title">To Do List: 수신,확인기능</h3>
+              <h3 class="box-title"> 받은할일</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -389,7 +389,7 @@
             <div class="box-header" style="border-bottom: 1px solid #f4f4f4;">
               <i class="ion ion-clipboard"></i>
 
-              <h3 class="box-title">User TODO List : 작성,전달.</h3>
+              <h3 class="box-title"> 보낸할일</h3>
 
               <div class="box-tools pull-right">
                 <button id="popupToDoBoard" type="button" class="btn btn-default pull-right"><i class="fa fa-plus"></i> 새글 작성</button>
