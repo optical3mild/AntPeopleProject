@@ -148,9 +148,14 @@
 ### Day 24 : View 정리 (19.08.07)
 - (성현) 전체 페이지 아이콘 변경
 - (성현) bbspage, notice 페이지 날짜 형식 변환 및 mainpage 공지, 자유게시판 제목 링크 연결
+- (정우) main페이지 ToDo List - '새 항목 추가' 기능
 
 ### Day 26 : View 정리 (19.08.09)
 - (오인) 근무 일정 관리 페이지 전체 alter, confirm 수정
 - (오인) interceptor를 이용한 세션 관리 기능 추가
 - (오인) Todo Repogitory, Entity, Service 재구성
 - (오인) favicon 적용
+- (정우) main페이지 - 각 항목의 높이 자동 조절기능 구현, ToDo List pagination기능 구현.
+
+### Day 27 : View 정리 (19.08.11)
+- (정우) main페이지 - Carousel 추가, ToDo 추가/삭제 업데이트

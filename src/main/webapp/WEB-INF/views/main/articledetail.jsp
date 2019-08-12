@@ -23,8 +23,6 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
   
-  
-  
   <%@ include file= "../common/header.jsp" %>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -115,13 +113,15 @@
 
 <!-- jQuery 3.3.1 -->
 <script src="setfiles/bower_components/jquery/dist/jquery.min.js"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="setfiles/bower_components/jquery-ui/jquery-ui.min.js"></script>
+
 <!-- Bootstrap 3.3.7 -->
 <script src="setfiles/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
 <!-- AdminLTE App : navbar 관련-->
 <script src="setfiles/dist/js/adminlte.min.js"></script>
+
+<!-- jQuery UI 1.11.4 -->
+<script src="setfiles/bower_components/jquery-ui/jquery-ui.min.js"></script>
 
 <script type="text/javascript">
 //오류발생.. 주석내에 el이나 tag형식 사용하지 말것..

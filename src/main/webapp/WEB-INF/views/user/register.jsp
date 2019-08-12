@@ -37,7 +37,7 @@
 	<!-- 연결할 경로 -->
     <!-- <form action="registercheck" method="post"> -->
     <form>
-    <div class="form-group has-feedback">
+      <div class="form-group has-feedback">
         <input type="email" name="email" id="email" class="form-control" placeholder="Email">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
         <span class="checkMessage" style="color:green; display:none"></span>
@@ -105,7 +105,7 @@
 </div>
 <!-- /.register-box -->
 
-<!-- jQuery 3 -->
+<!-- jQuery 3.3.1 -->
 <script src="setfiles/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="setfiles/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>

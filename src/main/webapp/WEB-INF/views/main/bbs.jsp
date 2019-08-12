@@ -30,7 +30,7 @@
   <!-- pagination -->
   <link rel="stylesheet" href="setfiles/css/ant_fullcalendar1.0.3.css">
   
-  <!-- 적용여부 확인. -->
+  <!-- table text overflow 설정 -->
   <style>
 	  td, th {
 	  	text-overflow: ellipsis;
