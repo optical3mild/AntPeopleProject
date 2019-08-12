@@ -38,12 +38,19 @@ public class TodoServiceImpl implements TodoService {
 		todoRepository.save(entity);
 	}
 
-	//할일 삭제 함수
+	//할일 삭제 함수 (자신이 보낸 할일 삭제)
 	@Override
 	public void deleteTodo(int todo_id) {
 		Optional<TodoEntity> entity = todoRepository.findById(todo_id);
 		todoRepository.delete(entity.get());
 		utRepository.deleteByTodo_id(todo_id);
+	}
+	
+	//할일 삭제 함수 (자신이 받은 할 일 삭제)
+	@Override
+	public void deleteSendTodo(int todo_id, int user_id) {
+		TodoRelation entity = utRepository.findByTodo_idAndToUser_id(todo_id, user_id);
+		utRepository.delete(entity);
 	}
 	
 	//자신이 받은 할 일 확인
