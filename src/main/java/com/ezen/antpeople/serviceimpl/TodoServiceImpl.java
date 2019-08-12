@@ -9,11 +9,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.ezen.antpeople.dto.todo.TodoDetailDTO;
+import com.ezen.antpeople.dto.todo.TodoListDTO;
 import com.ezen.antpeople.dto.todo.TodoUserDTO;
 import com.ezen.antpeople.dto.user.UserDetailDTO;
 import com.ezen.antpeople.entity.TodoEntity;
 import com.ezen.antpeople.entity.TodoRelation;
-import com.ezen.antpeople.entity.UserEntity;
 import com.ezen.antpeople.repository.TodoRepository;
 import com.ezen.antpeople.repository.UTRepository;
 import com.ezen.antpeople.service.TodoService;
@@ -78,6 +78,12 @@ public class TodoServiceImpl implements TodoService {
 		for(TodoRelation todoRelation : todoRelations)
 			todoList.add(todoRelation.buildDTO());
 		return todoList;
+	}
+	
+	// 자신이 보내고 받은 할 일 리스트 전부 받아오기
+	public String TodoListAll(UserDetailDTO user) {
+		TodoListDTO todoList = new TodoListDTO(TodoListByUser(user),TodoListByToUser(user));
+		return todoList.toString();
 	}
 
 

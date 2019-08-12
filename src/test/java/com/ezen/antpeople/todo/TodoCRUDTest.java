@@ -33,12 +33,12 @@ public class TodoCRUDTest {
 	//할일 추가 테스트 - 성공
 	@Test @Ignore
 	public void insertTodoTest() {
-		UserDetailDTO user = new UserDetailDTO(1,"");
+		UserDetailDTO user = new UserDetailDTO(3,"");
 		List<UserDetailDTO> userList = new ArrayList<UserDetailDTO>();
-		userList.add(new UserDetailDTO(3,""));
-		userList.add(new UserDetailDTO(4,""));
+		userList.add(new UserDetailDTO(5,""));
+		userList.add(new UserDetailDTO(6,""));
 		log.info("사용자 리스트 생성");
-		TodoDetailDTO todo = new TodoDetailDTO("할일 테스트5 - 3에게",user,userList);
+		TodoDetailDTO todo = new TodoDetailDTO("할일 테스트5 - 5,6에게",user,userList);
 		ts.uploadTodo(todo);
 	}
 	
@@ -59,6 +59,16 @@ public class TodoCRUDTest {
 		UserDetailDTO user = new UserDetailDTO(3,"");
 		List<TodoUserDTO> todoList = new ArrayList<TodoUserDTO>(ts.TodoListByToUser(user));
 		log.info(todoList.toString());
+		
+	}
+	
+	//본인이 보낸 할일 리스트와 받은 할 일 리스트 가져오기 테스트 - 성공
+	@Test @Ignore
+	public void TodoListAllTest() {
+		log.info("자신이 보내고, 받은 할 일 리스트 가져오기");
+		UserDetailDTO user = new UserDetailDTO(3,"");
+		String todoList = ts.TodoListAll(user);
+		log.info(todoList);
 		
 	}
 	
