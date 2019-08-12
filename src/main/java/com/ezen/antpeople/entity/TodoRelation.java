@@ -29,7 +29,7 @@ public class TodoRelation implements Serializable {
 
 	@Id
 	@ManyToOne
-	@JoinColumn(name="user_id")
+	@JoinColumn(name="to_id")
 	private UserEntity toUser;
 	
 	@Id

@@ -102,7 +102,7 @@ CREATE TABLE todo
 	description varchar(255) NOT NULL,
 	created_time datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	updated_time datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	state boolean NOT NULL,
+	state boolean NOT NULL DEFAULT false,
 	checkPerson int DEFAULT 0,
 	from_id int NOT NULL,
 	PRIMARY KEY (todo_id)
@@ -142,7 +142,7 @@ CREATE TABLE user_todo
 (
 	to_id int NOT NULL,
 	todo_id int NOT NULL,
-	state boolean NOT NULL
+	state boolean NOT NULL DEFAULT false
 );
 
 
