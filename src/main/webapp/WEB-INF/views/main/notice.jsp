@@ -48,7 +48,7 @@
             <div class="box-header">
               <h3 class="box-title"></h3>
               <c:if test="${user.role.role == '사장'}">
-              <button type="button" class="btn btn-info pull-right" onclick="location.href='insertnoticepage' ">글쓰기</button>
+              	<button type="button" class="btn btn-info pull-right" onclick="location.href='insertnoticepage' ">글쓰기</button>
               </c:if>
               <hr style="margin-bottom: 0 ; border: 0.5px solid lightgrey">
             </div>
@@ -132,7 +132,7 @@
 					"next" : "다음",
 					"previous" : "이전"
 				},
-			}
+			},
 		});
 	});
 </script>

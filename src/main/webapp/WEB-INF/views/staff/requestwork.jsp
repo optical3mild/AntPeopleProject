@@ -43,7 +43,7 @@
 
           <div class="box box-solid">
             <div class="box-header with-border">
-              <h4 class="box-title">월별 근무 일정표</h4>
+              <label style="margin-bottom: 0;">월별 근무일정표</label>
             </div>
             <div class="box-body">
               <!-- the events -->
@@ -478,13 +478,6 @@ $(function() {
     header    : {
       left  : 'prev,next today',
       center: 'title',
-      right : 'month,agendaWeek,agendaDay'
-    },
-    buttonText: {
-      today: 'today',
-      month: 'month',
-      week : 'week',
-      day  : 'day'
     },
 //>>//Ajax로 가져올 event data
     defaultDate : initialMonth,

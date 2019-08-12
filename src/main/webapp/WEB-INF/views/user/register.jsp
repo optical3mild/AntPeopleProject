@@ -6,24 +6,12 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>회원 가입</title>
+	
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-	<!-- Bootstrap 3.3.7 -->
-	<link rel="stylesheet" href="setfiles/bower_components/bootstrap/dist/css/bootstrap.min.css">
-	<!-- Font Awesome -->
-	<link rel="stylesheet" href="setfiles/bower_components/font-awesome/css/font-awesome.min.css">
-	<!-- Ionicons -->
-	<link rel="stylesheet" href="setfiles/bower_components/Ionicons/css/ionicons.min.css">
-	<!-- Theme style -->
-	<link rel="stylesheet" href="setfiles/dist/css/AdminLTE.min.css">
-	<!-- iCheck -->
-	<link rel="stylesheet" href="setfiles/plugins/iCheck/square/blue.css">
 	
-	<!-- Google Font -->
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+	<%@ include file= "../common/_header_css_sum.jspf" %>
 	
-	
-	<%@ include file="../common/header.jsp" %>
 </head>
 <body class="hold-transition register-page">
 <div class="register-box">
@@ -98,7 +86,7 @@
         <!-- /.col -->
       </div>
     </form>
-
+	<br>
     <a href="login" class="text-center">AntPeople 회원이신가요?</a>
   </div>
   <!-- /.form-box -->
@@ -109,8 +97,7 @@
 <script src="setfiles/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="setfiles/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- iCheck -->
-<script src="setfiles/plugins/iCheck/icheck.min.js"></script>
+
 <script>
   function getName(targetName){
 	  switch(targetName) {
@@ -124,11 +111,6 @@
   };
   
   $(function () {
-    $('input').iCheck({
-      checkboxClass: 'icheckbox_square-blue',
-      radioClass: 'iradio_square-blue',
-      increaseArea: '20%' /* optional */
-    });
     
     $('#register').click(function(){
     	console.log($("#role option:selected").val());
