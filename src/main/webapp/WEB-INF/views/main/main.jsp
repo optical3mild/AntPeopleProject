@@ -57,13 +57,13 @@
                     <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
                   </ol>
                   <div class="carousel-inner">
-                    <div class="item active" style="background-image : url('http://placehold.it/900x500/39CCCC/ffffff&text=I+Love+Bootstrap')">
-                      <!--
-                      <img src="http://placehold.it/900x500/39CCCC/ffffff&text=I+Love+Bootstrap" alt="First slide">
+                    <div class="item active" style="background-image : url('setfiles/img/office.jpg')">
+                     
+                      <!-- <img src="http://placehold.it/900x500/39CCCC/ffffff&text=I+Love+Bootstrap" alt="First slide"> -->
                       <div class="carousel-caption">
                         First Slide
                       </div>
-                      -->
+                      
                     </div>
                     <div class="item" style="background-image : url('http://placehold.it/900x500/3c8dbc/ffffff&text=I+Love+Bootstrap')">
                       <!--
