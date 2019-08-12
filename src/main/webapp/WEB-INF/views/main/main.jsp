@@ -337,7 +337,7 @@
                	</c:forEach>
                </c:if>
                <c:if test="${todayStaffCount == 0}">
-                 <div style="text-align:center;margin: 30px 0 30px 0;">
+                 <div style="text-align:center;margin: 25px 0 25px 0;">
                    <span><b>오늘 출근하는 직원이 없습니다.</b></span>
                  </div>
                </c:if>
@@ -650,7 +650,7 @@ var sendListPageBtnLoc = '#sendListPageBtn';
 
 // 직위별 라벨스타일 지정
 var roleColor = {
-  '101' : 'label-danger' , '102' : 'label-primary' , 'sys' : 'label-syetem'
+  '101' : 'label-danger' , '102' : 'label-primary' , 'sys' : 'label-info'
 }
 
 //높이조정 대상지정.
@@ -945,7 +945,6 @@ var dummyResult2 = {
       fromUser : { user_id : 'testAdmin', userName : '김사장', role : '101'},
       state : 'false',
     },
-
   ],
   forSendList : [
     { id : '111', description : 'send - test1', checkperson : '0', },

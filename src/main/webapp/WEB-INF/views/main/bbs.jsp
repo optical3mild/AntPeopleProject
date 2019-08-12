@@ -48,16 +48,20 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="box box-info">
+          	<!-- 
             <div class="box-header">
               <h3 class="box-title"></h3>
               <c:if test="${user.email == null}">
-              	<div class="pull-right">글작성은 로그인 후에 가능 합니다.</div>
+              	<div class="pull-right">
+              	  글작성은 로그인 후에 가능 합니다.
+              	</div>
               </c:if>
               <c:if test="${user.role.role == '사장'||user.role.role == '직원'}">
               	<button type="button" class="btn btn-info pull-right" onclick="location.href='insertbbspage' ">글쓰기</button>
               </c:if>
               <hr style="margin-bottom: 0 ; border: 0.5px solid lightgrey">
             </div>
+             -->
             <!-- /.box-header -->
             <div class="box-body">
               <table id="boardTable" class="table table-bordered table-striped">
@@ -94,6 +98,16 @@
 				  
                 </tbody>
               </table>
+              <c:if test="${user.email == null}">
+              	<div class="pull-right" style=" position: absolute; bottom: 27px; right: 15px;">
+              	  글작성은 로그인 후에 가능 합니다.
+              	 </div>
+              </c:if>
+              <c:if test="${user.role.role == '사장'||user.role.role == '직원'}">
+              	<div style=" position: absolute; bottom: 15px; right: 10px;">
+              	  <button type="button" class="btn btn-info pull-right" onclick="location.href='insertbbspage' ">글쓰기</button>
+              	</div>
+              </c:if>
             </div>
             <!-- /.box-body -->
           </div>

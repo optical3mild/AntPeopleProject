@@ -157,5 +157,5 @@
 - (오인) favicon 적용
 - (정우) main페이지 - 각 항목의 높이 자동 조절기능 구현, ToDo List pagination기능 구현.
 
-### Day 27 : View 정리 (19.08.11)
-- (정우) main페이지 - Carousel 추가, ToDo 추가/삭제 업데이트
+### Day 27 : View 정리 (19.08.12)
+- (정우) view update - main(Carousel 추가, ToDo 추가/삭제 업데이트), 각 화면 스타일 조정.

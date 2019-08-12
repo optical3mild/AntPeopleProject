@@ -40,17 +40,12 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="box box-info">
-            <div class="box-header">
-              <h3 class="box-title"></h3>
-              <hr style="margin-bottom: 0 ; border: 0.5px solid lightgrey">
-            </div>
-            <!-- /.box-header -->
             <div class="box-body">
               <table id="staffListTable" class="table table-bordered table-striped">
 				<colgroup>
-				  <col style="width: 15%">
-				  <col style="width: 15%">
-				  <col style="width: 20%">
+				  <col style="width: 33%">
+				  <col style="width: 33%">
+				  <col style="width: 33%">
 				</colgroup>
                 <thead>
                   <tr>

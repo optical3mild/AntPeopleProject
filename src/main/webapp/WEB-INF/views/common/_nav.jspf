@@ -7,9 +7,7 @@
     
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-        
         <li class="header">공지사항 & 자유게시판</li>
-        
         <li>
           <a href="${path}/main/noticepage">
             <i class="fa fa-bell"></i><span>공지사항</span>
@@ -21,46 +19,42 @@
             <i class="fa fa-comments"></i><span>자유게시판</span>
           </a>
         </li>
- <!-- 권한필요?  로그인 한 멤버만 열람가능하게???-->
- 		<c:if test="${user.role.role == '사장'}">
-        
-        </c:if>
       </ul>
       
 <!-- admin menu -->
       <c:if test="${user.role.role == '사장'}">
       	<ul class="sidebar-menu" data-widget="tree">
-      		<li class="header">근무 일정 관리 </li>
-	        <li>
-	          <a href="${path}/owner/monthplanpage">
-	            <i class="fa fa-calendar"></i> <span>운영계획</span>
-	          </a>
-	        </li>
+      	  <li class="header">근무 일정 관리 </li>
+	      <li>
+	        <a href="${path}/owner/monthplanpage">
+	          <i class="fa fa-calendar"></i> <span>운영계획</span>
+	        </a>
+	      </li>
 	        
-	        <li>
-	          <a href="${path}/owner/acceptpage">
-	            <i class="fa fa-calendar-check-o"></i> <span>근무 승인</span>
-	          </a>
-	        </li>
+	      <li>
+	        <a href="${path}/owner/acceptpage">
+	          <i class="fa fa-calendar-check-o"></i> <span>근무승인</span>
+	        </a>
+	      </li>
 	  	</ul>
       </c:if>
       
 <!-- system menu -->
       <c:if test="${user.role.role == '시스템 관리자'}">
       	<ul class="sidebar-menu" data-widget="tree">
-	        <li class="header">Employee Menu</li>
-	        <li>
-	          <a href="${path}/#"/>
-	            <i class="fa fa-calendar"></i> <span>내역 확인</span>
-	          </a>
-	        </li>
-	        
-	        <li>
-	          <a href="${path}/#">
-	            <i class="fa fa-calendar"></i> <span>변경신청</span>
-	          </a>
-	        </li>
-	      </ul>
+          <li class="header">Employee Menu</li>
+          <li>
+            <a href="${path}/#">
+              <i class="fa fa-calendar"></i> <span>내역확인</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="${path}/#">
+              <i class="fa fa-calendar"></i> <span>변경신청</span>
+            </a>
+          </li>
+        </ul>
       </c:if>
       
 <!-- employee menu -->

@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <footer class="main-footer">
   <div class="pull-right hidden-xs">
-    <b>Version</b> Alpha
+    <b>Version</b> Beta
   </div>
-  <strong>Copyright &copy; 2019~? <a href="{path}/pages/main">AntPeople</a>.</strong> All rights reserved.
+  <strong>Copyright &copy; 2019~ <a href="{path}/pages/main">AntPeople</a>.</strong> All rights reserved.
 </footer>
