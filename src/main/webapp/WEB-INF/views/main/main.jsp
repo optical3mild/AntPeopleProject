@@ -9,16 +9,14 @@
   
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  
   <%@ include file= "../common/_header_css_sum.jspf" %>
   <style>
   .item {
   	background-position: center;
   }
   </style>
- 
 </head>
-<body class="hold-transition skin-black sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
   <!-- _top.jspf -->
   <%@ include file="../common/_top.jspf" %>
