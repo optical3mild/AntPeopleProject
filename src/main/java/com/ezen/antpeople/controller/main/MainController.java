@@ -285,7 +285,7 @@ public class MainController {
 		logger.info("receiveditemdelete");
 		HttpSession session = request.getSession();
 		UserDetailDTO user = (UserDetailDTO) session.getAttribute("user");
-		
+		todoService.deleteSendTodo(todo.getId(), user.getUser_id());
 		return todoService.TodoListAll(user);
 	}
 	
