@@ -16,7 +16,7 @@ public class TodoListDTO {
 	}
 	
 	public String toString() {
-		return "{\"forRecievedList\" : " + this.sendList + ",\"forSendList\" : " + this.receiveList+"}"; 
+		return "{\"forReceievedList\" : " + this.receiveList + ",\"forSendList\" : " +  this.sendList+"}"; 
 	}
 
 }

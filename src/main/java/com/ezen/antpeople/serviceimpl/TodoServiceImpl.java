@@ -12,10 +12,12 @@ import com.ezen.antpeople.dto.todo.TodoDetailDTO;
 import com.ezen.antpeople.dto.todo.TodoListDTO;
 import com.ezen.antpeople.dto.todo.TodoUserDTO;
 import com.ezen.antpeople.dto.user.UserDetailDTO;
+import com.ezen.antpeople.dto.user.UserTodoDTO;
 import com.ezen.antpeople.entity.TodoEntity;
 import com.ezen.antpeople.entity.TodoRelation;
 import com.ezen.antpeople.repository.TodoRepository;
 import com.ezen.antpeople.repository.UTRepository;
+import com.ezen.antpeople.repository.UserRepository;
 import com.ezen.antpeople.service.TodoService;
 
 @Service
@@ -24,16 +26,23 @@ public class TodoServiceImpl implements TodoService {
 	
 	TodoRepository todoRepository;
 	UTRepository utRepository;
+	UserRepository userRepository;
 	
-	public TodoServiceImpl(TodoRepository todoRepository,UTRepository utRepository) {
+	public TodoServiceImpl(TodoRepository todoRepository,UTRepository utRepository,UserRepository userRepository) {
 		this.todoRepository = todoRepository;
 		this.utRepository = utRepository;
+		this.userRepository = userRepository;
 	}
 
 	//할일 생성 함수
 	@Override
 	public void uploadTodo(TodoDetailDTO todo) {
 		log.info("할일 생성");
+		List<UserTodoDTO> toUsers = todo.getToUsers();
+		List<UserTodoDTO> userDetail = new ArrayList<UserTodoDTO>();
+		for(UserTodoDTO user : toUsers)
+			userDetail.add(userRepository.findByEmail(user.getEmail()).get().buildTodoDTO());
+		todo.toUsers(userDetail);
 		TodoEntity entity = new TodoEntity(todo);
 		todoRepository.save(entity);
 	}

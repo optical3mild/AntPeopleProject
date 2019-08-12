@@ -302,7 +302,6 @@ public class ScheServiceImpl implements ScheService {
 			userList.add(entity.buildDTO());
 		}
 		return userList;
-		
 	}
 
 

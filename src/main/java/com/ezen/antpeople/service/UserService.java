@@ -21,7 +21,7 @@ public interface UserService {
 	public List<UserDetailDTO> findByStore(RoleDTO role,StoreDTO store);
 	
 	public List<UserDetailDTO> todoUserList(String store);
-	public List<String> todoUserStringList(String store);
+	public String todoUserStringList(String store);
 	
 	//당일 출근 직원 리스트, 직원 일정
 	public List<ScheUserDTO> todayStaff(String store, String month);

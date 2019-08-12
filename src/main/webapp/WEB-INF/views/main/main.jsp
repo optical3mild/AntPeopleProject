@@ -181,7 +181,7 @@
           <div class="small-box bg-yellow">
             <div class="inner">
               <h3>${todayStaffCount}명</h3>
-              <p>당일 근무자</p>
+              <p>금일 근무자</p>
             </div>
             <div class="icon">
               <i class="fa fa-users"></i>
@@ -469,7 +469,7 @@
 // 페이지 초기 수신 데이터 Dummy
 /*
 var dummyInitialData = {
-  forRecievedList : [
+  forReceievedList : [
     {
       id : '211',
       description : 'received - test1',
@@ -626,9 +626,10 @@ var dummyInitialData = {
   ]
 }
 */
+var fromServer = '${todoList}';
 //>> 데이터 수신.
-//var initialData;
-var initialData = {}; //DB가 없는 경우에는 빈 객체를 입력하여야 한다.
+var initialData = $.parseJSON(fromServer);
+//var initialData = {}; //DB가 없는 경우에는 빈 객체를 입력하여야 한다.
 //var initialData = dummyInitialData
 
 //받은목록과 보낸목록을 data로 저장할 위치.
@@ -703,11 +704,12 @@ function divideAndSaveCommResult(communicateResult) {
   var sListObj = {};
   sendDataLoc = $('#sendToDoList').data('sendList',sListObj);
 
-  //var receiveExistCheck = communicateResult.('forRecievedList');
+  //var receiveExistCheck = communicateResult.('forReceievedList');
   //var sendExistCheck = communicateResult.hasProperty('forSendList');
 
   if(communicateResult != {}) {
-    if(('forRecievedList' in communicateResult) == false) {
+    //if(('forReceievedList' in communicateResult) == false) {
+    if(communicateResult.forReceievedList.length == 0) {
       receivedDataLoc = [
         {
           dummy : 'true',
@@ -717,9 +719,10 @@ function divideAndSaveCommResult(communicateResult) {
         }
       ]
     } else {
-      receivedDataLoc = communicateResult.forRecievedList;
+      receivedDataLoc = communicateResult.forReceievedList;
     }
-    if(('forSendList' in communicateResult) == false) {
+    //if(('forSendList' in communicateResult) == false) {
+    if(communicateResult.forSendList.length == 0) {
       sendDataLoc = [
         {
           dummy : 'true', description : '보낸 내역이 없습니다.', checkperson : '0',
@@ -872,7 +875,7 @@ $(document).on('click','.toolOnList',function(){
 	  console.log(selectedData);
 
 	  //>> ajax통신 결과를 리턴한다.
-	  //var commResult = $.parseJSON(toolButtonOnList(target, selectedData));
+	  var commResult = $.parseJSON(toolButtonOnList(target, selectedData));
 
 	  //화면을 새로 그림.
 	  wholeRewrite(commResult)
@@ -908,7 +911,7 @@ function wholeRewrite(commResult) {
 
 //작성이후 받은 data 더미.
 var dummyResult2 = {
-  forRecievedList : [
+  forReceievedList : [
     {
       id : '211',
       description : 'received - test1',
@@ -992,8 +995,10 @@ $('#popupToDoBoard').on('click',function() {
   gotPeopleList = [];
 
   //>> ajax통신으로 직원목록을 받음.
-  //var staffData = $.parseJSON(modalStaffList());
-  var staffData = commRDummy;
+  var staffData = $.parseJSON(modalStaffList());
+  console.log('staffData');
+  console.log(staffData);
+  //var staffData = commRDummy;
   for(var i=0; i<staffData.length; i++) {
     gotPeopleList.push(staffData[i]);
   }
@@ -1074,8 +1079,10 @@ $('#makeToDoItem').on('click',function(){
     console.log('전송')
     console.log(sendObj);
     //전송 후 결과 리턴 --> 결과는 양쪽리스트 전체를 받아오는 것.
-    //>> var commResult = $.parseJSON(sendToDoSubmit(sendObj));
-    var commResult = dummyResult2;
+    var commResult = $.parseJSON(sendToDoSubmit(sendObj));
+    console.log('commResult')
+    console.log(commResult)
+    //var commResult = dummyResult2;
 
     //전체화면을 다시 표시한다.
     wholeRewrite(commResult);
@@ -1168,7 +1175,7 @@ function adjustH(target) {
 // modal창 작동 시 직원목록을 받아와 리턴.
 function modalStaffList() {
   $.ajax({
-		url : '',
+		url : 'popupToDoBoard',
 		method : 'post',
     	// data : 서버로 보낼 데이터 - string or json(key/value)
 		//data : sendObj,
@@ -1194,10 +1201,10 @@ function sendToDoSubmit(sendObj) {
   console.log('전송')
   console.log(sendObj);
   $.ajax({
-		url : '',
+		url : 'makeToDoItem',
 		method : 'post',
     	// data : 서버로 보낼 데이터 - string or json(key/value)
-		data : sendObj,
+		data : JSON.stringify(sendObj),
   		// contentType : 서버로 보낼 데이터의 타입.
     contentType: 'application/json',
     	// dataType : 서버로 부터 수신받을 데이터 타입.
@@ -1210,6 +1217,8 @@ function sendToDoSubmit(sendObj) {
 		success : function(response) {
 			//console.log(response);
 			result = response;
+			console.log('result')
+			console.log(result)
 		}
 	});
   return result;
@@ -1231,7 +1240,7 @@ function toolButtonOnList(target, selectedData) {
 		url : targetUrl,
 		method : 'post',
     	// data : 서버로 보낼 데이터 - string or json(key/value)
-		data : selectedData,
+		data : JSON.stringify(selectedData),
   		// contentType : 서버로 보낼 데이터의 타입.
     contentType: 'application/json',
     	// dataType : 서버로 부터 수신받을 데이터 타입.
@@ -1244,6 +1253,8 @@ function toolButtonOnList(target, selectedData) {
 		success : function(response) {
 			//console.log(response);
 			result = response;
+			console.log('result')
+			console.log(result)
 		}
 	});
   return result;

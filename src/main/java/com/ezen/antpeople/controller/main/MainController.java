@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -21,11 +22,13 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ezen.antpeople.dto.board.BbsDetailDTO;
 import com.ezen.antpeople.dto.board.NoticeDetailDTO;
 import com.ezen.antpeople.dto.sche.ScheUserDTO;
+import com.ezen.antpeople.dto.todo.TodoDetailDTO;
 import com.ezen.antpeople.dto.user.RoleDTO;
 import com.ezen.antpeople.dto.user.StoreDTO;
 import com.ezen.antpeople.dto.user.UserDetailDTO;
 import com.ezen.antpeople.service.BbsService;
 import com.ezen.antpeople.service.NoticeService;
+import com.ezen.antpeople.service.TodoService;
 import com.ezen.antpeople.service.UserService;
 
 @Controller
@@ -36,11 +39,13 @@ public class MainController {
 	UserService userService;
 	BbsService bbsService;
 	NoticeService noticeService;
+	TodoService todoService;
 
-	public MainController(UserService userService, BbsService bbsService, NoticeService noticeService) {
+	public MainController(UserService userService, BbsService bbsService, NoticeService noticeService, TodoService todoService) {
 		this.userService = userService;
 		this.bbsService = bbsService;
 		this.noticeService = noticeService;
+		this.todoService = todoService;
 	}
 
 	// 메인 페이지
@@ -53,6 +58,7 @@ public class MainController {
 		int date = Integer.parseInt(LocalDate.now().minusMonths(1).format(DateTimeFormatter.ofPattern("yyMMdd")));
 		int staffApply =0;
 		int staffRefuseApply =0;
+		String todoList = "";
 		List<NoticeDetailDTO> noticeDetailList = new ArrayList<NoticeDetailDTO>(noticeService.findTopFive()); //5개의 공지사항 게시물
 		List<BbsDetailDTO> bbsDetailList = new ArrayList<BbsDetailDTO>(bbsService.findTopFive()); //5개의 자유게시판 게시물
 		List<ScheUserDTO> todayStaffList = new ArrayList<ScheUserDTO>(); //오늘 근무하는 사람
@@ -60,12 +66,15 @@ public class MainController {
 			todayStaffList = userService.todayStaff(user.get().getStore().getStore(), Integer.toString(date));
 			staffApply = userService.applyScheduleCount(user.get().getUser_id(), 1); //일정 신청 대기중인 목록 수
 			staffRefuseApply = userService.applyScheduleCount(user.get().getUser_id(), 3); // 일정 신청이 거절된 목록 수
+			todoList = todoService.TodoListAll(user.get());
 		}
+		logger.info(todoList);
 		mv.addObject("staffRefuseApply", staffRefuseApply);
 		mv.addObject("staffApply", staffApply);
 		mv.addObject("bbsList", bbsDetailList);
 		mv.addObject("noticeList", noticeDetailList);
 		mv.addObject("todayStaffList", todayStaffList);
+		mv.addObject("todoList", todoList);
 		mv.setViewName("main");
 		logger.info("mainpage 페이지");
 		return mv;
@@ -228,35 +237,67 @@ public class MainController {
 
 	// --------------------------------------------------------------------------
 
-	// --------------------------------------------------------------------------
+	// --------------------------------- todo -----------------------------------------
 
-	// 직원 전체목록(간략)
-	@RequestMapping("/stafflist")
-	public String stafflist() throws Exception {
-		logger.info("staffList 페이지");
-		return "stafflist";
+	// todo 새 글 작성 
+	@RequestMapping(value = "popupToDoBoard", produces = "application/json; charset=utf8")
+	@ResponseBody
+	public String popupToDoBoard(HttpServletRequest request) throws Exception {
+		logger.info("todo 새 글 작성");
+		HttpSession session = request.getSession();
+		UserDetailDTO user = (UserDetailDTO) session.getAttribute("user");
+		String todoUserList = userService.todoUserStringList(user.getStore().getStore());
+		logger.info("todoUserList : "+todoUserList.toString());
+		return todoUserList;
+	}
+	
+	// todo 작성 완료 
+	@RequestMapping(value="makeToDoItem",produces = "application/json; charset=utf8")
+	@ResponseBody
+	public String makeToDoItem(Model model, @RequestBody TodoDetailDTO todo, HttpServletRequest request) throws Exception {
+		logger.info("makeToDoItem");
+		HttpSession session = request.getSession();
+		UserDetailDTO user = (UserDetailDTO) session.getAttribute("user");
+		todo.fromUser(user.buildDTOTodo());
+		logger.info("todo 상세 : " + todo.getFromUser().toString());
+		todoService.uploadTodo(todo);
+		String todoList = todoService.TodoListAll(user);
+		logger.info("todoList : "+todoList);
+		return todoList;
 	}
 
-	@RequestMapping("todaystaff")
-	public String todaystaff() throws Exception {
-		return "todaystaff";
+	// todo send 삭제 
+	@RequestMapping(value ="senditemdelete",produces = "application/json; charset=utf8")
+	@ResponseBody
+	public String sendItemDelete(HttpServletRequest request, @RequestBody TodoDetailDTO todo) throws Exception {
+		logger.info("senditemdelete");
+		HttpSession session = request.getSession();
+		UserDetailDTO user = (UserDetailDTO) session.getAttribute("user");
+		logger.info(todo.toString());
+		todoService.deleteTodo(todo.getId());
+		return todoService.TodoListAll(user);
 	}
-
-	/*
-	 * @RequestMapping("/pages/privatecalender") public ModelAndView
-	 * privateCalender(ModelAndView mav, @RequestParam("user_id") int user_id)
-	 * throws Exception { UserDTO user = userService.getUser(user_id);
-	 * mav.setViewName("pages/calender"); mav.addObject("list", user); return mav; }
-	 */
-	// 개인 별 일정(달력) 데이터 보내기
-	/*
-	 * @RequestMapping("privatecalender") public ModelAndView
-	 * privateCalender(ModelAndView mav, int user_id) throws Exception { UserDTO
-	 * user = userService.getUser(user_id); mav.setViewName("pages/calender");
-	 * mav.addObject("list", user); return mav; }
-	 * 
-	 * // 금일 근무자 목록
-	 * 
-	 */
-
+	
+	// todo recive 삭제
+	@RequestMapping(value ="receiveditemdelete",produces = "application/json; charset=utf8")
+	@ResponseBody
+	public String recivedItemDelete(HttpServletRequest request, @RequestBody TodoDetailDTO todo) throws Exception {
+		logger.info("receiveditemdelete");
+		HttpSession session = request.getSession();
+		UserDetailDTO user = (UserDetailDTO) session.getAttribute("user");
+		todoService.deleteSendTodo(todo.getId(), user.getUser_id());
+		return todoService.TodoListAll(user);
+	}
+	
+	// todo recive check 
+	@RequestMapping(value="receiveditemcheck",produces="application/json; charset=utf8")
+	@ResponseBody
+	public String recivedItemCheck(HttpServletRequest request, @RequestBody TodoDetailDTO todo) throws Exception {
+		logger.info("receiveditemcheck");
+		HttpSession session = request.getSession();
+		UserDetailDTO user = (UserDetailDTO) session.getAttribute("user");
+		todoService.checkTodo(todo.getId(), user.getUser_id());
+		return todoService.TodoListAll(user);
+	}
+	
 }
