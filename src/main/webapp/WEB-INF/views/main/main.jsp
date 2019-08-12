@@ -9,14 +9,12 @@
   
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  
   <%@ include file= "../common/_header_css_sum.jspf" %>
   <style>
   .item {
   	background-position: center;
   }
   </style>
- 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -59,6 +57,7 @@
                     <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
                   </ol>
                   <div class="carousel-inner">
+
                     <div class="item active" style="background-image : url('http://placehold.it/900x500/39CCCC/ffffff&text=I+Love+Bootstrap')">
                       <!--
                       <img src="http://placehold.it/900x500/39CCCC/ffffff&text=I+Love+Bootstrap" alt="First slide">
@@ -66,6 +65,7 @@
                       <div class="carousel-caption" style="font-size: 10rem">
                         First Slide
                       </div>
+
                     </div>
                     <div class="item" style="background-image : url('http://placehold.it/900x500/3c8dbc/ffffff&text=I+Love+Bootstrap')">
                       <!--

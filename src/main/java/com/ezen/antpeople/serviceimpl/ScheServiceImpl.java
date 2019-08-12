@@ -293,6 +293,17 @@ public class ScheServiceImpl implements ScheService {
 		}
 		return userList;
 	}
+	
+	//사장이 등록한 일정에 일정 신청을 한 직원 목록
+	public List<ScheUserDTO> scheUserList(String store){
+		List<ScheUserDTO> userList = new ArrayList<ScheUserDTO>();
+		List<ScheRelation> entitys = new ArrayList<ScheRelation>(usRepository.findByToUserStoreStoreAndState(store, 1));
+		for(ScheRelation entity :entitys) {
+			userList.add(entity.buildDTO());
+		}
+		return userList;
+		
+	}
 
 
 

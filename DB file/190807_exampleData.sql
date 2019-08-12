@@ -17,11 +17,11 @@ INSERT INTO `antpeople`.`store`(`store_id`,`store`) VALUES(105,'탄방점');
 INSERT INTO `antpeople`.`user`(`email`,`password`,`name`,`store_id`,`role_id`)
 VALUES('rhksflwk111@gmail.com','$2a$10$WsLb8C2rbmGyloyg9wtI1OEvRXx2WjMJ0IR0SmQxxiAgxy0YIe3wK','Antpeople 관리자',100,100);
 INSERT INTO `antpeople`.`user`(`email`,`password`,`name`,`store_id`,`role_id`)
-VALUES('tkwkd111@gmail.com','$2a$10$WsLb8C2rbmGyloyg9wtI1OEvRXx2WjMJ0IR0SmQxxiAgxy0YIe3wK','둔산지점 사장님',101,101);
+VALUES('tkwkd111@gmail.com','$2a$10$WsLb8C2rbmGyloyg9wtI1OEvRXx2WjMJ0IR0SmQxxiAgxy0YIe3wK','둔산지점 사장',101,101);
 INSERT INTO `antpeople`.`user`(`email`,`password`,`name`,`store_id`,`role_id`)
-VALUES('tkwkd222@gmail.com','$2a$10$WsLb8C2rbmGyloyg9wtI1OEvRXx2WjMJ0IR0SmQxxiAgxy0YIe3wK','월평지점 사장님',102,101);
+VALUES('tkwkd222@gmail.com','$2a$10$WsLb8C2rbmGyloyg9wtI1OEvRXx2WjMJ0IR0SmQxxiAgxy0YIe3wK','월평지점 사장',102,101);
 INSERT INTO `antpeople`.`user`(`email`,`password`,`name`,`store_id`,`role_id`)
-VALUES('tkwkd333@gmail.com','$2a$10$WsLb8C2rbmGyloyg9wtI1OEvRXx2WjMJ0IR0SmQxxiAgxy0YIe3wK','관저지점 사장님',103,101);
+VALUES('tkwkd333@gmail.com','$2a$10$WsLb8C2rbmGyloyg9wtI1OEvRXx2WjMJ0IR0SmQxxiAgxy0YIe3wK','관저지점 사장',103,101);
 INSERT INTO `antpeople`.`user`(`email`,`password`,`name`,`store_id`,`role_id`)
 VALUES('wlrdnjs101@gmail.com','$2a$10$WsLb8C2rbmGyloyg9wtI1OEvRXx2WjMJ0IR0SmQxxiAgxy0YIe3wK','둔산지점 직원1',101,102);
 INSERT INTO `antpeople`.`user`(`email`,`password`,`name`,`store_id`,`role_id`)

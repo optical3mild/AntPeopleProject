@@ -182,5 +182,15 @@ public class UserServiceImpl implements UserService{
 		return userList;
 	}
 	
+	//같은 점포 직원 String 리스트 가져오기
+	@Override
+	public List<String> todoUserStringList(String store) {
+		List<String> userList = new ArrayList<String>();
+		List<UserEntity> entitys = userRepository.findByStoreStore(store);
+		for(UserEntity entity:entitys)
+			userList.add(entity.buildDTO().toString());
+		return userList;
+	}
+	
 	
 }
