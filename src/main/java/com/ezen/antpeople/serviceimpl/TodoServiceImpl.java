@@ -85,7 +85,7 @@ public class TodoServiceImpl implements TodoService {
 		return todoList;
 	}
 	
-	//자신이 받아야 하는 할 일 리스트 
+	//자신이 받은 할 일 리스트 
 	@Override
 	public List<TodoUserDTO> TodoListByToUser(UserDetailDTO user) {
 		log.info("user의 아이디 : " + user.getUser_id());
@@ -95,6 +95,17 @@ public class TodoServiceImpl implements TodoService {
 			todoList.add(todoRelation.buildDTO());
 		return todoList;
 	}
+	
+	//자신이 받은 할 일 리스트 
+		@Override
+		public List<TodoUserDTO> TodoListByToUserAndState(UserDetailDTO user) {
+			log.info("user의 아이디 : " + user.getUser_id());
+			List<TodoRelation> todoRelations = utRepository.findByToUser_idAndState(user.getUser_id(),false);
+			List<TodoUserDTO> todoList = new ArrayList<TodoUserDTO>();
+			for(TodoRelation todoRelation : todoRelations)
+				todoList.add(todoRelation.buildDTO());
+			return todoList;
+		}
 	
 	// 자신이 보내고 받은 할 일 리스트 전부 받아오기
 	public String TodoListAll(UserDetailDTO user) {

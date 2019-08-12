@@ -18,6 +18,7 @@ import com.ezen.antpeople.config.SecurityConfig;
 import com.ezen.antpeople.dto.todo.TodoDetailDTO;
 import com.ezen.antpeople.dto.todo.TodoUserDTO;
 import com.ezen.antpeople.dto.user.UserDetailDTO;
+import com.ezen.antpeople.dto.user.UserTodoDTO;
 import com.ezen.antpeople.service.TodoService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -34,11 +35,11 @@ public class TodoCRUDTest {
 	@Test @Ignore
 	public void insertTodoTest() {
 		UserDetailDTO user = new UserDetailDTO(3,"");
-		List<UserDetailDTO> userList = new ArrayList<UserDetailDTO>();
-		userList.add(new UserDetailDTO(5,""));
-		userList.add(new UserDetailDTO(6,""));
+		List<UserTodoDTO> userList = new ArrayList<UserTodoDTO>();
+		userList.add(new UserDetailDTO(5,"").buildDTOTodo());
+		userList.add(new UserDetailDTO(6,"").buildDTOTodo());
 		log.info("사용자 리스트 생성");
-		TodoDetailDTO todo = new TodoDetailDTO("할일 테스트5 - 5,6에게",user,userList);
+		TodoDetailDTO todo = new TodoDetailDTO("할일 테스트5 - 5,6에게",user.buildDTOTodo(),userList);
 		ts.uploadTodo(todo);
 	}
 	
