@@ -58,6 +58,7 @@ public class MainController {
 		int date = Integer.parseInt(LocalDate.now().minusMonths(1).format(DateTimeFormatter.ofPattern("yyMMdd")));
 		int staffApply =0;
 		int staffRefuseApply =0;
+		String todoList = "";
 		List<NoticeDetailDTO> noticeDetailList = new ArrayList<NoticeDetailDTO>(noticeService.findTopFive()); //5개의 공지사항 게시물
 		List<BbsDetailDTO> bbsDetailList = new ArrayList<BbsDetailDTO>(bbsService.findTopFive()); //5개의 자유게시판 게시물
 		List<ScheUserDTO> todayStaffList = new ArrayList<ScheUserDTO>(); //오늘 근무하는 사람
@@ -65,8 +66,9 @@ public class MainController {
 			todayStaffList = userService.todayStaff(user.get().getStore().getStore(), Integer.toString(date));
 			staffApply = userService.applyScheduleCount(user.get().getUser_id(), 1); //일정 신청 대기중인 목록 수
 			staffRefuseApply = userService.applyScheduleCount(user.get().getUser_id(), 3); // 일정 신청이 거절된 목록 수
+			todoList = todoService.TodoListAll(user.get());
 		}
-		String todoList = todoService.TodoListAll(user.get());
+		logger.info(todoList);
 		mv.addObject("staffRefuseApply", staffRefuseApply);
 		mv.addObject("staffApply", staffApply);
 		mv.addObject("bbsList", bbsDetailList);
@@ -250,49 +252,52 @@ public class MainController {
 	}
 	
 	// todo 작성 완료 
-	@RequestMapping("makeToDoItem")
-	public Model makeToDoItem(Model model, @RequestBody TodoDetailDTO todo, HttpServletRequest request) throws Exception {
+	@RequestMapping(value="makeToDoItem",produces = "application/json; charset=utf8")
+	@ResponseBody
+	public String makeToDoItem(Model model, @RequestBody TodoDetailDTO todo, HttpServletRequest request) throws Exception {
 		logger.info("makeToDoItem");
 		HttpSession session = request.getSession();
 		UserDetailDTO user = (UserDetailDTO) session.getAttribute("user");
+		todo.fromUser(user.buildDTOTodo());
+		logger.info("todo 상세 : " + todo.getFromUser().toString());
 		todoService.uploadTodo(todo);
 		String todoList = todoService.TodoListAll(user);
 		logger.info("todoList : "+todoList);
-		model.addAttribute("todoList", todoList);
-		return model;
+		return todoList;
 	}
 
 	// todo send 삭제 
-	@RequestMapping("senditemdelete")
-	public Model sendItemDelete(Model model, HttpServletRequest request, @RequestBody int id) throws Exception {
+	@RequestMapping(value ="senditemdelete",produces = "application/json; charset=utf8")
+	@ResponseBody
+	public String sendItemDelete(HttpServletRequest request, @RequestBody TodoDetailDTO todo) throws Exception {
 		logger.info("senditemdelete");
 		HttpSession session = request.getSession();
 		UserDetailDTO user = (UserDetailDTO) session.getAttribute("user");
-		todoService.deleteTodo(id);
-		model.addAttribute("todoList", todoService.TodoListAll(user));
-		return model;
+		logger.info(todo.toString());
+		todoService.deleteTodo(todo.getId());
+		return todoService.TodoListAll(user);
 	}
 	
 	// todo recive 삭제
-	@RequestMapping("reciveditemdelete")
-	public Model recivedItemDelete(Model model, HttpServletRequest request, @RequestBody int id) throws Exception {
-		logger.info("reciveditemdelete");
+	@RequestMapping(value ="receiveditemdelete",produces = "application/json; charset=utf8")
+	@ResponseBody
+	public String recivedItemDelete(HttpServletRequest request, @RequestBody TodoDetailDTO todo) throws Exception {
+		logger.info("receiveditemdelete");
 		HttpSession session = request.getSession();
 		UserDetailDTO user = (UserDetailDTO) session.getAttribute("user");
-		todoService.deleteTodo(id);
-		model.addAttribute("todoList", todoService.TodoListAll(user));
-		return model;
+		
+		return todoService.TodoListAll(user);
 	}
 	
 	// todo recive check 
-	@RequestMapping("reciveditemcheck")
-	public Model recivedItemCheck(Model model, HttpServletRequest request, @RequestBody int id) throws Exception {
-		logger.info("reciveditemcheck");
+	@RequestMapping(value="receiveditemcheck",produces="application/json; charset=utf8")
+	@ResponseBody
+	public String recivedItemCheck(HttpServletRequest request, @RequestBody TodoDetailDTO todo) throws Exception {
+		logger.info("receiveditemcheck");
 		HttpSession session = request.getSession();
 		UserDetailDTO user = (UserDetailDTO) session.getAttribute("user");
-		todoService.checkTodo(id, user.getUser_id());
-		model.addAttribute("todoList", todoService.TodoListAll(user));
-		return model;
+		todoService.checkTodo(todo.getId(), user.getUser_id());
+		return todoService.TodoListAll(user);
 	}
 	
 }

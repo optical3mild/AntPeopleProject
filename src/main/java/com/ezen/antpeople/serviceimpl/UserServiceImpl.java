@@ -188,7 +188,7 @@ public class UserServiceImpl implements UserService{
 		String userList = "[";
 		List<UserEntity> entitys = userRepository.findByStoreStore(store);
 		for(UserEntity entity:entitys)
-			userList += entity.buildDTO().toString() +",";
+			userList += entity.buildDTO().toStringEmail() +",";
 		userList = userList.substring(0,userList.length()-1);
 		userList += "]";
 		return userList;
