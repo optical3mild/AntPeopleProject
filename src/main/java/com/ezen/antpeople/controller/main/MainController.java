@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -21,11 +22,13 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ezen.antpeople.dto.board.BbsDetailDTO;
 import com.ezen.antpeople.dto.board.NoticeDetailDTO;
 import com.ezen.antpeople.dto.sche.ScheUserDTO;
+import com.ezen.antpeople.dto.todo.TodoDetailDTO;
 import com.ezen.antpeople.dto.user.RoleDTO;
 import com.ezen.antpeople.dto.user.StoreDTO;
 import com.ezen.antpeople.dto.user.UserDetailDTO;
 import com.ezen.antpeople.service.BbsService;
 import com.ezen.antpeople.service.NoticeService;
+import com.ezen.antpeople.service.TodoService;
 import com.ezen.antpeople.service.UserService;
 
 @Controller
@@ -36,11 +39,13 @@ public class MainController {
 	UserService userService;
 	BbsService bbsService;
 	NoticeService noticeService;
+	TodoService todoService;
 
-	public MainController(UserService userService, BbsService bbsService, NoticeService noticeService) {
+	public MainController(UserService userService, BbsService bbsService, NoticeService noticeService, TodoService todoService) {
 		this.userService = userService;
 		this.bbsService = bbsService;
 		this.noticeService = noticeService;
+		this.todoService = todoService;
 	}
 
 	// 메인 페이지
@@ -230,26 +235,32 @@ public class MainController {
 
 	// --------------------------------- todo -----------------------------------------
 
-	// todo 새 글 작성
+	// todo 새 글 작성 
 	@RequestMapping("popupToDoBoard")
-	public Model popupToDoBoard(Model model) throws Exception {
+	@ResponseBody
+	public List<UserDetailDTO> popupToDoBoard(HttpServletRequest request) throws Exception {
 		logger.info("todo 새 글 작성");
-		model.addAttribute("modalStaffList", "");
-		return model;
+		HttpSession session = request.getSession();
+		UserDetailDTO user = (UserDetailDTO) session.getAttribute("user");
+		List<UserDetailDTO> todoUserList = userService.todoUserList(user.getStore().getStore());
+		logger.info("todoUserList : "+todoUserList.toString());
+		return todoUserList;
 	}
 	
-	// todo 작성 완료
+	// todo 작성 완료 
 	@RequestMapping("makeToDoItem")
-	public Model makeToDoItem(Model model) throws Exception {
+	public Model makeToDoItem(Model model, @RequestBody TodoDetailDTO todo) throws Exception {
 		logger.info("makeToDoItem");
+		todoService.uploadTodo(todo);
 		model.addAttribute("todoList", "");
 		return model;
 	}
 
-	// todo send 삭제
+	// todo send 삭제 
 	@RequestMapping("senditemdelete")
 	public Model sendItemDelete(Model model) throws Exception {
 		logger.info("senditemdelete");
+		model.addAttribute("todoList", "");
 		return model;
 	}
 	
@@ -257,13 +268,15 @@ public class MainController {
 	@RequestMapping("reciveditemdelete")
 	public Model recivedItemDelete(Model model) throws Exception {
 		logger.info("reciveditemdelete");
+		model.addAttribute("todoList", "");
 		return model;
 	}
 	
-	// todo recive check
+	// todo recive check 
 	@RequestMapping("reciveditemcheck")
 	public Model recivedItemCheck(Model model) throws Exception {
 		logger.info("reciveditemcheck");
+		model.addAttribute("todoList", "");
 		return model;
 	}
 	

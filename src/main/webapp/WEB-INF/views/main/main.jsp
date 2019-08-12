@@ -640,9 +640,9 @@ var dummyInitialData = {
   ]
 }
 //>> 데이터 수신.
-//var initialData;
+var initialData = ${todoList};
 //var initialData = {}; //DB가 없는 경우에는 빈 객체를 입력하여야 한다.
-var initialData = dummyInitialData
+//var initialData = dummyInitialData
 
 //받은목록과 보낸목록을 data로 저장할 위치.
 var rListObj = {};
@@ -884,7 +884,7 @@ $(document).on('click','.toolOnList',function(){
   console.log(selectedData);
 
   //>> ajax통신 결과를 리턴한다.
-  //var commResult = $.parseJSON(toolButtonOnList(target, selectedData));
+  var commResult = $.parseJSON(toolButtonOnList(target, selectedData));
 
   //화면을 새로 그림.
   wholeRewrite(commResult)
@@ -1004,8 +1004,8 @@ $('#popupToDoBoard').on('click',function() {
   gotPeopleList = [];
 
   //>> ajax통신으로 직원목록을 받음.
-  //var staffData = $.parseJSON(modalStaffList());
-  var staffData = commRDummy;
+  var staffData = $.parseJSON(modalStaffList());
+  //var staffData = commRDummy;
   for(var i=0; i<staffData.length; i++) {
     gotPeopleList.push(staffData[i]);
   }
@@ -1086,8 +1086,8 @@ $('#makeToDoItem').on('click',function(){
     console.log('전송')
     console.log(sendObj);
     //전송 후 결과 리턴 --> 결과는 양쪽리스트 전체를 받아오는 것.
-    //>> var commResult = $.parseJSON(sendToDoSubmit(sendObj));
-    var commResult = dummyResult2;
+    var commResult = $.parseJSON(sendToDoSubmit(sendObj));
+    //var commResult = dummyResult2;
 
     //전체화면을 다시 표시한다.
     wholeRewrite(commResult);
