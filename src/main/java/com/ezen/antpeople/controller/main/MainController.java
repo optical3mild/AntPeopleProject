@@ -66,11 +66,13 @@ public class MainController {
 			staffApply = userService.applyScheduleCount(user.get().getUser_id(), 1); //일정 신청 대기중인 목록 수
 			staffRefuseApply = userService.applyScheduleCount(user.get().getUser_id(), 3); // 일정 신청이 거절된 목록 수
 		}
+		String todoList = todoService.TodoListAll(user.get());
 		mv.addObject("staffRefuseApply", staffRefuseApply);
 		mv.addObject("staffApply", staffApply);
 		mv.addObject("bbsList", bbsDetailList);
 		mv.addObject("noticeList", noticeDetailList);
 		mv.addObject("todayStaffList", todayStaffList);
+		mv.addObject("todoList", todoList);
 		mv.setViewName("main");
 		logger.info("mainpage 페이지");
 		return mv;
@@ -249,34 +251,48 @@ public class MainController {
 	
 	// todo 작성 완료 
 	@RequestMapping("makeToDoItem")
-	public Model makeToDoItem(Model model, @RequestBody TodoDetailDTO todo) throws Exception {
+	@ResponseBody
+	public Model makeToDoItem(Model model, @RequestBody TodoDetailDTO todo, HttpServletRequest request) throws Exception {
 		logger.info("makeToDoItem");
+		HttpSession session = request.getSession();
+		UserDetailDTO user = (UserDetailDTO) session.getAttribute("user");
 		todoService.uploadTodo(todo);
-		model.addAttribute("todoList", "");
+		String todoList = todoService.TodoListAll(user);
+		logger.info("todoList : "+todoList);
+		model.addAttribute("todoList", todoList);
 		return model;
 	}
 
 	// todo send 삭제 
 	@RequestMapping("senditemdelete")
-	public Model sendItemDelete(Model model) throws Exception {
+	public Model sendItemDelete(Model model, HttpServletRequest request, @RequestBody int id) throws Exception {
 		logger.info("senditemdelete");
-		model.addAttribute("todoList", "");
+		HttpSession session = request.getSession();
+		UserDetailDTO user = (UserDetailDTO) session.getAttribute("user");
+		todoService.deleteTodo(id);
+		model.addAttribute("todoList", todoService.TodoListAll(user));
 		return model;
 	}
 	
 	// todo recive 삭제
 	@RequestMapping("reciveditemdelete")
-	public Model recivedItemDelete(Model model) throws Exception {
+	public Model recivedItemDelete(Model model, HttpServletRequest request, @RequestBody int id) throws Exception {
 		logger.info("reciveditemdelete");
-		model.addAttribute("todoList", "");
+		HttpSession session = request.getSession();
+		UserDetailDTO user = (UserDetailDTO) session.getAttribute("user");
+		todoService.deleteTodo(id);
+		model.addAttribute("todoList", todoService.TodoListAll(user));
 		return model;
 	}
 	
 	// todo recive check 
 	@RequestMapping("reciveditemcheck")
-	public Model recivedItemCheck(Model model) throws Exception {
+	public Model recivedItemCheck(Model model, HttpServletRequest request, @RequestBody int id) throws Exception {
 		logger.info("reciveditemcheck");
-		model.addAttribute("todoList", "");
+		HttpSession session = request.getSession();
+		UserDetailDTO user = (UserDetailDTO) session.getAttribute("user");
+		todoService.checkTodo(id, user.getUser_id());
+		model.addAttribute("todoList", todoService.TodoListAll(user));
 		return model;
 	}
 	

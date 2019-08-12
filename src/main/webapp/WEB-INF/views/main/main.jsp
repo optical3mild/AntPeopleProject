@@ -639,8 +639,9 @@ var dummyInitialData = {
     { id : '141', description : 'send - test31', checkperson : '1', },
   ]
 }
+var fromServer = '${todoList}';
 //>> 데이터 수신.
-var initialData = ${todoList};
+var initialData = $.parseJSON(fromServer);
 //var initialData = {}; //DB가 없는 경우에는 빈 객체를 입력하여야 한다.
 //var initialData = dummyInitialData
 
@@ -720,7 +721,8 @@ function divideAndSaveCommResult(communicateResult) {
   //var sendExistCheck = communicateResult.hasProperty('forSendList');
 
   if(communicateResult != {}) {
-    if(('forRecievedList' in communicateResult) == false) {
+    //if(('forRecievedList' in communicateResult) == false) {
+    if(communicateResult.forRecievedList.length == 0) {
       receivedDataLoc = [
         {
           dummy : 'true',
@@ -732,7 +734,8 @@ function divideAndSaveCommResult(communicateResult) {
     } else {
       receivedDataLoc = communicateResult.forRecievedList;
     }
-    if(('forSendList' in communicateResult) == false) {
+    //if(('forSendList' in communicateResult) == false) {
+    if(communicateResult.forSendList.length == 0) {
       sendDataLoc = [
         {
           dummy : 'true', description : '보낸 내역이 없습니다.', checkperson : '0',
@@ -1180,7 +1183,7 @@ function adjustH(target) {
 // modal창 작동 시 직원목록을 받아와 리턴.
 function modalStaffList() {
   $.ajax({
-		url : '',
+		url : 'popupToDoBoard',
 		method : 'post',
     	// data : 서버로 보낼 데이터 - string or json(key/value)
 		//data : sendObj,
@@ -1206,7 +1209,7 @@ function sendToDoSubmit(sendObj) {
   console.log('전송')
   console.log(sendObj);
   $.ajax({
-		url : '',
+		url : 'makeToDoItem',
 		method : 'post',
     	// data : 서버로 보낼 데이터 - string or json(key/value)
 		data : sendObj,
