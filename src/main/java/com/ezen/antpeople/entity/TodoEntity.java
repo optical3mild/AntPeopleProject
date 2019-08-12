@@ -8,6 +8,7 @@ import java.util.Optional;
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -37,10 +38,11 @@ public class TodoEntity extends BaseEntity implements Serializable {
 	@NotEmpty(message = "*내용을 적어 주세요.")
 	private String description;
 	
+	@Column(name="state")
 	private boolean state;
 	private int checkPerson;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name="user_todo", joinColumns = @JoinColumn(name="todo_id"), inverseJoinColumns = @JoinColumn(name = "to_id"))
 	private List<UserEntity> toUsers;
 	
@@ -66,7 +68,7 @@ public class TodoEntity extends BaseEntity implements Serializable {
 		List<UserDetailDTO> toUsers = new ArrayList<UserDetailDTO>();
 		for(UserEntity user : this.toUsers)
 			toUsers.add(user.buildDTO());
-		return new TodoDetailDTO(this.id, this.description, this.state,this.checkPerson, this.updatedAt, this.fromUser.buildDTO(),toUsers);
+		return new TodoDetailDTO(this.id, this.description,this.state,this.checkPerson, this.updatedAt, this.fromUser.buildDTO(),toUsers);
 	}
 	
 	public void downCheckPerson() {

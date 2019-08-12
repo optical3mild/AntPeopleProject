@@ -43,13 +43,14 @@ public class TodoServiceImpl implements TodoService {
 	public void deleteTodo(int todo_id) {
 		Optional<TodoEntity> entity = todoRepository.findById(todo_id);
 		todoRepository.delete(entity.get());
+		utRepository.deleteByTodo_id(todo_id);
 	}
 	
 	//자신이 받은 할 일 확인
 	@Override
-	public void checkTodo(int todo_id) {
+	public void checkTodo(int todo_id,int user_id) {
 		Optional<TodoEntity> entity = todoRepository.findById(todo_id);
-		TodoRelation todo = utRepository.findByTodo_id(todo_id);
+		TodoRelation todo = utRepository.findByTodo_idAndToUser_id(todo_id, user_id);
 		entity.get().downCheckPerson();
 		todoRepository.save(entity.get()); //할일을 확인한 사람의 수를 확인
 		todo.checkTodo();
@@ -60,6 +61,7 @@ public class TodoServiceImpl implements TodoService {
 	//자신이 보낸 할 일 리스트 
 	@Override
 	public List<TodoDetailDTO> TodoListByUser(UserDetailDTO user) {
+		log.info("자신이 작성한 할 일 리스트 받기");
 		List<TodoEntity> entitys = todoRepository.findByFromUser_id(user.getUser_id());
 		List<TodoDetailDTO> todoList = new ArrayList<TodoDetailDTO>();
 		for(TodoEntity entity : entitys)
@@ -70,7 +72,8 @@ public class TodoServiceImpl implements TodoService {
 	//자신이 받아야 하는 할 일 리스트 
 	@Override
 	public List<TodoUserDTO> TodoListByToUser(UserDetailDTO user) {
-		List<TodoRelation> todoRelations = utRepository.findByToUser(new UserEntity(user));
+		log.info("user의 아이디 : " + user.getUser_id());
+		List<TodoRelation> todoRelations = utRepository.findByToUser_id(user.getUser_id());
 		List<TodoUserDTO> todoList = new ArrayList<TodoUserDTO>();
 		for(TodoRelation todoRelation : todoRelations)
 			todoList.add(todoRelation.buildDTO());
