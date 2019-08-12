@@ -42,7 +42,7 @@
 
           <div class="box box-solid">
             <div class="box-header with-border">
-              <h4 class="box-title"></h4>
+              <label style="margin-bottom: 0;">연월선택</label>
             </div>
             <div class="box-body">
               <!-- the events -->
@@ -58,7 +58,7 @@
 
           <div class="box box-solid" id="individual-box">
             <div class="box-header with-border">
-              <h4 class="box-title">StaffList</h4>
+              <label style="margin-bottom: 0;">직원목록</label>
             </div>
             <div class="box-body">
               <!-- the events -->
@@ -636,14 +636,16 @@ $(function() {
     header    : {
       left  : 'prev,next today',
       center: 'title',
-      right : 'month,agendaWeek,agendaDay'
+      //right : 'month,agendaWeek,agendaDay'
     },
+    /*
     buttonText: {
       today: 'today',
       month: 'month',
       week : 'week',
       day  : 'day'
     },
+    */
     defaultDate : initialMonth,
 //>>//Ajax로 가져올 event data
     events : initialData,

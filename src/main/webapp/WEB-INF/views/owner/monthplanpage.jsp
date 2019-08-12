@@ -42,7 +42,7 @@
 
           <div class="box box-solid">
             <div class="box-header with-border">
-              <h4 class="box-title"></h4>
+              <label style="margin-bottom: 0;">연월선택</label>
             </div>
             <div class="box-body">
               <!-- the events -->
@@ -58,7 +58,7 @@
 
               <div class="input-group" style="width:100%">
                 <div>
-                  <label for="monthForPlan">연월선택</label>
+                  <label for="monthForPlan">계획생성</label>
                   <input id="monthForPlan" class="form-control forColor panel" name='monthForPlan' type="month">
                 </div>
                 <br><br>
@@ -72,7 +72,7 @@
 
           <div class="box box-solid" id="individual-box">
             <div class="box-header with-border">
-              <h4 class="box-title">StaffList</h4>
+              <label style="margin-bottom: 0;">직원목록</label>
             </div>
             <div class="box-body">
               <!-- the events -->
@@ -723,13 +723,6 @@ $(function() {
     header    : {
       left  : 'prev,next today',
       center: 'title',
-      right : 'month,agendaWeek,agendaDay'
-    },
-    buttonText: {
-      today: 'today',
-      month: 'month',
-      week : 'week',
-      day  : 'day'
     },
     defaultDate : selectedMonth,
 //>>//Ajax로 가져올 event data
