@@ -1,17 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<!-- 페이지 공통 -->
-
-<!-- jQuery 3.3.1 -->
-<script src="setfiles/bower_components/jquery/dist/jquery.min.js"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="setfiles/bower_components/jquery-ui/jquery-ui.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="setfiles/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- AdminLTE App : navbar 관련-->
-<script src="setfiles/dist/js/adminlte.min.js"></script>
-
 <!-- 로그아웃 기능 -->
 <script>
 $(document).on('click','.logoutBtn',function() {
