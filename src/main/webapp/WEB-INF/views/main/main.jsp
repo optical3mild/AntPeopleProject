@@ -995,6 +995,8 @@ $('#popupToDoBoard').on('click',function() {
 
   //>> ajax통신으로 직원목록을 받음.
   var staffData = $.parseJSON(modalStaffList());
+  console.log('staffData');
+  console.log(staffData);
   //var staffData = commRDummy;
   for(var i=0; i<staffData.length; i++) {
     gotPeopleList.push(staffData[i]);

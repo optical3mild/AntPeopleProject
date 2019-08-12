@@ -238,20 +238,19 @@ public class MainController {
 	// --------------------------------- todo -----------------------------------------
 
 	// todo 새 글 작성 
-	@RequestMapping("popupToDoBoard")
+	@RequestMapping(value = "popupToDoBoard", produces = "application/json; charset=utf8")
 	@ResponseBody
-	public List<UserDetailDTO> popupToDoBoard(HttpServletRequest request) throws Exception {
+	public String popupToDoBoard(HttpServletRequest request) throws Exception {
 		logger.info("todo 새 글 작성");
 		HttpSession session = request.getSession();
 		UserDetailDTO user = (UserDetailDTO) session.getAttribute("user");
-		List<UserDetailDTO> todoUserList = userService.todoUserList(user.getStore().getStore());
+		String todoUserList = userService.todoUserStringList(user.getStore().getStore());
 		logger.info("todoUserList : "+todoUserList.toString());
 		return todoUserList;
 	}
 	
 	// todo 작성 완료 
 	@RequestMapping("makeToDoItem")
-	@ResponseBody
 	public Model makeToDoItem(Model model, @RequestBody TodoDetailDTO todo, HttpServletRequest request) throws Exception {
 		logger.info("makeToDoItem");
 		HttpSession session = request.getSession();
