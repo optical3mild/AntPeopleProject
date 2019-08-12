@@ -18,11 +18,11 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="setfiles/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="setfiles/dist/css/skins/skin-blue.css">
+  <link rel="stylesheet" href="setfiles/dist/css/skins/skin-blue.css?ver=1">
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
   <!-- AntPeople Custom -->
-  <link rel="stylesheet" href="setfiles/css/ant_fullcalendar1.0.3.css?ver=1">
+  <link rel="stylesheet" href="setfiles/css/ant_fullcalendar1.0.3.css">
   <%@ include file= "../common/header.jsp" %>
 
 </head>
