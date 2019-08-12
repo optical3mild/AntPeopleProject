@@ -228,35 +228,43 @@ public class MainController {
 
 	// --------------------------------------------------------------------------
 
-	// --------------------------------------------------------------------------
+	// --------------------------------- todo -----------------------------------------
 
-	// 직원 전체목록(간략)
-	@RequestMapping("/stafflist")
-	public String stafflist() throws Exception {
-		logger.info("staffList 페이지");
-		return "stafflist";
+	// todo 새 글 작성
+	@RequestMapping("popupToDoBoard")
+	public Model popupToDoBoard(Model model) throws Exception {
+		logger.info("todo 새 글 작성");
+		model.addAttribute("modalStaffList", "");
+		return model;
+	}
+	
+	// todo 작성 완료
+	@RequestMapping("makeToDoItem")
+	public Model makeToDoItem(Model model) throws Exception {
+		logger.info("makeToDoItem");
+		model.addAttribute("todoList", "");
+		return model;
 	}
 
-	@RequestMapping("todaystaff")
-	public String todaystaff() throws Exception {
-		return "todaystaff";
+	// todo send 삭제
+	@RequestMapping("senditemdelete")
+	public Model sendItemDelete(Model model) throws Exception {
+		logger.info("senditemdelete");
+		return model;
 	}
-
-	/*
-	 * @RequestMapping("/pages/privatecalender") public ModelAndView
-	 * privateCalender(ModelAndView mav, @RequestParam("user_id") int user_id)
-	 * throws Exception { UserDTO user = userService.getUser(user_id);
-	 * mav.setViewName("pages/calender"); mav.addObject("list", user); return mav; }
-	 */
-	// 개인 별 일정(달력) 데이터 보내기
-	/*
-	 * @RequestMapping("privatecalender") public ModelAndView
-	 * privateCalender(ModelAndView mav, int user_id) throws Exception { UserDTO
-	 * user = userService.getUser(user_id); mav.setViewName("pages/calender");
-	 * mav.addObject("list", user); return mav; }
-	 * 
-	 * // 금일 근무자 목록
-	 * 
-	 */
-
+	
+	// todo recive 삭제
+	@RequestMapping("reciveditemdelete")
+	public Model recivedItemDelete(Model model) throws Exception {
+		logger.info("reciveditemdelete");
+		return model;
+	}
+	
+	// todo recive check
+	@RequestMapping("reciveditemcheck")
+	public Model recivedItemCheck(Model model) throws Exception {
+		logger.info("reciveditemcheck");
+		return model;
+	}
+	
 }
