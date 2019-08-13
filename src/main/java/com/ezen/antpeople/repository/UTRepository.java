@@ -11,4 +11,5 @@ import com.ezen.antpeople.entity.UserEntity;
 @Repository
 public interface UTRepository extends JpaRepository<TodoRelation, Integer> {
 	List<TodoRelation> findByToUser(UserEntity user);
+	TodoRelation findByTodo_id(Integer id);
 }

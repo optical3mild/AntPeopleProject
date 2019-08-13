@@ -2,6 +2,7 @@ package com.ezen.antpeople.service;
 
 import java.util.List;
 
+import com.ezen.antpeople.dto.sche.ScheUserDTO;
 import com.ezen.antpeople.dto.user.RoleDTO;
 import com.ezen.antpeople.dto.user.StoreDTO;
 import com.ezen.antpeople.dto.user.UserDetailDTO;
@@ -19,8 +20,10 @@ public interface UserService {
 	public List<UserDetailDTO> findByRole(RoleDTO role);
 	public List<UserDetailDTO> findByStore(RoleDTO role,StoreDTO store);
 	
+	public List<UserDetailDTO> todoUserList(String store);
+	
 	//당일 출근 직원 리스트, 직원 일정
-	public List<UserDetailDTO> todayStaff(String store, String month);
+	public List<ScheUserDTO> todayStaff(String store, String month);
 	public int applyScheduleCount(int user_id, int state);
 	
 	//회원가입 리스트 출력

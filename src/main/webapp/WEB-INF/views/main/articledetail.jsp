@@ -63,7 +63,9 @@
               <h3 class="box-title" style="display:inline-block"> [${category}] ${article.title}</h3>
               <div class="pull-right" style="display:inline-block">
                   <label style="display:inline">작성자:</label>&nbsp;&nbsp;${article.user.name}&nbsp;&nbsp;&nbsp;&nbsp;
-                  <label style="display:inline">작성일:</label>&nbsp;&nbsp;${article.updatedAt}
+                  <label style="display:inline">작성날짜:</label>&nbsp;&nbsp;
+					    <fmt:parseDate value="${article.updatedAt}" var="dateFmt" pattern="yyyy-MM-dd'T'HH:mm"/>
+					    <fmt:formatDate value="${dateFmt}" pattern="yyyy-MM-dd HH:mm"/>
               </div>
             </div>
             
@@ -83,11 +85,11 @@
                 	</c:if>
                		<c:if test="${user.name == article.user.name }">
 	                	<c:if test="${category == '공지사항'}">
-	                  		<button type="button" class="btn btn-info pull-right" style="margin: 0 0 0 20px" onclick="location.href='location.href='deletenotice?id=${article.notice_id} ">삭제</button>
+	                  		<button type="button" class="btn btn-info pull-right" style="margin: 0 0 0 20px" onclick= 'cancelConfirm("deletenotice?id=${article.notice_id}")'>삭제</button>
 	                  		<button type="button" class="btn btn-info pull-right" onclick="location.href='updatenoticepage?id=${article.notice_id}' ">수정</button>
 	                	</c:if>
 	                	<c:if test="${category == '자유게시판'}">
-	                		 <button type="button" class="btn btn-info pull-right" style="margin: 0 0 0 20px" onclick="location.href='deletebbs?id=${article.bbs_id}'">삭제</button>
+	                		 <button type="button" class="btn btn-info pull-right" style="margin: 0 0 0 20px" onclick= 'cancelConfirm("deletebbs?id=${article.bbs_id}")'>삭제</button>
 	                		 <button type="button" class="btn btn-info pull-right" onclick="location.href='updatebbspage?id=${article.bbs_id}'">수정</button>
 	               		</c:if>
                 	</c:if>
@@ -121,7 +123,7 @@
 <!-- AdminLTE App : navbar 관련-->
 <script src="setfiles/dist/js/adminlte.min.js"></script>
 
-<script>
+<script type="text/javascript">
 //오류발생.. 주석내에 el이나 tag형식 사용하지 말것..
 /*$(function() {
 	//jstl의 변수를 javascript로 바로 사용 불가. ' c:out value="jstl변수명" '을 사용할 것.
@@ -133,6 +135,12 @@
 	//:contains() --> ()안에 변수 삽입불가. 변수명을 문자열로 인식함.
 	//$('.selection option:contains(Board)').attr('selected', true);
 });*/
+
+function cancelConfirm(url){
+	if(confirm("게시물을 삭제하시겠습니까?")){
+		location.replace(url);
+	} 
+}
 
 </script>
 

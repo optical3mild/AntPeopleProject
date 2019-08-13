@@ -20,10 +20,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ezen.antpeople.dto.board.BbsDetailDTO;
 import com.ezen.antpeople.dto.board.NoticeDetailDTO;
+import com.ezen.antpeople.dto.sche.ScheUserDTO;
 import com.ezen.antpeople.dto.user.RoleDTO;
 import com.ezen.antpeople.dto.user.StoreDTO;
 import com.ezen.antpeople.dto.user.UserDetailDTO;
-import com.ezen.antpeople.repository.USRepository;
 import com.ezen.antpeople.service.BbsService;
 import com.ezen.antpeople.service.NoticeService;
 import com.ezen.antpeople.service.UserService;
@@ -53,9 +53,9 @@ public class MainController {
 		int date = Integer.parseInt(LocalDate.now().minusMonths(1).format(DateTimeFormatter.ofPattern("yyMMdd")));
 		int staffApply =0;
 		int staffRefuseApply =0;
-		List<BbsDetailDTO> bbsDetailList = new ArrayList<BbsDetailDTO>(bbsService.findTopFive());
-		List<NoticeDetailDTO> noticeDetailList = new ArrayList<NoticeDetailDTO>(noticeService.findTopFive());
-		List<UserDetailDTO> todayStaffList = new ArrayList<UserDetailDTO>();
+		List<NoticeDetailDTO> noticeDetailList = new ArrayList<NoticeDetailDTO>(noticeService.findTopFive()); //5개의 공지사항 게시물
+		List<BbsDetailDTO> bbsDetailList = new ArrayList<BbsDetailDTO>(bbsService.findTopFive()); //5개의 자유게시판 게시물
+		List<ScheUserDTO> todayStaffList = new ArrayList<ScheUserDTO>(); //오늘 근무하는 사람
 		if(user.isPresent()) {
 			todayStaffList = userService.todayStaff(user.get().getStore().getStore(), Integer.toString(date));
 			staffApply = userService.applyScheduleCount(user.get().getUser_id(), 1); //일정 신청 대기중인 목록 수
@@ -197,7 +197,6 @@ public class MainController {
 		model.addObject("bbs_id", bbs_id);
 		model.addObject("title", title);
 		model.addObject("description", description);
-		model.addObject("user", user);
 		logger.info("articleallotter.mav : "+model.toString());
 		String a = "" + articleNum;
 		logger.info(a.toString());

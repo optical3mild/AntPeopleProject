@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ezen.antpeople.dto.sche.ScheUserDTO;
 import com.ezen.antpeople.dto.user.RoleDTO;
 import com.ezen.antpeople.dto.user.StoreDTO;
 import com.ezen.antpeople.dto.user.UserDetailDTO;
@@ -146,13 +147,13 @@ public class UserServiceImpl implements UserService{
 
 	//당일 출근 직원 정보 검색
 	@Override
-	public List<UserDetailDTO> todayStaff(String store, String month) {
-		List<UserDetailDTO> todayStaffs = new ArrayList<UserDetailDTO>();
+	public List<ScheUserDTO> todayStaff(String store, String month) {
+		List<ScheUserDTO> todayStaffs = new ArrayList<ScheUserDTO>();
 		Optional<List<ScheRelation>> staffList = 
-				Optional.ofNullable(usRepository.findByToUserStoreStoreAndScheStartDate(store, month));
+				Optional.ofNullable(usRepository.findByToUserStoreStoreAndScheStartDateAndState(store, month,2));
 		if(staffList.isPresent()) {
 			for(ScheRelation staff : staffList.get())
-				todayStaffs.add(staff.getToUser().buildDTO());
+				todayStaffs.add(staff.buildDTOToday());
 		}
 		logger.info("당일 근무자 : "+ todayStaffs);
 		return todayStaffs;
@@ -170,4 +171,16 @@ public class UserServiceImpl implements UserService{
 			applyCount = applyList.size();
 		return applyCount;
 	}
+
+	//같은 점포 직원 리스트 가져오기
+	@Override
+	public List<UserDetailDTO> todoUserList(String store) {
+		List<UserDetailDTO> userList = new ArrayList<UserDetailDTO>();
+		List<UserEntity> entitys = userRepository.findByStoreStore(store);
+		for(UserEntity entity:entitys)
+			userList.add(entity.buildDTO());
+		return userList;
+	}
+	
+	
 }

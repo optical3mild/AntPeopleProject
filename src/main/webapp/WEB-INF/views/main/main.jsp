@@ -23,7 +23,7 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
   <!-- pagination -->
-  <link rel="stylesheet" href="setfiles/css/ant_fullcalendar1.0.3.css">
+  <link rel="stylesheet" href="setfiles/css/ant_fullcalendar1.0.3.css?ver=1">
  
   <%@ include file= "../common/header.jsp" %>
 </head>
@@ -251,6 +251,7 @@
                   <td style="text-align: center;">${board.bbs_id}</td>
                   <td><a href="detailbbs?id=${board.bbs_id}">${board.title}</a></td>
                   <c:if test="${board.user.store.store == '둔산점'}">
+<<<<<<< HEAD
                   	<td style="text-align: center;" ><span class="badge bgDun">${board.user.name}</span></td>
                   </c:if>
                   <c:if test="${board.user.store.store == '월평점'}">
@@ -264,6 +265,21 @@
                   </c:if>
                   <c:if test="${board.user.store.store == '탄방점'}">
                   	<td style="text-align: center;" ><span class="badge bgTan">${board.user.name}</span></td>
+=======
+                  	<td><span class="badge bgDun">${board.user.name}</span></td>
+                  </c:if>
+                  <c:if test="${board.user.store.store == '월평점'}">
+                  	<td><span class="badge bgWal">${board.user.name}</span></td>
+                  </c:if>
+                  <c:if test="${board.user.store.store == '관저점'}">
+                 	<td><span class="badge bgGhwan">${board.user.name}</span></td>
+                  </c:if>
+                  <c:if test="${board.user.store.store == '갈마점'}">
+                    <td><span class="badge bgGal">${board.user.name}</span></td>
+                  </c:if>
+                  <c:if test="${board.user.store.store == '탄방점'}">
+                  	<td><span class="badge bgTan">${board.user.name}</span></td>
+>>>>>>> b5eb3ba170d56ef942bfac3558f2ae03cf6e3146
                   </c:if>
                 </tr>
                 </c:forEach>
@@ -296,11 +312,11 @@
                 <div class="box-body no-padding">
                   <ul class="users-list clearfix">
 	                  <c:if test="${todayStaffCount != 0}">
-	                  	<c:forEach var="Staff" items="${todayStaffList}">
+	                  	<c:forEach var="staff" items="${todayStaffList}">
 		                  	<li>
-		                      <img src="dist/img/user1-128x128.jpg" alt="User Image">
-		                      <a class="users-list-name" href="#">Alexander Pierce</a>
-		                      <span class="users-list-date">Today</span>
+		                      <a class="users-list-name" href="#"></a>
+		                      <span class="users-list-name">${staff.user.name}</span>
+		                      <span class="users-list-date">${staff.title}</span>
 		                    </li>   
 	                  	</c:forEach>
 	                  </c:if>

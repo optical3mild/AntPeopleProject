@@ -83,9 +83,9 @@ public class UserDetailDTO implements Serializable {
 
 	@Override
 	public String toString() {
-		return "UserDetailDTO [user_id=" + user_id + ", email=" + email + ", password=" + password + ", name=" + name
-				+ ", state=" + state + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", role=" + role.getRole_id()
-				+ ", store=" + store.getStore_id() + "]";
+		return "{\"email\":\"" + this.email + "\","
+				+ "\"userName\":\"" + this.name + "\","
+				+ "\"role\":\""+this.role.getRole_id()+"\"}";
 	}
 
 }

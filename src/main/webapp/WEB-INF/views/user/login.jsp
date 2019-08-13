@@ -5,7 +5,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Log in</title>
+	<title>AntPeople 로그인</title>
 	
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -49,22 +49,16 @@
         <span class="checkMessage" style="color:green; display:none"></span>
       </div>
       <div class="row">
-        <div class="col-xs-8">
-          <div class="checkbox icheck">
-            <label>
-              <input type="checkbox"> Remember Me
-            </label>
-          </div>
+        <div class="col-xs-4">
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
           <button id="login" type="button" class="btn btn-primary btn-block btn-flat">로그인</button>
         </div>
-        <!-- /.col -->
       </div>
     </form>
     
-    <a href="register" class="text-center">Register a new membership</a>
+    <a href="register" class="text-center">회원가입이 되어 있지 않으신가요?</a>
 
   </div>
   <!-- /.login-box-body -->
@@ -106,10 +100,9 @@ function loginProcess() {
     		//서버에서 보내줄 datatype.
 			//dataType : ,
 			error : function(response) {
-				alert("통신실패, response: " + response);
+				alert("존재하지 않는 이메일 입니다.");
 			},
 			success : function(response) {
-				alert("통신성공, response: " + response);
 				document.location.href = response;
 				//성공 시 이메일 존재여부 판별.
 				//존재 --> 이메일이 존재한다는 알림 띄움.

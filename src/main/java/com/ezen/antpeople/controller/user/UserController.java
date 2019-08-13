@@ -75,6 +75,12 @@ public class UserController {
 	public String goRedirection() {
 		return "redirection";
 	}
+	
+	// 세션 만료시 redirection으로 이동
+		@RequestMapping("redirectsession")
+		public String goRedirectionSession() {
+			return "redirection-session";
+		}
 
 	// 로그아웃
 	@RequestMapping("logout")

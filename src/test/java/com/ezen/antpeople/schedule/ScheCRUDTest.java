@@ -55,7 +55,10 @@ public class ScheCRUDTest {
 		
 		scheService.saveSchedules(testSchedules);
 	}
+<<<<<<< HEAD
 	
+=======
+>>>>>>> b5eb3ba170d56ef942bfac3558f2ae03cf6e3146
 
 	//일정 가져오기 사장 테스트 - 성공
 	@Test @Ignore
