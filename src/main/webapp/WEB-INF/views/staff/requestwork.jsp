@@ -653,7 +653,7 @@ function sendInfo(sign, eId, state) {
 			result = 'fail';
 		},
 		success : function(response) {
-			alert(alterString);
+			//alert(alterString);
       	result = response;
 		}
 	});

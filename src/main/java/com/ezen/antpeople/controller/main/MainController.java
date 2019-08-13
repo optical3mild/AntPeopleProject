@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,12 +23,15 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ezen.antpeople.dto.board.BbsDetailDTO;
 import com.ezen.antpeople.dto.board.NoticeDetailDTO;
 import com.ezen.antpeople.dto.sche.ScheUserDTO;
+import com.ezen.antpeople.dto.sche.ScheUserListDTO;
 import com.ezen.antpeople.dto.todo.TodoDetailDTO;
 import com.ezen.antpeople.dto.user.RoleDTO;
 import com.ezen.antpeople.dto.user.StoreDTO;
 import com.ezen.antpeople.dto.user.UserDetailDTO;
 import com.ezen.antpeople.service.BbsService;
+import com.ezen.antpeople.service.MonthPlanService;
 import com.ezen.antpeople.service.NoticeService;
+import com.ezen.antpeople.service.ScheService;
 import com.ezen.antpeople.service.TodoService;
 import com.ezen.antpeople.service.UserService;
 
@@ -40,12 +44,16 @@ public class MainController {
 	BbsService bbsService;
 	NoticeService noticeService;
 	TodoService todoService;
+	ScheService scheService;
+	MonthPlanService monthplanService;
 
-	public MainController(UserService userService, BbsService bbsService, NoticeService noticeService, TodoService todoService) {
+	public MainController(UserService userService, BbsService bbsService, NoticeService noticeService, TodoService todoService, ScheService scheService, MonthPlanService monthplanService) {
 		this.userService = userService;
 		this.bbsService = bbsService;
 		this.noticeService = noticeService;
 		this.todoService = todoService;
+		this.scheService = scheService;
+		this.monthplanService = monthplanService;
 	}
 
 	// 메인 페이지
@@ -62,19 +70,35 @@ public class MainController {
 		List<NoticeDetailDTO> noticeDetailList = new ArrayList<NoticeDetailDTO>(noticeService.findTopFive()); //5개의 공지사항 게시물
 		List<BbsDetailDTO> bbsDetailList = new ArrayList<BbsDetailDTO>(bbsService.findTopFive()); //5개의 자유게시판 게시물
 		List<ScheUserDTO> todayStaffList = new ArrayList<ScheUserDTO>(); //오늘 근무하는 사람
+		UserDetailDTO userDto = (UserDetailDTO) session.getAttribute("user");
+		String now = String.valueOf(date);
+		String sche = monthplanService.monthPlanList(userDto);
+		ScheUserListDTO own = scheService.findAllMonthAndUser(userDto, now);
+		int count = 0;
+		int counttodo = 0;
+		int countApply = 0;
+		logger.info("sche : "+sche.toString());
 		if(user.isPresent()) {
 			todayStaffList = userService.todayStaff(user.get().getStore().getStore(), Integer.toString(date));
 			staffApply = userService.applyScheduleCount(user.get().getUser_id(), 1); //일정 신청 대기중인 목록 수
 			staffRefuseApply = userService.applyScheduleCount(user.get().getUser_id(), 3); // 일정 신청이 거절된 목록 수
 			todoList = todoService.TodoListAll(user.get());
+			count = StringUtils.countOccurrencesOf(sche, "true");
+			counttodo = StringUtils.countOccurrencesOf(todoList, "false");
+			countApply = StringUtils.countOccurrencesOf(own.toString(), "state\":0,");
 		}
-		logger.info(todoList);
+		logger.info("countApply : " + countApply);
+		logger.info("count : " + count);
+		logger.info("todoList : " +todoList);
 		mv.addObject("staffRefuseApply", staffRefuseApply);
 		mv.addObject("staffApply", staffApply);
+		mv.addObject("countApply", countApply);
 		mv.addObject("bbsList", bbsDetailList);
 		mv.addObject("noticeList", noticeDetailList);
 		mv.addObject("todayStaffList", todayStaffList);
 		mv.addObject("todoList", todoList);
+		mv.addObject("notyetplan", count);
+		mv.addObject("counttodo", counttodo);
 		mv.setViewName("main");
 		logger.info("mainpage 페이지");
 		return mv;
