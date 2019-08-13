@@ -3,15 +3,15 @@ package com.ezen.antpeople.entity;
 import java.io.Serializable;
 
 import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.springframework.security.core.userdetails.UserDetails;
-
 import com.ezen.antpeople.dto.user.UserDetailDTO;
+import com.ezen.antpeople.dto.user.UserTodoDTO;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -52,10 +52,18 @@ public class UserEntity extends BaseEntity implements Serializable{
 		this.role = new RoleEntity(user.getRole());
 		this.store = new StoreEntity(user.getStore());
 	}
+	
 	//게시판 글 작성시
 	public UserEntity(UserDetailDTO user) {
 		this.id = user.getUser_id();
 		this.name = user.getName();
+	}
+	
+	//할일 리스트 작성 시 
+	public UserEntity(UserTodoDTO user) {
+		this.id = user.getUserId();
+		this.email = user.getEmail();
+		this.name = user.getUserName();
 	}
 	
 	//로그인시 유저 상세 정보
@@ -66,6 +74,9 @@ public class UserEntity extends BaseEntity implements Serializable{
 	//유저 간략 정보 
 	public UserDetailDTO buildDTOSmall() {
 		return new UserDetailDTO(this.id, this.email, this.name, this.role.buildDTO(), this.store.buildDTO() );
+	}
+	public UserTodoDTO buildTodoDTO() {
+		return new UserTodoDTO(this.id, this.email, this.name, this.role.getRole_id());
 	}
 
 	@Override

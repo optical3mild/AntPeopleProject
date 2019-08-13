@@ -1,0 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<!-- DataTables 1.10.19 -->
+<!-- 상하단 검색기능, 페이지 넘김기능 -->
+<script src="setfiles/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<!-- table검색창등 미세설정.. -->
+<script src="setfiles/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>

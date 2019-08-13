@@ -36,22 +36,16 @@
 .fc-prev-button, .fc-next-button, .fc-today-button {
   visibility  : hidden;
 }
+.btn-primary:hover {
+  background-color : #367fa9;
+  border-color : #367fa9;
+}
 /* ./ End of planner main style*/
 
-/* pagination 설정 */
+/* bbs pagination 설정 */
 div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 	width: 100%;
 	text-align: center;
-}
-/* Main페이지 pagination 크기 조절 */
-.box-footer {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 3px;
-    border-bottom-left-radius: 3px;
-    border-top: 1px solid #f4f4f4;
-    padding: 0px;
-    background-color: #fff;
 }
 
 /* accept page */
@@ -100,3 +94,69 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
   background-color: #ff851b;
   border-color:  #ff851b;
 }
+
+
+/* main page toDo style */
+li > .label {
+  position : relative;
+  bottom : 2px;
+}
+li > input[type=checkbox] {
+  position : relative;
+  top : 2.5px;
+}
+.toUserFrame {
+  overflow-x : visible;
+  width : 100%;
+  min-height : 3.2rem;
+  border : 1px solid lightgrey;
+  font-size : 1rem;
+}
+.itemFrame {
+  display:inline-block;
+  width : fit-content;
+  /*border-radius : 0.5rem;
+ border : 1px solid lightblue;*/
+  margin : 2px 5px 2px 5px;
+}
+.itemDelSign {
+  font-size : 1.5rem;
+  color: #e14242;
+  opacity: 0.5;
+  position: relative;
+  top : 1px;
+  margin : 0 2px 0 2px;
+}
+.itemDelSign:hover {
+  opacity: 1;
+}
+/* End of main page toDo style */
+ 
+/* main page item height adjust style */
+.staffListFooter {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+}
+.toDoBtnBox {
+  margin: 5px 10px 0 10px;
+  height : 20px;
+}
+.inline {
+  position: absolute;
+  bottom: 0px;
+  margin : 0 0 10px 0;
+}
+/* End of main page item height adjust style */
+
+/* Carousel height */
+.carousel {
+  height : 300px;
+}
+.carousel-inner{
+  height : 300px;
+}
+.item {
+  height : inherit;
+}
+/* End of Carousel height */

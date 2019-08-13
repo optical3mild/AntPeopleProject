@@ -2,15 +2,10 @@ package com.ezen.antpeople.dto.user;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.Getter;
 
@@ -80,9 +75,19 @@ public class UserDetailDTO implements Serializable {
 		this.user_id = user_id;
 		this.name = name;
 	}
+	
+	public UserTodoDTO buildDTOTodo() {
+		return new UserTodoDTO(this.user_id,this.email, this.name,this.role.getRole_id());
+	}
 
 	@Override
 	public String toString() {
+		return "{\"user_id\":\"" + this.user_id + "\","
+				+ "\"userName\":\"" + this.name + "\","
+				+ "\"role\":\""+this.role.getRole_id()+"\"}";
+	}
+
+	public String toStringEmail() {
 		return "{\"email\":\"" + this.email + "\","
 				+ "\"userName\":\"" + this.name + "\","
 				+ "\"role\":\""+this.role.getRole_id()+"\"}";

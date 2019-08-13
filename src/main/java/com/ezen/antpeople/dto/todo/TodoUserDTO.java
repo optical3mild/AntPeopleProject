@@ -22,9 +22,9 @@ public class TodoUserDTO {
 	
 	@Override
 	public String toString() {
-		return "{\"id\":\""+todo.getTodo_id()+"\","
+		return "{\"id\":\""+todo.getId()+"\","
 				+ "\"description\":\""+todo.getDescription()+"\","
-				+ "\"fromUser\":\""+todo.getFromUser()+ "\","
+				+ "\"fromUser\":"+todo.getFromUser()+ ","
 				+ "\"state\":\"" + state +"\"}";
 	}
 

@@ -5,33 +5,35 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.ezen.antpeople.dto.user.UserDetailDTO;
+import com.ezen.antpeople.dto.user.UserTodoDTO;
 
 import lombok.Getter;
 
 @Getter
 public class TodoDetailDTO implements Serializable{
 	
-	private int todo_id;
+	private int id;
 	private String description;
 	protected LocalDateTime createdAt;
 	protected LocalDateTime updatedAt;
 	private boolean state;
 	private int checkPerson;
-	private UserDetailDTO fromUser;
-	private List<UserDetailDTO> toUsers;
+	private UserTodoDTO fromUser;
+	private List<UserTodoDTO> toUsers;
 	
 	public TodoDetailDTO() {}
 	
 	//할 일 만들기
-	public TodoDetailDTO(String description, UserDetailDTO fromUser, List<UserDetailDTO> toUsers) {
+	public TodoDetailDTO(String description, UserTodoDTO fromUser, List<UserTodoDTO> toUsers) {
 		this.description = description;
 		this.fromUser = fromUser;
 		this.toUsers = toUsers;
 	}
 	
 	//할일 불러오기
-	public TodoDetailDTO(int todo_id, String description, boolean state,int checkPerson , LocalDateTime updatedAt, UserDetailDTO fromUser, List<UserDetailDTO> toUsers) {
-		this.todo_id = todo_id;
+
+	public TodoDetailDTO(int id, String description, boolean state, int checkPerson , LocalDateTime updatedAt, UserTodoDTO fromUser, List<UserTodoDTO> toUsers) {
+		this.id = id;
 		this.description = description;
 		this.state = state;
 		this.checkPerson = checkPerson;
@@ -40,9 +42,17 @@ public class TodoDetailDTO implements Serializable{
 		this.toUsers = toUsers;
 	}
 	
+
+	public void fromUser(UserTodoDTO user) {
+		this.fromUser = user;
+	}
+	public void toUsers(List<UserTodoDTO> users) {
+		this.toUsers = users;
+	}
+	
 	@Override
 	public String toString() {
-		return "{\"id\":\""+todo_id+"\","
+		return "{\"id\":\""+id+"\","
 				+ "\"description\":\""+description+"\","
 				+ "\"checkPerson\":\""+checkPerson+"\"}";
 	}

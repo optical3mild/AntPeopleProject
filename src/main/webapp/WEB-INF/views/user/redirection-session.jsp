@@ -9,19 +9,7 @@
 	
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-	
-	<!-- Bootstrap 3.3.7 -->
-	<link rel="stylesheet" href="setfiles/bower_components/bootstrap/dist/css/bootstrap.min.css">
-	<!-- Font Awesome -->
-	<link rel="stylesheet" href="setfiles/bower_components/font-awesome/css/font-awesome.min.css">
-	<!-- Theme style -->
-	<link rel="stylesheet" href="setfiles/dist/css/AdminLTE.min.css">
-	
-	<!-- Google Font -->
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-	
-	<!-- jquery 하단에 존재. 공통파일 header로 묶을 것.-->
-	<%@ include file="../common/header.jsp" %>
+	<%@ include file= "../common/_header_css_sum.jspf" %>
 </head>
 <body class="hold-transition login-page">
 
