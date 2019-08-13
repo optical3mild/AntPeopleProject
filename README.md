@@ -160,3 +160,7 @@
 ### Day 27 : View 정리 (19.08.12)
 - (정우) view update - main(Carousel 추가, ToDo 추가/삭제 업데이트), 각 화면 스타일 조정.
 - (성현) todo 연결  
+
+### Day 28 : MainPage 링크 (19.08.13)  
+- (성현) MainPage 상단 표시 바 연결 및 링크 연결  
+
