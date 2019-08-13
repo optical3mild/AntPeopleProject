@@ -153,13 +153,13 @@
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>53<sup style="font-size: 20px">%</sup></h3>
+              <h3>${countApply} 건</sup></h3>
               <p>근무 일정 신청 수</p>
             </div>
             <div class="icon">
               <i class="fa fa-list-alt"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="${path}/owner/acceptpage" class="small-box-footer">근무 승인 페이지로 <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -168,13 +168,13 @@
         <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
-              <h3>53<sup style="font-size: 20px">%</sup></h3>
+              <h3>${notyetplan} 건</h3>
               <p>확정되지 않은 운영계획</p>
             </div>
             <div class="icon">
               <i class="fa fa-user-times"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="${path}/owner/monthplanpage" class="small-box-footer">운영 계획 페이지로 <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -186,7 +186,7 @@
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3>${todayStaffCount}명</h3>
+              <h3>${todayStaffCount} 명</h3>
               <p>금일 근무자</p>
             </div>
             <div class="icon">
@@ -201,13 +201,13 @@
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>65</h3>
+              <h3>${counttodo} 건</h3>
               <p>남은 할일</p>
             </div>
             <div class="icon">
               <i class="fa fa-check-square-o"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="#" class="small-box-footer">&nbsp;	</a>
           </div>
         </div>
         <!-- ./col -->
@@ -352,7 +352,7 @@
             </div>
             <!-- /.box-body -->
             <div class="box-footer text-center staffListFooter">
-              <a href="javascript:void(0)" class="uppercase">View All Users</a>
+              <a href="${path}/main/staffinfo" class="uppercase">View All Users</a>
             </div>
             <!-- /.box-footer -->
           </div>
