@@ -11,8 +11,65 @@
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <%@ include file="../common/_header_css_sum.jspf" %>
   <style>
-  .item {
-  	background-position: center;
+  .carouselWrapper {
+  	position:relative;
+    z-index:0;
+  }
+  .carouselWrapper:after {
+  	background-position: center; 
+    top:0;
+    left:0;
+    position:absolute;
+    background-size:100%;
+    opacity:0.4!important;
+    filter:alpha(opacity=50);
+    z-index:-2;
+    content:"";
+    width:100%;
+    height:100%;
+  }
+  .carouselNo1:after {
+    background-image : url('setfiles/img/office.jpg');
+  }
+  .carouselNo2:after {
+    background-image : url('setfiles/img/dayplanner.jpg');
+  }
+  .carouselNo3:after {
+    background-image : url('setfiles/img/paper.jpg');
+  }
+  .carouselDisplaySentences {
+    position:relative;
+    top:55%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    text-shadow:0 0 3px black, 3px 3px 5px black;
+  }
+  .carouselDisplaySentences > span.carouselDisplayTitle {
+    font-size: 8vmin;
+  }    
+  .carouselDisplaySentences > span.carouselDisplayDescription {
+    font-size: 4vmin;
+  }
+  .carouselBtn {
+    text-shadow:0 0 3px black, 3px 3px 5px black;
+  }
+  .carouselDots > li {
+  	box-shadow:0 0 1px black, 3px 3px 5px black;
+  }
+  .roleCircle {
+    width: 5rem;
+    height: 5rem;
+    border: 1px solid black;
+    border-radius: 5rem;
+    color: white;
+  }
+  .roleCircleOwner {
+  	border-color: #dd4b39;
+  	background-color: #dd4b39;
+  }
+  .roleCircleStaff {
+    border-color: #3c8dbc;
+  	background-color: #3c8dbc;
   }
   </style>
 </head>
@@ -51,50 +108,48 @@
               <!-- /.box-header -->
               <div class="box-body">
                 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                  <ol class="carousel-indicators">
+                  <ol class="carousel-indicators carouselDots">
                     <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
                     <li data-target="#carousel-example-generic" data-slide-to="1" class=""></li>
                     <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
                   </ol>
                   <div class="carousel-inner">
-
-                    <div class="item active" style="background-image : url('setfiles/img/office.jpg'); opacity : 0.5">
-                      <!--
-                      <img src="http://placehold.it/900x500/39CCCC/ffffff&text=I+Love+Bootstrap" alt="First slide">
-                      -->
-                      <div class="carousel-caption" style="text-align:center; margin:0 0 20px 0">
-                      	<span style="font-size: 6rem;">간편한 업무 일정 신청</span>
+					<!-- 
+                    <div class="item active carouselWrapper" style="background-image : url('setfiles/img/office.jpg');">
+                     -->
+                    <div class="item active carouselWrapper carouselNo1">
+                      <div class="carousel-caption carouselDisplaySentences">
+                      	<span class="carouselDisplayTitle">간편한 업무 일정 신청</span>
                       	<br>
-                      	<span style="font-size: 3rem">당신의 업무일정을 더욱 간편하게 신청할 수 있습니다.</span>
+                      	<span class="carouselDisplayDescription">업무일정을 더욱 간편하게 신청할 수 있습니다.</span>
                       </div>
-
                     </div>
+                    <!--
                     <div class="item" style="background-image : url('setfiles/img/dayplanner.jpg')">
-                      <!--
-                      <img src="http://placehold.it/900x500/3c8dbc/ffffff&text=I+Love+Bootstrap" alt="Second slide">
-                      -->
-                      <div class="carousel-caption" style="text-align:center; margin:0 0 20px 0">
-                        <span style="font-size: 6rem;">중요한 업무 메모기능</span>
+                    -->
+                    <div class="item carouselWrapper carouselNo2">
+                      <div class="carousel-caption carouselDisplaySentences">
+                        <span class="carouselDisplayTitle">중요한 업무 메모기능</span>
                       	<br>
-                      	<span style="font-size: 3rem">해야할 업무를 자신의 할 일 목록으로 작성할 수 있습니다.</span>
+                      	<span class="carouselDisplayDescription">업무를 목록으로 작성하고 전달할 수 있습니다.</span>
                       </div>
                     </div>
+                    <!--
                     <div class="item" style="background-image : url('setfiles/img/paper.jpg')">
-                      <!--
-                      <img src="http://placehold.it/900x500/f39c12/ffffff&text=I+Love+Bootstrap" alt="Third slide">
-                      -->
-                      <div class="carousel-caption" style="text-align:center; margin:0 0 20px 0">
-                        <span style="font-size: 6rem;">통합된 운영계획 관리</span>
+                    -->
+                    <div class="item carouselWrapper carouselNo3">
+                      <div class="carousel-caption carouselDisplaySentences">
+                        <span class="carouselDisplayTitle">편리한 운영계획 관리</span>
                       	<br>
-                      	<span style="font-size: 3rem">월별 운영계획을 수정, 확정, 반려할 수 있습니다.</span>
+                      	<span class="carouselDisplayDescription">운영계획을 편리하게 작성하고 수정할 수 있습니다.</span>
                       </div>
                     </div>
                   </div>
                   <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                    <span class="fa fa-angle-left"></span>
+                    <span class="fa fa-angle-left carouselBtn"></span>
                   </a>
                   <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                    <span class="fa fa-angle-right"></span>
+                    <span class="fa fa-angle-right carouselBtn"></span>
                   </a>
                 </div>
               </div>
@@ -469,6 +524,12 @@
 <%@ include file = "../common/_commonScriptList.jspf" %>
 
 <script>
+console.log('user')
+console.log(${user})
+
+console.log('store')
+console.log('${user.store.store}')
+
 // '//>>'로 표시된 부분 수정반영 필요.
 
 // 1. To Do. ----------------------------------------------------------------
@@ -1009,7 +1070,10 @@ $('#popupToDoBoard').on('click',function() {
     gotPeopleList.push(staffData[i]);
   }
 
-  var staffListSelectionFrame = $('<select />').addClass('peopleSelection')
+  var staffListSelectionFrame = $('<select />').addClass('peopleSelection').css({'min-height': '2rem'})
+  var placeHolder = $('<option />').attr('selected','true').attr('disabled','true').text('대상을 선택하세요.');
+  staffListSelectionFrame.append(placeHolder);
+  
   for(var i=0; i<gotPeopleList.length; i++) {
     var personLabel = $('<option />').text(gotPeopleList[i].userName + '('+gotPeopleList[i].email+')');
     staffListSelectionFrame.append(personLabel);
