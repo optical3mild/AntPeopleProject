@@ -40,7 +40,6 @@
     <section class="content">
       <div class="row">
         <div class="col-md-3">
-
           <div class="box box-solid">
             <div class="box-header with-border">
               <label style="margin-bottom: 0;">월별 근무일정표</label>
@@ -653,7 +652,11 @@ function sendInfo(sign, eId, state) {
 			result = 'fail';
 		},
 		success : function(response) {
+<<<<<<< HEAD
+			alert(alterString);
+=======
 			//alert(alterString);
+>>>>>>> 3e9b6533066f94c5499e7242dfc4873e6c1f2fc9
       	result = response;
 		}
 	});

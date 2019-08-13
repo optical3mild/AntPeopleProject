@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ezen.antpeople.dto.board.BbsDetailDTO;
 import com.ezen.antpeople.dto.board.NoticeDetailDTO;
 import com.ezen.antpeople.dto.sche.ScheUserDTO;
+
 import com.ezen.antpeople.dto.sche.ScheUserListDTO;
 import com.ezen.antpeople.dto.todo.TodoDetailDTO;
 import com.ezen.antpeople.dto.user.RoleDTO;
@@ -72,8 +73,8 @@ public class MainController {
 		List<ScheUserDTO> todayStaffList = new ArrayList<ScheUserDTO>(); //오늘 근무하는 사람
 		UserDetailDTO userDto = (UserDetailDTO) session.getAttribute("user");
 		String now = String.valueOf(date);
-		String sche = monthplanService.monthPlanList(userDto);
-		ScheUserListDTO own = scheService.findAllMonthAndUser(userDto, now);
+		String sche = new String();
+		ScheUserListDTO own = new ScheUserListDTO();
 		int count = 0;
 		int counttodo = 0;
 		int countApply = 0;
@@ -83,6 +84,8 @@ public class MainController {
 			staffApply = userService.applyScheduleCount(user.get().getUser_id(), 1); //일정 신청 대기중인 목록 수
 			staffRefuseApply = userService.applyScheduleCount(user.get().getUser_id(), 3); // 일정 신청이 거절된 목록 수
 			todoList = todoService.TodoListAll(user.get());
+			sche = monthplanService.monthPlanList(userDto);
+			own = scheService.findAllMonthAndUser(userDto, now);
 			count = StringUtils.countOccurrencesOf(sche, "true");
 			counttodo = StringUtils.countOccurrencesOf(todoList, "false");
 			countApply = StringUtils.countOccurrencesOf(own.toString(), "state\":0,");

@@ -55,9 +55,7 @@
           </div>
           <!-- /. box -->
           <div class="box box-solid">
-            
             <div class="box-body">
-
               <div class="input-group" style="width:100%">
                 <div>
                   <label for="newE-startT">시작시간</label>

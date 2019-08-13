@@ -40,7 +40,6 @@
     <section class="content">
       <div class="row">
         <div class="col-md-3">
-
           <div class="box box-solid">
             <div class="box-header with-border">
               <label style="margin-bottom: 0;">운영일정 목록</label>
@@ -55,7 +54,6 @@
           </div>
           <!-- /. box -->
           <div class="box box-solid">
-            
             <div class="box-body">
               <div class="input-group" style="width:100%">
                 <div>

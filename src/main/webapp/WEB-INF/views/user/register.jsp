@@ -6,7 +6,6 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>회원 가입</title>
-	
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	
@@ -25,7 +24,7 @@
 	<!-- 연결할 경로 -->
     <!-- <form action="registercheck" method="post"> -->
     <form>
-      <div class="form-group has-feedback">
+    <div class="form-group has-feedback">
         <input type="email" name="email" id="email" class="form-control" placeholder="Email">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
         <span class="checkMessage" style="color:green; display:none"></span>
@@ -43,7 +42,6 @@
         <span class="glyphicon glyphicon-ok form-control-feedback"></span>
         <span class="checkMessage" style="color:green; display:none"></span>
       </div>
-    
     
       <div class="form-group has-feedback">
         <input type="text" id="userName" name="userName" class="form-control" placeholder="Your name">

@@ -99,7 +99,7 @@ public class ScheCRUDTest {
 	}
 	
 	//오늘 근무 직원 리스트 가져오기 테스트
-	@Test 
+	@Test @Ignore
 	public void todayStaffListTest() {
 		UserDetailDTO user = us.findByEmail("wlrdnjs101@gmail.com"); //이메일은 DB에 따라 변경해야함!!
 		log.info("직원 ID : " + user.getUser_id());

@@ -55,6 +55,7 @@ public class TodoServiceImpl implements TodoService {
 		utRepository.deleteByTodo_id(todo_id);
 	}
 	
+
 	//할일 삭제 함수 (자신이 받은 할 일 삭제)
 	@Override
 	public void deleteSendTodo(int todo_id, int user_id) {
@@ -85,6 +86,7 @@ public class TodoServiceImpl implements TodoService {
 		return todoList;
 	}
 	
+
 	//자신이 받은 할 일 리스트 
 	@Override
 	public List<TodoUserDTO> TodoListByToUser(UserDetailDTO user) {
@@ -112,6 +114,8 @@ public class TodoServiceImpl implements TodoService {
 		TodoListDTO todoList = new TodoListDTO(TodoListByUser(user),TodoListByToUser(user));
 		return todoList.toString();
 	}
+
+
 
 
 

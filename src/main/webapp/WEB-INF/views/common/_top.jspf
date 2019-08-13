@@ -40,8 +40,7 @@
 
 <!-- 로그인시 확인된 유저 정보를 받아 나타나도록... -->
           <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">       
               <c:if test="${user.store.store == '둔산점'}">
               	<c:set var="place" value="badge bgDun" />
               </c:if>
