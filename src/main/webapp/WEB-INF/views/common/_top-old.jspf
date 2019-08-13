@@ -41,63 +41,33 @@
 <!-- 로그인시 확인된 유저 정보를 받아 나타나도록... -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              
               <c:if test="${user.store.store == '둔산점'}">
-              	<c:set var="place" value="badge bgDun" />
+                <span class="badge bgDun">${user.store.store}</span>
               </c:if>
               <c:if test="${user.store.store == '월평점'}">
-              	<c:set var="place" value="badge bgWal" />
+              	<span class="badge bgWal">${user.store.store}</span>
               </c:if>
               <c:if test="${user.store.store == '관저점'}">
-              	<c:set var="place" value="badge bgGhwan" />
+              	<span class="badge bgGhwan">${user.store.store}</span>
               </c:if>
               <c:if test="${user.store.store == '갈마점'}">
-              	<c:set var="place" value="badge bgGal" />
+              	<span class="badge bgGal">${user.store.store}</span>
               </c:if>
               <c:if test="${user.store.store == '탄방점'}">
-              	<c:set var="place" value="badge bgTan" />
+              	<span class="badge bgTan">${user.store.store}</span>
               </c:if>
-              
-              <c:if test="${user.role.role == '사장'}">
-                <c:set var="roleCircle" value="roleCircleOwner" />
-              </c:if>
-              <c:if test="${user.role.role == '직원'}">
-                <c:set var="roleCircle" value="roleCircleStaff" />
-              </c:if>
-              
-              
-              <span class="${place}">${user.store.store}</span>
               <!-- 유저지점 
               <span class="badge bg-green">${user.store.store}</span> -->
               <!-- 유저이름 -->
               <span class="hidden-xs">${user.name}님 환영합니다.</span>
             </a>
             <!-- 유저 정보 드롭다운 -->
-            <ul class="dropdown-menu" style="height:fit-content; width:-webkit-fill-available; box-shadow: 2px 2px 5px black;">
+            <ul class="dropdown-menu">
               
-			  <!-- 유저 간략정보: 이름, 가입일 등등... 
-              <li class="user-header" style="height:7em">-->
-              <li class="user-header" style="height:fit-content; background-color:#f4f4f4">
-                
-              	<table style="width: 90%; margin: 5px 5% 5px 5%;">
-              	  <colgroup>
-				    <col style="width: 30%">
-				    <col style="width: 70%">
-				  </colgroup>
-              	  <tr>
-              	  	<td rowspan="2">
-              	  	  <div class="roleCircle ${roleCircle}">
-              	  	    <span class="${place}" style="position:relative; top:-10%; left:40%">${user.store.store}</span>
-              	  	    <br>
-              	  	    <span style="position: relative; top:-10%;">${user.role.role}</span>
-              	  	  </div>
-              	  	</td>
-              	  	<td>${user.name}님</td>
-              	  </tr>
-              	  <tr>
-              	  	<td>${user.email}</td>
-              	  </tr>
-              	</table>
+			  <!-- 유저 간략정보: 이름, 가입일 등등... -->
+              <li class="user-header" style="height:7em">
+                <p>아이디 : ${user.email}</p>
+                <p>직책 : ${user.role.role}</p>
               </li>
               <!-- Menu Body -->
 
