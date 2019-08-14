@@ -45,16 +45,6 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="box box-info">
-          	<!-- 
-            <div class="box-header">
-              <h3 class="box-title"></h3>
-              <c:if test="${user.role.role == '사장'}">
-              	<button type="button" class="btn btn-info pull-right" onclick="location.href='insertnoticepage' ">글쓰기</button>
-              </c:if>
-              <hr style="margin-bottom: 0 ; border: 0.5px solid lightgrey">
-            </div>
-             -->
-            <!-- /.box-header -->
             <div class="box-body">
               <table id="noticeTable" class="table table-bordered table-striped">
 				<colgroup>

@@ -49,9 +49,6 @@
         <div class="col-md-12">
           <!-- general form elements disabled -->
           <div class="box box-info">
-            <div class="box-header with-border">
-            </div>
-            <!-- /.box-header -->
             <div class="box-body">
             
               <!-- 새글작성 : order값으로 newArticle을 받으면 실행. -->

@@ -694,8 +694,16 @@ var dummyInitialData = {
 }
 */
 var fromServer = '${todoList}';
+var initialData;
+if(fromServer == "") {
+	initialData = {
+		forReceievedList : [],
+		forSendList : [],
+	}
+} else {
+	initialData = $.parseJSON(fromServer);	
+}
 //>> 데이터 수신.
-var initialData = $.parseJSON(fromServer);
 //var initialData = {}; //DB가 없는 경우에는 빈 객체를 입력하여야 한다.
 //var initialData = dummyInitialData
 
