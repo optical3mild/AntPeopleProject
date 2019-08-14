@@ -652,12 +652,13 @@ function sendInfo(sign, eId, state) {
 			result = 'fail';
 		},
 		success : function(response) {
-<<<<<<< HEAD
-			alert(alterString);
-=======
 			//alert(alterString);
->>>>>>> 3e9b6533066f94c5499e7242dfc4873e6c1f2fc9
-      	result = response;
+			if(response == 'full') {
+				alert("신청인원이 마감되었습니다.");
+				document.location.href = 'requestwork';
+			} else {
+      	    	result = response;
+			}
 		}
 	});
   return result;

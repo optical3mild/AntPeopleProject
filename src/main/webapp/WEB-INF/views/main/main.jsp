@@ -48,7 +48,7 @@
     font-size: 8vmin;
   }    
   .carouselDisplaySentences > span.carouselDisplayDescription {
-    font-size: 4vmin;
+    font-size: 3vmin;
   }
   .carouselBtn {
     text-shadow:0 0 3px black, 3px 3px 5px black;
@@ -190,11 +190,14 @@
                 
         <!-- 사장의 box -->
         <c:if test="${user.role.role == '사장'}">
+        <c:set var="applyList" value="${requestScope.countApply}"/>
+        <c:set var = "countApply" value = "${fn:length(applyList)}"/>
+        
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>${countApply} 건</sup></h3>
+              <h3>${countApply} 건</h3>
               <p>근무 일정 신청 수</p>
             </div>
             <div class="icon">
@@ -213,7 +216,7 @@
               <p>확정되지 않은 운영계획</p>
             </div>
             <div class="icon">
-              <i class="fa fa-user-times"></i>
+              <i class="fa fa-times-circle"></i>
             </div>
             <a href="${path}/owner/monthplanpage" class="small-box-footer">운영 계획 페이지로 <i class="fa fa-arrow-circle-right"></i></a>
           </div>
@@ -243,7 +246,7 @@
           <div class="small-box bg-green">
             <div class="inner">
               <h3>${counttodo} 건</h3>
-              <p>남은 할일</p>
+              <p>남은 할 일</p>
             </div>
             <div class="icon">
               <i class="fa fa-check-square-o"></i>
@@ -420,7 +423,7 @@
           <div class="box box-primary">
             <div class="box-header" style="border-bottom: 1px solid #f4f4f4;">
               <i class="ion ion-clipboard"></i>
-              <h3 class="box-title"> 받은할일</h3>
+              <h3 class="box-title"> 받은 할 일</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -447,7 +450,7 @@
             <div class="box-header" style="border-bottom: 1px solid #f4f4f4;">
               <i class="ion ion-clipboard"></i>
 
-              <h3 class="box-title"> 보낸할일</h3>
+              <h3 class="box-title"> 보낸 할 일</h3>
 
               <div class="box-tools pull-right">
                 <button id="popupToDoBoard" type="button" class="btn btn-default pull-right"><i class="fa fa-plus"></i> 새글 작성</button>
@@ -490,7 +493,7 @@
         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span>
         </button>
-        <h4 class="modal-title">새 할일</h4>
+        <h4 class="modal-title">할 일 등록</h4>
       </div>
       <div class="modal-body" id="inputTableForm">
         <div class="input-group" style="width:100%">
@@ -789,7 +792,7 @@ function divideAndSaveCommResult(communicateResult) {
     if(communicateResult.forSendList.length == 0) {
       sendDataLoc = [
         {
-          dummy : 'true', description : '보낸 내역이 없습니다.', checkperson : '0',
+          dummy : 'true', description : '보낸 내역이 없습니다.', checkPerson : '0',
         }
       ]
     } else {
@@ -853,7 +856,7 @@ function makePageButton(numOfDisplay, nowPage, displayTarget, dataListLoc) {
 //객체하나로 보낸부분 할일 한줄 추가.
 function addToSendToDoList(target,obj) {
   var desc = obj.description;
-  var nCheckP = obj.checkperson;
+  var nCheckP = obj.checkPerson;
 
   var labelStyle;
   var checkIcon;
