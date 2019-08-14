@@ -70,7 +70,6 @@ public class MainController {
 		List<BbsDetailDTO> bbsDetailList = new ArrayList<BbsDetailDTO>(bbsService.findTopFive()); //5개의 자유게시판 게시물
 		List<ScheUserDTO> todayStaffList = new ArrayList<ScheUserDTO>(); //오늘 근무하는 사람
 		UserDetailDTO userDto = (UserDetailDTO) session.getAttribute("user");
-		String now = String.valueOf(date);
 		String sche = new String();
 		List <ScheUserDTO> own = new ArrayList<ScheUserDTO>();
 		int count = 0;
