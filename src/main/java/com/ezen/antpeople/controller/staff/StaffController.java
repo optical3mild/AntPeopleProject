@@ -2,9 +2,6 @@ package com.ezen.antpeople.controller.staff;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -12,16 +9,12 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ezen.antpeople.dto.sche.MonthPlanDTO;
-import com.ezen.antpeople.dto.sche.ScheDetailDTO;
 import com.ezen.antpeople.dto.sche.ScheUserListDTO;
 import com.ezen.antpeople.dto.user.UserDetailDTO;
 import com.ezen.antpeople.service.MonthPlanService;
@@ -99,21 +92,5 @@ public class StaffController {
 		logger.info("schedule : "+schedule);
 		return schedule;
 	}
-	
-	// -------------------------------- 근무 수정  -----------------------------------------
-	// 근무 수정 페이지로
-	@RequestMapping("modifywork")
-	public ModelAndView modifywork(ModelAndView mav,  HttpServletRequest request) throws Exception {
 
-		return mav;
-	}
-	
-	// 근무 수정완료 버튼 클릭 시
-	@RequestMapping("modifymonthplan")
-	@ResponseBody
-	public ModelAndView modifyworking(ModelAndView mav, @RequestBody Map<String, ScheDetailDTO> schedules) throws Exception {
-		logger.info("근무 수정");
-
-		return mav;
-	}
 }
