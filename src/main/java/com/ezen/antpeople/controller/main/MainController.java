@@ -23,7 +23,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ezen.antpeople.dto.board.BbsDetailDTO;
 import com.ezen.antpeople.dto.board.NoticeDetailDTO;
 import com.ezen.antpeople.dto.sche.ScheUserDTO;
-import com.ezen.antpeople.dto.sche.ScheUserListDTO;
 import com.ezen.antpeople.dto.todo.TodoDetailDTO;
 import com.ezen.antpeople.dto.user.RoleDTO;
 import com.ezen.antpeople.dto.user.StoreDTO;
@@ -71,13 +70,11 @@ public class MainController {
 		List<BbsDetailDTO> bbsDetailList = new ArrayList<BbsDetailDTO>(bbsService.findTopFive()); //5개의 자유게시판 게시물
 		List<ScheUserDTO> todayStaffList = new ArrayList<ScheUserDTO>(); //오늘 근무하는 사람
 		UserDetailDTO userDto = (UserDetailDTO) session.getAttribute("user");
-		String now = String.valueOf(date);
 		String sche = new String();
 		List <ScheUserDTO> own = new ArrayList<ScheUserDTO>();
 		int count = 0;
 		int counttodo = 0;
 		int countApply = 0;
-		String sche = "";
 		if(user.isPresent()) {
 			todayStaffList = userService.todayStaff(user.get().getStore().getStore(), Integer.toString(date));
 			staffApply = userService.applyScheduleCount(user.get().getUser_id(), 1); //일정 신청 대기중인 목록 수
