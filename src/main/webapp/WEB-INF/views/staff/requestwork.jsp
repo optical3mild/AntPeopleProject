@@ -653,7 +653,12 @@ function sendInfo(sign, eId, state) {
 		},
 		success : function(response) {
 			//alert(alterString);
-      	result = response;
+			if(response == 'full') {
+				alert("신청인원이 마감되었습니다.");
+				document.location.href = 'requestwork';
+			} else {
+      	    	result = response;
+			}
 		}
 	});
   return result;

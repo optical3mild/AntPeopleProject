@@ -72,6 +72,8 @@ public class MainController {
 		List<ScheUserDTO> todayStaffList = new ArrayList<ScheUserDTO>(); //오늘 근무하는 사람
 		UserDetailDTO userDto = (UserDetailDTO) session.getAttribute("user");
 		String now = String.valueOf(date);
+		String sche = new String();
+		List <ScheUserDTO> own = new ArrayList<ScheUserDTO>();
 		int count = 0;
 		int counttodo = 0;
 		int countApply = 0;
@@ -82,17 +84,16 @@ public class MainController {
 			staffRefuseApply = userService.applyScheduleCount(user.get().getUser_id(), 3); // 일정 신청이 거절된 목록 수
 			todoList = todoService.TodoListAll(user.get());
 			sche = monthplanService.monthPlanList(userDto);
-			ScheUserListDTO own = scheService.findAllMonthAndUser(userDto, now);
+			own = scheService.scheUserList(userDto.getStore().getStore());
 			count = StringUtils.countOccurrencesOf(sche, "true");
 			counttodo = StringUtils.countOccurrencesOf(todoList, "false");
-			countApply = StringUtils.countOccurrencesOf(own.toString(), "state\":0,");
-		} 
+		}
 		logger.info("countApply : " + countApply);
 		logger.info("count : " + count);
 		logger.info("todoList : " +todoList);
 		mv.addObject("staffRefuseApply", staffRefuseApply);
 		mv.addObject("staffApply", staffApply);
-		mv.addObject("countApply", countApply);
+		mv.addObject("countApply", own);
 		mv.addObject("bbsList", bbsDetailList);
 		mv.addObject("noticeList", noticeDetailList);
 		mv.addObject("todayStaffList", todayStaffList);
