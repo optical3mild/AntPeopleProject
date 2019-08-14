@@ -223,7 +223,7 @@ public class ScheServiceImpl implements ScheService {
 			entity.updatePeopleCount(true); //인원수 증가
 			scheRepository.save(entity);
 			logger.info("근무 신청 완료");
-			
+
 			return "{\""+entity.getUnique()+"\":" +entity.buildDTO().toString()+"}";
 		}
 	}
