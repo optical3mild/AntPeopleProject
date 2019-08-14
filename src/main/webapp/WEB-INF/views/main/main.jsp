@@ -56,21 +56,7 @@
   .carouselDots > li {
   	box-shadow:0 0 1px black, 3px 3px 5px black;
   }
-  .roleCircle {
-    width: 5rem;
-    height: 5rem;
-    border: 1px solid black;
-    border-radius: 5rem;
-    color: white;
-  }
-  .roleCircleOwner {
-  	border-color: #dd4b39;
-  	background-color: #dd4b39;
-  }
-  .roleCircleStaff {
-    border-color: #3c8dbc;
-  	background-color: #3c8dbc;
-  }
+  
   </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
