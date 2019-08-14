@@ -652,11 +652,7 @@ function sendInfo(sign, eId, state) {
 			result = 'fail';
 		},
 		success : function(response) {
-<<<<<<< HEAD
-			alert(alterString);
-=======
 			//alert(alterString);
->>>>>>> 3e9b6533066f94c5499e7242dfc4873e6c1f2fc9
       	result = response;
 		}
 	});
