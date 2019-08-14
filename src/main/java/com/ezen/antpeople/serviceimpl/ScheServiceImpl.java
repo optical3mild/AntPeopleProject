@@ -216,13 +216,22 @@ public class ScheServiceImpl implements ScheService {
 		ScheEntity entity = scheRepository.findByUnique(schedule_id).get();
 		logger.info(entity.toString());
 		if(entity.getManPower() == entity.getPeopleCount()) {
+<<<<<<< HEAD
 			return null;
 		} else{
+=======
+			return "full";
+		} else {
+>>>>>>> 207a3c3cd2213323f581604090f8a65d2c3b7210
 			ScheRelation userSchedule = new ScheRelation(new UserEntity(user), entity);
 			usRepository.save(userSchedule);
 			entity.updatePeopleCount(true); //인원수 증가
 			scheRepository.save(entity);
 			logger.info("근무 신청 완료");
+<<<<<<< HEAD
+=======
+			
+>>>>>>> 207a3c3cd2213323f581604090f8a65d2c3b7210
 			return "{\""+entity.getUnique()+"\":" +entity.buildDTO().toString()+"}";
 		}
 	}
