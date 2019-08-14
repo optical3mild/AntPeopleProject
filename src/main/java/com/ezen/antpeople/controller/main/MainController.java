@@ -77,7 +77,6 @@ public class MainController {
 		int count = 0;
 		int counttodo = 0;
 		int countApply = 0;
-		String sche = "";
 		if(user.isPresent()) {
 			todayStaffList = userService.todayStaff(user.get().getStore().getStore(), Integer.toString(date));
 			staffApply = userService.applyScheduleCount(user.get().getUser_id(), 1); //일정 신청 대기중인 목록 수
