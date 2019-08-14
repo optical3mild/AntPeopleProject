@@ -86,7 +86,7 @@ public class MainController {
 			count = StringUtils.countOccurrencesOf(sche, "true");
 			counttodo = StringUtils.countOccurrencesOf(todoList, "false");
 			countApply = StringUtils.countOccurrencesOf(own.toString(), "state\":0,");
-		}
+		} 
 		logger.info("countApply : " + countApply);
 		logger.info("count : " + count);
 		logger.info("todoList : " +todoList);
