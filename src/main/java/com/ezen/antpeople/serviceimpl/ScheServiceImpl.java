@@ -215,13 +215,16 @@ public class ScheServiceImpl implements ScheService {
 		logger.info("일정 유니크 아이디 : " + schedule_id);
 		ScheEntity entity = scheRepository.findByUnique(schedule_id).get();
 		logger.info(entity.toString());
-		ScheRelation userSchedule = new ScheRelation(new UserEntity(user), entity);
-		usRepository.save(userSchedule);
-		entity.updatePeopleCount(true); //인원수 증가
-		scheRepository.save(entity);
-		logger.info("근무 신청 완료");
-		
-		return "{\""+entity.getUnique()+"\":" +entity.buildDTO().toString()+"}";
+		if(entity.getManPower() == entity.getPeopleCount()) {
+			return null;
+		} else{
+			ScheRelation userSchedule = new ScheRelation(new UserEntity(user), entity);
+			usRepository.save(userSchedule);
+			entity.updatePeopleCount(true); //인원수 증가
+			scheRepository.save(entity);
+			logger.info("근무 신청 완료");
+			return "{\""+entity.getUnique()+"\":" +entity.buildDTO().toString()+"}";
+		}
 	}
 	
 	//신청된 일정 취소하기
