@@ -17,5 +17,4 @@ public interface UTRepository extends JpaRepository<TodoRelation, Integer> {
 	
 	@Transactional
 	void deleteByTodo_id(int id);
-	
 }
