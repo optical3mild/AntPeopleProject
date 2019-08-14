@@ -164,3 +164,6 @@
 ### Day 28 : MainPage 링크 (19.08.13)  
 - (성현) MainPage 상단 표시 바 연결 및 링크 연결
 - (정우) view modify - main(carousel), top(dropdown) 스타일 조정.
+
+### Day 29 : PPT 마무리 (19.18.14)
+- (공통) 최종 PPT 마무리 
