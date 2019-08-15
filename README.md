@@ -1,6 +1,6 @@
 ﻿# AntPeopleProject
 
-### :calendar: EgovframeProject : AntPeople :ant:
+### :calendar: EgovframeProject : AntPeople Management :ant:
 
 ---
 ### 프로젝트 기간 : 19. 07. 04 ~ 19. 08. 14
