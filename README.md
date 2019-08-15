@@ -51,8 +51,7 @@
 ![근무신청 화면](./image/ant_requestwork.png)
 
 ---
-## 프로젝트 진행 
-
+## 프로젝트 진행 사항
 
 ### Day 01 : Project 기획 PPT (19.07.04)
 - (공통) 프로젝트 기획 PPT 발표
